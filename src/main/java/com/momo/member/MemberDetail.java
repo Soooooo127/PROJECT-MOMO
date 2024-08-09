@@ -1,7 +1,5 @@
 package com.momo.member;
 
-import org.springframework.security.core.userdetails.User;
-
 public class MemberDetail {
 	
 //	 extends user 해야함
