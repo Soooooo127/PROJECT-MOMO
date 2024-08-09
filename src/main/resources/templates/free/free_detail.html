@@ -14,6 +14,9 @@
 				<!--타이틀 영역-->
 				<div>
 					게시글 상세입니다.
+					<div sec:authorize="isAuthenticated()" th:text="${#authentication.principal.getUsername()}">
+						
+					</div>
 				</div>
 				<!--게시글 영역-->
 				<div class="wrapping outline">
@@ -100,7 +103,7 @@
 												<span th:text="|${#lists.size(freeComment.freeCommentReplyList)}개|"></span>
 											</div>
 											<div class="dvd2" sec:authorize="isAuthenticated()">
-												<p th:if="${freeComment.memberid != null and #authentication.getPrincipal().getUsername() == freeComment.memberid}">
+												<p th:if="${freeComment.author.memberid != null and #authentication.getPrincipal().getUsername() == freeComment.author.memberid}">
 													<span id="commentUpdate()">수정</span>
 													<span th:text="${freeComment.no}"></span>
 													<a th:href="@{|/free/comment/delete/${freePosting.no}/${freeComment.no}|}">삭제</a>
@@ -151,7 +154,7 @@
 														<i class="fi fi-rr-heart cddabong"></i>
 													</div>
 													<div class="dvd2" sec:authorize="isAuthenticated()">
-														<p th:if="${freeCommentReply.memberid != null and #authentication.getPrincipal().get}">
+														<p th:if="${freeCommentReply.author.memberid != null and #authentication.getPrincipal().getUsername() == freeCommentReply.author.memberid}">
 															<span>수정</span>
 															<span th:text="${freeCommentReply.no}"></span>
 															<a th:href="@{|/free/comment/reply/delete/${freePosting.no}/${freeCommentReply.no}|}">삭제</a>
@@ -190,7 +193,7 @@
 										<div class="dvd1">
 										</div>
 										<div class="dvd2">
-											<button type="submit" class="btn btn-light btn-sm" th:action="@{|/free/comment/create/${freePosting.no}|}" >댓글등록</button>
+											<button type="submit" class="btn btn-light btn-sm" th:formaction="@{|/free/comment/create/${freePosting.no}|}" >댓글등록</button>
 										</div>
 									</div>
 								</form>
@@ -206,7 +209,7 @@
 					<div class="dvd1">
 						<p sec:authorize="isAuthenticated()">
 							<a th:href="@{/free/create}"><button type="button" class="btn btn-primary btn-sm">글쓰기</button></a>
-							<span th:if="${freePosting.memberid != null and #authentication.getPrincipal().getUsername() == freePosting.memberid}">
+							<span th:if="${freePosting.author.memberid != null and #authentication.getPrincipal().getUsername() == freePosting.author.memberid}">
 								<a th:href="@{|/free/update/${freePosting.no}|}"><button type="botton" class="btn btn-light btn-sm">수정</button></a>
 								<a th:href="@{|/free/delete/${freePosting.no}|}" ><button type="botton" class="btn btn-light btn-sm">삭제</button></a>
 							</span>
