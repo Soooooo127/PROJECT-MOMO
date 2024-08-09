@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
 import com.momo.board.ask.posting.AskPosting;
-import com.momo.member.MomoMember;
+import com.momo.member.Member;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +24,7 @@ public class AskCommentService {
 	private final AskCommentRepository askCommentRepository;
 	
 	//답변작성 서비스구문
-	public void create(AskPosting askPosting , String content , MomoMember membernick) {
+	public void create(AskPosting askPosting , String content , Member membernick) {
 		AskComment ac = new AskComment();
 		ac.setContent(content);
 		ac.setCreateDate(LocalDateTime.now());
@@ -66,13 +66,13 @@ public class AskCommentService {
 	}
 	
 	//답변추천 서비스구문
-	public void voteDdabong(AskComment askComment , MomoMember momoMember) {
+	public void voteDdabong(AskComment askComment , Member momoMember) {
 		askComment.getDdabong().add(momoMember);
 		this.askCommentRepository.save(askComment);
 	}
 	
 	//답변비추천 서비스구문
-	public void voteNope(AskComment askComment , MomoMember momoMember) {
+	public void voteNope(AskComment askComment , Member momoMember) {
 		askComment.getNope().add(momoMember);
 		this.askCommentRepository.save(askComment);
 	}

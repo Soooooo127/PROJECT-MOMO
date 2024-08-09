@@ -7,7 +7,7 @@ import java.util.Set;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.momo.board.ask.comment.AskComment;
-import com.momo.member.MomoMember;
+import com.momo.member.Member;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -47,10 +47,10 @@ public class AskPosting {
 	private Integer ddabong;*/
 	
 	@ManyToMany
-	private Set<MomoMember> nope;
+	private Set<Member> nope;
 	
 	@ManyToOne
-	private MomoMember membernick;
+	private Member membernick;
 	
 	@Column(columnDefinition = "integer default 0")
 	private Integer cnt;
@@ -59,5 +59,5 @@ public class AskPosting {
 	private List<AskComment> askCommentList;
 	
 	@ManyToMany
-	private Set<MomoMember> ddabong;
+	private Set<Member> ddabong;
 }

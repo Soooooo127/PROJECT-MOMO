@@ -12,7 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
-import com.momo.member.MomoMember;
+import com.momo.member.Member;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +41,7 @@ public class AskPostingService {
 	}
 	
 	//질문글 작성 서비스구문
-	public void create(String subject , String content , MomoMember membernick) {
+	public void create(String subject , String content , Member membernick) {
 		AskPosting ap = new AskPosting();
 		ap.setSubject(subject);
 		ap.setContent(content);
@@ -64,13 +64,13 @@ public class AskPostingService {
 	}
 	
 	//질문글 추천 서비스구문
-	public void voteDdabong(AskPosting askPosting , MomoMember momoMember) {
+	public void voteDdabong(AskPosting askPosting , Member momoMember) {
 		askPosting.getDdabong().add(momoMember);
 		this.askPostingRepository.save(askPosting);
 	}
 	
 	//질문글 비추천 서비스구문
-	public void voteNope(AskPosting askPosting , MomoMember momoMember) {
+	public void voteNope(AskPosting askPosting , Member momoMember) {
 		askPosting.getNope().add(momoMember);
 		this.askPostingRepository.save(askPosting);
 	}

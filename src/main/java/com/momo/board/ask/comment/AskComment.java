@@ -6,7 +6,7 @@ import java.util.Set;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.momo.board.ask.posting.AskPosting;
-import com.momo.member.MomoMember;
+import com.momo.member.Member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,17 +39,17 @@ public class AskComment {
 	private Integer ddabong;*/
 	
 	@ManyToMany
-	private Set<MomoMember> nope;
+	private Set<Member> nope;
 	
 	@Column(columnDefinition = "integer default 0")
 	private Integer cnt;
 	
 	@ManyToOne
-	private MomoMember membernick;
+	private Member membernick;
 	
 	@ManyToOne
 	private AskPosting askPosting;
 	
 	@ManyToMany
-	private Set<MomoMember> ddabong;
+	private Set<Member> ddabong;
 }

@@ -17,8 +17,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.momo.board.ask.posting.AskPosting;
 import com.momo.board.ask.posting.AskPostingService;
-import com.momo.member.MomoMember;
-import com.momo.member.MomoMemberService;
+import com.momo.member.Member;
+import com.momo.member.MemberService;
+
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,14 +31,14 @@ public class AskCommentController {
 
 	private final AskCommentService askCommentService;
 	private final AskPostingService askPostingService;
-	private final MomoMemberService momoMemberService;
+	private final MemberService momoMemberService;
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{no}")
 	public String createAskComment(Model model , @PathVariable("no") Integer no , @Valid AskCommentForm askCommentForm
 			, BindingResult bindingResult , Principal principal) {
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
-		MomoMember momoMember = this.momoMemberService.getMember(principal.getName());
+		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("askPosting", askPosting);
 			return "askPosting_detail";
@@ -88,7 +89,7 @@ public class AskCommentController {
 	@GetMapping("/voteDdabong/{no}")
 	public String askCommentVote(Principal principal , @PathVariable("no") Integer no) {
 		AskComment askComment = this.askCommentService.getAskComment(no);
-		MomoMember momoMember = this.momoMemberService.getMember(principal.getName());
+		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askCommentService.voteDdabong(askComment, momoMember);
 		return String.format("redirect:/askPosting/detail/%s", askComment.getAskPosting().getNo());
 	}
@@ -97,7 +98,7 @@ public class AskCommentController {
 	@GetMapping("/voteNope/{no}")
 	public String askCommentNope(Principal principal , @PathVariable("no") Integer no) {
 		AskComment askComment = this.askCommentService.getAskComment(no);
-		MomoMember momoMember = this.momoMemberService.getMember(principal.getName());
+		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askCommentService.voteNope(askComment, momoMember);
 		return String.format("redirect:/askPosting/detail/%s", askComment.getAskPosting().getNo());
 	}
