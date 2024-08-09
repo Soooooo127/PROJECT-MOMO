@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/notice/posting")
+@RequestMapping("/notice")
 public class NoticePostingController {
 
 	private final NoticePostingService noticePostingService; 

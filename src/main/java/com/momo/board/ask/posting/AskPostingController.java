@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/askPosting")
+@RequestMapping("/ask")
 public class AskPostingController {
 
 	private final AskPostingService askPostingService;
