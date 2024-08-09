@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/ask")
+@RequestMapping("/askComment")
 public class AskCommentController {
 //aaaaaa
 	private final AskCommentService askCommentService;
@@ -45,7 +45,7 @@ public class AskCommentController {
 		}
 		
 		this.askCommentService.create(askPosting, askCommentForm.getContent() , momoMember);
-		return String.format("redirect:/ask/detail/%s", no);
+		return String.format("redirect:/askPosting/detail/%s", no);
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -71,7 +71,7 @@ public class AskCommentController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "수정 권한이 없습니다");
 		}
 		this.askCommentService.update(askComment, askCommentForm.getContent());
-		return String.format("redirect:/ask/detail/%s" , askComment.getAskPosting().getNo());
+		return String.format("redirect:/askPosting/detail/%s" , askComment.getAskPosting().getNo());
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -82,7 +82,7 @@ public class AskCommentController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "삭제 권한이 없습니다");
 		}
 		this.askCommentService.delete(askComment);
-		return String.format("redirect:/ask/detail/%s" , askComment.getAskPosting().getNo());
+		return String.format("redirect:/askPosting/detail/%s" , askComment.getAskPosting().getNo());
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -91,7 +91,7 @@ public class AskCommentController {
 		AskComment askComment = this.askCommentService.getAskComment(no);
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askCommentService.voteDdabong(askComment, momoMember);
-		return String.format("redirect:/ask/detail/%s", askComment.getAskPosting().getNo());
+		return String.format("redirect:/askPosting/detail/%s", askComment.getAskPosting().getNo());
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -100,6 +100,6 @@ public class AskCommentController {
 		AskComment askComment = this.askCommentService.getAskComment(no);
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askCommentService.voteNope(askComment, momoMember);
-		return String.format("redirect:/ask/detail/%s", askComment.getAskPosting().getNo());
+		return String.format("redirect:/askPosting/detail/%s", askComment.getAskPosting().getNo());
 	}
 }
