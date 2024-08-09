@@ -33,7 +33,7 @@ public class FreeCommentReplyController {
 		}
 		System.out.println("게시물 번호: " + pno);
 		
-		Member member = memberService.getUser(principal.getName());
+		Member member = memberService.getMember(principal.getName());
 		freeCommentReplyService.create(cno, member, freeCommentReplyForm.getContent());
 		return "redirect:/free/detail/{pno}";
 		
