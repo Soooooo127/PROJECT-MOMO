@@ -68,7 +68,7 @@ public class AskPostingController {
 		}
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askPostingService.create(askPostingForm.getSubject(), askPostingForm.getContent() , momoMember);
-		return "redirect:/askPosting/list";
+		return "redirect:/ask/list";
 	}
 	
 	//사용자 인증 + 질문게시글 수정 화면
@@ -100,7 +100,7 @@ public class AskPostingController {
 		}
 		
 		this.askPostingService.update(askPosting , askPostingForm.getSubject() , askPostingForm.getContent());
-		return String.format("redirect:/askPosting/detail/%s" , no);
+		return String.format("redirect:/ask/detail/%s" , no);
 	}
 	
 	//사용자 인증 + 질문게시글 삭제
@@ -112,7 +112,7 @@ public class AskPostingController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "삭제 권한이 없습니다");
 		}
 		this.askPostingService.delete(askPosting);
-		return "redirect:/askPosting/list";
+		return "redirect:/ask/list";
 	}
 	
 	//질문게시글 추천기능
@@ -122,7 +122,7 @@ public class AskPostingController {
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askPostingService.voteDdabong(askPosting, momoMember);
-		return String.format("redirect:/askPosting/detail/%s", no);
+		return String.format("redirect:/ask/detail/%s", no);
 	}
 	
 	//질문게시글 비추천기능
@@ -132,7 +132,7 @@ public class AskPostingController {
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askPostingService.voteNope(askPosting, momoMember);
-		return String.format("redirect:/askPosting/detail/%s", no);
+		return String.format("redirect:/ask/detail/%s", no);
 	}
 	
 }
