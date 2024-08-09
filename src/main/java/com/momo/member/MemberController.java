@@ -21,6 +21,11 @@ public class MemberController {
 	
 	private final MemberService memberService;
 	
+	@GetMapping("/welcome")
+	public String welcome() {
+		return "index";
+	}
+	
 	@GetMapping("/signup")
 	public String signup(MemberCreateForm memberCreateForm) {
 		return "member/signup_form";
@@ -39,7 +44,7 @@ public class MemberController {
 		Member member = memberService.getMember(principal.getName());
 		
 		session.setAttribute("member", member);
-		return "redirect:/free/list";
+		return "redirect:/";
 	}
 
 	@PostMapping("/signup")
