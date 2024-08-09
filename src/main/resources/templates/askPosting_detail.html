@@ -1,0 +1,220 @@
+<html layout:decorate="~{layout}">
+	<div layout:fragment="content" class="container my-3">
+		
+		<div>
+			<h2 class="border-bottom py-2" th:text="${askPosting.subject}"></h2>
+		</div>
+		
+		<div class="card my-3">
+			<div class="card-body">
+				<div class="card-text" stype="white-space: pre-line;" th:text="${askPosting.content}"></div>
+				<div class="d-flex justify-content-end">
+					<!--질문글 수정된 날짜 띄우기-->
+					<div th:if="${askPosting.updateDate != null}" class="badge bg-light text-dark p-2 text-start">
+						<div class="mb-2">
+							수정된 날짜
+						</div>
+						
+						<div th:text="${#temporals.format(askPosting.updateDate , 'yyyy-MM-dd HH:mm')}"></div>
+					</div>
+					
+					<!--질문글 작정자 및 작성날짜 띄우기-->
+					<div class="badge bg-light text-dark p-2 text-start">
+						
+						<div class="mb-2">
+							<span th:if="${askPosting.membernick != null}" th:text="${askPosting.membernick.membernick}"></span>
+						</div>
+						
+						<div th:text="${#temporals.format(askPosting.createDate , 'yyyy-MM-dd HH:mm')}"></div>
+						
+					</div>
+				</div>
+				
+				<div class="d-flex justify-content-start">
+					<!--질문글 추천버튼-->
+					<div class="m-2">
+						<a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/askPosting/voteDdabong/${askPosting.no}|}">
+							추천
+							<!--<img src="\recommend.png" alt="사진없음" width="20" height="20">-->
+							<span class="badge rounded-pill bg-success" th:text="${#lists.size(askPosting.ddabong)}"></span>
+						</a>
+					</div>
+					<!--질문글 비추천버튼-->
+					<div class="m-2">
+						<a href="javascript:void(0);" class="nocommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/askPosting/voteNope/${askPosting.no}|}">
+							비추천
+							<!--<img src="\recommend.png" alt="사진없음" width="20" height="20">-->
+							<span class="badge rounded-pill bg-warning" th:text="${#lists.size(askPosting.nope)}"></span>
+						</a>
+					</div>
+					<!--질문글 수정버튼-->
+					<div class="m-2">
+						<a th:href="@{|/askPosting/update/${askPosting.no}|}" class="btn btn-sm btn-outline-secondary"
+						sec:authorize="isAuthenticated()"
+						th:if="${askPosting.membernick != null and #authentication.getPrincipal().getUsername() == askPosting.membernick.memberid}"
+						th:text="수정"></a>
+					
+					<!--질문글 삭제버튼-->
+					
+						<a href="javascript:void(0)" th:data-uri="@{|/askPosting/delete/${askPosting.no}|}" class="delete btn btn-sm btn-outline-secondary"
+						sec:authorize="isAuthenticated()"
+						th:if="${askPosting.membernick != null and #authentication.getPrincipal.getUsername() == askPosting.membernick.memberid}"
+						th:text="삭제"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--답변개수-->
+		<div>
+			<h5 class="border-bottom my-3 py-3" th:text="|댓글 ${#lists.size(askPosting.askCommentList)}개|"></h5>
+		</div>
+		
+		<!--답변표시-->
+		<!--<div class="card my-3 py-2" th:each="askComment : ${askPosting.askCommentList}">
+			<div class="card-body">
+				<div class="card-text" style="white-space: pre-line;" th:text="${askComment.content}"></div>
+				<div class="d-flex justify-content-start">
+					<div class="badge bg-light text-dark p-2 text-start">
+						<div>
+							<span th:if="${askComment.membernick != null}" th:text="${askComment.membernick}"></span>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div class="d-flex justify-content-end">
+					<div class="badge bg-light text-dark p-2 text-start">
+						<div th:text="${#temporals.format(askComment.createDate , 'yyyy-MM-dd HH:mm')}"></div>
+					</div>
+				</div>
+			</div>
+		</div>-->
+		
+		<div class="card my-3 py-2" th:each="askComment , loop : ${paging}">
+			<div class="card-body">
+				<div class="card-text" style="white-space: pre-line;" th:text="${askComment.content}"></div>
+				
+				<div class="d-flex justify-content-end">
+					<!--수정된 날짜 띄우기-->
+					<div th:if="${askComment.updateDate != null}" class="badge bg-light text-dark p-2 text-start">
+						<div class="mb-2">
+							수정된 날짜
+						</div>
+						
+						<div th:text="${#temporals.format(askComment.updateDate , 'yyyy-MM-dd HH:mm')}"></div>
+					</div>
+					<!--작성자 및 작성날짜 띄우기-->
+					<div class="badge bg-light text-dark p-2 text-start">
+						
+						<div class="mb-2">
+							<span th:if="${askComment.membernick != null}" th:text="${askComment.membernick.membernick}"></span>
+						</div>
+						
+						<div th:text="${#temporals.format(askComment.createDate , 'yyyy-MM-dd HH:mm')}"></div>
+					</div>
+				</div>
+				
+				<div class="d-flex justify-content-start">
+					<!--답글추천버튼-->
+					<div class = "m-2">
+						<a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/askComment/voteDdabong/${askComment.no}|}">
+							추천
+							<!--<img src="\recommend.png" alt="사진없음" width="20" height="20">-->
+							<span class="badge rounded-pill bg-success" th:text="${#lists.size(askComment.ddabong)}"></span>
+						</a>
+					</div>
+					<!--답글비추천버튼-->
+					<div class = "m-2">
+						<a href="javascript:void(0);" class="nocommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/askComment/voteNope/${askComment.no}|}">
+							비추천
+							<!--<img src="\recommend.png" alt="사진없음" width="20" height="20">-->
+							<span class="badge rounded-pill bg-warning" th:text="${#lists.size(askComment.nope)}"></span>
+						</a>
+					</div>
+					<!--답글수정버튼-->
+					<div class="m-2">
+						<a th:href="@{|/askComment/update/${askComment.no}|}" class="btn btn-sm btn-outline-secondary"
+						sec:authorize="isAuthenticated()"
+						th:if="${askComment.membernick != null and #authentication.getPrincipal().getUsername() == askComment.membernick.memberid}"
+						th:text="수정"></a>
+					<!--질문글 삭제버튼-->
+								
+						<a href="javascript:void(0)" th:data-uri="@{|/askComment/delete/${askComment.no}|}" class="delete btn btn-sm btn-outline-secondary"
+						sec:authorize="isAuthenticated()"
+						th:if="${askComment.membernick != null and #authentication.getPrincipal.getUsername() == askComment.membernick.memberid}"
+						th:text="삭제"></a>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div th:if="${!paging.isEmpty()}">
+			<ul class="pagination justify-content-center">
+				<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+					<a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+						<span>prev</span>
+					</a>
+				</li>
+				
+				<li th:each="page : ${#numbers.sequence(0 , paging.totalPages -1)}"
+				th:if="${page >= paging.number -5 and page <= paging.number +5}"
+				th:classappend="${page == paging.number} ? 'active'" class="page-item">
+					<a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+				</li>
+				
+				<li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+					<a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+						<span>next</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<!--답변등록-->
+		<form th:action="@{|/askComment/create/${askPosting.no}|}" th:object="${askCommentForm}" method="post" class="my-3">
+			
+			<div th:replace="~{form_errors :: formErrorsFragment}"></div>
+			
+			<textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="10"></textarea>
+			<textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="10"></textarea>
+			<div class="d-flex justify-content-end">
+				<input type="submit" value="답변등록" class="btn btn-primary my-2">
+				<a th:href="@{/askPosting/list}" class="btn btn-primary my-2 mx-3">질문목록</a>
+			</div>
+		</form>
+		
+		<!--스크립트 구문-->
+		<script layout:fragment="script" type="text/javascript">
+			//자바스크립트 추천구문
+			const recommend_elements = document.getElementsByClassName("recommend");
+			Array.from(recommend_elements).forEach(function(element){
+				element.addEventListener('click' , function(){
+					if(confirm("정말로 추천하시겠습니까?")){
+						location.href = this.dataset.uri;
+					}
+				})
+			})
+			//자바스크립트 비추천구문
+			const nocommend_elements = document.getElementsByClassName("nocommend");
+			Array.from(nocommend_elements).forEach(function(element){
+				element.addEventListener('click' , function(){
+					if(confirm("정말로 비추천하시겠습니까?")){
+						location.href = this.dataset.uri;
+					}
+				})
+			})
+			//자바스크립트 삭제구문
+			const delete_elements = document.getElementsByClassName("delete");
+			Array.from(delete_elements).forEach(function(element){
+				element.addEventListener('click' , function(){
+					if(confirm("정말로 삭제하시겠습니까?")){
+						location.href = this.dataset.uri;
+					}
+				})
+			})
+		</script>
+		
+	</div>
+</html>
