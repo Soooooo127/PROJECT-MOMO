@@ -1,0 +1,64 @@
+<html layout:decorate="~{layout}">
+	<div layout:fragment="content" class="container my-3">
+		
+		<div class="d-flex justify-content-center">
+			<h1>질문답변게시판</h1>
+		</div>
+		
+		<div></div>
+		
+		<table class="table">
+			<thead class="table-warning">
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>조회수</th>
+					<th>추천수</th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each="askPosting , loop : ${paging}">
+					<td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
+					<td><a th:href="@{|/askPosting/detail/${askPosting.no}|}" th:text="${askPosting.subject}"></a>
+						<span class="text-danger small ms-2" th:if="${#lists.size(askPosting.askCommentList)>0}"
+						th:text="${#lists.size(askPosting.askCommentList)}"></span>
+					</td>
+					<td><span th:if="${askPosting.membernick != null}" th:text="${askPosting.membernick.membernick}"></span></td>
+					<td th:text="${#temporals.format(askPosting.createDate , 'yyyy-MM-dd HH:mm')}"></td>
+					<td th:text="${askPosting.cnt}"></td>
+					<td th:text="${#lists.size(askPosting.ddabong)}"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div th:if="${!paging.isEmpty()}">
+			<ul class="pagination justify-content-center">
+				<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+					<a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+						<span>prev</span>
+					</a>
+				</li>
+				
+				<li th:each="page : ${#numbers.sequence(0 , paging.totalPages -1)}"
+				th:if="${page >= paging.number -5 and page <= paging.number +5}"
+				th:classappend="${page == paging.number} ? 'active'" class="page-item">
+					<a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+				</li>
+				
+				<li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+					<a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+						<span>next</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="d-flex justify-content-end">
+			<a th:href="@{/askPosting/create}" class="btn btn-primary my-3">질문등록</a>
+		</div>
+		
+	</div>
+</html>
