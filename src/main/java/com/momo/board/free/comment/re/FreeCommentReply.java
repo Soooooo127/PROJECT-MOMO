@@ -6,6 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.momo.board.free.comment.FreeComment;
+import com.momo.member.Member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,6 +43,9 @@ public class FreeCommentReply {
 	
 	@ColumnDefault("0")
 	private Integer nope;
+	
+	@ManyToOne
+	private Member author;
 	
 	@ManyToOne
 	private FreeComment freeComment;
