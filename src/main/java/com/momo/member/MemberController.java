@@ -26,7 +26,6 @@ public class MemberController {
 		return "member/signup_form";
 	}
 	
-	
 	@GetMapping("/loginfailed")
 	public String loginFailed(MemberCreateForm memberCreateForm) {
 		return "member/login_form";
@@ -37,12 +36,11 @@ public class MemberController {
 			HttpServletRequest request, HttpSession session) {
 		
 		session = request.getSession();
-		Member member = memberService.getUser(principal.getName());
+		Member member = memberService.getMember(principal.getName());
 		
 		session.setAttribute("member", member);
 		return "redirect:/free/list";
 	}
-	
 
 	@PostMapping("/signup")
 	public String signup(@Valid MemberCreateForm memberCreateForm, BindingResult bindingResult) {

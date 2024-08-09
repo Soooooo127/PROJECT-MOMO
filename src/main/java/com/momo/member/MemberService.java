@@ -17,7 +17,6 @@ public class MemberService {
 	private final MemberRepository memberRepository;
 	private final PasswordEncoder passwordEncoder;
 	
-//
 	public Member create(String memberid, String password, String membernick, String email) {
 		Member member = new Member();
 		member.setMemberid(memberid);
