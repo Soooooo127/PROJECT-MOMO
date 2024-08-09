@@ -68,7 +68,7 @@ public class NoticePostingController {
 		}
 		
 		this.noticePostingService.create(noticePostingForm.getSubject(), noticePostingForm.getContent(),member);
-		return "redirect:/notice/posting/list";
+		return "redirect:/notice/list";
 		
 		
 	}

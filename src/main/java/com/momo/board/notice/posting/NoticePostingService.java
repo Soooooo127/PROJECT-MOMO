@@ -57,7 +57,7 @@ public class NoticePostingService {
 		noticePosting.setSubject(subject);
 		noticePosting.setContent(content);
 		noticePosting.setCreateDate(LocalDateTime.now());
-		noticePosting.setMembernick(author.getMembernick());  
+		noticePosting.setAuthor(author);  
 		this.noticePostingRepository.save(noticePosting);
 	}
 	
