@@ -1,0 +1,97 @@
+<html layout:decorate="~{layout}">	
+<div layout:fragment="content" class="container my-3">
+	<style>
+		a.faq {
+			text-decoration: none;
+			font-size: 30px;
+		}
+		
+	</style>
+		
+		<a class= "faq" th:href="@{/faq/list}">FAQ</a>
+	<hr>
+	<!--카테고리 넣기-->
+		
+		<div class="d-grid gap-2 d-md-block mb-3">
+			<a class= "btn btn-primary" type="button" th:href="@{/faq/list}">전체</a>
+		 <span  th:each="category : ${faqCategoryList}">
+			<a class="btn btn-primary" type="button" th:href="@{|/faq/list/${category.no}|}" th:text="${category.category}"></a>
+			
+		</span>
+		<a th:href="@{/faq/category}" sec:authorize="hasRole('ROLE_ADMIN')">카테고리목록</a>
+		</div>
+		
+	
+		
+		
+		
+		<!--FAQ 목록-->
+	<table class="table table-hover">
+		<thead class="table table-primary">
+		    <tr>
+		      <th scope="col">번호</th>
+			  <th scope="col">카테고리</th>
+		      <th scope="col">글제목</th>
+		      <th scope="col">작성자</th>
+		      <th scope="col">작성일</th>
+		    </tr>
+		</thead>
+		<tbody>
+			<tr class="table" th:each="faq , loop : ${paging}" >
+			      
+<!--번호-->		<td > </td>
+<!--카테고리-->	<td th:text="${faq.faqCategory.category}"> </td>			 
+<!--글제목-->		<td><a th:href="@{|/faq/detail/${faq.no}|}" th:text="${faq.subject}"></a></td>
+<!--작성자-->		<td th:text="${faq.author.membernick}"></td>
+<!--작성일-->		<td th:text="${#temporals.format(faq.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+			    </tr>
+			</tbody>
+			
+	</table>
+		
+	
+	
+	<!--질문등록 버튼-->
+	<a th:href="@{/faq/posting}" class="btn btn-primary mb-5"
+	sec:authorize="hasRole('ROLE_ADMIN')"
+	>질문등록</a>
+	
+	
+
+	
+	<!--아코디언 목록 연습
+		<div class="accordion" id="accordionExample" th:each="faq : ${faqList}">
+			
+			
+		  <div class="accordion-item"  >
+		   
+			
+			 <h2 class="accordion-header" id="headingOne" >
+				<div >
+		      <button  class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" >
+		     
+				<span th:text="${faq.faqCategory.category}"></span>
+				
+		      </button>
+			  </div>
+		    </h2>
+			
+			
+		    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+		      <div class="accordion-body" >
+			
+				<span th:text="${faq.subject}"></span>
+		      </div>
+		    </div>
+		  </div>
+		  
+		  
+		</div>
+		-->
+	
+	
+	
+	
+</div>
+</html>
+
