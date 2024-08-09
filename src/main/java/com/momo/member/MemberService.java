@@ -29,7 +29,7 @@ public class MemberService {
 		return member;
 	}
 
-	public Member getUser(String memberid) {
+	public Member getMember(String memberid) {
 		Optional<Member> member = this.memberRepository.findBymemberid(memberid);
 		if (member.isPresent()) {
 			return member.get();
