@@ -65,7 +65,7 @@ public class FreePostingController {
 			return "/free/free_form";
 		}
 		
-		Member member = memberService.getUser(principal.getName());
+		Member member = memberService.getMember(principal.getName());
 		freePostingService.create(freePostingForm.getSubject(), member.getMemberid(),
 				member.getMembernick(), freePostingForm.getContent());
 		return "redirect:/free/list";

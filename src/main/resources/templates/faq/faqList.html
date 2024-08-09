@@ -24,7 +24,7 @@
 			
 			 <a class="btn btn-primary" type="button" th:href="@{|/faq/list/${category.no}|}" th:text="${category.category}"></a>
 		</span>
-		<a th:href="@{/faq/category}">카테고리목록</a>
+		<a th:href="@{/faq/category}" sec:authorize="hasRole('ROLE_ADMIN')">카테고리목록</a>
 		</div>
 		
 		
@@ -44,17 +44,13 @@
 		<tbody>
 			<tr class="table" th:each="faq , loop : ${paging}" >
 			      
-				  <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"> </td>
-			    
-				 <td th:text="${faq.faqCategory.category}"> </td>
-				  <td> 
-				  	<a th:href="@{|/faq/detail/${faq.no} |}" th:text="${faq.subject}"></a>
-					
-				  </td>
-			      <td th:text="${faq.author.membernick}"></td>
-			      <td th:text="${#temporals.format(faq.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-			    </tr>
-		 </tbody>
+<!--번호-->		<td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"> </td>	    
+<!--카테고리-->	<td th:text="${faq.faqCategory.category}"> </td>
+<!--글제목-->		<td><a th:href="@{|/faq/detail/${faq.no} |}" th:text="${faq.subject}"></a> </td>
+<!--작성자-->	    <td th:text="${faq.author.membernick}"></td>
+<!--작성일-->	    <td th:text="${#temporals.format(faq.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+			</tr>
+		</tbody>
 	</table>
 		
 	

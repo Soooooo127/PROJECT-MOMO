@@ -40,7 +40,6 @@ public class FreeCommentController {
 		return "/free/free_list";
 	}
 	
-	
 	@PostMapping("/create/{pno}")
 	public String create(Model model, @PathVariable("pno") Integer pno, @Valid FreeCommentForm freeCommentForm,
 			BindingResult bindingResult, Principal principal) {
@@ -51,7 +50,7 @@ public class FreeCommentController {
 			return "/free/free_detail";
 		}
 		
-		Member member = memberService.getUser(principal.getName());
+		Member member = memberService.getMember(principal.getName());
 		freeCommentService.create(pno, member, freeCommentForm.getContent());
 		return String.format("redirect:/free/detail/%s", freePosting.getNo());
 	}
