@@ -1,0 +1,95 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+	
+	<h2 class="border-bottom py-2">[공지사항] MOMO 서비스의 신규 및 업데이트 소식 ~!</h3>
+	
+<table class="table">
+	
+	<thead class="table-primary">
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+			<th>조회수</th>
+		</tr>
+	</thead>
+	
+	
+	<tbody>
+		
+		<a th:each="noticePosting,loop : ${paging}">
+			<!-- 게시물 번호 = 전체 게시물 개수 - (현재 페이지 *페이지당 게시물 개수) - 나열 인덱스 -->
+					<th th:text="${paging.getTotalElements - (paging.number * paging.size)-loop.index}"></th>
+			<td> 
+			<a th:href="@{|/notice/posting/detail/${noticePosting.no}|}"  th:text="${noticePosting.subject}"></a>
+			
+		<!-- 목록에 댓글 수 보여주기-->
+			<span class="text-danger small ms-2" th:if="${#lists.size(noticePosting.commentList) > 0}"
+				th:text="${#lists.size(noticePosting.commentList)}"></span>
+			
+		</td>
+		
+		<!--작성자  --> 
+		<td><a th:href="@{/friend/create}"><span th:if="${noticePosting.author != null}" th:text="${noticePosting.author.memberid}">
+			
+
+			
+			</span> </a>  
+
+	
+			
+			
+		</td>
+		
+
+	
+		
+		
+	
+			<td th:text="${#temporals.format(noticePosting.createDate,'yyyy-MM-dd')}"></td>
+			<td th:text="${noticePosting.cnt}"></td>
+		</tr>
+	</tbody>
+	
+</table>
+
+
+<!-- 페이징 기능 -->
+<div th:if="${!paging.isEmpty()}">
+	<ul class="pagination justify-content-center">
+		<!-- 이전 페이지 -->
+		<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+		<a class="page-link" th:href="@{|?page=${paging.number-1}|}"><span>이전</span>  </a>
+		</li>
+		<!-- 현재 페이지 -->
+		<li th:each="page : ${#numbers.sequence(1, paging.totalPages-1)}" 
+		th:if="${page>=paging.number -2 and page <= paging.number +2}"
+		th:classappend="${page == paging.number} ? 'active'"
+		class="page-item"><a th:text="${page}" class="page-link" th:href="@{|?page=${page}}"></a>
+	</li>
+		
+		<!--다음 페이지 -->
+		<li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+			<a class="page-link" th:href="@{|?page=${paging.number+1}|}"><span>다음</span></a>
+		</li>
+		
+		
+	</ul>
+</div>
+
+<!-- 관리자만 수정ㅂ-->
+
+
+
+
+<div class="my-3">
+<a th:href="@{/notice/posting/create}" class="btn btn-primary"
+sec:authorize="hasRole('ROLE_ADMIN')">공지 등록</a> </div>
+
+
+
+
+
+
+</html>

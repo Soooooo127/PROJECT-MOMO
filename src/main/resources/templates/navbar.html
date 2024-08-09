@@ -1,47 +1,29 @@
-<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+<!-- 내비게이션 바-->
+<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">MOMO</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="/notice/posting/list">MOMO공지사항</a>
+	
+	<!-- 햄버거 버튼 -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+	 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
+	
+	
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb- mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Home
-            <span class="visually-hidden">(current)</span>
-          </a>
+			<!-- #은 아직 미정일때 사용-->
+			<a class="nav-link" th:href="@{/user/signup}" >회원가입</a>
+         
         </li>
+	
 		<li class="nav-item">
-			<!--
-			<span sec:authorize="isAuthenticated()" th:text="|${#authentication.getPrincipal().getUsername()}님 환영합니다.|"></span>
-			<span sec:authorize="isAuthenticated()" th:text="${session.member.membernick}"></span>
-			-->
-		</li>
-        <li class="nav-item">
-			<span><a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">login</a></span>
-			<span sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/member/logout}">logout</a></span>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/signup}">signup</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
-          </div>
-        </li>
+					<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+		          <a class="nav-link " sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a> 
+		        </li>
+				
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-sm-2" type="search" placeholder="Search">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>

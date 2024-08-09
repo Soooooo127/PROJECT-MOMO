@@ -1,28 +1,35 @@
-<!doctype html>
-<html lang="ko">
-
+<!DOCTYPE html>
+<html land="ko">
 <head>
-	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<!-- Bootstrap CSS -->
+	<!-- 여기까지는 기본 세팅  -->
+	
+	<!--부트스트랩 css-->
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-	<!-- sbb CSS -->
-	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-	<title>모두 모이자, 모모!</title>
-</head>
+	
+	<!--부트스트랩 js -->
+	<script th:src="@{/bootstrap.min.js}"></script>  
+	
+	<title>모두모이자 게시판</title>
+	
+	
+	
+</head>	
 
 <body>
-	<!-- 네비게이션바 -->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
-	<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+	
+	<!-- 내비게이션 바  -->
+	<nav th:replace="~{navbar :: navbarFragment}"></nav> 
+	
+	<!-- 기본 탬플릿 안에 삽입된 내용 시작-->
 	<th:block layout:fragment="content"></th:block>
-	<!-- 기본 템플릿 안에 삽입될 내용 End -->
-	<!-- Bootstrap JS -->
-	<script th:src="@{/bootstrap.min.js}"></script>
-	<!-- 자바스크립트 Start -->
+	<!-- 기본 탬플릿 안에 삽입된 내용 끝-->
+	
+	<!--자바스크립트 -->
 	<th:block layout:fragment="script"></th:block>
-	<!-- 자바스크립트 End -->
+	
+	
 </body>
 
 </html>
