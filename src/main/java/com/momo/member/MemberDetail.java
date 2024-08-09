@@ -7,6 +7,7 @@ public class MemberDetail {
 //	 extends user 해야함
 	private Member member;
 	
+	//ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ
 	/*
     public SecurityUser(Member member) {
         super(member.getUsername(), member.getPassword(), AuthorityUtils.createAuthorityList(member.getRole().toString()));
