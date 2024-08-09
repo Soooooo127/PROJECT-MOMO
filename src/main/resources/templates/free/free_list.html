@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+	<head>
+		<script th:src="@{/css/bootstrap.bundle.min.js}"></script>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/momoboard.css}">
+		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+	</head>
+	<body>
+		
+		<div layout:fragment="content" class="container">
+			<div>
+				
+				
+				<!--자바스크립트 테스트-->
+
+
+			</div>
+			<!--게시글 목록-->
+			<div>
+				<table class="table table-hover">
+					<thead class="table-primary">
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>조회수</th>
+							<th>추천</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="freePosting, loop : ${paging}">
+							<td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
+							<td><a th:href="@{|/free/detail/${freePosting.no}|}" th:text="${freePosting.subject}"></a>
+								<span th:if="${#lists.size(freePosting.freeCommentList) > 0}" 
+									th:text="${#lists.size(freePosting.freeCommentList)}"
+									class="badge bg-primary rounded-pill"></span>
+							</td>
+							<td>
+								<!--
+							    <span th:if="${freePosting.membernick != null}" th:text="${freePosting.membernick}"></span>
+								-->
+								
+								<ul class="navbar-nav me-auto">
+								  <li class="nav-item dropdown">
+								    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+									 th:if="${freePosting.membernick != null}" th:text="${freePosting.membernick}"></a>
+								    <div class="dropdown-menu">
+								      <a class="dropdown-item" href="#">프로필 보기</a>
+								      <a class="dropdown-item" th:href="@{/member/friend}">친구 맺기</a>
+								    </div>
+								  </li>
+								</ul>
+								
+								
+								
+								
+								
+							</td>
+							<td th:text="${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+							<td th:text="${freePosting.cnt}"></td>
+							<td th:text="${freePosting.ddabong}"></td>
+						</tr>
+						<!--기존 넘버링 코드-->
+						<!--
+						<tr th:each="freePosting : ${freePostingList}">
+							<td th:text="${freePosting.no}"></td>
+							<td><a th:text="${freePosting.subject}" th:href="@{|/free/detail/${freePosting.no}|}"></a></td>
+							<td th:text="${freePosting.membernick}"></td>
+							<td th:text="${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+							<td th:text="${freePosting.cnt}"></td>
+						</tr>
+						-->
+					</tbody>
+					
+				</table>
+					
+			</div>
+			<!--버튼 영역-->
+			<div align="right" sec:authorize="isAuthenticated()">
+				<form method="get" th:action="@{/free/create}">
+					<button type="submit" class="btn btn-primary btn-sm">글쓰기</button>
+				</form>
+			</div>
+			<!--페이징 작성-->
+			<div>
+				<div th:if="${!paging.isEmpty()}">
+					<ul class="pagination justify-content-center">
+						<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+					    	<a class="page-link" th:href="@{|?page=${paging.number-1}|}">&laquo;</a>
+					  	</li>
+					  	<li th:each="page : ${#numbers.sequence(0, paging.totalPages -1)}"
+					  		th:classappend="${page == paging.number} ? 'active'" class="page-item"
+					  		th:if="${page >= paging.number -2 and page <= paging.number +2}">
+				     		<a th:text="${page+1}" class="page-link" th:href="@{|?page=${page}|}"></a>
+  					 	</li>
+					  	<li th:classappend="${!paging.hasNext} ? 'disabled'" class="page-item">
+					    	<a class="page-link" th:href="@{|?page=${paging.number+1}|}">&raquo;</a>
+					  	</li>
+					</ul>
+				</div>
+			</div>
+
+			<!--자바스크립트 테스트-->
+
+		<!--전체 영역 종료-->		
+		</div>
+		
+	</body>
+	<script layout:fragment="script" type='text/javascript'>
+
+	</script>
+
+</html>

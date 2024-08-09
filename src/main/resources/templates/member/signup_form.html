@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+	<head>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/momoboard.css}">
+		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-straight/css/uicons-bold-straight.css'>
+		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-straight/css/uicons-solid-straight.css'>
+		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+		<title>회원가입</title>
+	</head>
+	<body>
+		<!--전체 영역-->
+		<div layout:fragment="content">
+			<!--회원가입 영역-->
+			<div align="center">
+				<!--로고 영역-->
+				<div>
+					로고
+				</div>
+				<!--입력 필드 영역-->
+				<div class="wrapping long">
+					<!--상세 필드 영역-->
+					<form method="post" th:action="@{/member/signup}" th:object="${memberCreateForm}">
+						<div class="wrappingnone outline">
+							<div th:replace="~{/member/member_form_errors :: formErrorsFragment}"></div>
+							<div class="underline">
+								<table style="border:0px;">
+									<tr>
+										<td><i class="fi fi-sr-user"></i></td>
+										<td><input type="text" th:field="*{memberid}"></td>
+									</tr>
+								</table>
+							</div>
+							<div class="underline">
+								<table style="border:0px;">
+									<tr>
+										<td><i class="fi fi-sr-lock"></i></td>
+										<td><input type="password" th:field="*{password1}"></td>
+									</tr>
+								</table>
+							</div>
+							<div class="underline">
+								<table style="border:0px;">
+									<tr>
+										<td><i class="fi fi-sr-lock"></i></td>
+										<td><input type="password" th:field="*{password2}"></td>
+									</tr>
+								</table>
+							</div>
+							<div class="underline">
+								<table style="border:0px;">
+									<tr>
+										<td><i class="fi fi-rr-user"></i></td>
+										<td><input type="text" th:field="*{membernick}"></td>
+									</tr>
+								</table>
+							</div>
+							<div>
+								<table style="border:0px;">
+									<tr>
+										<td><i class="fi fi-sr-envelope"></i></td>
+										<td><input type="email" th:field="*{email}"></td>
+									</tr>
+								</table>
+							</div>
+
+						</div>
+						<div>
+							<div class="d-grid gap-2">
+								<br>
+								<button type="submit" class="btn btn-lg btn-primary">회원가입</button>
+							</div>
+						</div>
+
+						
+					
+					</form>
+
+				</div>
+				<!--약관 영역-->
+				<div class="wrapping half aligncenter textgray">
+					<span>비밀번호 찾기</span>
+					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+					<span>아이디 찾기</span>
+					<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+					<span class="textmomo"><a th:href="@{/member/signup}">회원가입</a></span>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
