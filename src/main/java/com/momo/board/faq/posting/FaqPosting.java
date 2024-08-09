@@ -31,6 +31,12 @@ public class FaqPosting {
 	@Column(columnDefinition ="TEXT")
 	private String content;
 	
+	@Column(unique = true)
+	private String memberid;
+	
+	@Column(unique = true)
+	private String membernick;
+	
 	private LocalDateTime createDate;
 	
 	private LocalDateTime updateDate;

@@ -54,7 +54,7 @@ public class FaqPostingController {
 		}
 		
 		Member member = this.memberService.getMember(principal.getName());
-		this.faqPostingService.createFaq(category, faqPostingForm.getSubject(), faqPostingForm.getContent(), member);
+		this.faqPostingService.createFaq( category, faqPostingForm.getSubject(), faqPostingForm.getContent(), member);
 		return "redirect:/faq/list";
 	}
 	
@@ -74,10 +74,12 @@ public class FaqPostingController {
 	
 	
 	@GetMapping("/list/{no}")
-	public String faqList1(Model model, @PathVariable("no") Integer no, FaqCategory faqCategory) {
+	public String faqList1(Model model, FaqCategory faqCategory
+			,@RequestParam(value="page", defaultValue="0")int page
+			,@PathVariable("no") Integer no) {
 		
-		List<FaqPosting> faqList = this.faqPostingService.getList1(faqCategory);
-		model.addAttribute("faqList", faqList);
+		Page<FaqPosting> paging = this.faqPostingService.getList(page);
+		model.addAttribute("paging", paging);
 		
 		List<FaqCategory> faqCategoryList=this.faqCategoryService.getFaqCategoryList();
 		model.addAttribute("faqCategoryList", faqCategoryList);

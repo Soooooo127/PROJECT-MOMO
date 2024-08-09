@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
-import com.momo.common.member.Member;
+import com.momo.member.Member;
 
 import lombok.RequiredArgsConstructor;
 
