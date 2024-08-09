@@ -25,6 +25,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/free")
 @RequiredArgsConstructor
 public class FreePostingController {
+	
+	// 아싸라비야콜롬비야 짝짝짝~~!!! (20240809 16:50 수정)
 
 	private final FreePostingService freePostingService;
 	private final MemberService memberService;
