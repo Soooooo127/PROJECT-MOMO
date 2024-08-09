@@ -8,7 +8,7 @@
 		
 	</style>
 		
-		<a class= "faq" th:href="@{/faq/list}">FAQ</a>
+	<a class= "faq" th:href="@{/faq/list}">FAQ</a>
 	<hr>
 	<!--카테고리 넣기-->
 		
@@ -37,7 +37,7 @@
 		    </tr>
 		</thead>
 		<tbody>
-			<tr class="table" th:each="faq , loop : ${paging}" >
+			<tr class="table" th:each="faq  : ${faqPostingList}" >
 			      
 <!--번호-->		<td > </td>
 <!--카테고리-->	<td th:text="${faq.faqCategory.category}"> </td>			 
@@ -57,37 +57,27 @@
 	>질문등록</a>
 	
 	
-
-	
-	<!--아코디언 목록 연습
-		<div class="accordion" id="accordionExample" th:each="faq : ${faqList}">
+	<!--페이징
+		<div th:if="${!paging.isEmpty()}">
+		  <ul class="pagination justify-content-center">
+		    <li class="page-item" th:classappend="${!paging.hasPrevious}? 'disabled'">
+		      <a class="page-link" th:href="@{|?page=${paging.number-1}|}">&laquo;</a>
+		    </li>
 			
-			
-		  <div class="accordion-item"  >
+		    <li th:each="page : ${#numbers.sequence(0, paging.totalPages -1)}" 
+				th:if="${page-3 <paging.number and page+3 > paging.number}"
+				th:classappend="${page == paging.number}? 'active'"	
+				class="page-item ">
+		      <a class="page-link" th:href="@{|?page=${page}|}" th:text="${page+1}"></a>
+		    </li>
 		   
 			
-			 <h2 class="accordion-header" id="headingOne" >
-				<div >
-		      <button  class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" >
-		     
-				<span th:text="${faq.faqCategory.category}"></span>
-				
-		      </button>
-			  </div>
-		    </h2>
-			
-			
-		    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-		      <div class="accordion-body" >
-			
-				<span th:text="${faq.subject}"></span>
-		      </div>
-		    </div>
-		  </div>
-		  
-		  
-		</div>
-		-->
+		    <li class="page-item" th:classappend="${!paging.hasPrevious}? ' disabled'">
+		      <a class="page-link" th:href="@{|?page=${paging.number+1}|}">&raquo;</a>
+		    </li>
+		  </ul>
+		</div> -->
+	
 	
 	
 	
