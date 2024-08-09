@@ -1,0 +1,69 @@
+<html layout:decorate="~{/inquiry/layout}">
+	<div layout:fragment="content">
+		<style>
+		
+			a.no {
+			text-decoration: none;
+			color :black;
+			font-size : 30px;
+		   }
+		   
+		</style>
+		
+		<div class="container">
+			<!--게시판 이름-->
+			<div>
+				<a class="no" th:href="@{/inquiryPosting/list}">문의하기</a>
+			</div>
+			
+			<!--글 목록-->
+			<table class="table table-hover">
+				<thead>
+					<tr class="table-primary">
+					<th>제목</th>
+					<th>작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<div>
+						<tr class="table" th:each="posting :${myPosting}">
+						   <td class="st" style="width:50%;">
+							<!--제목이 너무 길어지면 ....으로 나오는 방법으로 하기-->
+							<a class="noline" th:href="@{|/inquiryPosting/detail/${posting.id}|}" th:text="${posting.subject}"></a>
+						   </td>
+						   <!--여기에 만약 오늘 날짜랑 같다면 시간만 출력하게 하고 // 아니라면 시간은 제외 날짜만 출력할 수 있게 변경-->
+						   <td th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd hh:mm')}"></td>
+						</tr>
+					</div>
+				</tbody>
+			</table>	
+
+		<div class="container accordion" id="accordionExample">
+		  <div class="accordion-item">
+		    <h2 class="accordion-header">
+		      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+		        문의하기
+		      </button>
+		    </h2>
+		    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+		      <div class="accordion-body">
+		        <form th:action="@{/inquiryPosting/create}" th:object="${inquiryPostingForm}" method="post">
+					<!--알림창으로 띄우자-->
+					<div th:replace="~{/inquiry/form_errors :: formErrorsFragment}"></div>
+				<div>
+					<th>제목</th>
+					<input th:field="*{subject}">
+				</div>
+				<div>
+					<th>내용</th>
+					<textarea rows="5" th:field="*{content}"></textarea>
+				</div>
+				<button type="submit" class="btn btn-primary">글 등록</button>
+				</form>
+		      </div>
+		    </div>
+		  </div>
+		
+		</div>
+	</div>
+</html>
