@@ -20,6 +20,7 @@
 	
 	
 	
+	
 	<!--카테고리 넣기-->
 		
 			
@@ -58,79 +59,77 @@
 		</tbody>
 	</table>
 		
+	<!--질문등록 버튼-->
+		
+			<div class="row my-3">
+			    <div class="col-6">
+			        <a th:href="@{/faq/posting}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">질문 등록하기</a>
+			    </div>
+
 	
-	
-	<!--질문등록 버튼
-	-->
-	<a th:href="@{/faq/posting}" class="btn btn-primary mb-5" 	
-	sec:authorize="hasRole('ROLE_ADMIN')"
-	>질문등록</a>
 	
 	
 	<!--페이징-->
 	<div th:if="${!paging.isEmpty()}">
 	  <ul class="pagination justify-content-center">
 	    <li class="page-item" th:classappend="${!paging.hasPrevious}? 'disabled'">
-	      <a class="page-link" th:href="@{|?page=${paging.number-1}|}">&laquo;</a>
+	      <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">&laquo;</a>
 	    </li>
 		
 	    <li th:each="page : ${#numbers.sequence(0, paging.totalPages -1)}" 
 			th:if="${page-3 <paging.number and page+3 > paging.number}"
 			th:classappend="${page == paging.number}? 'active'"	
 			class="page-item ">
-	      <a class="page-link" th:href="@{|?page=${page}|}" th:text="${page+1}"></a>
+	      <a class="page-link" href="javascript:void(0)" th:data-page="${page}" th:text="${page+1}"></a>
 	    </li>
 	   
 		
 	    <li class="page-item" th:classappend="${!paging.hasPrevious}? ' disabled'">
-	      <a class="page-link" th:href="@{|?page=${paging.number+1}|}">&raquo;</a>
+	      <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">&raquo;</a>
 	    </li>
 	  </ul>
 	</div>
 	
 	
+	<!--검색-->
+			<div class="col-6">
+			          <div class="input-group">
+			              <input type="text" id="search_kw" class="form-control" th:value="${kw}">
+			              <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+			          </div>
+			      </div>
+	
+	
+				<form th:action="@{/faq/list}" method="get" id="searchForm">
+				       <input type="hidden" id="kw" name="kw" th:value="${kw}">
+				       <input type="hidden" id="page" name="page" th:value="${paging.number}">
+				   </form>
+	
+				
 
-	
-	<!--아코디언 목록 연습
-	<div class="accordion" id="accordionExample" >
-		
-		
-	  <div class="accordion-item" th:each="faq , loop : ${paging}" >
-	    <h2 class="accordion-header" id="headingOne">
-	      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${loop.count}" aria-expanded="false" aria-controls="${loop.count}" >
-	       
-			<span th:text="${faq.faqCategory.category}"></span>
-			 Accordion Item #1
-	      </button>
-	    </h2>
-	    <div id="${loop.count}" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-	      <div class="accordion-body">
-	        <strong>This is the first item's accordion body.</strong> 
-	      </div>
-	    </div>
-	  </div>
-	  
-	  
-	  <div class="accordion-item">
-	    <h2 class="accordion-header" id="headingTwo">
-	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-	        Accordion Item #2
-	      </button>
-	    </h2>
-	    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-	      <div class="accordion-body">
-	        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-	      </div>
-	    </div>
-	  </div>
-	
-	  
-	  
-	</div>
-	-->
-	
 	
 	
 </div>
+
+<script layout:fragment="script" type='text/javascript'>
+const page_elements = document.getElementsByClassName("page-link");
+Array.from(page_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        document.getElementById('page').value = this.dataset.page;
+        document.getElementById('searchForm').submit();
+    });
+});
+const btn_search = document.getElementById("btn_search");
+btn_search.addEventListener('click', function() {
+    document.getElementById('kw').value = document.getElementById('search_kw').value;
+    document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
+    document.getElementById('searchForm').submit();
+});
+</script>
+
+
+
+
+
 </html>
 

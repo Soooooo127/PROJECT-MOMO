@@ -32,11 +32,13 @@ public class AskPostingController {
 	private final AskPostingService askPostingService;
 	private final MemberService momoMemberService;
 	private final AskCommentService askCommentService;
-	//질문게시글 목록 페이지로 띄우기
+	//질문게시글 목록 + 검색목록 페이지로 띄우기
 	@GetMapping("/list")
-	public String listAskPosting(Model model , @RequestParam(value = "page" , defaultValue = "0") int page) {
-		Page<AskPosting> paging = this.askPostingService.getList(page);
+	public String listAskPosting(Model model , @RequestParam(value = "page" , defaultValue = "0") int page
+			, @RequestParam(value = "kw" , defaultValue = "") String kw) {
+		Page<AskPosting> paging = this.askPostingService.getList(page , kw);
 		model.addAttribute("paging", paging);
+		model.addAttribute("kw" , kw);
 		return "askPosting_list";
 	}
 	//질문게시글 상세보기 + 내부 답변댓글 페이지화
