@@ -37,8 +37,11 @@
 	          <a class="nav-link" th:href="@{/free/list}">Attend</a>
 	        </li>
 			<li class="nav-item">
-			  <a class="nav-link" th:href="@{/inquiry/list}">Inquiry</a>
-			</li>
+				<a class="nav-link" th:href="@{/mypage/inquiryPosting}">마이페이지</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/mypage/inquiryPosting/list}">문의글 보러가기</a>
+			  </li>
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
 	          <div class="dropdown-menu">
