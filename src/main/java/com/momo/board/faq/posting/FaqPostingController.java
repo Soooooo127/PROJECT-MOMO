@@ -19,7 +19,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.momo.board.faq.category.FaqCategory;
 import com.momo.board.faq.category.FaqCategoryService;
 import com.momo.member.Member;
-import com.momo.member.MemberRepository;
 import com.momo.member.MemberService;
 
 import jakarta.validation.Valid;
@@ -111,22 +110,47 @@ public class FaqPostingController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/updateFAQ/{no}")
 	public String update(@PathVariable("no") Integer no, FaqCategory faqCategory
-			, FaqPostingForm faqPostingForm, Principal principal ) {
+			, FaqPostingForm faqPostingForm, Model model) {
 		
+		List<FaqCategory> faqCategoryList=this.faqCategoryService.getFaqCategoryList();
+		model.addAttribute("faqCategoryList", faqCategoryList);
 		
-		FaqPosting p = this.faqPostingService.getfaqPosting(no);
+		FaqPosting faq = this.faqPostingService.getfaqPosting(no);
 		
-		 if(!p.getAuthor().getMemberid().equals(principal.getName())) {
-	            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-	        }
-		faqPostingForm.setSubject(p.getSubject());
-		faqPostingForm.setContent(p.getContent());
-		return "faqPosting";
+//		faqPostingForm.setCategory(faq.getFaqCategory().getCategory());
+		faqPostingForm.setSubject(faq.getSubject());
+		faqPostingForm.setContent(faq.getContent());
+		model.addAttribute(faq);
+		return "faq/faqPosting";
 		// return String.format("redirect:/faq/detail/%s", no);
 	}
 	
+	
+	
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/updateFAQ/{no}")
+	public String update(@PathVariable("no") Integer no, FaqCategory faqCategory, 
+			@Valid FaqPostingForm faqPostingForm, BindingResult bindingResult, Principal principal) {
+		
+		//FaqCategory category = this.faqCategoryService.getFaqCategory(no);
+		
+		
+        if (bindingResult.hasErrors()) {
+            return "faq/faqPosting";
+        }
+        FaqPosting faq = this.faqPostingService.getfaqPosting(no);
+        if (!faq.getAuthor().getMemberid().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.faqPostingService.update(no, faqCategory, faqPostingForm.getSubject() , faqPostingForm.getContent());
+        
+		return String.format("redirect:/faq/detail/%s", no);
+	}
 
-
+	
+	
+	
 	
 /*
 	
