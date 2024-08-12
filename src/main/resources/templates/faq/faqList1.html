@@ -5,6 +5,11 @@
 			text-decoration: none;
 			font-size: 30px;
 		}
+		a.s{
+					text-decoration: none;
+					
+					
+		}
 		
 	</style>
 		
@@ -41,7 +46,7 @@
 			      
 <!--번호-->		<td > </td>
 <!--카테고리-->	<td th:text="${faq.faqCategory.category}"> </td>			 
-<!--글제목-->		<td><a th:href="@{|/faq/detail/${faq.no}|}" th:text="${faq.subject}"></a></td>
+<!--글제목-->		<td><a class="s" th:href="@{|/faq/detail/${faq.no}|}" th:text="${faq.subject}"></a></td>
 <!--작성자-->		<td th:text="${faq.author.membernick}"></td>
 <!--작성일-->		<td th:text="${#temporals.format(faq.createDate, 'yyyy-MM-dd HH:mm')}"></td>
 			    </tr>

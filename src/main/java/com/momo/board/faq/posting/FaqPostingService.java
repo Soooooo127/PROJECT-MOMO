@@ -66,14 +66,15 @@ public class FaqPostingService {
 	}
 	
 
-	public void update(Integer no, FaqCategory category, String subject, String content) {
+	public void update(Integer no, FaqCategory faqCategory, String subject, String content) {
 		Optional<FaqPosting> posting=this.faqPostingRepository.findById(no);
 		FaqPosting p = posting.get();
-		p.setFaqCategory(category);
+		p.setFaqCategory(faqCategory);
 		p.setSubject(subject);
 		p.setContent(content);
+	
 		p.setUpdateDate(LocalDateTime.now());
-		
+		this.faqPostingRepository.save(p);
 	}
 	
 }

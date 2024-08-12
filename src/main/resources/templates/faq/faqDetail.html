@@ -1,11 +1,18 @@
 <html layout:decorate="~{layout}">	
 <div layout:fragment="content" class="container my-3">
+	<style>
+		a.faq {
+			text-decoration: none;
+			font-size: 30px;
+			
+		}
+		
+	</style>
+		
+		<a class="faq" th:href="@{/faq/list}">FAQ</a>
+		<hr>
 
 
-<h2>FAQ</h2>
-<hr>
-
-<form th:action="@{|/faq/updateFAQ/${faq.no}|}">
 	<div class="card border-primary mb-3" style="max-width: 100%;" >
 	  <div class="card-header">
 		<td th:text="${faq.faqCategory.category}"></td>
@@ -16,16 +23,17 @@
 	  </div>
 	</div>
 	<td>	
-		<input type="submit" value="수정" class="btn btn-info" 		sec:authorize="isAuthenticated()"
-				    th:if="${faq.author != null and #authentication.getPrincipal().getUsername() == faq.author.memberid}"
->
+		<a th:href="@{|/faq/updateFAQ/${faq.no}|}" type="submit"  class="btn btn-info" 		
+			sec:authorize="isAuthenticated()"
+			th:if="${faq.author != null and #authentication.getPrincipal().getUsername() == faq.author.memberid}">
+			수정</a>
 							
 		<a th:href="@{|/faq/deleteFAQ/${faq.no}|}"  type="submit"  class="btn btn-danger"
 			sec:authorize="isAuthenticated()"
-		    th:if="${faq.author != null and #authentication.getPrincipal().getUsername() == faq.author.memberid}"
-		              >삭제</a>	
+		    th:if="${faq.author != null and #authentication.getPrincipal().getUsername() == faq.author.memberid}">
+			삭제</a>	
 	</td>
-</form>	
+
 
 
 
