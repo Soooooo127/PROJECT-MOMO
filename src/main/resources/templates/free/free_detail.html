@@ -42,8 +42,9 @@
 										<div>
 												<span th:text="${freePosting.membernick}"></span>
 												<span class="badge bg-primary">우수회원</span><br>
-												<span th:text="${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}"></span>
-												<span th:text="${freePosting.cnt}"></span>
+												<span th:text="|최초 작성일: ${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
+												<span th:if="${freePosting.updateDate != null}" th:text="|최종 수정일: ${#temporals.format(freePosting.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
+												<span th:text="|조회수 : ${freePosting.cnt}|"></span>
 
 										</div>
 									</div>
@@ -107,7 +108,8 @@
 										<div class="dvd" id="myContent">
 											<div class="dvd1">
 												<span th:text="${freeComment.membernick}"></span><br>
-												<span th:text="${#temporals.format(freeComment.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+												<span th:text="|최초 작성일 : ${#temporals.format(freeComment.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
+												<span th:if="${freeComment.updateDate != null}" th:text="|최종 수정일 : ${#temporals.format(freeComment.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
 												
 												
 												<a href="javascript:void(0);" class="ddabong"
@@ -171,6 +173,7 @@
 													<div class="dvd1">
 														<span th:text="${freeCommentReply.membernick}"></span><br>
 														<span th:text="${#temporals.format(freeCommentReply.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+														<span th:if="${freeCommentReply.updateDate != null}" th:text="|최종 수정일 : ${#temporals.format(freeCommentReply.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
 														
 														
 														<a href="javascript:void(0);" class="ddabong"

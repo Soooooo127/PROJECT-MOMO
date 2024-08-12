@@ -82,4 +82,5 @@ public class MemberController {
 	public String makeFriends() {
 		return "member/make_friends";
 	}
+	
 }

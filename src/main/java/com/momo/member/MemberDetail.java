@@ -1,21 +1,23 @@
 package com.momo.member;
 
-public class MemberDetail {
-	
-//	 extends user 해야함
-	private Member member;
-	
-	//ㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷㄷ
-	/*
-    public SecurityUser(Member member) {
-        super(member.getUsername(), member.getPassword(), AuthorityUtils.createAuthorityList(member.getRole().toString()));
+import java.util.Collection;
 
-        log.info("SecurityUser member.username = {}", member.getUsername());
-        log.info("SecurityUser member.password = {}", member.getPassword());
-        log.info("SecurityUser member.role = {}", member.getRole().toString());
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
-        this.member = member;
+import lombok.Getter;
+
+@Getter
+public class MemberDetail extends User{
+	
+//	참고 자료
+//	https://velog.io/@sin_0/Spring-Spring-Security-User-%EC%BB%A4%EC%8A%A4%ED%85%80%ED%95%98%EA%B8%B0
+	
+	private final String membernick;
+	
+    public MemberDetail(String username, String password, Collection<? extends GrantedAuthority> authorities, String membernick) {
+        super(username, password, authorities);
+        this.membernick = membernick;
     }
-    */
 
 }

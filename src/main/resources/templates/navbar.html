@@ -9,50 +9,58 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 	
+	<!--메뉴 나누기-->
+	<div class="dvd">
+		<!--메뉴 나누기1-->
+	    <div class="collapse navbar-collapse dvd1" id="navbarSupportedContent">
+	      <ul class="navbar-nav me-auto mb- mb-lg-0">
+	        <li class="nav-item">
+				<span><a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">login</a></span>
+				<span sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/member/logout}">logout</a></span>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/signup}">signup</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" th:href="@{/faq/list}">FAQ</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" th:href="@{/notice/list}">Notice</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" th:href="@{/askPosting/list}">Q&A</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" th:href="@{/free/list}">Free</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" th:href="@{/free/list}">Attend</a>
+	        </li>
+			<li class="nav-item">
+			  <a class="nav-link" th:href="@{/inquiry/list}">Inquiry</a>
+			</li>
+	        <li class="nav-item dropdown">
+	          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+	          <div class="dropdown-menu">
+	            <a class="dropdown-item" href="#">Action</a>
+	            <a class="dropdown-item" href="#">Another action</a>
+	            <a class="dropdown-item" href="#">Something else here</a>
+	            <div class="dropdown-divider"></div>
+	            <a class="dropdown-item" href="#">Separated link</a>
+	          </div>
+	        </li>
 	
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb- mb-lg-0">
-        <li class="nav-item">
-			<!--
-			<span sec:authorize="isAuthenticated()" th:text="|${#authentication.getPrincipal().getUsername()}님 환영합니다.|"></span>
-			<span sec:authorize="isAuthenticated()" th:text="${session.member.membernick}"></span>
-			-->
-			<span><a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">login</a></span>
-			<span sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/member/logout}">logout</a></span>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/signup}">signup</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/faq/list}">FAQ</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/notice/list}">Notice</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/askPosting/list}">Q&A</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/free/list}">Free</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/free/list}">Attend</a>
-        </li>
-		<li class="nav-item">
-		  <a class="nav-link" th:href="@{/inquiry/list}">Inquiry</a>
-		</li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
-          </div>
-        </li>
-
-      </ul>
-    </div>
+	      </ul>
+	    </div>
+		<!--메뉴 나누기2-->
+		<div class="collapse navbar-collapse dvd2" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb- mb-lg-0">
+			  <li class="nav-item">
+				<a sec:authorize="isAuthenticated()" th:text="|${#authentication.getPrincipal().getMembernick()}님 환영합니다.|"
+				th:href="@{/mypage/profile}"></a>
+			  </li>
+			</ul>
+		</div>
+	</div>
   </div>
 </nav>
