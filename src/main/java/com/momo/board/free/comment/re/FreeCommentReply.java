@@ -30,8 +30,6 @@ public class FreeCommentReply {
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	
-	private String memberid;
-	
 	private String membernick;
 	
 	private LocalDateTime createDate;

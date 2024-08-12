@@ -24,7 +24,7 @@ public class FreeCommentReplyService {
 		
 		FreeCommentReply freeCommentReply = new FreeCommentReply();
 		freeCommentReply.setContent(content);
-		freeCommentReply.setMemberid(member.getMemberid());
+		freeCommentReply.setAuthor(member);
 		freeCommentReply.setMembernick(member.getMembernick());
 		freeCommentReply.setCreateDate(LocalDateTime.now());
 		freeCommentReply.setFreeComment(freeComment);

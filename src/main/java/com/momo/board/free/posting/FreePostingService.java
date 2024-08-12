@@ -25,14 +25,14 @@ public class FreePostingService {
 	private final FreeCommentRepository freeCommentRepository;
 	
 	
-	public void create(String subject, String memberid, String membernick, String content) {
+	public void create(String subject, Member member, String membernick, String content) {
 		FreePosting freePosting = new FreePosting();
 		
 		freePosting.setSubject(subject);
 		freePosting.setContent(content);
-		freePosting.setMemberid(memberid);
 		freePosting.setMembernick(membernick);
 		freePosting.setCreateDate(LocalDateTime.now());
+		freePosting.setAuthor(member);
 		freePostingRepository.save(freePosting);
 	}
 	
