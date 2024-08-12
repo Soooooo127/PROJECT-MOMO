@@ -7,33 +7,34 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="/faq/list">FAQ
-            <span class="visually-hidden">(current)</span>
-          </a>
+			<span><a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">login</a></span>
+			<span sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/member/logout}">logout</a></span>
         </li>
         <li class="nav-item">
-          <a class="nav-link" sec:authorize="isAnonymous()"  th:href="@{/member/login}">로그인</a>
-		  <a class="nav-link" sec:authorize="isAuthenticated()"  th:href="@{/member/logout}">로그아웃</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/member/signup">회원가입</a>
+          <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/signup}">signup</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Community</a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
+            <a class="dropdown-item" th:href="@{/free/list}">Free</a>
+            <a class="dropdown-item" th:href="@{/askPosting/list}">Q&A</a>
+            <a class="dropdown-item" href="#">Attend</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">C/S</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" th:href="@{/notice/list}">Notice</a>
+            <a class="dropdown-item" th:href="@{/faq/list}">FAQ</a>
+            <a class="dropdown-item" th:href="@{/mypage/inquiryPosting}">Inquiry</a>
           </div>
         </li>
 		
 		<li class="nav-item">
-			<p ></p>
+			<a sec:authorize="isAuthenticated()" th:text="|Welcome, ${#authentication.getPrincipal().getMembernick()}!|" th:href="@{/mypage/profile}"></a>
 		</li>
 		
       </ul>
