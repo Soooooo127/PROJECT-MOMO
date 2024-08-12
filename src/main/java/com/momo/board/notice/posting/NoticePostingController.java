@@ -113,7 +113,7 @@ public class NoticePostingController {
 		
 		this.noticePostingService.modify(noticePosting,noticePostingForm.getSubject(), noticePostingForm.getContent());
 		
-		return String.format("redirect:/notice/posting/detail/%s", no);
+		return String.format("redirect:/notice/detail/%s", no);
 		
 	}
 	
@@ -124,13 +124,14 @@ public class NoticePostingController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/delete/{no}")
 	public String noticeDelete(Principal principal, @PathVariable("no")Integer no) {
+		
 		NoticePosting noticePosting = this.noticePostingService.getNoticePosting(no);
 		if(!noticePosting.getAuthor().getMemberid().equals(principal.getName()) ) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"삭제권한이 없습니다");
 		}
 		
 		this.noticePostingService.delete(noticePosting);
-		return "redirect:/";
+		return "redirect:/notice/list";
 	}
 	
 	
