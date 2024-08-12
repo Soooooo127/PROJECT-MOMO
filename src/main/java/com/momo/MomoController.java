@@ -8,7 +8,7 @@ public class MomoController {
 
 	@GetMapping("/")
 	public String root() {
-		return "redirect:/free/list";
+		return "redirect:/member/welcome";
 	}
 
 }

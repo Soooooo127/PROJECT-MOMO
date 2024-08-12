@@ -2,6 +2,23 @@
 <div layout:fragment="content" class="container my-3">
 	<!-- 공지사항 제목 -->
 	<h2 class="border-bottom py-3" th:text="${noticePosting.subject}"></h2>
+	<!-- 작성시간, 작성자(닉네임) -->
+		<div class="d-flex justify-content-start">
+		<div class="badge bg-light text-dark p-2 text-start">
+		<span th:text="${#temporals.format(noticePosting.createDate,'yyyy-MM-dd')}"></span>
+		<span th:if="${noticePosting.author != null}" th:text="${noticePosting.author.membernick}"></span>	
+	</div>
+		</div>
+		<!-- 조회수 -->
+		<div class="d-flex justify-content-end">
+					<div class="badge bg-light text-dark p-2 text-start">
+					
+					<span>조회수 </span>
+					<span th:text="${noticePosting.cnt}"></span>
+				
+					</div>
+					</div>
+		
 	
 	<!-- 공지사항 글 (카드형식)-->
 	 	<div class="card my-3">
@@ -9,7 +26,7 @@
 			<div class="card-text" style="white-space: pre-line;" th:text="${noticePosting.content}"></div>
 		
 			
-			<!-- 조회수 -->
+			<!-- 조회수 
 					<div class="d-flex justify-content-end">
 									<div class="badge bg-light text-dark p-2 text-start">
 										<span>조회수 </span>
@@ -17,27 +34,33 @@
 									</div>
 									</div>
 			
-				<!--작성일 표시-->
+				
 			<div class="d-flex justify-content-end">
 				<div class="badge bg-light text-dark p-2 text-start">
 					<div th:text="${#temporals.format(noticePosting.createDate,'yyyy-MM-dd')}"></div>
 				</div>
 				
-			</div> <!--여기까지 작성일 표시-->
+			</div> 
 			
 		
-		<!-- 글 작성자 -->
+		
+			
+		
 		<div class="d-flex justify-content-end">
 		<div class="badge bg-light text-dark p-2 text-start">
-		<span>작성자 </span>
-		<span th:if="${noticePosting.author != null}" th:text="${noticePosting.author.memberid}"></span>
+		<span th:if="${noticePosting.author != null}" th:text="${noticePosting.author.membernick}"></span>
 		</div>
 		</div>
+		
+		-->
+		
+		
+		
 				
 				
 		<!-- 수정버튼 -->
 		<div class="my-3">
-			<a th:href="@{|/notice/posting/modify/${noticePosting.no}|}" class="btn btn-sm btn-outline-primary"
+			<a th:href="@{|/notice/modify/${noticePosting.no}|}" class="btn btn-sm btn-outline-primary"
 			sec:authorize="isAuthenticated()"
 			th:if="${noticePosting.author != null and #authentication.getPrincipal().getUsername() == noticePosting.author.memberid}"  
 			th:text="수정"></a>
@@ -46,7 +69,7 @@
 			
 			
 		<!-- 삭제 버튼 -->
-		<a href="javascript:void(0);" th:data-uri="@{|/notice/posting/delete/${noticePosting.no}|}"	
+		<a href="javascript:void(0);" th:data-uri="@{|/notice/delete/${noticePosting.no}|}"	
 		class="delete btn btn-sm btn-outline-primary" 
 		sec:authorize="isAuthenticated()"
 		th:if="${noticePosting.author !=null and #authentication.getPrincipal().getUsername == noticePosting.author.memberid}"
@@ -114,7 +137,7 @@
 	-->
 
 	 <!-- 공지사항 목록으로 가는 버튼-->
-	<a th:href="@{/notice/posting/list}" class="btn btn-primary">목록가기</a>
+	<a th:href="@{/notice/list}" class="btn btn-primary">목록가기</a>
 	
 	</div>
 	

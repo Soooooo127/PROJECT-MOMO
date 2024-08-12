@@ -25,6 +25,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/free")
 @RequiredArgsConstructor
 public class FreePostingController {
+	
+	// 아싸라비야콜롬비야 짝짝짝~~!!! (20240809 16:50 수정)
 
 	private final FreePostingService freePostingService;
 	private final MemberService memberService;
@@ -66,7 +68,7 @@ public class FreePostingController {
 		}
 		
 		Member member = memberService.getMember(principal.getName());
-		freePostingService.create(freePostingForm.getSubject(), member.getMemberid(),
+		freePostingService.create(freePostingForm.getSubject(), member,
 				member.getMembernick(), freePostingForm.getContent());
 		return "redirect:/free/list";
 	}

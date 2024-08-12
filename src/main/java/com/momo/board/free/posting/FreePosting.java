@@ -36,8 +36,6 @@ public class FreePosting {
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	
-	private String memberid;
-	
 	private String membernick;
 	
 	private LocalDateTime createDate;
@@ -62,10 +60,12 @@ public class FreePosting {
 
 	@Override
 	public String toString() {
-		return "FreePosting [no=" + no + ", subject=" + subject + ", content=" + content + ", memberid=" + memberid
-				+ ", membernick=" + membernick + ", createDate=" + createDate + ", updateDate=" + updateDate + ", cnt="
-				+ cnt + ", ddabong=" + ddabong + ", nope=" + nope + ", freeCommentList=" + freeCommentList.isEmpty() + "]";
+		return "FreePosting [no=" + no + ", subject=" + subject + ", content=" + content + ", membernick=" + membernick
+				+ ", createDate=" + createDate + ", updateDate=" + updateDate + ", cnt=" + cnt + ", ddabong=" + ddabong
+				+ ", nope=" + nope + ", freeCommentList=" + freeCommentList + ", author=" + author + "]";
 	}
+
+
 	
 	
 	

@@ -42,8 +42,8 @@ public class FreeCommentService {
 		
 		FreeComment freeComment = new FreeComment();
 		freeComment.setFreePosting(freePosting);
+		freeComment.setAuthor(member);
 		freeComment.setContent(content);
-		freeComment.setMemberid(member.getMemberid());
 		freeComment.setMembernick(member.getMembernick());
 		freeComment.setCreateDate(LocalDateTime.now());
 		

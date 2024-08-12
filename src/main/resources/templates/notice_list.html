@@ -22,7 +22,7 @@
 			<!-- 게시물 번호 = 전체 게시물 개수 - (현재 페이지 *페이지당 게시물 개수) - 나열 인덱스 -->
 					<th th:text="${paging.getTotalElements - (paging.number * paging.size)-loop.index}"></th>
 			<td> 
-			<a th:href="@{|/notice/posting/detail/${noticePosting.no}|}"  th:text="${noticePosting.subject}"></a>
+			<a th:href="@{|/notice/detail/${noticePosting.no}|}"  th:text="${noticePosting.subject}"></a>
 			
 		<!-- 목록에 댓글 수 보여주기-->
 			<span class="text-danger small ms-2" th:if="${#lists.size(noticePosting.commentList) > 0}"
@@ -31,7 +31,7 @@
 		</td>
 		
 		<!--작성자  --> 
-		<td><a th:href="@{/friend/create}"><span th:if="${noticePosting.author != null}" th:text="${noticePosting.author.memberid}">
+		<td><a th:href="@{/friend/create}"><span th:if="${noticePosting.author != null}" th:text="${noticePosting.author.membernick}">
 			
 
 			
@@ -63,10 +63,10 @@
 		<a class="page-link" th:href="@{|?page=${paging.number-1}|}"><span>이전</span>  </a>
 		</li>
 		<!-- 현재 페이지 -->
-		<li th:each="page : ${#numbers.sequence(1, paging.totalPages-1)}" 
+		<li th:each="page : ${#numbers.sequence(0, paging.totalPages-1)}" 
 		th:if="${page>=paging.number -2 and page <= paging.number +2}"
 		th:classappend="${page == paging.number} ? 'active'"
-		class="page-item"><a th:text="${page}" class="page-link" th:href="@{|?page=${page}}"></a>
+		class="page-item"><a th:text="${page+1}" class="page-link" th:href="@{|?page=${page}}"></a>
 	</li>
 		
 		<!--다음 페이지 -->
@@ -84,7 +84,7 @@
 
 
 <div class="my-3">
-<a th:href="@{/notice/posting/create}" class="btn btn-primary"
+<a th:href="@{/notice/create}" class="btn btn-primary"
 sec:authorize="hasRole('ROLE_ADMIN')">공지 등록</a> </div>
 
 

@@ -75,13 +75,17 @@ public class FaqPostingController {
 	
 	@GetMapping("/list/{no}")
 	public String faqList1(Model model, FaqCategory faqCategory
-			,@RequestParam(value="page", defaultValue="0")int page
+			
 			,@PathVariable("no") Integer no) {
+		/*Page<FaqPosting> paging = this.faqPostingService.getList(page);
+		model.addAttribute("paging", paging); 
+		*/
 		
-		Page<FaqPosting> paging = this.faqPostingService.getList(page);
-		model.addAttribute("paging", paging);
 		
-		List<FaqCategory> faqCategoryList=this.faqCategoryService.getFaqCategoryList();
+		List<FaqPosting> faqPostingList = this.faqPostingService.getList1(faqCategory);
+		model.addAttribute("faqPostingList", faqPostingList);
+		
+		List<FaqCategory> faqCategoryList = this.faqCategoryService.getFaqCategoryList();
 		model.addAttribute("faqCategoryList", faqCategoryList);
 		
 		return "faq/faqList1";
