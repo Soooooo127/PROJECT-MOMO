@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.momo.board.free.comment.FreeComment;
+import com.momo.board.free.comment.FreeCommentForm;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -39,6 +42,31 @@ public class FreeCommentReplyController {
 		
 	}
 	
+	@GetMapping("/update/{pno}/{rno}")
+	public String update(FreeCommentForm freeCommentForm,
+			@PathVariable("pno") Integer pno, @PathVariable("rno") Integer rno) {
+		FreeCommentReply freeCommentReply = freeCommentReplyService.getCommentReply(rno);
+		
+		freeCommentForm.setContent(freeCommentReply.getContent());
+		
+		return "free/free_comment_form";
+	}
+	
+	@PostMapping("/update/{pno}/{rno}")
+	public String update(@Valid FreeCommentForm freeCommentForm, BindingResult bindingResult,
+			@PathVariable("pno") Integer pno, @PathVariable("rno") Integer rno) {
+		
+		if(bindingResult.hasErrors()) {
+			return "redirect:/free/detail/{pno}";
+		}
+		
+		FreeCommentReply freeCommentReply = freeCommentReplyService.getCommentReply(rno);
+		freeCommentReplyService.update(freeCommentReply, freeCommentForm.getContent());
+		
+		return "redirect:/free/detail/{pno}";
+	}
+	
+	
 	@GetMapping("/delete/{pno}/{rno}")
 	public String delete(@PathVariable("rno") Integer rno) {
 		
@@ -48,6 +76,22 @@ public class FreeCommentReplyController {
 		return "redirect:/free/detail/{pno}";
 	}
 	
-	
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/ddabong/{pno}/{rno}")
+    public String ddabong(Principal principal, @PathVariable("pno") Integer pno, @PathVariable("rno") Integer rno) {
+        FreeCommentReply freeCommentReply = freeCommentReplyService.getCommentReply(rno);
+        Member member = memberService.getMember(principal.getName());
+        freeCommentReplyService.ddabong(freeCommentReply, member);
+        return "redirect:/free/detail/{pno}";
+    }
+    
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/nope/{pno}/{rno}")
+    public String nope(Principal principal, @PathVariable("pno") Integer pno, @PathVariable("rno") Integer rno) {
+    	FreeCommentReply freeCommentReply = freeCommentReplyService.getCommentReply(rno);
+    	Member member = memberService.getMember(principal.getName());
+    	freeCommentReplyService.nope(freeCommentReply, member);
+    	return "redirect:/free/detail/{pno}";
+    }
 	
 }

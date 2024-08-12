@@ -1,6 +1,7 @@
 package com.momo.board.free.comment.re;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,12 @@ public class FreeCommentReplyService {
 	private final FreeCommentRepository freeCommentRepository;
 	private final MemberService memberService;
 	
+	public FreeCommentReply getCommentReply(Integer no) {
+		Optional<FreeCommentReply> temp = freeCommentReplyRepository.findById(no);
+		FreeCommentReply freeCommentReply = temp.get();
+		return freeCommentReply;
+	}
+	
 	public void create(Integer no, Member member, String content) {
 		FreeComment freeComment = freeCommentRepository.findById(no).get();
 		
@@ -35,5 +42,22 @@ public class FreeCommentReplyService {
 	public void delete(Integer no) {
 		freeCommentReplyRepository.deleteById(no);
 	}
+	
+	public void update(FreeCommentReply freeCommentReply, String content) {
+		freeCommentReply.setContent(content);
+		freeCommentReply.setUpdateDate(LocalDateTime.now());
+		
+		freeCommentReplyRepository.save(freeCommentReply);
+	}
+	
+    public void ddabong(FreeCommentReply freeCommentReply, Member member) {
+        freeCommentReply.getDdabong().add(member);
+    	freeCommentReplyRepository.save(freeCommentReply);
+    }
+    
+    public void nope(FreeCommentReply freeCommentReply, Member member) {
+    	freeCommentReply.getNope().add(member);
+    	freeCommentReplyRepository.save(freeCommentReply);
+    }
 	
 }

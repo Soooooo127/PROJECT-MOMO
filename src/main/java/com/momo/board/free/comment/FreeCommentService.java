@@ -55,9 +55,21 @@ public class FreeCommentService {
 		freeCommentRepository.deleteById(no);
 	}
 	
-	public void cntUp(Integer pno) {
-		
-
+	public void update(FreeComment freeComment, String content) {
+		freeComment.setContent(content);
+		freeComment.setUpdateDate(LocalDateTime.now());
+		freeCommentRepository.save(freeComment);
 	}
+	
+    public void ddabong(FreeComment freeComment, Member member) {
+        freeComment.getDdabong().add(member);
+    	freeCommentRepository.save(freeComment);
+    }
+    
+    public void nope(FreeComment freeComment, Member member) {
+    	freeComment.getNope().add(member);
+    	freeCommentRepository.save(freeComment);
+    }
+
 
 }

@@ -74,6 +74,17 @@ public class FreePostingService {
 		}
 	}
 	
+    public void ddabong(FreePosting freePosting, Member member) {
+        freePosting.getDdabong().add(member);
+    	freePostingRepository.save(freePosting);
+    }
+    
+    public void nope(FreePosting freePosting, Member member) {
+    	freePosting.getNope().add(member);
+    	freePostingRepository.save(freePosting);
+    }
+    
+    /*
 	public FreePosting updateDdabong(Integer no) {
 		Optional<FreePosting> freePosting = freePostingRepository.findById(no);
 		
@@ -107,7 +118,8 @@ public class FreePostingService {
 			throw new DataNotFoundException("데이터가 없습니다");
 		}
 	}
-	
+	*/
+    
 	public void delete(Integer no) {
 		freePostingRepository.deleteById(no);
 	}

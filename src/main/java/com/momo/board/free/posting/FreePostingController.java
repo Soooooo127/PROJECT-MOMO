@@ -107,6 +107,7 @@ public class FreePostingController {
 		return "free/free_detail"; 
 	}
 	
+	/*구따봉
 	@GetMapping("/ddabong/{pno}")
 	public String ddabong(Model model, @PathVariable("pno") Integer pno, FreeCommentForm freeCommentForm) {
 		FreePosting freePosting = freePostingService.updateDdabong(pno);
@@ -115,7 +116,27 @@ public class FreePostingController {
 		System.out.println(freePosting.toString());		
 		return "free/free_detail"; 
 	}
+	*/
 	
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/ddabong/{pno}")
+    public String ddabong(Principal principal, @PathVariable("pno") Integer pno) {
+        FreePosting freePosting = freePostingService.getPosting(pno);
+        Member member = memberService.getMember(principal.getName());
+        freePostingService.ddabong(freePosting, member);
+        return "redirect:/free/detail/{pno}";
+    }
+    
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/nope/{pno}")
+    public String nope(Principal principal, @PathVariable("pno") Integer pno) {
+    	FreePosting freePosting = freePostingService.getPosting(pno);
+    	Member member = memberService.getMember(principal.getName());
+    	freePostingService.nope(freePosting, member);
+    	return "redirect:/free/detail/{pno}";
+    }
+    
+    /*
 	@GetMapping("/nope/{pno}")
 	public String nope(Model model, @PathVariable("pno") Integer pno, FreeCommentForm freeCommentForm) {
 		FreePosting freePosting = freePostingService.updateNope(pno);
@@ -124,7 +145,7 @@ public class FreePostingController {
 		System.out.println(freePosting.toString());		
 		return "free/free_detail"; 
 	}
-	
+	*/
 
 	
 	

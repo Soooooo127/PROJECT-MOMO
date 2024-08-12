@@ -60,7 +60,7 @@
 							</td>
 							<td th:text="${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}"></td>
 							<td th:text="${freePosting.cnt}"></td>
-							<td th:text="${freePosting.ddabong}"></td>
+							<td th:text="${freePosting.ddabong.size()}"></td>
 						</tr>
 						<!--기존 넘버링 코드-->
 						<!--

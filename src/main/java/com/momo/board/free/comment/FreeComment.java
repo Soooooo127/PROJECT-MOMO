@@ -2,8 +2,8 @@ package com.momo.board.free.comment;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.momo.board.free.comment.re.FreeCommentReply;
@@ -16,6 +16,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -43,11 +44,11 @@ public class FreeComment {
 	
 	private LocalDateTime updateDate;
 
-	@ColumnDefault("0")
-	private Integer ddabong;
+	@ManyToMany
+	private Set<Member> ddabong;
 	
-	@ColumnDefault("0")
-	private Integer nope;
+	@ManyToMany
+	private Set<Member> nope;
 	
 	@ManyToOne
 	private Member author;

@@ -2,6 +2,7 @@ package com.momo.board.free.posting;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
@@ -15,6 +16,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -46,17 +48,17 @@ public class FreePosting {
 	@ColumnDefault("0")
 	private Integer cnt;
 	
-	@ColumnDefault("0")
-	private Integer ddabong;
-	
-	@ColumnDefault("0")
-	private Integer nope;
-	
 	@OneToMany(mappedBy = "freePosting", cascade = CascadeType.REMOVE)
 	private List<FreeComment> freeCommentList;
 	
 	@ManyToOne
 	private Member author;
+	
+	@ManyToMany
+	private Set<Member> ddabong;
+	
+	@ManyToMany
+	private Set<Member> nope;
 
 	@Override
 	public String toString() {
