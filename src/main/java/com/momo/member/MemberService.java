@@ -37,5 +37,12 @@ public class MemberService {
 		}
 	}
 	
+	public void makeFriends(String myId, Member friendMember) {
+		Optional<Member> temp = memberRepository.findBymemberid(myId);
+		Member myMember = temp.get();
+		myMember.getFriend().add(friendMember);
+		memberRepository.save(myMember);
+		
+	}
 
 }

@@ -4,13 +4,13 @@ import java.security.Principal;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +36,7 @@ public class MemberController {
 		return "member/login_form";
 	}
 	
+	/*
 	@GetMapping("/loginsuccessful")
 	public String loginSuccessful(MemberCreateForm memberCreateForm, Principal principal,
 			HttpServletRequest request, HttpSession session) {
@@ -46,6 +47,7 @@ public class MemberController {
 		session.setAttribute("member", member);
 		return "redirect:/";
 	}
+	*/
 
 	@PostMapping("/signup")
 	public String signup(@Valid MemberCreateForm memberCreateForm, BindingResult bindingResult) {
@@ -78,8 +80,14 @@ public class MemberController {
 		return "member/login_form";
 	}
 	
-	@GetMapping("/friend")
-	public String makeFriends() {
+	@PostMapping("/friend")
+	public String makeFriends(@RequestParam(value = "friendid") String friendid, Principal principal, Model model) {
+		Member friendMember = memberService.getMember(friendid);
+		memberService.makeFriends(principal.getName(), friendMember);
+		
+		Member myMember = memberService.getMember(principal.getName());
+		model.addAttribute("member", myMember);
+		
 		return "member/make_friends";
 	}
 	

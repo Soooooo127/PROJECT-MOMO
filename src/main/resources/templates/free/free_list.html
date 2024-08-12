@@ -48,7 +48,12 @@
 									 th:if="${freePosting.membernick != null}" th:text="${freePosting.membernick}"></a>
 								    <div class="dropdown-menu">
 								      <a class="dropdown-item" href="#">프로필 보기</a>
-								      <a class="dropdown-item" th:href="@{/member/friend}">친구 맺기</a>
+									  <div class="dropdown-item">
+										  <form method="post" th:action="@{/member/friend/}">
+											<input type="hidden" name="friendid" th:value="${freePosting.author.memberid}">
+											<button type="submit">친구 맺기</button>
+										  </form>
+									  </div>
 								    </div>
 								  </li>
 								</ul>

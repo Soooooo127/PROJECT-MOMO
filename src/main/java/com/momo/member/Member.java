@@ -1,16 +1,17 @@
 package com.momo.member;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import com.momo.member.profile.Profile;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,8 @@ import lombok.Setter;
 @Getter
 @Entity
 public class Member {
+	
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +39,13 @@ public class Member {
 	private String email;
 	
 	private LocalDateTime createDate;
+	
+	private String provider;
+	
+	private String providerId;
+	
+	@OneToMany
+	private Set<Member> friend;
 	
 	@OneToOne
 	@JoinColumn(name = "profile_id")

@@ -36,12 +36,28 @@ public class SecurityConfig {
 						
 						.loginPage("/member/login")
 						.failureUrl("/member/loginfailed")
-						.defaultSuccessUrl("/member/loginsuccessful"))
+						.defaultSuccessUrl("/"))
 				.logout((logout) -> logout
 						.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
 						.logoutSuccessUrl("/")
 						.invalidateHttpSession(true));
+		/*
+//				.oauth2Login(Customizer.withDefaults()); 
 		
+		        // OAuth 2.0 로그인 방식 설정
+		        http
+		                .oauth2Login((auth) -> auth.loginPage("/oauth-login/login")
+		                        .defaultSuccessUrl("/oauth-login")
+		                        .failureUrl("/oauth-login/login")
+		                        .permitAll());
+
+		        http
+		                .logout((auth) -> auth
+		                        .logoutUrl("/oauth-login/logout"));
+
+		        http
+		                .csrf((auth) -> auth.disable());
+		*/
 		return http.build();
 	}
 
