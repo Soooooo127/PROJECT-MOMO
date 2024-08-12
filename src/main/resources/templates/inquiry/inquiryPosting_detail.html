@@ -42,7 +42,7 @@
 					<!--이름, 작성자-->
 				       <div>
 					      <span style="font-weight:bold;" th:text="${posting.author.memberid}"></span>
-					      <span th:text="${posting.author.membernick}"></span>
+					      <span th:text="${posting.membernick}"></span>
 					  </div>
 				    <!--작성일-->
 					   <div>
@@ -68,10 +68,9 @@
 			<!--댓글 목록-->
 			<div th:each="comment : ${posting.commentList}">
 				<span th:text="${comment.content}"></span>
+				<span th:text="${comment.membernick}"></span>
+				<span th:text="${comment.author.memberid}"></span>
 				<span th:text="${#temporals.format(comment.createDate, 'yyyy.MM.dd hh:mm:ss')}"></span>
-				<form method="post">
-				<button type="submit" th:formaction="@{|/mypage/inquiryComment/${posintg.id}/${comment.id}|}" class="btn btn-danger">삭제</button>
-				</form>
 				<hr>
 			</div>
 			

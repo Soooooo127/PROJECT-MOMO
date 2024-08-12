@@ -28,6 +28,8 @@ public class InquiryComment {
 	
 	@Column(columnDefinition = "TEXT")
 	private String content;
+
+    private String membernick;
 	
     private LocalDateTime createDate;
    

@@ -46,11 +46,12 @@ public class InquiryPostingService {
 		}
 	}
 	
-	public void createPosting(String subject, String content,Member member) {
+	public void createPosting(String subject, String content, String membernick,Member member) {
 		InquiryPosting inquiryPosting = new InquiryPosting();
 		inquiryPosting.setSubject(subject);
 		inquiryPosting.setContent(content);
 		inquiryPosting.setCreateDate(LocalDateTime.now());
+		inquiryPosting.setMembernick(membernick);
 		inquiryPosting.setAuthor(member);
 		this.inquiryPostingRepository.save(inquiryPosting);
 	}
@@ -63,6 +64,7 @@ public class InquiryPostingService {
 	    InquiryPosting post = posting.get();
 	    post.setSubject(subject);
 	    post.setContent(content);
+	    post.setMembernick(post.getMembernick());
 	    post.setUpdateDate(LocalDateTime.now());
 	    this.inquiryPostingRepository.save(post);
 		

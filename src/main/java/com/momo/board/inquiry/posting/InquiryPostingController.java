@@ -57,7 +57,7 @@ public class InquiryPostingController {
 			model.addAttribute("paging",paging);
 			return "/inquiry/mypage";
 		}
-		this.inquiryPostingService.createPosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), member);
+		this.inquiryPostingService.createPosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), member.getMembernick() , member);
 		return "redirect:/mypage/inquiryPosting";
 	}
 	

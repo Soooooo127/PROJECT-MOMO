@@ -43,13 +43,4 @@ public class InquiryCommentController {
 		return String.format("redirect:/inquiryPosting/detail/%s", id);
 	}
 	
-/*	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/delete/{id}/{id}")
-	public String deleteAnswer(@PathVariable(value="id")Integer id) {
-		
-		this.inquiryCommentService.delete(id);
-	   
-		return "redirect:/mypage/inquiryPosting/detail/{id}";
-	}
-  */
 }

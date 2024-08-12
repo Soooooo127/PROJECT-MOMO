@@ -35,6 +35,8 @@ public class InquiryPosting {
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	
+	private String membernick;
+	
     private LocalDateTime createDate;
    
     private LocalDateTime updateDate;
