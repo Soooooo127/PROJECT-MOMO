@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.momo.user.SiteUser.SiteUser;
+import com.momo.member.Member;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,11 +22,11 @@ public class InquiryPostingService {
 	private final InquiryPostingRepository inquiryPostingRepository;
 	
 	
-	public Page<InquiryPosting> getMyList(SiteUser siteUser, int page) {
+	public Page<InquiryPosting> getMyList(Member member, int page) {
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc(("createDate")));
 		Pageable pageable = PageRequest.of(page,10, Sort.by(sorts));
-		return this.inquiryPostingRepository.findByAuthor(siteUser, pageable);
+		return this.inquiryPostingRepository.findByAuthor(member, pageable);
 		
 	}
 	
@@ -46,13 +46,13 @@ public class InquiryPostingService {
 		}
 	}
 	
-	public void createPosting(String subject, String content, SiteUser siteUser) {
-		InquiryPosting newQue = new InquiryPosting();
-		newQue.setSubject(subject);
-		newQue.setContent(content);
-		newQue.setCreateDate(LocalDateTime.now());
-		newQue.setAuthor(siteUser);
-		this.inquiryPostingRepository.save(newQue);
+	public void createPosting(String subject, String content,Member member) {
+		InquiryPosting inquiryPosting = new InquiryPosting();
+		inquiryPosting.setSubject(subject);
+		inquiryPosting.setContent(content);
+		inquiryPosting.setCreateDate(LocalDateTime.now());
+		inquiryPosting.setAuthor(member);
+		this.inquiryPostingRepository.save(inquiryPosting);
 	}
 	
 	public void updatePosting(String subject, String content, Integer id) {

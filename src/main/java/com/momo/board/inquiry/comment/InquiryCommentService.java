@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import com.momo.board.inquiry.posting.InquiryPosting;
-import com.momo.user.SiteUser.SiteUser;
+import com.momo.member.Member;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,12 +15,12 @@ public class InquiryCommentService {
 
 	private final InquiryCommentRepository inquiryCommentRepository;
 	
-	public void create(InquiryPosting inquiryPosting, String content, SiteUser siteUser) {
+	public void create(InquiryPosting inquiryPosting, String content, Member member) {
 		InquiryComment comment = new InquiryComment();
 		comment.setContent(content);
 		comment.setCreateDate(LocalDateTime.now());
 		comment.setInquiryPosting(inquiryPosting);
-		comment.setAuthor(siteUser);
+		comment.setAuthor(member);
 		this.inquiryCommentRepository.save(comment);
 	}
 	

@@ -3,11 +3,10 @@ package com.momo.board.inquiry.posting;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.momo.board.inquiry.comment.InquiryComment;
-import com.momo.user.SiteUser.SiteUser;
+import com.momo.member.Member;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -28,7 +27,7 @@ public class InquiryPosting {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer no;
 	
 	@Column(length = 200)
 	private String subject;
@@ -44,6 +43,6 @@ public class InquiryPosting {
     private List<InquiryComment> commentList;
     
     @ManyToOne
-    private SiteUser author;
+    private Member author;
 
 }

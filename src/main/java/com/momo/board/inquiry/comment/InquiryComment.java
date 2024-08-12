@@ -2,11 +2,10 @@ package com.momo.board.inquiry.comment;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.momo.board.inquiry.posting.InquiryPosting;
-import com.momo.user.SiteUser.SiteUser;
+import com.momo.member.Member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +24,7 @@ public class InquiryComment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer no;
 	
 	@Column(columnDefinition = "TEXT")
 	private String content;
@@ -38,6 +37,6 @@ public class InquiryComment {
     private InquiryPosting inquiryPosting;
     
     @ManyToOne
-    private SiteUser author;
+    private Member author;
     
 }

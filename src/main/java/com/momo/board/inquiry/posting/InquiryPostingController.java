@@ -1,7 +1,6 @@
 package com.momo.board.inquiry.posting;
 
 import java.security.Principal;
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.momo.board.inquiry.comment.InquiryCommentForm;
-import com.momo.user.SiteUser.SiteUser;
-import com.momo.user.SiteUser.UserService;
+import com.momo.member.Member;
+import com.momo.member.MemberService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,7 @@ public class InquiryPostingController {
 
 	
 	private final InquiryPostingService inquiryPostingService;
-	private final UserService userService;
+	private final MemberService memberService;
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/list")
@@ -42,8 +41,8 @@ public class InquiryPostingController {
 	@GetMapping
 	public String getMyPosting(Model model, Principal principal, InquiryPostingForm inquiryPostingForm, 
 			                   @RequestParam(value="page", defaultValue = "0")int page) {
-		SiteUser siteUser = this.userService.getUser(principal.getName());
-		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(siteUser, page);
+		Member member = this.memberService.getMember(principal.getName());
+		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(member, page);
 		model.addAttribute("paging", paging);
 		return "/inquiry/mypage";
 	}
@@ -52,13 +51,13 @@ public class InquiryPostingController {
 	@PostMapping("/create")
 	public String createPosting(@Valid InquiryPostingForm inquiryPostingForm, BindingResult bindingResult, Principal principal, Model model
 		                       , @RequestParam(value="page", defaultValue = "0")int page) {
-		SiteUser siteUser = this.userService.getUser(principal.getName());
-		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(siteUser, page);
+		Member member = this.memberService.getMember(principal.getName());
+		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(member, page);
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("paging",paging);
 			return "/inquiry/mypage";
 		}
-		this.inquiryPostingService.createPosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), siteUser);
+		this.inquiryPostingService.createPosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), member);
 		return "redirect:/mypage/inquiryPosting";
 	}
 	
