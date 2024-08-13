@@ -22,7 +22,7 @@ public class Restaurant {
 
 	
 	/*
-	private String detail;
+	private String info;
 	
 	private String addr;
 	

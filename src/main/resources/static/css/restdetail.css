@@ -1,0 +1,130 @@
+
+.rest{/*전체*/
+	width: 100%;
+	height: 100vh;	
+
+	padding: 5px;
+	border: 4px solid rgb(0, 0, 0);
+	border-radius: 15px;
+	
+}
+
+
+	.upper{ /*상단부*/
+		width: 100%;
+		height: 50%;
+		padding: 10px;
+		border: 2px solid rgb(0, 0, 0);
+		border-radius: 15px;
+		box-sizing: border-box;
+		background-color: rgb(255, 191, 191);	
+	}
+	
+	.pic_info{ /*사진과 가게정보*/
+		height: 80%;
+		display: flex;
+	}
+
+	.pic { /*사진*/
+		width: 50%;
+		padding: 5px;
+		border: 2px solid black;
+		border-radius: 15px;
+	}
+	
+	.info{/*가게정보*/
+		width: 50%;
+		padding: 5px;
+		border: 2px solid black;
+		border-radius: 15px;		
+	}
+	
+	.etc{/*기타*/
+		width: 100%;
+		height: 20%;
+		padding: 5px;
+		border: 5px solid rgb(0, 255, 0);
+		border-radius: 15px;		
+	}
+	.etc_total{/**/
+		display: flex;
+			
+	}
+		.jjim{/*찜*/
+			width: 25%;
+			padding: 5px;
+			border: 2px solid black;
+			border-radius: 15px;
+		}
+		.star{/*평점*/
+			width: 25%;
+			
+			padding: 5px;
+			border: 2px solid black;
+			border-radius: 15px;
+		}
+		.re{/*리뷰갯수*/
+			width: 25%;
+			padding: 5px;
+			border: 2px solid black;
+			border-radius: 15px;
+		}
+		.lank{/*랭킹*/
+			width: 25%;
+			padding: 5px;
+			border: 2px solid black;
+			border-radius: 15px;
+		}					
+	
+		
+.bottom{/*하단부*/
+	width: 100%;
+	height: 50%;
+	padding: 10px;
+	border: 2px solid rgb(0, 0, 0);
+	border-radius: 15px;
+	background-color: rgb(181, 181, 255);
+			
+}
+	
+	.et{/*같이먹기*/
+		width: 100%;
+		height: 40%;
+		padding: 5px;
+		border: 2px solid black;
+		border-radius: 15px;
+	}
+		.et_mid{/**/
+			height: 30%;
+		}
+		
+			.et_now{/*같이먹기 현황*/
+				width: 100%;
+				
+				padding: 5px;
+				border: 2px solid black;
+				border-radius: 15px;
+			}
+			.et_new{/*같이먹기 신규생성*/
+				width: 100%;
+				
+				padding: 5px;
+				border: 2px solid black;
+				border-radius: 15px;
+			}
+	
+	
+	.review{/*리뷰*/
+		width: 100%;
+		height: 30%;
+		padding: 5px;
+		border: 2px solid black;
+		border-radius: 15px;
+	}
+	.map{/*지도*/
+		width: 100%;
+		height: 30%;
+		padding: 5px;
+		border: 2px solid black;
+		border-radius: 15px;
+	}

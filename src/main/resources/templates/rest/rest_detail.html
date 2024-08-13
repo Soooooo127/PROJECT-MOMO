@@ -1,4 +1,81 @@
-가게정보 상세화면
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+	<head>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/restdetail.css}">
 
+	</head>
+	<body>
+		<div layout:fragment="content" class="container">
+	
 
+	가게정보 상세화면
 <a th:href="@{/rest/list}">가게목록</a>
+
+<h2>식당이름</h2>
+	<div class="rest">
+			<!--상단-->
+			<div class="upper">
+				
+				<div class="pic_info">
+					<!--가게사진-->
+					<div class="pic">
+						<p>사진</p>
+						
+					</div>
+					
+					<!--가게정보-->
+					<div class="info">
+						<p>세부정보</p>
+						
+					</div>
+				</div>
+				<!--찜, 평점, 리뷰갯수, 랭킹등-->
+				<div class="etc">
+					<div class="etc_total">
+						<div class="jjim">찜</div>
+						<div class="star">평점</div>
+						<div class="re">리뷰갯수</div>
+						<div class="lank">랭킹</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!--하단-->
+			<div class="bottom">
+				<!--같이먹기-->
+				<div class="et">
+					<div class="et_mid">
+						<!--같이먹기 현황, 신청-->
+						<div class="et_now">
+							같이먹기 현황
+						</div>
+						<!--같이먹기 신규생성-->
+						<div class="et_new">
+							같이먹기 신규생성
+						</div>
+					</div>
+				</div>
+				
+				<!--리뷰-->
+				<div class="review">
+					<p>리뷰</p>
+					
+				</div>
+				
+				<!--지도-->
+				<div class="map">
+					<p>지도</p>
+				</div>
+			</div>
+	</div>
+	
+	
+	
+	<!--레이아웃-->
+		</div>
+	</body>
+</html>
+
+
+
