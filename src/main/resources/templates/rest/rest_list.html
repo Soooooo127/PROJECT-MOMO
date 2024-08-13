@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+	<body>
+		<div layout:fragment="content" class="container">
+			
+			<h2>가게목록</h2>			
+	<!--검색-->		
+			<div class="col-6">
+				<div class="input-group">
+					<input type="text" id="search_kw" class="form-control" th:value="${kw}" placeholder="검색하기">
+					<button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+				</div>
+			</div>
+			<hr>
+			
+			<div>
+<!--비빔밥-->			<a th:href="@{/rest/detail}"><img src="https://cdn-icons-png.flaticon.com/128/8740/8740490.png"></a>
+<!--딤섬-->			<img src="https://cdn-icons-png.flaticon.com/128/12170/12170831.png">
+<!--초밥-->			<img src="https://cdn-icons-png.flaticon.com/128/2714/2714023.png">
+			</div>
+			<div>
+<!--고기-->			<img src="https://cdn-icons-png.flaticon.com/128/676/676746.png">
+<!--딸기케이크-->		<img src="https://cdn-icons-png.flaticon.com/128/9997/9997743.png">
+<!--떡볶이-->			<img src="https://cdn-icons-png.flaticon.com/128/2276/2276869.png">
+			</div>
+			<div>
+<!--맥주-->			<img src="https://cdn-icons-png.flaticon.com/128/1895/1895818.png">
+<!--햄버거-->			<img src="https://cdn-icons-png.flaticon.com/128/5508/5508475.png">
+<!--우동-->			<img src="https://cdn-icons-png.flaticon.com/128/2515/2515126.png">
+
+			</div>
+			
+			
+		</div>
+	</body>
+</html>
+

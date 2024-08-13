@@ -28,7 +28,7 @@
 		
 
 	<div class="form-check form-check-inline" th:each="category : ${faqCategoryList}" >
-		<input class="form-check-input" type="radio" name="no" id="optionsRadios" 
+		<input class="form-check-input" type="radio" name="no" id="optionsRadios" checked=""
 		 th:value="${category.no}" th:text="${category.category}"  >
 			<label class="form-check-label" for="optionsRadios">
 			
