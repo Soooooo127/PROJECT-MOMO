@@ -35,8 +35,9 @@ public class AskPostingController {
 	//질문게시글 목록 + 검색목록 페이지로 띄우기
 	@GetMapping("/list")
 	public String listAskPosting(Model model , @RequestParam(value = "page" , defaultValue = "0") int page
+			,@RequestParam(required = false , value = "order" , defaultValue = "createDate") String order
 			, @RequestParam(value = "kw" , defaultValue = "") String kw) {
-		Page<AskPosting> paging = this.askPostingService.getList(page , kw);
+		Page<AskPosting> paging = this.askPostingService.getList(page , order , kw);
 		model.addAttribute("paging", paging);
 		model.addAttribute("kw" , kw);
 		return "askPosting_list";

@@ -29,9 +29,16 @@ import lombok.RequiredArgsConstructor;
 public class AskPostingService {
 	private final AskPostingRepository askPostingRepository;
 	//질문글 목록 페이지형식 서비스구문
-	public Page<AskPosting> getList(int page , String kw){
+	public Page<AskPosting> getList(int page , String order , String kw){
 		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
-		sorts.add(Sort.Order.desc("createDate"));
+		//게시물 정렬 조건(최신순 , 조회순 , 추천순)
+		if(order.equals("createDate")) {
+			sorts.add(Sort.Order.desc("createDate"));
+		}else if(order.equals("cnt")) {
+			sorts.add(Sort.Order.desc("cnt"));
+		}else if(order.equals("ddabong")) {
+			sorts.add(Sort.Order.desc("ddabongCnt"));
+		}
 		Pageable pageable = PageRequest.of(page ,  10 , Sort.by(sorts));
 		Specification<AskPosting> spec = search(kw);
 		return this.askPostingRepository.findAll(spec , pageable);
@@ -75,6 +82,8 @@ public class AskPostingService {
 	//질문글 추천 서비스구문
 	public void voteDdabong(AskPosting askPosting , Member momoMember) {
 		askPosting.getDdabong().add(momoMember);
+		//게시물 추천수 갱신구문
+		askPosting.setDdabongCnt(askPosting.getDdabong().size());
 		this.askPostingRepository.save(askPosting);
 	}
 	

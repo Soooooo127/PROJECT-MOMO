@@ -60,4 +60,6 @@ public class AskPosting {
 	
 	@ManyToMany
 	private Set<Member> ddabong;
+	
+	private Integer ddabongCnt;
 }
