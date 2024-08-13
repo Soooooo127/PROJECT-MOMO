@@ -122,12 +122,6 @@
 	</div>
 
 	
-	
-
-	
-
-	
-	
 	 댓글 등록 창 
 	<form th:action="|/notice/comment/create/${noticePosting.no}|" th:object="${noticeCommentForm}"  method="post" class="my-3" >
 		 <div th:replace="~{form_errors :: formErrorsFragment}"></div> 
@@ -140,6 +134,7 @@
 	<a th:href="@{/notice/list}" class="btn btn-primary">목록가기</a>
 	
 	</div>
+	
 	
 	<!-- 삭제 스크립트-->
 
@@ -155,7 +150,7 @@
 		</script>
 	
 		
-		
+	
 		
 	
 	</html>

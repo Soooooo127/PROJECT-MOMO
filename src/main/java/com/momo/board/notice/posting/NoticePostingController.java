@@ -32,10 +32,13 @@ public class NoticePostingController {
 	
 	//공지사항 목록
 	@GetMapping("/list")
-	public String postingList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+	public String postingList(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "kw", defaultValue = "") String kw) {
+		
 			
-		Page<NoticePosting> paging = this.noticePostingService.getList(page);
+		Page<NoticePosting> paging = this.noticePostingService.getList(page,kw);
 		model.addAttribute("paging", paging);
+		model.addAttribute("kw", kw);
 		return "notice_list";
 	}
 	
