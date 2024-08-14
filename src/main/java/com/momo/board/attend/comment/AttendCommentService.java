@@ -1,4 +1,4 @@
-package com.momo.board.hello.attend.comment;
+package com.momo.board.attend.comment;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
