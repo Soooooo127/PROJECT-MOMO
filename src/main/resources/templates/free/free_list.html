@@ -47,10 +47,10 @@
 								  <li class="nav-item dropdown">
 								    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
 									 th:if="${freePosting.membernick != null}" th:text="${freePosting.membernick}"></a>
-								    <div class="dropdown-menu">
+								    <div class="dropdown-menu" sec:autorize="isAuthenticated()">
 								      <a class="dropdown-item" href="#">프로필 보기</a>
 									  <div class="dropdown-item">
-										  <form method="post" th:action="@{/member/friend/}">
+										  <form method="post" th:action="@{/member/friend}">
 											<input type="hidden" name="friendid" th:value="${freePosting.author.memberid}">
 											<button type="submit">친구 맺기</button>
 										  </form>

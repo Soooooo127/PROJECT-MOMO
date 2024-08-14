@@ -81,14 +81,13 @@ public class MemberController {
 	}
 	
 	@PostMapping("/friend")
-	public String makeFriends(@RequestParam(value = "friendid") String friendid, Principal principal, Model model) {
+	public String makeFriends(@RequestParam(value = "friendid") String friendid, Principal principal) {
+		
+		System.out.println("friendController에 진입하였습니다");
 		Member friendMember = memberService.getMember(friendid);
 		memberService.makeFriends(principal.getName(), friendMember);
 		
-		Member myMember = memberService.getMember(principal.getName());
-		model.addAttribute("member", myMember);
-		
-		return "member/make_friends";
+		return "redirect:/";
 	}
 	
 }
