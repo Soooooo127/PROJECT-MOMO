@@ -71,27 +71,11 @@
 		</div>
 		
 		<!--답변표시-->
-		<!--<div class="card my-3 py-2" th:each="askComment : ${askPosting.askCommentList}">
-			<div class="card-body">
-				<div class="card-text" style="white-space: pre-line;" th:text="${askComment.content}"></div>
-				<div class="d-flex justify-content-start">
-					<div class="badge bg-light text-dark p-2 text-start">
-						<div>
-							<span th:if="${askComment.membernick != null}" th:text="${askComment.membernick}"></span>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="d-flex justify-content-end">
-					<div class="badge bg-light text-dark p-2 text-start">
-						<div th:text="${#temporals.format(askComment.createDate , 'yyyy-MM-dd HH:mm')}"></div>
-					</div>
-				</div>
-			</div>
-		</div>-->
-		
-		<div class="card my-3 py-2" th:each="askComment , loop : ${paging}">
+		<div class="card my-3 py-2" th:each="askComment : ${askPosting.askCommentList}">
+			
+			<!--앵커기능 추가-->
+			<a th:id="|askComment_${askComment.no}|"></a>
+			
 			<div class="card-body">
 				<div class="card-text" style="white-space: pre-line;" th:text="${askComment.content}"></div>
 				
@@ -101,16 +85,16 @@
 						<div class="mb-2">
 							수정된 날짜
 						</div>
-						
+										
 						<div th:text="${#temporals.format(askComment.updateDate , 'yyyy-MM-dd HH:mm')}"></div>
 					</div>
 					<!--작성자 및 작성날짜 띄우기-->
 					<div class="badge bg-light text-dark p-2 text-start">
-						
+										
 						<div class="mb-2">
 							<span th:if="${askComment.membernick != null}" th:text="${askComment.membernick.membernick}"></span>
 						</div>
-						
+									
 						<div th:text="${#temporals.format(askComment.createDate , 'yyyy-MM-dd HH:mm')}"></div>
 					</div>
 				</div>
@@ -139,6 +123,67 @@
 						th:if="${askComment.membernick != null and #authentication.getPrincipal().getUsername() == askComment.membernick.memberid}"
 						th:text="수정"></a>
 					<!--질문글 삭제버튼-->
+												
+						<a href="javascript:void(0)" th:data-uri="@{|/askComment/delete/${askComment.no}|}" class="delete btn btn-sm btn-outline-secondary"
+						sec:authorize="isAuthenticated()"
+						th:if="${askComment.membernick != null and #authentication.getPrincipal.getUsername() == askComment.membernick.memberid}"
+						th:text="삭제"></a>
+										
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<!--오류로 주석처리된 댓글페이징-->
+		<!--<div class="card my-3 py-2" th:each="askComment , loop : ${paging}">
+			<div class="card-body">
+				<div class="card-text" style="white-space: pre-line;" th:text="${askComment.content}"></div>
+				
+				<div class="d-flex justify-content-end">
+					
+					<div th:if="${askComment.updateDate != null}" class="badge bg-light text-dark p-2 text-start">
+						<div class="mb-2">
+							수정된 날짜
+						</div>
+						
+						<div th:text="${#temporals.format(askComment.updateDate , 'yyyy-MM-dd HH:mm')}"></div>
+					</div>
+					
+					<div class="badge bg-light text-dark p-2 text-start">
+						
+						<div class="mb-2">
+							<span th:if="${askComment.membernick != null}" th:text="${askComment.membernick.membernick}"></span>
+						</div>
+						
+						<div th:text="${#temporals.format(askComment.createDate , 'yyyy-MM-dd HH:mm')}"></div>
+					</div>
+				</div>
+				
+				<div class="d-flex justify-content-start">
+					
+					<div class = "m-2">
+						<a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/askComment/voteDdabong/${askComment.no}|}">
+							추천
+							
+							<span class="badge rounded-pill bg-success" th:text="${#lists.size(askComment.ddabong)}"></span>
+						</a>
+					</div>
+					
+					<div class = "m-2">
+						<a href="javascript:void(0);" class="nocommend btn btn-sm btn-outline-secondary" th:data-uri="@{|/askComment/voteNope/${askComment.no}|}">
+							비추천
+							
+							<span class="badge rounded-pill bg-warning" th:text="${#lists.size(askComment.nope)}"></span>
+						</a>
+					</div>
+					
+					<div class="m-2">
+						<a th:href="@{|/askComment/update/${askComment.no}|}" class="btn btn-sm btn-outline-secondary"
+						sec:authorize="isAuthenticated()"
+						th:if="${askComment.membernick != null and #authentication.getPrincipal().getUsername() == askComment.membernick.memberid}"
+						th:text="수정"></a>
+					
 								
 						<a href="javascript:void(0)" th:data-uri="@{|/askComment/delete/${askComment.no}|}" class="delete btn btn-sm btn-outline-secondary"
 						sec:authorize="isAuthenticated()"
@@ -170,7 +215,7 @@
 					</a>
 				</li>
 			</ul>
-		</div>
+		</div>-->
 		
 		<!--답변등록-->
 		<form th:action="@{|/askComment/create/${askPosting.no}|}" th:object="${askCommentForm}" method="post" class="my-3">
