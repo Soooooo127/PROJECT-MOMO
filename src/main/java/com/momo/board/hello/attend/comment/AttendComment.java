@@ -1,8 +1,12 @@
-package com.momo.board.hello.attendComment;
+package com.momo.board.hello.attend.comment;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.momo.board.hello.attendCalendar.AttendCalendar;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+
+import com.momo.member.Member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@DynamicInsert
 public class AttendComment 
 {
 	@Id
@@ -25,12 +30,17 @@ public class AttendComment
 	@Column(columnDefinition = "TEXT")
 	private String content;
 
+	private LocalDate localDate;
+	
 	private LocalDateTime createDate;
 	
-	private String memberNickname;
+	private String membernick;
 	
-	private String memberUsername;
-	
+	private String memberid;
+
 	@ManyToOne
-	private AttendCalendar attendCalendar;
+	private Member author;
+	
+	@ColumnDefault("0")
+	private Integer todaysCommentAvilivable;
 }
