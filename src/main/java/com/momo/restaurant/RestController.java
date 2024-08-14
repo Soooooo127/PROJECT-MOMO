@@ -13,9 +13,9 @@ public class RestController {
 
 	private final RestService restService;
 	
-	@GetMapping("/list")
-	public String restList() {
-		return "rest/rest_list";
+	@GetMapping("/")
+	public String restAll() {
+		return "rest/rest_all";
 	}
 	
 	@GetMapping("/detail")
@@ -23,6 +23,11 @@ public class RestController {
 		return "rest/rest_detail";
 	}
 	
+	@GetMapping("/list")
+	public String  restList() {
+		
+		return "rest/rest_list";
+	}
 	
 	
 }
