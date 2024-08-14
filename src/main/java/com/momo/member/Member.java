@@ -22,8 +22,6 @@ import lombok.Setter;
 @Entity
 public class Member {
 	
-
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer no;
@@ -33,6 +31,8 @@ public class Member {
 	
 	@Column(unique = true)
 	private String membernick;
+	
+	private String membername;
 	
 	private String password;
 	

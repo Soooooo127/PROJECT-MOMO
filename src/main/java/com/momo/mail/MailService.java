@@ -7,10 +7,10 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 
-
+@Service
+@RequiredArgsConstructor
 public class MailService {
 
-	/*
 	private final JavaMailSender javaMailSender;
     private static final String senderEmail= "메일을 보낼 구글 이메일";
     private static int number;
@@ -46,5 +46,5 @@ public class MailService {
 
         return number;
     }
-    */
+
 }

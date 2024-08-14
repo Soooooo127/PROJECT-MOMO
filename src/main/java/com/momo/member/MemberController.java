@@ -90,4 +90,20 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/findid")
+	public String findId() {
+		return "member/find_id";
+	}
+	
+	@PostMapping("/findid")
+	public void findIds() {
+		
+	}
+	
+	@GetMapping("/test")
+	public String test() {
+		
+		
+		return "member/mail_test";
+	}
 }
