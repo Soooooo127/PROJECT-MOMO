@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.momo.board.inquiry.comment.InquiryComment;
 import com.momo.member.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,21 @@ public class InquiryPostingService {
 		sorts.add(Sort.Order.desc("createDate"));
 		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 		return this.inquiryPostingRepository.findAll(pageable);
+	}
+	
+	public Page<InquiryPosting> getNoCommentList(int page){
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("createDate"));
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		return this.inquiryPostingRepository.findByCommentList(pageable, null);
+
+	}
+	
+	public Page<InquiryPosting> getNoCommentList(int page, List<InquiryComment> commentList){
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("createDate"));
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		return this.inquiryPostingRepository.findByCommentList(pageable, null);
 	}
 	
 	public InquiryPosting getInquiryPosting(Integer id) {

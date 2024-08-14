@@ -1,4 +1,4 @@
-<html layout:decorate="~{/inquiry/layout}">
+<html layout:decorate="~{layout}">
 	<div layout:fragment="content">
 		
 		<style>
@@ -47,15 +47,20 @@
 		<a class="no" th:href="@{/mypage/inquiryPosting/list}">문의한 글</a>
 		<hr>
 	</div>
-	
 	<!--글 목록-->
 	<table class="table table-hover">
+		<!--날짜순 혹은 미답변 문의글 정렬-->
+		  <div>
+					<a th:href="@{/mypage/inquiryPosting/list}" class="btn btn-primary">최신순</a>
+					<a th:href="@{/mypage/inquiryPosting/noCommentList}" class="btn btn-primary">미답변 글 보기</a>
+		  </div>
 		<thead>
 			<tr class="table-primary">
 			<th></th>
 			<th class="sub">제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
+			<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -64,11 +69,13 @@
 				   <td>Q</td>
 				   <td class="st" style="width:50%;">
 					<!--제목이 너무 길어지면 ....으로 나오는 방법으로 하기-->
-					<a class="noline" th:href="@{|/mypage/inquiryPosting/detail/${posting.id}|}" th:text="${posting.subject}"></a>
+					<a class="noline" th:href="@{|/mypage/inquiryPosting/detail/${posting.no}|}" th:text="${posting.subject}"></a>
 				   </td>
 				   <td th:text="${posting.membernick}"></td>
 				   <!--여기에 만약 오늘 날짜랑 같다면 시간만 출력하게 하고 // 아니라면 시간은 제외 날짜만 출력할 수 있게 변경-->
 				   <td th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd hh:mm')}"></td>
+				   <td th:if="${#lists.size(posting.commentList) > 0 }">답변 완료</td>
+				   <td th:unless="${#lists.size(posting.commentList) > 0}">답변 대기</td>
 				</tr>
 			</div>
 		</tbody>
@@ -97,7 +104,7 @@
 			</li>
 		</ul>
 	</div>
-	<!--검색-->
+	
 	
 </div>
 

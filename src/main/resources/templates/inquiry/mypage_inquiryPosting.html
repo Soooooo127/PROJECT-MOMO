@@ -1,4 +1,4 @@
-<html layout:decorate="~{/inquiry/layout}">
+<html layout:decorate="~{layout}">
 	<div layout:fragment="content">
 		<style>
 		
@@ -22,6 +22,7 @@
 					<tr class="table-primary">
 					<th>제목</th>
 					<th>작성일</th>
+					<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -29,10 +30,12 @@
 						<tr class="table" th:each="posting :${paging}">
 						   <td class="st" style="width:50%;">
 							<!--제목이 너무 길어지면 ....으로 나오는 방법으로 하기-->
-							<a class="noline" th:href="@{|/mypage/inquiryPosting/detail/${posting.id}|}" th:text="${posting.subject}"></a>
+							<a class="noline" th:href="@{|/mypage/inquiryPosting/detail/${posting.no}|}" th:text="${posting.subject}"></a>
 						   </td>
 						   <!--여기에 만약 오늘 날짜랑 같다면 시간만 출력하게 하고 // 아니라면 시간은 제외 날짜만 출력할 수 있게 변경-->
 						   <td th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd hh:mm')}"></td>
+						   <td th:if="${#lists.size(posting.commentList) > 0 }">답변 완료</td>
+						   <td th:unless="${#lists.size(posting.commentList) > 0}">답변 대기</td>
 						</tr>
 					</div>
 				</tbody>
@@ -63,18 +66,18 @@
 				</div>
 
 	   <!--문의 글 작성-->		
-		<div class="container accordion accordion-flush" id="accordionFlushExample" style="accordion-color:var(blue);">
-		  <div class="accordion-item" style="accordion-color:var(blue);">
-		    <h2 class="accordion-header" style="accordion-color:var(blue);">
-		      <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
-		        문의하기
-		      </button>
-		    </h2>
-		    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+	   <div class="accordion" id="accordionExample">
+	   		<div class="accordion-item">
+	   			<h2 class="accordion-header" id="headingOne">
+	   				 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+		             문의하기
+		             </button>
+		         </h2>
+		    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 		      <div class="accordion-body">
 		        <form th:action="@{/mypage/inquiryPosting/create}" th:object="${inquiryPostingForm}" method="post">
 					<!--알림창으로 띄우자-->
-					<div th:replace="~{/inquiry/form_errors :: formErrorsFragment}"></div>
+					<div th:replace="~{form_errors :: formErrorsFragment}"></div>
 				<div>
 					<th>제목</th>
 					<input th:field="*{subject}">

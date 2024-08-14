@@ -1,6 +1,7 @@
 package com.momo.board.inquiry.comment;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -15,16 +16,41 @@ public class InquiryCommentService {
 
 	private final InquiryCommentRepository inquiryCommentRepository;
 	
-	public void create(InquiryPosting inquiryPosting, String content, Member member) {
+	
+	public InquiryComment getComment(Integer no) {
+		Optional<InquiryComment> comment = this.inquiryCommentRepository.findById(no);
+		if(comment.isPresent()) {
+			return comment.get();
+		} else {
+			return null;
+		}
+		
+	}
+	
+	public void create(InquiryPosting inquiryPosting, String content, String membernick , Member member) {
 		InquiryComment comment = new InquiryComment();
 		comment.setContent(content);
 		comment.setCreateDate(LocalDateTime.now());
 		comment.setInquiryPosting(inquiryPosting);
+		comment.setMembernick(membernick);
 		comment.setAuthor(member);
 		this.inquiryCommentRepository.save(comment);
 	}
 	
-	public void delete(Integer id) {
-		this.inquiryCommentRepository.deleteById(id);
+	public void delete(Integer no) {
+		this.inquiryCommentRepository.deleteById(no);
+	}
+	
+	public void update(Integer no, String content) {
+		Optional<InquiryComment> com = this.inquiryCommentRepository.findById(no);
+		if(com.isPresent()) {
+			InquiryComment comment = com.get();
+			comment.setContent(content);
+			comment.setUpdateDate(LocalDateTime.now());
+			this.inquiryCommentRepository.save(comment);
+		} else {
+			
+		}
+		
 	}
 }

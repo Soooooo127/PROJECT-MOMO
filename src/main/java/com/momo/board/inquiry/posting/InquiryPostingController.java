@@ -35,6 +35,14 @@ public class InquiryPostingController {
 		Page<InquiryPosting> paging = this.inquiryPostingService.getList(page);
 		model.addAttribute("paging", paging);
 		return "/inquiry/inquiryPosting_list";
+	}  
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/noCommentList")
+	public String getNoCommentList(Model model, @RequestParam(value="page", defaultValue = "0")int page) {
+		Page<InquiryPosting> paging = this.inquiryPostingService.getNoCommentList(page, null);
+		model.addAttribute("paging", paging);
+		return "/inquiry/inquiryPosting_list";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -44,7 +52,7 @@ public class InquiryPostingController {
 		Member member = this.memberService.getMember(principal.getName());
 		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(member, page);
 		model.addAttribute("paging", paging);
-		return "/inquiry/mypage";
+		return "/inquiry/mypage_inquiryPosting";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -55,64 +63,63 @@ public class InquiryPostingController {
 		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(member, page);
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("paging",paging);
-			return "/inquiry/mypage";
+			return "/inquiry/mypage_inquiryPosting";
 		}
 		this.inquiryPostingService.createPosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), member.getMembernick() , member);
 		return "redirect:/mypage/inquiryPosting";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/detail/{id}")
-	public String detailPosting(Model model, @PathVariable(value="id") Integer id, Principal principal, 
+	@GetMapping("/detail/{no}")
+	public String detailPosting(Model model, @PathVariable(value="no") Integer no, Principal principal, 
 			                    InquiryCommentForm inquiryCommentForm, InquiryPostingForm inquiryPostingForm) {
-		InquiryPosting posting = this.inquiryPostingService.getInquiryPosting(id);
+		InquiryPosting posting = this.inquiryPostingService.getInquiryPosting(no);
 		model.addAttribute("posting", posting);
 		return "/inquiry/inquiryPosting_detail";
 	}
 	
-	@GetMapping("/start")
-	public String home() {
-		return "/inquiry/start";
-	}
-	
 	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/update/{id}")
-	public String updatePosting(InquiryPostingForm inquiryPostingForm , @PathVariable(value="id")Integer id, Model model) {
-		InquiryPosting inquiryPosting = this.inquiryPostingService.getInquiryPosting(id);
+	@GetMapping("/update/{no}")
+	public String updatePosting(InquiryPostingForm inquiryPostingForm , @PathVariable(value="no")Integer no, Model model) {
+		InquiryPosting posting = this.inquiryPostingService.getInquiryPosting(no);
 		
-		inquiryPostingForm.setSubject(inquiryPosting.getSubject());
-		inquiryPostingForm.setContent(inquiryPosting.getContent());
+		inquiryPostingForm.setSubject(posting.getSubject());
+		inquiryPostingForm.setContent(posting.getContent());
 		
-		model.addAttribute("inquiryPosting", inquiryPosting);
+		model.addAttribute("posting", posting);
 		
 		return "/inquiry/inquiryPosting_form";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/update/{id}")
+	@PostMapping("/update/{no}")
 	public String updatePosting(@Valid InquiryPostingForm inquiryPostingForm, BindingResult bindingResult,
-			                    @PathVariable(value="id")Integer id) {
+			                    @PathVariable(value="no")Integer no) {
 		if(bindingResult.hasErrors()) {
 			return "/inquiry/inquiryPosting_form";
 		}
-		this.inquiryPostingService.updatePosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), id);
-		return "redirect:/mypage/inquiryPosting/detail/{id}";
+		this.inquiryPostingService.updatePosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), no);
+		return "redirect:/mypage/inquiryPosting/detail/{no}";
 		
 		
 	}
 	
 	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/delete/{id}")
-	public String deletePosting(@PathVariable(value="id")Integer id, Principal principal) {
-		this.inquiryPostingService.deletePosting(id);
+	@GetMapping("/delete/{no}")
+	public String deletePosting(@PathVariable(value="id")Integer no, Principal principal) {
+		this.inquiryPostingService.deletePosting(no);
 
-		if(principal.getName().contains("test")) {
+		if(principal.getName().contains("admin")) {
 			return "redirect:/mypage/inquiryPosting/list";
 		}
 		return "redirect:/mypage/inquiryPosting";
 		
 	}
 	
+	@GetMapping("/profile")
+    public String getProfile() {
+    	return "/profile/mypage_profile";
+    }
 	
 
 }

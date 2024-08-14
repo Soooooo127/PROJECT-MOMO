@@ -29,18 +29,50 @@ public class InquiryCommentController {
 	private final MemberService memberService;
 	
 	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/create/{id}")
-	public String createAnswer(Model model, @PathVariable("id") Integer id, 
+	@PostMapping("/create/{no}")
+	public String createComment(Model model, @PathVariable("no") Integer no, 
 			     @Valid InquiryCommentForm inquiryCommentForm, BindingResult bindingResult, Principal principal) {
-		InquiryPosting inquiryPosting = this.inquiryPostingService.getInquiryPosting(id);
+		InquiryPosting inquiryPosting = this.inquiryPostingService.getInquiryPosting(no);
 		Member member = this.memberService.getMember(principal.getName());
 		
 		if(bindingResult.hasErrors()) {
 		   model.addAttribute("inquiryPosting", inquiryPosting);
 		   return "/inquiry/inquiryPosting_detail";	
 		}
-		this.inquiryCommentService.create(inquiryPosting, inquiryCommentForm.getContent(), member);
-		return String.format("redirect:/inquiryPosting/detail/%s", id);
+		this.inquiryCommentService.create(inquiryPosting, inquiryCommentForm.getContent(), member.getMembernick(), member);
+		return String.format("redirect:/mypage/inquiryPosting/detail/%s", no);
 	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/delete/{pno}/{cno}")
+	public String deleteComment(@PathVariable(value="cno") Integer cno) {
+		this.inquiryCommentService.delete(cno);
+		return "redirect:/mypage/inquiryPosting/detail/{pno}";
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/update/{pno}/{cno}")
+	public String updateComment(@PathVariable(value="cno") Integer cno, @PathVariable(value="pno") Integer pno,
+			                     Model model, InquiryCommentForm inquiryCommentForm) {
+		InquiryPosting posting = this.inquiryPostingService.getInquiryPosting(pno);
+		model.addAttribute("posting" ,posting);
+		InquiryComment comment = this.inquiryCommentService.getComment(cno);
+		inquiryCommentForm.setContent(comment.getContent());
+		model.addAttribute("comment",comment);
+		return "/inquiry/inquiryComment_form";
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/update/{pno}/{cno}")
+	public String updateComment(@PathVariable(value="cno") Integer cno, @PathVariable(value="pno") Integer pno
+			                    , @Valid InquiryCommentForm inquiryCommentForm, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "/inquiry/inquryComment_form";
+		}
+		this.inquiryCommentService.update(cno, inquiryCommentForm.getContent());
+		return "redirect:/mypage/inquiryPosting/detail/{pno}";
+	} 
+	
+	
 	
 }

@@ -25,10 +25,8 @@
 			</div>
 			<hr>
 			<span><a sec:authorize="hasRole('ROLE_MEMBER')"  th:href="@{|/mypage/inquiryPosting/update/${posting.no}|}">수정</a></span>
-			<form th:action="@{|/mypage/inquiryPosting/delete/${posting.no}|}" method="post" >
-				<button>글 삭제</button>
 			</form>
-			<hr>
+		
 				<!--제목-->
 				<div class="mb" style="font-size:25px;" th:text="${posting.subject}"></div>
 				<!--프로필 이미지, 아이디, 이름, 작성일, 조회수 전체-->
@@ -62,31 +60,16 @@
 		</div>
 		<!--댓글-->
 		<div>
-			<h4>댓글 목록</h4>
-			<hr>
-			<!--댓글 목록-->
-			<div th:each="comment : ${posting.commentList}">
-				<span th:text="${comment.content}"></span>
-				<span th:text="${comment.membernick}"></span>
-				<span th:text="${#temporals.format(comment.createDate, 'yyyy.MM.dd hh:mm:ss')}"></span>
-				
-			    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/mypage/inquiryComment/update/${posting.no}/${comment.no}|}">수정</a>
-				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{|/mypage/inquiryComment/delete/${posting.no}/${comment.no}|}">삭제</a>
-			
-				<hr>
-			</div>
-			
-			<!--댓글 작성-->
-			<form sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{|/mypage/inquiryComment/create/${posting.no}|}" th:object="${inquiryCommentForm}" method="post">
-			  <div th:replace="~{form_errors :: formErrorsFragment}"></div>
-				<div style="display:inline">
-				<textarea rows="3" style="width:85%" th:field="*{content}"></textarea>
-			  </div>
-			  <div style="display:inline">
-				<button type="submit" class="btn btn-primary">댓글 등록</button>
-			  </div>
-			  
-			</form>
+			<!--댓글 수정-->
+			<div> 
+				<form th:action="@{|/mypage/inquiryComment/update/${posting.no}/${comment.no}|}" th:object="${inquiryCommentForm}" method="post">
+					<div th:replace="~{form_errors :: formErrorsFragment}"></div>
+					<input type="text" th:field="*{content}">
+					<span th:text="${comment.membernick}"></span>
+					<span th:text="${#temporals.format(comment.createDate, 'yyyy.MM.dd hh:mm:ss')}"></span>
+					<button type="submit" class="btn btn-danger">수정하기</button>
+				</form>
+			</div>	 
 		</div>
 		
 	</div>

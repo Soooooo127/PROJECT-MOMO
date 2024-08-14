@@ -22,7 +22,7 @@ import lombok.Setter;
 @DynamicInsert
 public class InquiryComment {
 
-	@Id
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer no;
 	
