@@ -43,9 +43,8 @@ public class AskCommentController {
 			model.addAttribute("askPosting", askPosting);
 			return "askPosting_detail";
 		}
-		
-		this.askCommentService.create(askPosting, askCommentForm.getContent() , momoMember);
-		return String.format("redirect:/askPosting/detail/%s", no);
+		AskComment askComment = this.askCommentService.create(askPosting, askCommentForm.getContent() , momoMember);
+		return String.format("redirect:/askPosting/detail/%s#askComment_%s", askComment.getAskPosting().getNo() , askComment.getNo());
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -71,7 +70,7 @@ public class AskCommentController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "수정 권한이 없습니다");
 		}
 		this.askCommentService.update(askComment, askCommentForm.getContent());
-		return String.format("redirect:/askPosting/detail/%s" , askComment.getAskPosting().getNo());
+		return String.format("redirect:/askPosting/detail/%s#askComment_%s" , askComment.getAskPosting().getNo() , askComment.getNo());
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -91,7 +90,7 @@ public class AskCommentController {
 		AskComment askComment = this.askCommentService.getAskComment(no);
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askCommentService.voteDdabong(askComment, momoMember);
-		return String.format("redirect:/askPosting/detail/%s", askComment.getAskPosting().getNo());
+		return String.format("redirect:/askPosting/detail/%s#askComment_%s", askComment.getAskPosting().getNo() , askComment.getNo());
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -100,6 +99,6 @@ public class AskCommentController {
 		AskComment askComment = this.askCommentService.getAskComment(no);
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askCommentService.voteNope(askComment, momoMember);
-		return String.format("redirect:/askPosting/detail/%s", askComment.getAskPosting().getNo());
+		return String.format("redirect:/askPosting/detail/%s#askComment_%s", askComment.getAskPosting().getNo() , askComment.getNo());
 	}
 }

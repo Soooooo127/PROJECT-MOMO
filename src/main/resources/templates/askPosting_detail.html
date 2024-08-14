@@ -72,6 +72,10 @@
 		
 		<!--답변표시-->
 		<div class="card my-3 py-2" th:each="askComment : ${askPosting.askCommentList}">
+			
+			<!--앵커기능 추가-->
+			<a th:id="|askComment_${askComment.no}|"></a>
+			
 			<div class="card-body">
 				<div class="card-text" style="white-space: pre-line;" th:text="${askComment.content}"></div>
 				
