@@ -1,5 +1,5 @@
 .mid{
-width: auto;	
+width: 100%;	
 height: 1090px;
 border: 2px solid rgb(0, 0, 0);
 padding: 5px;
@@ -27,11 +27,13 @@ padding: 5px;
 
 .list{
 	overflow: auto;
-	
+
 	
 }
 
-
+a:link, a:visited{
+	text-decoration-line: none;
+}
 .qwer{
 	float: left;
 	margin: 20px;
