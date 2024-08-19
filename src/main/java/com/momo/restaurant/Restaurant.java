@@ -19,19 +19,21 @@ public class Restaurant {
 	
 	@NotNull
 	private String name;
-
-	
-	/*
-	private String info;
-	
-	private String addr;
 	
 	private String category;
 	
-	private String phoneNumber;
-	*/
+	private String addr;
 	
 	
 	
+	private String phone;
+	
+	private String menu;
+	
+	private String img;
+	
+	private String map1;
+	
+	private String map2;
 	
 }
