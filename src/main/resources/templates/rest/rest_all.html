@@ -2,22 +2,39 @@
 <html layout:decorate="~{layout}">
 	<head>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/rest.css}">
-	<title>맛짐검색하자</title>
+	<title>맛집검색하자</title>
+	
+	<style>
+		.header{
+			
+			height: 250px;
+			background-color: peachpuff;
+			
+		}
+		.search{
+			margin: 2%;
+		}
+		
+	</style>
 	</head>
 	<body>
 		<div layout:fragment="content" class="container">
 			
-			<h2>가게목록</h2>			
-	<!--검색-->		
-			<div class="col-6">
-				<div class="input-group">
-					<input type="text" id="search_kw" class="form-control" th:value="${kw}" placeholder="검색하기">
-					<button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+				<div class="header" role="banner">
+				가게목록
+
+
+				
+				
 				</div>
-			</div>
-			<hr>
 			
 			<div>
+				<div class="search">	
+					<form class="d-flex" >
+				        <input class="form-control me-sm-2" type="search" placeholder="Search">
+				        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+					</form>
+				</div>
 <!--비빔밥-->			<a th:href="@{/rest/list}"><img src="https://cdn-icons-png.flaticon.com/128/8740/8740490.png"></a>
 <!--딤섬-->			<img src="https://cdn-icons-png.flaticon.com/128/12170/12170831.png">
 <!--초밥-->			<img src="https://cdn-icons-png.flaticon.com/128/2714/2714023.png">
