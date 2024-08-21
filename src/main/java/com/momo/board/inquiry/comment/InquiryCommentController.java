@@ -65,9 +65,15 @@ public class InquiryCommentController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/update/{pno}/{cno}")
 	public String updateComment(@PathVariable(value="cno") Integer cno, @PathVariable(value="pno") Integer pno
-			                    , @Valid InquiryCommentForm inquiryCommentForm, BindingResult bindingResult) {
+			                    , @Valid InquiryCommentForm inquiryCommentForm, BindingResult bindingResult, Model model) {
+		
+		InquiryPosting posting = this.inquiryPostingService.getInquiryPosting(pno);
+		InquiryComment comment = this.inquiryCommentService.getComment(cno);
+		
 		if(bindingResult.hasErrors()) {
-			return "/inquiry/inquryComment_form";
+			model.addAttribute("comment", comment);
+			model.addAttribute("posting", posting);
+			return "/inquiry/inquiryComment_form";
 		}
 		this.inquiryCommentService.update(cno, inquiryCommentForm.getContent());
 		return "redirect:/mypage/inquiryPosting/detail/{pno}";

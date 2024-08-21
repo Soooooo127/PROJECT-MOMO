@@ -52,7 +52,7 @@ public class InquiryPostingController {
 		Member member = this.memberService.getMember(principal.getName());
 		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(member, page);
 		model.addAttribute("paging", paging);
-		return "/inquiry/mypage_inquiryPosting";
+		return "/inquiry/inquiryPosting";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -63,7 +63,7 @@ public class InquiryPostingController {
 		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(member, page);
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("paging",paging);
-			return "/inquiry/mypage_inquiryPosting";
+			return "/inquiry/inquiryPosting";
 		}
 		this.inquiryPostingService.createPosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), member.getMembernick() , member);
 		return "redirect:/mypage/inquiryPosting";
@@ -94,8 +94,10 @@ public class InquiryPostingController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/update/{no}")
 	public String updatePosting(@Valid InquiryPostingForm inquiryPostingForm, BindingResult bindingResult,
-			                    @PathVariable(value="no")Integer no) {
+			                    @PathVariable(value="no")Integer no, Model model) {
+		InquiryPosting posting = this.inquiryPostingService.getInquiryPosting(no);
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("posting", posting);
 			return "/inquiry/inquiryPosting_form";
 		}
 		this.inquiryPostingService.updatePosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), no);
@@ -106,7 +108,7 @@ public class InquiryPostingController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/delete/{no}")
-	public String deletePosting(@PathVariable(value="id")Integer no, Principal principal) {
+	public String deletePosting(@PathVariable(value="no")Integer no, Principal principal) {
 		this.inquiryPostingService.deletePosting(no);
 
 		if(principal.getName().contains("admin")) {
@@ -115,11 +117,6 @@ public class InquiryPostingController {
 		return "redirect:/mypage/inquiryPosting";
 		
 	}
-	
-	@GetMapping("/profile")
-    public String getProfile() {
-    	return "/profile/mypage_profile";
-    }
 	
 
 }

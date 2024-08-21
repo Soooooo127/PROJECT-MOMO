@@ -29,7 +29,7 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" th:href="@{/notice/list}">Notice</a>
             <a class="dropdown-item" th:href="@{/faq/list}">FAQ</a>
-            <a sec:authorize="hasRole('ROLE_MEMBER')" class="dropdown-item" th:href="@{/mypage/inquiryPosting}">Inquiry(유저)</a>
+            <a sec:authorize="hasRole('ROLE_MEMBER')" class="dropdown-item" th:href="@{/mypage/profile}">Mypage</a>
 			<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/mypage/inquiryPosting/list}">Inquiry(관리자)</a>
           </div>
         </li>

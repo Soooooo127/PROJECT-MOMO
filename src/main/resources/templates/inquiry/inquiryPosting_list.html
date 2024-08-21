@@ -37,6 +37,19 @@
 			text-decoration: none;
 			color : black;
 		}
+		
+		td {
+		max-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		}
+		td.column_a {width: 10%;}
+		td.column_b {width: 60%;}
+		td.column_c {width: 10%;}
+		td.column_d {width: 10%;}
+		td.column_e {width: 10%;}
+		
 		</style>
 		
 
@@ -66,16 +79,17 @@
 		<tbody>
 			<div>
 				<tr class="table" th:each="posting :${paging}">
-				   <td>Q</td>
-				   <td class="st" style="width:50%;">
-					<!--제목이 너무 길어지면 ....으로 나오는 방법으로 하기-->
+				   <td class="td.column_a" >Q</td>
+				   <td class="td.column_b">
 					<a class="noline" th:href="@{|/mypage/inquiryPosting/detail/${posting.no}|}" th:text="${posting.subject}"></a>
 				   </td>
-				   <td th:text="${posting.membernick}"></td>
-				   <!--여기에 만약 오늘 날짜랑 같다면 시간만 출력하게 하고 // 아니라면 시간은 제외 날짜만 출력할 수 있게 변경-->
-				   <td th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd hh:mm')}"></td>
-				   <td th:if="${#lists.size(posting.commentList) > 0 }">답변 완료</td>
-				   <td th:unless="${#lists.size(posting.commentList) > 0}">답변 대기</td>
+				   <td class="td.column_c" th:text="${posting.membernick}"></td>
+				   <td class="td.column_c" th:if="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
+				       th:text="${#temporals.format(posting.createDate, 'HH:mm')}"></td>
+				   <td class="td.column_d" th:unless="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
+				   	   th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd')}"></td>			   
+				   <td class="td.column_e" th:if="${#lists.size(posting.commentList) > 0 }">답변 완료</td>
+				   <td class="td.column_e" th:unless="${#lists.size(posting.commentList) > 0}">답변 대기</td>
 				</tr>
 			</div>
 		</tbody>

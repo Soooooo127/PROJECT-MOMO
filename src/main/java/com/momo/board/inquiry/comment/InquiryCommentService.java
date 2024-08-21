@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.momo.DataNotFoundException;
 import com.momo.board.inquiry.posting.InquiryPosting;
 import com.momo.member.Member;
 
@@ -22,7 +23,7 @@ public class InquiryCommentService {
 		if(comment.isPresent()) {
 			return comment.get();
 		} else {
-			return null;
+			throw new DataNotFoundException("데이터가 없습니다");
 		}
 		
 	}
@@ -49,8 +50,7 @@ public class InquiryCommentService {
 			comment.setUpdateDate(LocalDateTime.now());
 			this.inquiryCommentRepository.save(comment);
 		} else {
-			
+			throw new DataNotFoundException("데이터가 없습니다");
 		}
-		
 	}
 }

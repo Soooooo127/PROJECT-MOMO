@@ -1,9 +1,6 @@
-package com.momo.member.profile;
+package com.momo.image;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.DynamicInsert;
-
-import com.momo.member.Member;
+import com.momo.member.profile.Profile;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -14,29 +11,21 @@ import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-@DynamicInsert
-@Setter
 @Getter
+@Setter
 @Entity
-public class Profile {
-	
+public class Image {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer no;
 	
-	private String membernick;
+	private String originalFilename;
 	
-	@ColumnDefault("4.5")
-	private float brix;
-
-	private String gender;
+	private String storeFilename;
 	
-	private String mbti;
-	
-	private String content;
-
 	@OneToOne(cascade = CascadeType.REMOVE)
-    private Member author;
+	private Profile profile;
 	
-
+	
 }

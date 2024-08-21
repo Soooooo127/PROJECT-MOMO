@@ -22,11 +22,8 @@
 				    <a sec:authorize="hasRole('ROLE_MEMBER')" class="no" th:href="@{/mypage/inquiryPosting}">문의 글 ></a>
 				</div>
 				<hr>
-				<span><a sec:authorize="hasRole('ROLE_MEMBER')"  th:href="@{|/mypage/inquiryPosting/update/${posting.no}|}">수정</a></span>
-				<form th:action="@{|/mypage/inquiryPosting/delete/${posting.no}|}" method="post" >
-					<button>글 삭제</button>
-				</form>
-				<hr>
+				
+			
 					<!--제목-->
 					<form th:action="@{|/mypage/inquiryPosting/update/${posting.no}|}" th:object="${inquiryPostingForm}" method="post">
 									
@@ -35,7 +32,7 @@
 								<div>
 									<th>제목</th>
 									<!--에러 처리-->
-									<input th:field="*{subject}">
+									<input type="text" th:field="*{subject}">
 								</div>
 					<!--프로필 이미지, 아이디, 이름, 작성일, 조회수 전체-->
 					<div>
@@ -52,8 +49,8 @@
 						  </div>
 					    <!--작성일-->
 						   <div>
-							  <span th:if="${posting.updateDate != null}" th:text="${#temporals.format(posting.updateDate, 'yyyy.MM.dd hh:mm:ss')}"></span>
-						      <span th:if="${posting.updateDate == null}" th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd hh:mm:ss')}"></span>
+							  <span th:if="${posting.updateDate != null}" th:text="${#temporals.format(posting.updateDate, 'yyyy.MM.dd HH:mm:ss')}"></span>
+						      <span th:if="${posting.updateDate == null}" th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd HH:mm:ss')}"></span>
 					      </div>
 					   </div>
 				   </div>
@@ -64,7 +61,8 @@
 			<div>
 				<th>내용</th>
 				<!--에러 처리-->
-			    <input th:field="*{content}">
+			    <input type="text" th:field="*{content}">
+				<hr>
 			</div>
 
 			  <button type="submit">저장하기</button>

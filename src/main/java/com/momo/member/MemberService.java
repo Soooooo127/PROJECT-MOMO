@@ -44,5 +44,16 @@ public class MemberService {
 		memberRepository.save(myMember);
 		
 	}
+	
+	public void updateMember(String memberid, String membernick) {
+		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
+		if(_member.isPresent()) {
+			Member member = _member.get();
+			member.setMembernick(membernick);
+			this.memberRepository.save(member);
+		} else {
+			throw new DataNotFoundException("site member not found");
+		}
+	}
 
 }

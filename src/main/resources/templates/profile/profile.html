@@ -1,0 +1,88 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+	
+	<style>
+		th.bg{ 
+			background-color: #fbe1e0;
+		    width:20%;
+		}
+	    
+		a.noline {
+			text-decoration-line: none;
+			color: black;
+		}
+		
+	
+		
+	</style>
+	
+	
+	
+	<table class="table container my-3">
+	 
+	     <tr>
+	       <th class="bg"><a class="noline" th:href="@{/mypage/profile}">내 프로필</a></th>
+		   <td rowspan="6">
+			
+			<center>
+				<span><h1>프로필 사진</h1></span>
+				<img th:src="@{|/img/${profile.storeFilename}|}" th:if="${profile != null}" >
+			    <img src="/img/default_profile.png" th:unless="${profile != null}" >
+			</center>
+			<table class="table container">
+				<tr>
+				  <th class="bg">닉네임</th>	
+				  <td th:if="${profile != null}" th:text="${profile.profile.membernick}"></td>
+				  <td th:unless="${profile != null}" >미입력</td>
+				</tr>
+				<tr>
+				  <th class="bg">당도</thclass="bg">	
+				  <td th:if="${profile != null}" th:text="${profile.profile.brix}"></td>
+				  <td th:unless="${profile != null}" >미입력</td>
+				</tr>
+				<tr>
+				  <th class="bg">성별</th>	
+				  <td th:if="${profile != null}" th:text="${profile.profile.gender}"></td>
+				  <td th:unless="${profile != null}" >미입력</td>
+   			    </tr>
+				<tr>
+				  <th class="bg">MBTI</th>
+				  <td th:if="${profile != null}" th:text="${profile.profile.mbti}"></td>
+				  <td th:unless="${profile != null}" >미입력</td>	
+				</tr>
+				<tr>
+				  <th class="bg">자기소개</th>
+				  <td th:if="${profile != null}" th:text="${profile.profile.content}"></td>
+				  <td th:unless="${profile != null}" >미입력</td>	
+				</tr>
+			</table>
+			
+			<center>
+				<a th:href="@{/mypage/modifyProfile}" class="btn btn-primary">프로필수정</a>
+				
+			</center>
+			
+			
+		   </td>
+	     </tr>
+		 <tr>
+		   <th><a class="noline" th:href="@{/mypage/inquiryPosting}">나의 활동</a></th>
+ 	     </tr>
+		 <tr>
+		   <th >내 같이 먹기</th>
+		 </tr>
+		 <tr>
+		   <th >회원정보 수정</th>
+		 </tr>
+		 <tr>
+		   <th a class="noline" th:href="@{/mypage/friend}">내 친구</th>
+		 </tr>
+		 <tr>
+		   <th >회원 탈퇴</th>
+		 </tr>
+	   </table>
+	
+		 
+	
+</div>	
+</html>

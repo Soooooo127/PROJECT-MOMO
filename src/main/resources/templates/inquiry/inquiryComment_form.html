@@ -24,7 +24,7 @@
 			    <a sec:authorize="hasRole('ROLE_MEMBER')" class="no" th:href="@{/mypage/inquiryPosting}">문의 글 ></a>
 			</div>
 			<hr>
-			<span><a sec:authorize="hasRole('ROLE_MEMBER')"  th:href="@{|/mypage/inquiryPosting/update/${posting.no}|}">수정</a></span>
+
 			</form>
 		
 				<!--제목-->
@@ -44,8 +44,8 @@
 					  </div>
 				    <!--작성일-->
 					   <div>
-						  <span th:if="${posting.updateDate != null}" th:text="${#temporals.format(posting.updateDate, 'yyyy.MM.dd hh:mm:ss')}"></span>
-					      <span th:if="${posting.updateDate == null}" th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd hh:mm:ss')}"></span>
+						  <span th:if="${posting.updateDate != null}" th:text="${#temporals.format(posting.updateDate, 'yyyy.MM.dd HH:mm:ss')}"></span>
+					      <span th:if="${posting.updateDate == null}" th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd HH:mm:ss')}"></span>
 				      </div>
 				   </div>
 				</div>
@@ -66,7 +66,7 @@
 					<div th:replace="~{form_errors :: formErrorsFragment}"></div>
 					<input type="text" th:field="*{content}">
 					<span th:text="${comment.membernick}"></span>
-					<span th:text="${#temporals.format(comment.createDate, 'yyyy.MM.dd hh:mm:ss')}"></span>
+					<span th:text="${#temporals.format(comment.createDate, 'yyyy.MM.dd HH:mm:ss')}"></span>
 					<button type="submit" class="btn btn-danger">수정하기</button>
 				</form>
 			</div>	 

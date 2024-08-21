@@ -7,12 +7,14 @@
 			        
 					text-decoration: none;
 					color : #eb6864;
-					font-size: 15px;
+					font-size: 20px;
 				}
 				
 		span {
 			font-size:15px;
 		}
+		
+		
 	</style>
 	<!--전체 틀-->
 	<div class="card border-primary container">
@@ -20,14 +22,12 @@
 		<div class="container my-3">
 			<!--게시판 종류-->
 			<div>
-				<a sec:authorize="hasRole('ROLE_ADMIN')" class="no" th:href="@{/mypage/inquiryPosting/list}">Q&A ></a>
-			    <a sec:authorize="hasRole('ROLE_MEMBER')" class="no" th:href="@{/mypage/inquiryPosting}">문의 글 ></a>
+				<a sec:authorize="hasRole('ROLE_ADMIN')" class="no" th:href="@{/mypage/inquiryPosting/list}">Q&A 바로가기 ></a>
+			    <a sec:authorize="hasRole('ROLE_MEMBER')" class="no" th:href="@{/mypage/inquiryPosting}">문의 글 바로가기 ></a>
 			</div>
 			<hr>
 			<span><a sec:authorize="hasRole('ROLE_MEMBER')"  th:href="@{|/mypage/inquiryPosting/update/${posting.no}|}">수정</a></span>
-			<form th:action="@{|/mypage/inquiryPosting/delete/${posting.no}|}" method="post" >
-				<button>글 삭제</button>
-			</form>
+			      <a th:href="@{|/mypage/inquiryPosting/delete/${posting.no}|}">글 삭제</a>
 			<hr>
 				<!--제목-->
 				<div class="mb" style="font-size:25px;" th:text="${posting.subject}"></div>
@@ -46,8 +46,8 @@
 					  </div>
 				    <!--작성일-->
 					   <div>
-						  <span th:if="${posting.updateDate != null}" th:text="${#temporals.format(posting.updateDate, 'yyyy.MM.dd hh:mm:ss')}"></span>
-					      <span th:if="${posting.updateDate == null}" th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd hh:mm:ss')}"></span>
+						  <span th:if="${posting.updateDate != null}" th:text="${#temporals.format(posting.updateDate, 'yyyy.MM.dd HH:mm:ss')}"></span>
+					      <span th:if="${posting.updateDate == null}" th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd HH:mm:ss')}"></span>
 				      </div>
 				   </div>
 				</div>
