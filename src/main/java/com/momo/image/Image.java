@@ -1,6 +1,6 @@
 package com.momo.image;
 
-import com.momo.member.profile.Profile;
+import com.momo.member.Member;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -24,8 +24,11 @@ public class Image {
 	
 	private String storeFilename;
 	
-	@OneToOne(cascade = CascadeType.REMOVE)
-	private Profile profile;
+/*	@OneToOne(cascade = CascadeType.REMOVE)
+	private Profile profile; */
+	
+	@OneToOne
+	private Member author;
 	
 	
 }

@@ -33,15 +33,15 @@ public class ProfileController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/profile")
 	public String profile(Model model, Principal principal) {
-		Image profile = this.imageService.getImage(principal.getName());
-		model.addAttribute("profile", profile);
+		Member memberProfile = this.memberService.getMember(principal.getName());
+		model.addAttribute("memberProfile", memberProfile);
 		return "/profile/profile";
 	}
 	
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/modifyProfile")
-	public String modifyProfile(ProfileForm profileForm) {
+	public String modifyProfile(ProfileForm profileForm, Model model) {
 		return "/profile/profile_form";
 	}
 	
@@ -65,14 +65,21 @@ public class ProfileController {
 		return "redirect:/mypage/profile";
 	}  */
 	
-	@PreAuthorize("isAuthenticated()")
+/*	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/modifyProfile")
 	public String modifyProfile(@Valid ProfileForm profileForm, BindingResult bindingResult, 
 			                    @RequestPart(value="files") MultipartFile file, Principal principal) throws IOException {
+		//확장자 얻기
+		String ext = this.imageService.extension(file.getOriginalFilename());
 		
 		if(bindingResult.hasErrors()) {
 			return "/profile/profile_form";
 		}
+		
+		//확장자 제한
+	    if(!ext.contains("png") || !ext.contains("jpg") || !ext.contains("jfif")) {
+			return "/profile/profile_form";
+		} 
 		this.profileService.modifyProfile(principal.getName(), profileForm.getMembernick(), profileForm.getGender(), 
 				                          profileForm.getContent(), profileForm.getMbti(), file);
 		
@@ -95,9 +102,43 @@ public class ProfileController {
 		
 		
 		return "redirect:/mypage/profile";
+	}  */
+	
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/modifyProfile")
+	public String modifyProfile(@Valid ProfileForm profileForm, BindingResult bindingResult, 
+			                    @RequestPart(value="files") MultipartFile file, Principal principal) throws IOException {
+		//확장자 얻기
+		String ext = this.imageService.extension(file.getOriginalFilename());
+		
+		if(bindingResult.hasErrors()) {
+			return "/profile/profile_form";
+		}
+		
+		//확장자 제한
+	 /*   if(!ext.contains("png") || !ext.contains("jpg") || !ext.contains("jfif")) {
+			return "/profile/profile_form";
+		}   */
+		this.profileService.modifyProfile(principal.getName(), profileForm.getMembernick(), profileForm.getGender(), 
+				                          profileForm.getContent(), profileForm.getMbti(), file);
+		
+		
+		Member member = this.memberService.getMember(principal.getName());
+		Image image = this.imageService.storeImage(file, member);
+		Profile profile = this.profileService.getProfile(member);
+			
+		Image img = this.imageService.getImage(principal.getName());
+
+		if(img == null) {
+		  this.imageService.saveImage(image);
+		} else {
+		  this.imageService.updateImage(image, member);
+		}
+		
+		this.memberService.updateMember(principal.getName(), profileForm.getMembernick(), profile , image);
+		
+		return "redirect:/mypage/profile";
 	}
-	
-	
 	
 
 

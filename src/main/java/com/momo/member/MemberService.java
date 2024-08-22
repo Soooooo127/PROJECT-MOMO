@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
+import com.momo.image.Image;
+import com.momo.member.profile.Profile;
 
 import lombok.RequiredArgsConstructor;
 
@@ -34,7 +36,7 @@ public class MemberService {
 		if (member.isPresent()) {
 			return member.get();
 		} else {
-			throw new DataNotFoundException("siteuser not found");
+			return null;
 		}
 	}
 	
@@ -55,11 +57,13 @@ public class MemberService {
 		
 	}
 	
-	public void updateMember(String memberid, String membernick) {
+	public void updateMember(String memberid, String membernick, Profile profile , Image image) {
 		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
 		if(_member.isPresent()) {
 			Member member = _member.get();
 			member.setMembernick(membernick);
+			member.setProfile(profile);
+			member.setImage(image);
 			this.memberRepository.save(member);
 		} else {
 			throw new DataNotFoundException("site member not found");

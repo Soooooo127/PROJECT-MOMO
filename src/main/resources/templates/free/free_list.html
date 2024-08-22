@@ -54,7 +54,7 @@
 								  		th:if="${!#lists.contains(member.friend, freePosting.author) and #authentication.getPrincipal().getUsername() != freePosting.author.memberid}">
   								  		<form method="post" th:action="@{/friend/create}">
 										<input type="hidden" name="friendid" th:value="${freePosting.author.memberid}"> 
-								  		<button type="submit" class="btn btn-primary"  onclick="alert('친구 추가 완료');" >친구 추가</button>
+								  		<button type="submit" class="btn btn-primary"  style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .87rem;" onclick="alert('친구 추가 완료');" >친구 추가</button>
 									  								  									
 								  	  </form>
   									  </div>								
