@@ -1,0 +1,85 @@
+<nav th:fragment="navbarFragment">
+  <div>
+    <!--전체 프레임-->
+    <div class="navFrame">
+      <!--전체 상단-->
+      <div class="nav1st">
+
+        <!--상단 메뉴-->
+        <div class="navSize1">
+          <!--로고-->
+          <div class="navLogo">
+            <span>모두 모이자, 모모! 홈페이지에 오신 것을 환영합니다.</span>
+          </div>
+  
+          <!--회원 메뉴-->
+          <div class="navMember">
+            <a sec:authorize="isAuthenticated()" th:text="|Welcome, ${#authentication.getPrincipal().getMembernick()}!|" th:href="@{/member/friend}"></a>
+            <span sec:authorize="isAnonymous()"><a th:href="@{/member/login}">로그인</a> | </span>
+            <span sec:authorize="isAuthenticated()"><a th:href="@{/member/logout}">로그아웃</a> | </span>
+            <span sec:authorize="isAnonymous()"><a th:href="@{/member/signup}">회원가입</a></span>
+          </div>
+        </div>
+      </div>
+
+
+      <!--전체 하단-->
+      <div class="nav2nd">
+
+        <!--하단 메뉴-->
+        <div class="navSize2">
+          <!--메뉴-->
+          <ul>
+            <li><a th:href="@{/}">모모 소개</a></li>
+            <li><a th:href="@{/rest/all}">식당 검색</a></li>
+            <li><a href="#">같이 먹기</a></li>
+            <li><a th:href="@{/free/list}">자유게시판</a></li>
+            <li><a th:href="@{/askPosting/list}">질문과 답변</a></li>
+            <li><a th:href="@{/attendComment/list}">출석체크</a></li>
+            <li><a th:href="@{/notice/list}">공지사항</a></li>
+            <li><a th:href="@{/faq/list}">자주 묻는 질문</a></li>
+            <li><a sec:authorize="hasRole('ROLE_MEMBER')" class="dropdown-item" th:href="@{/mypage/inquiryPosting}">문의하기</a>
+              <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/mypage/inquiryPosting/list}">문의답변(관리자)</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!--
+<a sec:authorize="isAuthenticated()" th:text="|Welcome, ${#authentication.getPrincipal().getMembernick()}!|" th:href="@{/member/friend}"></a>
+<span><a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">login</a></span>
+<span sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/member/logout}">logout</a></span>
+<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/signup}">signup</a>
+          <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+              <li>
+                <a class="navbar-brand" th:href="@{/}">MOMOeeee</a> 
+              </li>
+              <li>
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Community</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" th:href="@{/free/list}">Free</a>
+                  <a class="dropdown-item" th:href="@{/askPosting/list}">Q&A</a>
+                  <a class="dropdown-item" th:href="@{/attendComment/list}">Attend</a>
+                </div>
+              </li>
+              <li class="dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">C/S</a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" th:href="@{/notice/list}">Notice</a>
+                  <a class="dropdown-item" th:href="@{/faq/list}">FAQ</a>
+                  <a sec:authorize="hasRole('ROLE_MEMBER')" class="dropdown-item" th:href="@{/mypage/inquiryPosting}">Inquiry(유저)</a>
+                  <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/mypage/inquiryPosting/list}">Inquiry(관리자)</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        -->
+
+
+

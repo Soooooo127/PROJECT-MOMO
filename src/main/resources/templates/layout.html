@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
-		
 	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/momoLayout.css}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+	<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-solid-rounded/css/uicons-solid-rounded.css'>
 	<script th:src="@{/css/bootstrap.min.js}"></script>
 	<script th:src="@{/css/bootstrap.bundle.min.js}"></script>
 	
@@ -13,8 +17,8 @@
 
 	<body>
 		
-		<nav th:replace="~{navbar :: navbarFragment}"></nav>
-			<th:block layout:fragment="content"></th:block>
+		<nav th:replace="~{navbar2 :: navbarFragment}"></nav>
+			<th:block layout:fragment="content" class="homeContent"></th:block>
 			
 			<!-- 자바 스크립트-->
 				<th:block layout:fragment="script"></th:block>
