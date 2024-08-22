@@ -38,6 +38,15 @@ public class MemberService {
 		}
 	}
 	
+	public Member getMemberByEmail (String email) {
+		Optional<Member> member = this.memberRepository.findMemberByEmail(email);
+		if(member.isPresent()) {
+			return member.get();
+		} else {
+			throw new DataNotFoundException("siteUser not found by email");
+		}
+	}
+	
 	public void makeFriends(String myId, Member friendMember) {
 		Optional<Member> temp = memberRepository.findBymemberid(myId);
 		Member myMember = temp.get();

@@ -1,4 +1,11 @@
 body {
+	font-family: "Noto Sans KR", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 350;
+	font-style: normal;
+}
+
+.hahmlet {
   font-family: "Hahmlet", serif;
   font-optical-sizing: auto;
   font-weight: 350;
@@ -8,13 +15,6 @@ body {
 .gamja-flower-regular {
   font-family: "Gamja Flower", sans-serif;
   font-weight: 400;
-  font-style: normal;
-}
-
-body {
-  font-family: "Noto Sans KR", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 350;
   font-style: normal;
 }
 
@@ -58,15 +58,23 @@ body {
 .frame-t2 {
   width:800px;
   height:500px;
+	padding:20px;
   margin: auto;
   overflow: auto;
 }
 
+.frame-l, .frame-r {
+	height:450px;
+	float:left;
+}
 .frame-l {
-  width:400px;
-  height:500px;
-  border-right:solid 1px #999999;
-  float: left;
+	width:300px;
+	border-right:solid 1px #e1e1e1;
+}
+
+.frame-r {
+	width:400px;
+	padding:20px;
 }
 
 .frame-t1 table {
@@ -96,4 +104,15 @@ td input:focus {
   border: none;
 }
 
+.form-floating input {
+}
 
+.searchTitle {
+	font-size: 1.2rem;
+	font-weight:bold;
+	color:salmon;
+}
+
+.sendBtn {
+	width:100%;
+}

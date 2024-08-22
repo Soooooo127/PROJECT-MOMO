@@ -100,7 +100,7 @@ public class MemberController {
 	
 	@GetMapping("/findid")
 	public String findId() {
-		return "member/find_id";
+		return "member/find_id3";
 	}
 	
 	@PostMapping("/findid")
