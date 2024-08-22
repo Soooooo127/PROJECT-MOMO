@@ -29,7 +29,7 @@ public class MemberController {
 	
 	@GetMapping("/signup")
 	public String signup(MemberCreateForm memberCreateForm) {
-		return "member/signup_con";
+		return "member/signup_cou";
 	}
 	
 	@GetMapping("/loginfailed")
@@ -109,7 +109,7 @@ public class MemberController {
 		return "member/mail_test";
 	}
 	
-	
+	/*
 	//친구 목록
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/friend")
@@ -122,7 +122,7 @@ public class MemberController {
 		return "inquiry/mypage";
 	}
 	
-	
+	*/
 	
 	
 	
