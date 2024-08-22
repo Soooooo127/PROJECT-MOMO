@@ -1,0 +1,48 @@
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 350;
+  font-style: normal;
+}
+
+.gowun-dodum-regular {
+  font-family: "Gowun Dodum", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.frame-t1 {
+  width:500px;
+  margin:auto;
+}
+
+.frame-t2 {
+  width:800px;
+  height:500px;
+  margin: auto;
+  overflow: auto;
+}
+
+.frame-l {
+  width:400px;
+  height:500px;
+  border-right:solid 1px #999999;
+  float: left;
+}
+
+.frame-t1 table {
+  width: 100%;
+
+}
+
+tr {
+  border-bottom: 1px #e1e1e1 dashed;
+}
+
+td {
+  padding:10px;
+}
+
+.last {
+  border: none;
+}

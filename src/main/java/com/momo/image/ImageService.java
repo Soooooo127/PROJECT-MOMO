@@ -47,7 +47,9 @@ public class ImageService {
         // String storeFileName = file.getOriginalFilename();
         
         // 자신의 프로젝트 경로로 수정할 것 안하면 이미지가 저장이 안됌
-        String fullPath = "C:\\DEV_workspace\\Momo\\src\\main\\resources\\static\\img\\" + storeFilename;
+        // 디렉토리를 지정하는 코드 추가
+        String myDirectory = System.getProperty("user.dir");
+        String fullPath = myDirectory + "\\src\\main\\resources\\static\\img\\" + storeFilename;
                            
 
         // 파일을 저장하는 부분 -> 파일경로 + storeFilename 에 저장

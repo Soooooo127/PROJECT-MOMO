@@ -1,6 +1,10 @@
 	body {
 		font-size:0.9em;
-		
+	}
+	
+	.foundid {
+		font-weight: bold;
+		color:#fb5e4d;	
 	}
 	
 	.btitle {
