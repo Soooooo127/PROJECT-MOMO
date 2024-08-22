@@ -1,6 +1,21 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
 	
+	
+	<style>
+	
+			img.siz  {
+				width:80px;
+			}
+			
+		
+			
+		</style>
+	
+	
+	
+	
+	
 	<h2 class="border-bottom py-2">친구</h2>
 	
 		
@@ -16,7 +31,11 @@
 							<tbody>
 								
 								<tr th:each="friends : ${member.friend}">
-									<td><div href="#" th:text="${friends.membernick}"></div>
+									<td>
+										<img class="siz" th:src="@{|/img/${friends.image.storeFilename}|}" th:if="${friends.image != null}">
+										<img class="siz" th:unless="${friends.image != null}" src="/img/default_profile.png" >&nbsp; &nbsp; &nbsp;
+										
+										<span href="#" th:text="${friends.membernick}"></span>
 									 
 										
 										<div class="d-flex justify-content-end">
