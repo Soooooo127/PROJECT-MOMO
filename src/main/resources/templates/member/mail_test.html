@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8">
+		<title>메일 보내기 테스트</title>
 	</head>
 	<body>
 		
-		메일 비동기 테스트 (새고해보세용)
+		<div>
+			
+			<form method="post" th:action="@{/mail/test}">
+			    <input type="text" name="mailAddress" placeholder="받는 사람 입력"><br>
+			    <input type="text" name="subject" placeholder="제목"><br>
+			    <textarea name= "content" cols="10" rows="10"></textarea><br>
+			    <input type="submit" value="전송">
+				
+			</form>
+			
+		</div>
 		
-		<script th:src=@{/member/changeBg.js}>
+		
+		
 		</script>
 	</body>
 </html>

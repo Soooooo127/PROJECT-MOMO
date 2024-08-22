@@ -1,7 +1,7 @@
 package com.momo.member;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 import com.momo.member.profile.Profile;
 
@@ -12,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,7 +45,7 @@ public class Member {
 	private String providerId;
 	
 	@ManyToMany
-	private Set<Member> friend;
+	private List<Member> friend;
 	
 	@OneToOne
 	@JoinColumn(name = "profile_id")

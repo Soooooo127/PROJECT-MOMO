@@ -1,46 +1,44 @@
 <html layout:decorate="~{layout}">
-<div layout:fragment="content">
+<div layout:fragment="content" class="container my-3">
 	
-	<style>
-		th.bg{ 
-			background-color: #fbe1e0;
-		    width:20%;
-		}
-	    
-		a.noline {
-			text-decoration-line: none;
-			color: black;
-		}
-		
+	<h2 class="border-bottom py-2">친구</h2>
 	
 		
-	</style>
-	
-	
-	
-	<table class="table container my-3">
-	 
-	     <tr>
-	       <th class="bg"><a class="noline" th:href="@{/mypage/profile}">내 프로필</a></th>
-	     </tr>
-		 <tr>
-		   <th><a class="noline" th:href="@{/mypage/inquiryPosting}">나의 활동</a></th>
- 	     </tr>
-		 <tr>
-		   <th >내 같이 먹기</th>
-		 </tr>
-		 <tr>
-		   <th >회원정보 수정</th>
-		 </tr>
-		 <tr>
-		   <th><a class="noline" th:href="@{/mypage/friend}">내 친구</a></th>
-		 </tr>
-		 <tr>
-		   <th >회원 탈퇴</th>
-		 </tr>
-	   </table>
-	
-		 
-	
-</div>	
+	<h6 class="py-2 my-3" th:text="|친구 ${#lists.size(member.friend)}명|"></h6>
+		
+		<table class="table table-hover">
+							<thead class="table-primary">
+								<tr>
+									<th>친구</th>
+							
+								</tr>
+							</thead>
+							<tbody>
+								
+								<tr th:each="friends : ${member.friend}">
+									<td><div href="#" th:text="${friends.membernick}"></div>
+									 
+										
+										<div class="d-flex justify-content-end">
+										<form th:action="@{/friend/delete}" method="post">
+										<input type="hidden" name="friendid" th:value="${friends.memberid}">
+									    <button class="btn btn-primary" onclick="alert('친구 삭제 완료')"  type="submit" >친구 삭제</button> 
+										
+										</form>
+										</div>
+									  	
+									</td>
+								
+									</tr>
+									
+								
+						
+							</tbody>
+							
+						</table>
+</div>
+
+
+
+
 </html>
