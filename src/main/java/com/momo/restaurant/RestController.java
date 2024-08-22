@@ -13,7 +13,7 @@ public class RestController {
 
 	private final RestService restService;
 	
-	@GetMapping("/")
+	@GetMapping("/all")
 	public String restAll() {
 		return "rest/rest_all";
 	}
