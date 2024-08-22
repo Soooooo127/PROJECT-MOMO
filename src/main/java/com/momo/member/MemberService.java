@@ -17,13 +17,14 @@ public class MemberService {
 	private final MemberRepository memberRepository;
 	private final PasswordEncoder passwordEncoder;
 	
-	public Member create(String memberid, String password, String membernick, String email) {
+	public Member create(MemberCreateForm memberCreateForm) {
 		Member member = new Member();
-		member.setMemberid(memberid);
-		member.setMembernick(membernick);
-		member.setEmail(email);
+		member.setMemberid(memberCreateForm.getMemberid());
+		member.setMembername(memberCreateForm.getMembername());
+		member.setMembernick(memberCreateForm.getMembernick());
+		member.setEmail(memberCreateForm.getEmail());
 		member.setCreateDate(LocalDateTime.now());
-		member.setPassword(passwordEncoder.encode(password));
+		member.setPassword(passwordEncoder.encode(memberCreateForm.getPassword1()));
 		this.memberRepository.save(member);
 		return member;
 	}

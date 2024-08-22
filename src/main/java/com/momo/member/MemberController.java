@@ -32,6 +32,11 @@ public class MemberController {
 		return "member/signup_cou";
 	}
 	
+	@GetMapping("/signup_next")
+	public String signupNext(MemberCreateForm memberCreateForm) {
+		return "member/signup_form";
+	}
+	
 	@GetMapping("/loginfailed")
 	public String loginFailed(MemberCreateForm memberCreateForm) {
 		return "member/login_form";
@@ -62,11 +67,13 @@ public class MemberController {
 		}
 
 		try {
-			memberService.create(memberCreateForm.getMemberid(), memberCreateForm.getPassword1(), memberCreateForm.getMembernick(), memberCreateForm.getEmail());
+			memberService.create(memberCreateForm);
+		
 		} catch (DataIntegrityViolationException e) {
 			e.printStackTrace();
 			bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
 			return "member/signup_form";
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			bindingResult.reject("signupFailed", e.getMessage());
