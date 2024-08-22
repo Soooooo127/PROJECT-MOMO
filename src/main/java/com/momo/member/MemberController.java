@@ -3,6 +3,7 @@ package com.momo.member;
 import java.security.Principal;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -87,7 +88,7 @@ public class MemberController {
 		Member friendMember = memberService.getMember(friendid);
 		memberService.makeFriends(principal.getName(), friendMember);
 		
-		return "redirect:/";
+		return "member/make_friends";
 	}
 	
 	@GetMapping("/findid")
@@ -104,6 +105,27 @@ public class MemberController {
 	public String test() {
 		
 		
+		
 		return "member/mail_test";
 	}
+	
+	
+	//친구 목록
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/friend")
+	public String mypage(Principal principal, Model model) {
+		
+		System.out.println("친구목록 컨트롤러 진입");
+		 Member member = this.memberService.getMember(principal.getName());
+		 model.addAttribute("member", member);
+		
+		return "inquiry/mypage";
+	}
+	
+	
+	
+	
+	
+	
+	
 }
