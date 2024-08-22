@@ -1,0 +1,43 @@
+body {
+  font-family: "Hahmlet", serif;
+  font-optical-sizing: auto;
+  font-weight: 350;
+  font-style: normal;
+}
+
+.gamja-flower-regular {
+  font-family: "Gamja Flower", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.title {
+	font-size:1.25rem;
+	
+}
+
+.box {
+	width:50%;
+	border: solid 1px #999999;
+	margin: auto;
+}
+
+.coutext, .button {
+	width:95%;
+	margin: auto;
+}
+
+.coutext {
+	border: solid 1px #e1e1e1;
+	height:10rem;
+}
+
+
+.ncsr {
+	color:red;
+}
+
+
+
+
