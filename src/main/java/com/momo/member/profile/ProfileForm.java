@@ -23,4 +23,5 @@ public class ProfileForm {
 	@NotEmpty(message = "다시")
 	private String content;
 	
+	
 }

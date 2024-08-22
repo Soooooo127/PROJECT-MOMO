@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
+import com.momo.image.Image;
+import com.momo.member.profile.Profile;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,13 +19,14 @@ public class MemberService {
 	private final MemberRepository memberRepository;
 	private final PasswordEncoder passwordEncoder;
 	
-	public Member create(String memberid, String password, String membernick, String email) {
+	public Member create(MemberCreateForm memberCreateForm) {
 		Member member = new Member();
-		member.setMemberid(memberid);
-		member.setMembernick(membernick);
-		member.setEmail(email);
+		member.setMemberid(memberCreateForm.getMemberid());
+		member.setMembername(memberCreateForm.getMembername());
+		member.setMembernick(memberCreateForm.getMembernick());
+		member.setEmail(memberCreateForm.getEmail());
 		member.setCreateDate(LocalDateTime.now());
-		member.setPassword(passwordEncoder.encode(password));
+		member.setPassword(passwordEncoder.encode(memberCreateForm.getPassword1()));
 		this.memberRepository.save(member);
 		return member;
 	}
@@ -33,7 +36,7 @@ public class MemberService {
 		if (member.isPresent()) {
 			return member.get();
 		} else {
-			throw new DataNotFoundException("siteuser not found");
+			return null;
 		}
 	}
 	
@@ -45,11 +48,13 @@ public class MemberService {
 		
 	}
 	
-	public void updateMember(String memberid, String membernick) {
+	public void updateMember(String memberid, String membernick, Profile profile , Image image) {
 		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
 		if(_member.isPresent()) {
 			Member member = _member.get();
 			member.setMembernick(membernick);
+			member.setProfile(profile);
+			member.setImage(image);
 			this.memberRepository.save(member);
 		} else {
 			throw new DataNotFoundException("site member not found");

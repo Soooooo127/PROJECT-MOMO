@@ -3,6 +3,7 @@ package com.momo.member;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.momo.image.Image;
 import com.momo.member.profile.Profile;
 
 import jakarta.persistence.Column;
@@ -48,7 +49,11 @@ public class Member {
 	private List<Member> friend;
 	
 	@OneToOne
-	@JoinColumn(name = "profile_id")
+	@JoinColumn(name = "image_no")
+	private Image image;
+	
+	@OneToOne
+	@JoinColumn(name = "profile_no")
 	private Profile profile;
 	
 	
