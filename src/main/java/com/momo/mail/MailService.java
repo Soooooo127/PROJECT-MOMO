@@ -57,7 +57,7 @@ public class MailService {
 
     	return message;
     }
-
+    
     public int sendMail(String mail, String membername) {
         MimeMessage message = CreateMail(mail);
         
@@ -73,6 +73,25 @@ public class MailService {
 
         return number;
     }
+    
+    
+    /*
+    public int sendMail(String mail) {
+        MimeMessage message = CreateMail(mail);
+        
+        Member member = memberService.getMemberByEmail(mail);
+        System.out.println(member.toString());
+        
+        if(membername.equals(member.getMembername())) {
+        	javaMailSender.send(message);
+        } else {
+        	throw new DataNotFoundException("일치하는 회원을 찾을 수 없습니다");
+        }
+        
+
+        return number;
+    }
+    */
     
     public Member checkCode(String email) {
     	Member member = memberService.getMemberByEmail(email);

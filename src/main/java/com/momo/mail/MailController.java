@@ -21,7 +21,7 @@ public class MailController {
     private int number; // 이메일 인증 숫자를 저장하는 변수
 
     // 테스트용 이메일 전송 : 본문 직접 작성용(get)
-    @GetMapping("/")
+    @GetMapping("/test")
     public String MailPage() {
     	return "member/mail_test";
     }
@@ -30,30 +30,30 @@ public class MailController {
     @PostMapping("/test")
     public String testMailSend(MailContent mailContent) {
     	mailService.mailTest(mailContent);
-    	return "redirect:/mail";
+    	return "redirect:/mail/test";
     }
     
-    // 테스트용 인증 이메일 전송(get)
+    //인증번호 이메일 전송 페이지로 이동(get)
     @GetMapping("/mail")
     public String mailPage2() {
     	return "member/mail_test2";
     }
+    
+    //인증번호 이메일 전송(post)
+    @ResponseBody
+    @PostMapping("/mailSend")
+    public String authMailSend(@RequestParam(value = "mail") String mail, @RequestParam(value = "membername") String membername) {
+    	int number = mailService.sendMail(mail, membername);
+        String num = "" + number;
+        return num;
+    }
+    
     
     // JSON 테스트용
     @GetMapping("/jsontest")
     public String jsonTest() {
     	return "member/mail_test3";
     }
-    
-    // 테스트용 인증 이메일 전송(post)
-    @ResponseBody
-    @PostMapping("/mail")
-    public String testMailSend2(@RequestParam(value = "mail") String mail, @RequestParam(value = "membername") String membername) {
-    	int number = mailService.sendMail(mail, membername);
-        String num = "" + number;
-        return num;
-    }
-    
 
 
     // JSON 전용 인증번호 확인 후 아이디 반환

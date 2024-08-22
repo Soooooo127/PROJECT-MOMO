@@ -2,8 +2,8 @@
 <html layout:decorate="~{layout}">
 	<head>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/momoSignup.css}">
-		<script type="text/javascript" defer th:src="@{/js/member/findId.js}"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script type="text/javascript" defer th:src="@{/js/momoFindid.js}"></script>
 		<title>모모 아이디/비밀번호 찾기</title>
 	</head>
 	<body>
@@ -13,30 +13,44 @@
 			<div class="frame-t2">
 				<!--(좌측)로고/안내 영역-->
 				<div class="frame-l">
-					<p>
-						모모 아이디/비밀번호 찾기 메뉴입니다.<br>
-						아이디 또는 비밀번호가 기억나지 않는 경우에는
-						본 메뉴에서 확인하시기 바랍니다.
-					</p>
+					<div>
+						<p class="border-bottom border-danger border-2 p-2 fs-3">
+							모두 모이자, 모모
+						</p>
+						<p>
+							모모 아이디/비밀번호 찾기 메뉴입니다.<br>
+							아이디 또는 비밀번호가 기억나지 않는 경우에는
+							본 메뉴에서 확인하시기 바랍니다.
+						</p>
+					</div>
+					<div id="found_id" name="found_id" style="display: none;">
+						<input type="text" id="Confirm" name="Confirm" style="display: none" value="">
+						<div id="found_data"></div>
+						<span>회원님의 아이디는</span>
+						<input name="memberid" id="memberid" class="foundid" disabled value="">
+						<span>입니다.</span><br>
+						<a th:href="@{/member/login}"><span>로그인 하러 가기</span></a>
+					</div>
 				</div>
 				<!--(우측)사용자 입력 영역-->
 				<div class="frame-r">
-					<div id="mail_input">
-						<div><span class="searchTitle"><i class="fi fi-sr-member-search"></i> 아이디 찾기</span></div>
-						<div class="form-floating my-3">
-							<input type="email" class="form-control" name="mail" id="mail" placeholder="이메일 주소(name@example.com)">
-							<label for="floatingInput">이메일 주소(name@example.com)</label>
-						</div>
-						<div class="form-floating my-3">
-							<input type="text" class="form-control" name="membername" id="membername" placeholder="이름(실명)" autocomplete="off">
-							<label for="floatingPassword">이름(실명)</label>
-						</div>
-						<div id="mail_input">
-							<button type="button" name="sendBtn" id="sendBtn" onclick="sendNumber()" class="btn btn-lg btn-primary">인증번호 보내기</button>
-						</div>
+					<div>
+						<div>
+							<span class="searchTitle"><i class="fi fi-sr-member-search"></i> 아이디 찾기</span></div>
+							<div class="form-floating my-3">
+								<input type="email" class="form-control" name="mail" id="mail" placeholder="이메일 주소(name@example.com)">
+								<label for="floatingInput">이메일 주소(name@example.com)</label>
+							</div>
+							<div class="form-floating my-3">
+								<input type="text" class="form-control" name="membername" id="membername" placeholder="이름(실명)" autocomplete="off">
+								<label for="floatingPassword">이름(실명)</label>
+							</div>
+							<div class="d-grid gap-2">
+								<button type="button" name="sendBtn" id="sendBtn" onclick="sendNumber()" class="btn btn-lg btn-primary">인증번호 보내기</button>
+							</div>
 					</div>
-					<div id="mail_number" name="mail_number" style="display: none">
-						<div class="form-floating mb-3">
+					<div id="mail_number" name="mail_number" style="display: none;">
+						<div class="form-floating my-3">
 							<input type="text" name="number" id="number" class="form-control" placeholder="인증번호 입력">
 							<label for="floatingInput">인증번호</label>
 						</div>
@@ -44,236 +58,10 @@
 							<button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()" class="btn btn-lg btn-secondary">인증번호 확인</button>
 						</div>
 					</div>
-					<div id="found_id" name="found_id" style="display:none">
-						<input type="text" id="Confirm" name="Confirm" style="display: none" value="">
-						<div id="found_data"></div>
-						<span>회원님의 아이디는</span>
-						<input name="memberid" id="memberid" class="foundid" disabled value="">
-						<span>입니다.</span><br>
-						<a th:href="@{/member/login}"><span>로그인 하러 가기</span></a>
-					</div>
 
-					
-					
-					
-					
-					
-					
-					<!--
-						<div><span class="searchTitle"><i class="fi fi-sr-password-lock"></i> 아이디 찾기</span></div>
-					<div id="mail_input">
-						<input type="email" name="mail" id="mail" class="form-control" placeholder="이메일을 입력하세요">
-						<label for="floatingInput">이메일</label>
-					</div>
-					<div>
-						<input type="text" name="membername" id="membername" class="form-control" placeholder="이름을 입력하세요">
-						<label for="floatingInput">이름</label>
-					</div>
-					<div id="mail_input">
-						<button type="button" name="sendBtn" id="sendBtn" onclick="sendNumber()" class="btn btn-lg btn-primary">인증번호 보내기</button>
-					</div>
-					<div id="mail_number" name="mail_number" style="display: none">
-						<div class="form-floating mb-3">
-								 <input type="text" name="number" id="number" class="form-control" placeholder="인증번호 입력">
-							 <label for="floatingInput">인증번호</label>
-						</div>
-						<div class="d-grid gap-2">
-								 <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()" class="btn btn-lg btn-secondary">인증번호 확인</button>
-						</div>
-					</div>
-					<div id="found_id" name="found_id" style="display:none">
-						<input type="text" id="Confirm" name="Confirm" style="display: none" value="">
-						<div id="found_data"></div>
-						<span>회원님의 아이디는</span>
-						<input name="memberid" id="memberid" class="foundid" disabled value="">
-						<span>입니다.</span><br>
-						<a th:href="@{/member/login}"><span>로그인 하러 가기</span></a>
-					</div>
-				-->
-
-
-
-
-
-					<!--
-
-				</div>
-				<div class="wrapping outline half">
-					<ul class="nav nav-tabs" role="tablist">
-						<li class="nav-item" role="presentation">
-							<a class="nav-link active" data-bs-toggle="tab" href="#letsFindId" aria-selected="true" role="tab">아이디 찾기</a>
-						</li>
-						<li class="nav-item" role="presentation">
-							<a class="nav-link" data-bs-toggle="tab" href="#letsFindPw" aria-selected="false" tabindex="-1" role="tab">비밀번호 찾기</a>
-						</li>
-					</ul>
-					<div id="myTabContent" class="tab-content">
-						<div class="tab-pane fade show active" id="letsFindId" role="tabpanel">
-							<div class="form-check">
-							</div>
-
-
-
-							<div id="mail_number" name="mail_number" style="display: none">
-								<div class="form-floating mb-3">
-								     <input type="text" name="number" id="number" class="form-control" placeholder="인증번호 입력">
-									 <label for="floatingInput">인증번호</label>
-								</div>
-								<div class="d-grid gap-2">
-								     <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()" class="btn btn-lg btn-secondary">인증번호 확인</button>
-								</div>
-							</div>
-							<div id="found_id" name="found_id" style="display:none">
-								<input type="text" id="Confirm" name="Confirm" style="display: none" value="">
-								<div id="found_data"></div>
-								<span>회원님의 아이디는</span>
-								<input name="memberid" id="memberid" class="foundid" disabled value="">
-								<span>입니다.</span><br>
-								<a th:href="@{/member/login}"><span>로그인 하러 가기</span></a>
-							</div>
-							<div id="checkCode" style="padding:20px 0px;">
-							</div>
-						</div>
-						<div class="tab-pane fade" id="letsFindPw" role="tabpanel">
-							<div class="form-check">
-							</div>
-							<div class="form-floating mb-3" id="mail_input">
-							   	<input type="email" name="mail" id="mail" class="form-control" placeholder="이메일을 입력하세요">
-							   	<label for="floatingInput">이메일</label>
-							</div>
-							<div class="form-floating mb-3">
-							    <input type="text" name="memberid" id="memberid" class="form-control" placeholder="아이디를 입력하세요">
-							    <label for="floatingInput">아이디</label>
-							</div>
-							<div class="form-floating mb-3">
-							    <input type="text" name="membername" id="membername" class="form-control" placeholder="이름을 입력하세요">
-							    <label for="floatingInput">이름</label>
-							</div>
-							<div class="d-grid gap-2" id="mail_input">
-							   	<button type="button" name="sendBtn" id="sendBtn" onclick="sendNumber()" class="btn btn-lg btn-primary">인증번호 보내기</button>
-							</div>
-							<div id="mail_number" name="mail_number" style="display: none">
-								<div class="form-floating mb-3">
-								     <input type="text" name="number" id="number" class="form-control" placeholder="인증번호 입력">
-									 <label for="floatingInput">인증번호</label>
-								</div>
-								<div class="d-grid gap-2">
-								     <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()" class="btn btn-lg btn-secondary">인증번호 확인</button>
-								</div>
-							</div>
-							<div id="found_id" name="found_id" style="display:none">
-								<input type="text" id="Confirm" name="Confirm" style="display: none" value="">
-								<div id="found_data"></div>
-								<span>회원님의 아이디는</span>
-								<input name="memberid" id="memberid" class="foundid" disabled value="">
-								<span>입니다.</span><br>
-								<a th:href="@{/member/login}"><span>로그인 하러 가기</span></a>
-							</div>
-							<div id="checkCode" style="padding:20px 0px;">
-							</div>
-						</div>
-					</div>
-				</div>
-			-->
 			</div>
 		</div>
 	</body>
-	
-	<!--
-	<script type="text/javascript" layout:fragment="script">
-
-		function changePageTest() {
-			
-			var insert_value2 = `<div class="form-floating mb-3">
-								 <input type="text" name="membername" class="form-control" id="floatingInput" placeholder="인증번호를 입력하세요">
-								 <label for="floatingInput">인증번호</label>
-								 </div>
-								 <div class="d-grid gap-2">
-								 	<button type="button" onclick="changePageTest()" class="btn btn-lg btn-secondary disabled">인증번호 입력</button>
-								 </div>`;
-			
-			var target_elem2 = document.getElementById('checkCode');
-			target_elem2.innerHTML = insert_value2;
-			
-		}
-
-				
-		function sendNumber(){
-		   
-			
-			if($("#mail").val() != "" && $("#membername").val() != "") {
-				
-			    $.ajax({
-			        url:"/mail/mail",
-			        type:"post",
-					crossDomain: true,
-			        dataType:"json",
-			        data:{"mail" : $("#mail").val(),
-					"membername" : $("#membername").val()
-				
-				
-					},
-					
-					error:function(request, status, error){
-						alert("올바른 이메일와 이름을 입력해주세요");
-						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			        },
-						
-			        success: function(data){
-			            alert("인증번호 발송");
-			                $("#Confirm").attr("value",data);
-							$("#mail_number").css("display","block");	
-			            }
-			        });
-					
-				 
-				
-			} else {
-				alert("이메일과 이름을 입력해주세요");
-			}
-			
-		}
-
-		    function confirmNumber(){
-		        var number1 = $("#number").val();
-		        var number2 = $("#Confirm").val();
-
-		        if(number1 == number2){
-		            alert("인증되었습니다.");
-					
-					$("#found_id").css("display","block");
-
-					checkId();
-					
-		        }else{
-		            alert("번호가 다릅니다.");
-		        }
-		    }
-			
-			function checkId() {
-				$.ajax({
-					url:"/mail/checkCode",
-					type:"post",
-					crossDomain:true,
-					dataType:"json",
-					data:{
-						"mail" : $("#mail").val()
-					},
-					
-					error:function(request, status, error){
-						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					},
-					
-					success : function(data) {
-						alert("성공");
-						$("#memberid").attr("value", data.memberid)
-					}
-
-				});
-			}
 
 
-		
-	</script>
-	-->
 </html>

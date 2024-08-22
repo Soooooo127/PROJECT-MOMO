@@ -103,16 +103,9 @@ public class MemberController {
 		return "member/find_id3";
 	}
 	
-	@PostMapping("/findid")
-	public void findIds() {
-		
-	}
-	
+
 	@GetMapping("/test")
 	public String test() {
-		
-		
-		
 		return "member/mail_test";
 	}
 	

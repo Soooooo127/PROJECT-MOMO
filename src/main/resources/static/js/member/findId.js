@@ -20,7 +20,7 @@ function sendNumber(){
   if($("#mail").val() != "" && $("#membername").val() != "") {
     
       $.ajax({
-          url:"/mail/mailSend",
+          url:"/mail/mail",
           type:"post",
           crossDomain: true,
           dataType:"json",
@@ -31,17 +31,16 @@ function sendNumber(){
       },
       
       error:function(request, status, error){
-        alert("메일 발송에 실패하였습니다");
-
+        alert("올바른 이메일와 이름을 입력해주세요");
         alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
           },
         
-      success: function(data){
-        alert("인증번호 발송");
-        $("#Confirm").attr("value",data);
-        $("#mail_number").css("display","block");	
-      }
-    });
+          success: function(data){
+              alert("인증번호 발송");
+                  $("#Confirm").attr("value",data);
+          $("#mail_number").css("display","block");	
+              }
+          });
       
      
     
