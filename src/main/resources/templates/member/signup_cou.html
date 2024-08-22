@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+	<head>
+		<title>모두 모이자, 모모! 회원 가입 약관</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Hahmlet:wght@100..900&display=swap" rel="stylesheet">
+		<script defer th:src="@{/js/member/signup_cou.js}"></script>
+	</head>
+	<body>
+		<!--전체 영역-->
+		<div layout:fragment="content">
+			
+			<!--회원 가입 동의 박스-->
+			<div class="box">
+				약관박스
+				<div>
+					약관
+					<fieldset>
+						<form method="get" id="form_wrap" th:action="@{/member/signup_next}">
+					     <legend class="mt-4">[모두 모이자, 모모] 회원 가입</legend>
+						 <!--전체 동의-->
+					     <div class="form-check" id="terms_check_all">
+					       <input class="form-check-input" type="checkbox" id="checkAll" name="checkAll">
+					       <label class="form-check-label mb-2 title" for="flexCheckDefault">
+								전체 동의하기
+					       </label>
+						   <div class="mb-3">
+							모모 이용약관, 개인정보 처리방침에 모두 동의합니다.
+						   </div>
+					     </div>
+						 <!--약관-->
+					     <div class="form-check" id="form_check">
+					       <input class="form-check-input" type="checkbox" name="agreement" id="termsOfService" required>
+					       <label class="form-check-label mb-2" for="flexCheckDefault">
+								<span class="ncsr">[필수] </span>이용약관
+					       </label>
+					     </div>
+						 <div class="coutext mb-1">
+							test<br>
+							test<br>
+							test<br>
+						 </div>
+						 <!--개인정보-->
+					     <div class="form-check mt-3" id="form_check">
+					       <input class="form-check-input" type="checkbox" name="agreement" id="privacyPolicy" required>
+					       <label class="form-check-label" for="flexCheckDefault">
+								<span class="ncsr">[필수] </span>개인정보 처리방침
+					       </label>
+					     </div>
+						 <div class="coutext">
+						 </div>
+						 <div class="button my-4">
+							 <div class="d-grid gap-2">
+							   <button class="btn btn-lg btn-primary" type="submit" id="nextStep" disabled>다음</button>
+							 </div>
+						 </div>
+						 </form>
+					 </fieldset>
+				</div>
+			</div>
+		</div>
+		
+		
+	</body>
+</html>

@@ -29,16 +29,18 @@
         <!--하단 메뉴-->
         <div class="navSize2">
           <!--메뉴-->
-          <span><a th:href="@{/}">모모 소개</a>&nbsp;&nbsp;&nbsp;</span>
-          <span><a th:href="@{/rest/}">식당 검색</a>&nbsp;&nbsp;&nbsp;</span>
-          <span><a href="#">같이 먹기</a>&nbsp;&nbsp;&nbsp;</span>
-          <span><a th:href="@{/free/list}">자유게시판</a>&nbsp;&nbsp;&nbsp;</span>
-          <span><a th:href="@{/askPosting/list}">질문과 답변</a>&nbsp;&nbsp;&nbsp;</span>
-          <span><a th:href="@{/attendComment/list}">출석체크</a>&nbsp;&nbsp;&nbsp;</span>
-          <span><a th:href="@{/notice/list}">공지사항</a>&nbsp;&nbsp;&nbsp;</span>
-          <span><a th:href="@{/faq/list}">자주 묻는 질문</a>&nbsp;&nbsp;&nbsp;</span>
-          <span><a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/mypage/inquiryPosting}">문의하기</a> </span>
-          <span><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/mypage/inquiryPosting/list}">문의답변(관리자)</a> </span>
+          <ul>
+            <li><a th:href="@{/}">모모 소개</a></li>
+            <li><a th:href="@{/rest/all}">식당 검색</a></li>
+            <li><a href="#">같이 먹기</a></li>
+            <li><a th:href="@{/free/list}">자유게시판</a></li>
+            <li><a th:href="@{/askPosting/list}">질문과 답변</a></li>
+            <li><a th:href="@{/attendComment/list}">출석체크</a></li>
+            <li><a th:href="@{/notice/list}">공지사항</a></li>
+            <li><a th:href="@{/faq/list}">자주 묻는 질문</a></li>
+            <li><a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/mypage/inquiryPosting}">문의하기</a>
+              <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/mypage/inquiryPosting/list}">문의답변(관리자)</a></li>
+          </ul>
         </div>
       </div>
     </div>
