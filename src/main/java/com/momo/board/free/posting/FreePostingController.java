@@ -102,9 +102,11 @@ public class FreePostingController {
 	
 	
 	@GetMapping("/detail/{pno}")
-	public String detail(Model model, @PathVariable("pno") Integer pno, FreeCommentForm freeCommentForm) {
+	public String detail(Model model, @PathVariable("pno") Integer pno, FreeCommentForm freeCommentForm,Principal principal) {
 		FreePosting freePosting = freePostingService.getPosting(pno);
 		model.addAttribute("freePosting", freePosting);
+		Member member = memberService.getMember(principal.getName());
+		model.addAttribute("member", member);
 		System.out.println(freePosting.toString());		
 		return "free/free_detail"; 
 	}

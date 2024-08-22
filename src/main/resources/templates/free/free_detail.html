@@ -40,7 +40,27 @@
 											width="34" height="34">
 										</div>
 										<div>
-												<span th:text="${freePosting.membernick}"></span>
+												<ul class="navbar-nav me-auto">
+												  <li class="nav-item dropdown">
+												    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+													 th:if="${freePosting.membernick != null}" th:text="${freePosting.membernick}"></a>
+												    <div class="dropdown-menu" >
+												      <a class="dropdown-item" href="#"> 프로필 보기</a>
+																													
+													  <div class="dropdown-item" sec:authorize="isAuthenticated()"
+													  th:if="${!#lists.contains(member.friend, freePosting.author) and #authentication.getPrincipal().getUsername() != freePosting.author.memberid}"
+												>
+													  
+							  								<form method="post" th:action="@{/friend/create}">
+							  								<input type="hidden" name="friendid" th:value="${freePosting.author.memberid}"> 
+							  								<button type="submit" class="btn btn-primary"  onclick="alert('내친구에서 추가된 친구를 확인해보세요!');" >친구 추가</button>																		  									
+							  						 	  </form>
+						  							  </div>									
+																				
+												    </div>
+												  </li>
+												</ul>
+																				
 												<span class="badge bg-primary">우수회원</span><br>
 												<span th:text="|최초 작성일: ${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
 												<span th:if="${freePosting.updateDate != null}" th:text="|최종 수정일: ${#temporals.format(freePosting.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
