@@ -64,16 +64,7 @@
 												<span class="badge bg-primary">우수회원</span><br>
 												<span th:text="|최초 작성일: ${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
 												<span th:if="${freePosting.updateDate != null}" th:text="|최종 수정일: ${#temporals.format(freePosting.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
-												<span th:text="|조회수 : ${freePosting.cnt}|"></span><br>
-												<span class="badge bg-primary">
-												<form method="post" th:action="@{/friend/create}">
-												<input type="hidden" name="friendid" th:value="${freePosting.author.memberid}"> 
-												<button type="submit" class="btn btn-primary" style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .70rem;"  onclick="alert('내친구에서 추가된 친구를 확인해보세요!');" >친구 추가</button>
-												</form></span>
-												
-												
-												
-												
+												<span th:text="|조회수 : ${freePosting.cnt}|"></span><br>				
 										</div>
 									</div>
 
