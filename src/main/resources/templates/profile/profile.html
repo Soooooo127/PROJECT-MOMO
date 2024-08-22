@@ -12,6 +12,10 @@
 			color: black;
 		}
 		
+		img.siz  {
+			width:40%;
+		}
+		
 	
 		
 	</style>
@@ -23,43 +27,42 @@
 	     <tr>
 	       <th class="bg"><a class="noline" th:href="@{/mypage/profile}">내 프로필</a></th>
 		   <td rowspan="6">
-			
+
 			<center>
 				<span><h1>프로필 사진</h1></span>
-				<img th:src="@{|/img/${profile.storeFilename}|}" th:if="${profile != null}" >
-			    <img src="/img/default_profile.png" th:unless="${profile != null}" >
+				<img class="siz" th:if="${memberProfile.image != null}" th:src="@{|/img/${memberProfile.image.storeFilename}|}" >
+			    <img class="siz" th:unless="${memberProfile.image != null}" src="/img/default_profile.png" >
 			</center>
 			<table class="table container">
 				<tr>
 				  <th class="bg">닉네임</th>	
-				  <td th:if="${profile != null}" th:text="${profile.profile.membernick}"></td>
-				  <td th:unless="${profile != null}" >미입력</td>
+				  <td th:if="${memberProfile.image != null}" th:text="${memberProfile.profile.membernick}"></td>
+				  <td th:unless="${memberProfile.image != null}" >미입력</td>
 				</tr>
 				<tr>
 				  <th class="bg">당도</thclass="bg">	
-				  <td th:if="${profile != null}" th:text="${profile.profile.brix}"></td>
-				  <td th:unless="${profile != null}" >미입력</td>
+				  <td th:if="${memberProfile.image != null}" th:text="${memberProfile.profile.brix}"></td>
+				  <td th:unless="${memberProfile.image != null}" >미입력</td>
 				</tr>
 				<tr>
 				  <th class="bg">성별</th>	
-				  <td th:if="${profile != null}" th:text="${profile.profile.gender}"></td>
-				  <td th:unless="${profile != null}" >미입력</td>
+				  <td th:if="${memberProfile.image != null}" th:text="${memberProfile.profile.gender}"></td>
+				  <td th:unless="${memberProfile.image != null}" >미입력</td>
    			    </tr>
 				<tr>
 				  <th class="bg">MBTI</th>
-				  <td th:if="${profile != null}" th:text="${profile.profile.mbti}"></td>
-				  <td th:unless="${profile != null}" >미입력</td>	
+				  <td th:if="${memberProfile.image != null}" th:text="${memberProfile.profile.mbti}"></td>
+				  <td th:unless="${memberProfile.image != null}" >미입력</td>	
 				</tr>
 				<tr>
 				  <th class="bg">자기소개</th>
-				  <td th:if="${profile != null}" th:text="${profile.profile.content}"></td>
-				  <td th:unless="${profile != null}" >미입력</td>	
+				  <td th:if="${memberProfile.image != null}" th:text="${memberProfile.profile.content}"></td>
+				  <td th:unless="${memberProfile.image != null}" >미입력</td>	
 				</tr>
 			</table>
 			
 			<center>
 				<a th:href="@{/mypage/modifyProfile}" class="btn btn-primary">프로필수정</a>
-				
 			</center>
 			
 			
@@ -75,7 +78,7 @@
 		   <th >회원정보 수정</th>
 		 </tr>
 		 <tr>
-		   <th><a class="noline" th:href="@{/friend/list}">내 친구</a></th>
+		   <th >내 친구</th>
 		 </tr>
 		 <tr>
 		   <th >회원 탈퇴</th>
