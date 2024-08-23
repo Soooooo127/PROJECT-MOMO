@@ -3,24 +3,29 @@
 	<head>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/restdetail.css}">
 	<title>맛집검색하자</title>
+	<meta charset="UTF-8">
+					    
 	</head>
 	<body>
-		<div layout:fragment="content" class="container">
+<div layout:fragment="content" class="container">
 	
 
-	가게정보 상세화면
-<a th:href="@{/rest/list}">가게목록</a>
 
-<h2 >맥도날드</h2>
-	<div class="rest">
+	
+
+
+	<div class="rest" >
+		<h2 th:text="${rest.name}"></h2>
+		
 			<!--상단-->
 			<div class="upper">
 				
 				<div class="pic_info">
 					<!--가게사진-->
-					<div class="pic">
-						
+					<div class="pic" >
+						<img th:src="${rest.img}" class="img">
 
+						<!--슬라이드로 넘ㄱㅣㅅ기
 						<div id="carouselExampleIndicators" class="carousel slide">
 						  <div class="carousel-indicators">
 						    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -48,27 +53,25 @@
 						    <span class="visually-hidden">Next</span>
 						  </button>
 						</div>
-						
+						-->
 						
 					</div>
 					
 					<!--가게정보-->
 					<div class="info">
 						<ul class="info_detail">
-							<li class="info_detail_content">
-								경기 김포시 김포한강1로 77-40
-								김포골드장기역 4번 출구에서 240m미터
-								영업시간
-								24시간 영업연중무휴연중무휴
-								펼쳐보기
-								전화번호
-								031-991-4000복사
-								홈페이지
-								https://www.mcdonalds.co.kr/
-								인스타그램페이스북
-								편의
-								드라이브스루
+						
+							<li th:text="${rest.category}">
+								
 							</li>
+							<li th:text="${rest.menu}">
+								
+							</li>
+							<li th:text="${rest.addr}">
+								
+							</li>
+							<li th:text="${rest.phone}"></li>
+						
 						</ul>
 					</div>
 				</div>
@@ -110,36 +113,56 @@
 				<div class="map">
 
 
+					<form>
+						<input type="hidden" th:value="${rest.map1}" id="map1" >
+						<input type="hidden" th:value="${rest.map2}" id="map2">
+						<input type="hidden" >
+					</form>
+	
+					
 					<!DOCTYPE html>
 					<html>
 					<head>
 					    <meta charset="UTF-8">
 					    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 					    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-					
-					    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=zcynsyz8ui"></script>
+					    
+					    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=/zcynsyz8ui"></script>
 					</head>
 					<body>
 					<div id="map" style="width:100%;height:400px;"></div>
 
 					<script>
 						
+					
+					var map33 = document.querySelector("#map1").value;
+					var map44 = document.querySelector("#map2").value;
 						
 					var mapOptions = {
-					    center: new naver.maps.LatLng(37.62093613, 126.7169214),
+					    center: new naver.maps.LatLng(map33, map44),
 					    zoom: 18
 					};
+
 					var map = new naver.maps.Map('map', mapOptions);
 					
+					
 					var marker = new naver.maps.Marker({
-					    position: new naver.maps.LatLng(37.62093613, 126.7169214),
+					    position: new naver.maps.LatLng(map33, map44),
 					    map: map
 					});
-
+					
 					
 					</script>
 					</body>
 					</html>
+					
+					
+					
+					
+					
+					
+					
+				</div>	
 					
 					
 			</div>
@@ -147,9 +170,9 @@
 	
 	
 	
-	<!--레이아웃-->
-		</div>
-	</body>
+
+</div>
+</body>
 </html>
 
 

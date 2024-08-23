@@ -4,7 +4,7 @@
 	height:auto;	
 
 	padding: 5px;
-	border: 4px solid rgb(0, 0, 0);
+	border: 4px solid rgb(255, 255, 255);
 	border-radius: 15px;
 	
 }
@@ -14,7 +14,7 @@
 		width: 100%;
 		height: 50%;
 		padding: 10px;
-		border: 2px solid rgb(0, 0, 0);
+		border: 2px solid rgb(255, 255, 255);
 		border-radius: 15px;
 		box-sizing: border-box;
 		
@@ -28,14 +28,17 @@
 	.pic { /*사진*/
 		width: 50%;
 		padding: 5px;
-		border: 2px solid black;
+		border: 2px solid rgb(255, 255, 255);
 		border-radius: 15px;
 	}
 	
+	.img{
+		width: 350px;
+	}
 	.info{/*가게정보*/
 		width: 50%;
 		padding: 5px;
-		border: 2px solid black;
+		border: 2px solid rgb(255, 255, 255);
 		border-radius: 15px;		
 	}
 	
@@ -54,26 +57,26 @@
 		.jjim{/*찜*/
 			width: 25%;
 			padding: 5px;
-			border: 2px solid black;
+			border: 2px solid rgb(255, 255, 255);
 			border-radius: 15px;
 		}
 		.star{/*평점*/
 			width: 25%;
 			
 			padding: 5px;
-			border: 2px solid black;
+			border: 2px solid rgb(255, 255, 255);
 			border-radius: 15px;
 		}
 		.re{/*리뷰갯수*/
 			width: 25%;
 			padding: 5px;
-			border: 2px solid black;
+			border: 2px solid rgb(255, 255, 255);
 			border-radius: 15px;
 		}
 		.lank{/*랭킹*/
 			width: 25%;
 			padding: 5px;
-			border: 2px solid black;
+			border: 2px solid rgb(255, 255, 255);
 			border-radius: 15px;
 		}					
 	
@@ -82,9 +85,9 @@
 	width: 100%;
 	height: 50%;
 	padding: 10px;
-	border: 2px solid rgb(0, 0, 0);
+	border: 2px solid rgb(255, 255, 255);
 	border-radius: 15px;
-	background-color: rgb(181, 181, 255);
+	
 			
 }
 	
@@ -92,7 +95,7 @@
 		width: 100%;
 		height: 40%;
 		padding: 5px;
-		border: 2px solid black;
+		border: 2px solid rgb(255, 255, 255);
 		border-radius: 15px;
 	}
 		.et_mid{/**/
@@ -103,14 +106,14 @@
 				width: 100%;
 				
 				padding: 5px;
-				border: 2px solid black;
+				border: 2px solid rgb(255, 255, 255);
 				border-radius: 15px;
 			}
 			.et_new{/*같이먹기 신규생성*/
 				width: 100%;
 				
 				padding: 5px;
-				border: 2px solid black;
+				border: 2px solid rgb(255, 255, 255);
 				border-radius: 15px;
 			}
 	
@@ -119,13 +122,13 @@
 		width: 100%;
 		height: 30%;
 		padding: 5px;
-		border: 2px solid black;
+		border: 2px solid rgb(255, 255, 255);
 		border-radius: 15px;
 	}
 	.map{/*지도*/
 		width: 100%;
 		height: 30%;
 		padding: 5px;
-		border: 2px solid black;
+		border: 2px solid rgb(0, 0, 0);
 		border-radius: 15px;
 	}
