@@ -30,14 +30,20 @@
 					
 			</div>
 			
-			(☞ﾟヮﾟ)☞ {식당정보 없음.. ㅜㅡㅜ }  ☜(ﾟヮﾟ☜)
-			
 			<!--식당사진 리스트-->
 			<div class="list">
 
-			
+				<div>
+						<hr><h2>						
+						<span th:text="|검색결과가 ${#lists.size(restList)}  건입니다|"></span></h2>
+					
+	
+
+					</div>
 				
 				<div class="card border-primary mb-3   c" style="max-width: 25rem;" th:each="rest : ${restList}">
+					
+
 					<a th:href="@{|/rest/detail/${rest.no}|}">
 								  <h5 class="card-header ">
 									<span th:text="${rest.name}"></span></h5>
@@ -54,7 +60,10 @@
 								   태그넣는곳	
 								   </span>
 								  </div>
-					</a>			  
+					</a>	
+					
+
+							  
 				</div>
 
 			</div>
@@ -66,10 +75,9 @@
 			
 		</div>
 		
-		
+
 		</div>
-		
-		<!--검색 js-->
+		<!--검색 js-->		
 		<script layout:fragment="script" type='text/javascript'>
 
 		const btn_search = document.getElementById("btn_search");
@@ -79,6 +87,10 @@
 		    document.getElementById('searchForm').submit();
 		});
 		</script>
+		
 	</body>
+	
+	
+	
 </html>
 	
