@@ -67,6 +67,7 @@ body {
 	height:450px;
 	float:left;
 }
+
 .frame-l {
 	width:300px;
 	border-right:solid 1px #e1e1e1;
@@ -115,4 +116,36 @@ td input:focus {
 
 .sendBtn {
 	width:100%;
+}
+
+.infoTitle {
+  width:100%;
+	padding:10px;
+	margin: auto;
+  border-bottom: 2px solid salmon;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.infoContent {
+	padding-top: 15px;
+}
+
+.infoFound {
+	padding: 20px;
+	border-top: dashed 1px #e1e1e1;
+	text-align: center;
+	line-height: 2rem;
+}
+
+.infoFoundid {
+	width: 100px;
+	text-align: center;
+	line-height: 3rem;
+	color: salmon;
+	font-weight: bold;
+	font-size: 1.2rem;
+	border: none;
+
 }

@@ -17,14 +17,14 @@ body {
 }
 
 .frame-t2 {
-  width:800px;
+  width:900px;
   height:500px;
   margin: auto;
   overflow: auto;
 }
 
 .frame-l {
-  width:400px;
+  width:450px;
   height:500px;
   border-right:solid 1px #999999;
   float: left;
@@ -45,4 +45,14 @@ td {
 
 .last {
   border: none;
+}
+
+.findInfo {
+  width:300px;
+  border-bottom: 2px solid salmon;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+
+
 }

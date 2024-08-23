@@ -14,7 +14,9 @@
   
           <!--회원 메뉴-->
           <div class="navMember">
+            <!--
             <a sec:authorize="isAuthenticated()" th:text="|Welcome, ${#authentication.getPrincipal().getMembernick()}!|" th:href="@{/mypage/inquiryPosting}"></a>
+          -->
             <span sec:authorize="isAnonymous()"><a th:href="@{/member/login}">로그인</a></span>
             <span sec:authorize="isAuthenticated()">| <a th:href="@{/member/logout}">로그아웃</a></span>
             <span sec:authorize="isAnonymous()">| <a th:href="@{/member/signup}">회원가입</a></span>

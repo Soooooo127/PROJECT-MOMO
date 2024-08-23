@@ -18,9 +18,18 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MemberSecurityService implements UserDetailsService {
+	// 스프링 시큐리티에서 사용자 정보를 가져오는 인터페이스
 	
 	private final MemberRepository memberRepository;
+	
+	@Override
+    public Member loadUserByUsername(String memberid) {
+        return memberRepository.findBymemberid(memberid)
+                 .orElseThrow(() -> new IllegalArgumentException((memberid)));
+    }
 
+	/*
+	// 회원의 id(memberid)로 정보를 가져오는 메소드(시큐리티 일반 로그인용, OAuth2 사용을 위해 잠시 주석 처리함)
 	@Override
 	public UserDetails loadUserByUsername(String memberid) throws UsernameNotFoundException {
 		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
@@ -40,6 +49,7 @@ public class MemberSecurityService implements UserDetailsService {
 		return memberDetail;
 	}
 	
+	// 현재 사용자를 리턴하는 메소드(OAuth2 사용을 위해 잠시 주석 처리함_)
     public UserDetails getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
@@ -50,5 +60,6 @@ public class MemberSecurityService implements UserDetailsService {
             return null;
         }
     }
+    */
 
 }

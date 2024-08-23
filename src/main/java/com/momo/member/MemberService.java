@@ -18,6 +18,7 @@ public class MemberService {
 	
 	private final MemberRepository memberRepository;
 	private final PasswordEncoder passwordEncoder;
+
 	
 	public Member create(MemberCreateForm memberCreateForm) {
 		Member member = new Member();
@@ -30,6 +31,20 @@ public class MemberService {
 		this.memberRepository.save(member);
 		return member;
 	}
+	
+
+	// Builder를 사용한 객체 생성 메소드
+	public Integer save(MemberAddRequest mar) {
+		return memberRepository.save(Member.builder()
+				.memberid(mar.getMemberid())
+				.password(passwordEncoder.encode(mar.getPassword1()))
+				.membername(mar.getMembername())
+				.membernick(mar.getMembernick())
+				.email(mar.getEmail())
+				.build()).getNo();
+	}
+	
+	
 
 	public Member getMember(String memberid) {
 		Optional<Member> member = this.memberRepository.findBymemberid(memberid);
