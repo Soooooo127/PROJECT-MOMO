@@ -76,12 +76,21 @@ public class MemberService {
 	}
 	
 	// 회원정보 업데이트 메소드
-	public void updateMember(String memberid, String membernick, Profile profile , Image image) {
+	public void updateMember(String memberid, Profile profile) {
 		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
 		if(_member.isPresent()) {
 			Member member = _member.get();
-			member.setMembernick(membernick);
 			member.setProfile(profile);
+			this.memberRepository.save(member);
+		} else {
+			throw new DataNotFoundException("site member not found");
+		}
+	}
+	
+	public void updateMember(String memberid, Image image) {
+		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
+		if(_member.isPresent()) {
+			Member member = _member.get();
 			member.setImage(image);
 			this.memberRepository.save(member);
 		} else {

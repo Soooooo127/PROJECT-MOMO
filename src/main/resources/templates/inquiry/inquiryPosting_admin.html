@@ -57,15 +57,27 @@
 <div class="container">
 	<!--게시판 이름-->
 	<div>
-		<a class="no" th:href="@{/mypage/inquiryPosting/list}">문의한 글</a>
+		<a class="no" th:href="@{/inquiryPosting/list}">문의한 글</a>
 		<hr>
 	</div>
+	<!--검색기능-->
+	<div class="row my-3">
+	        <div class="col-6">
+	            <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
+	        </div>
+	        <div class="col-6">
+	            <div class="input-group">
+	                <input type="text" id="search_kw" class="form-control" th:value="${kw}">
+	                <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+	            </div>
+	        </div>
+	    </div>
 	<!--글 목록-->
 	<table class="table table-hover">
 		<!--날짜순 혹은 미답변 문의글 정렬-->
 		  <div>
-					<a th:href="@{/mypage/inquiryPosting/list}" class="btn btn-primary">최신순</a>
-					<a th:href="@{/mypage/inquiryPosting/noCommentList}" class="btn btn-primary">미답변 글 보기</a>
+					<a th:href="@{/inquiryPosting/list}" class="btn btn-primary">최신순</a>
+					<a th:href="@{/inquiryPosting/noCommentList}" class="btn btn-primary">미답변 글 보기</a>
 		  </div>
 		<thead>
 			<tr class="table-primary">
@@ -81,7 +93,7 @@
 				<tr class="table" th:each="posting :${paging}">
 				   <td class="td.column_a" >Q</td>
 				   <td class="td.column_b">
-					<a class="noline" th:href="@{|/mypage/inquiryPosting/detail/${posting.no}|}" th:text="${posting.subject}"></a>
+					<a class="noline" th:href="@{|/inquiryPosting/detail/${posting.no}|}" th:text="${posting.subject}"></a>
 				   </td>
 				   <td class="td.column_c" th:text="${posting.membernick}"></td>
 				   <td class="td.column_c" th:if="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
@@ -100,7 +112,7 @@
 		<ul class="pagination justify-content-center">
 
 			<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-				<a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+				<a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">
 					<span>이전</span>
 				</a>
 			</li>
@@ -108,20 +120,39 @@
 			<li th:each="page : ${#numbers.sequence(0, paging.totalPages-1) }"
 			th:if="${page >= paging.number -3 and page <= paging.number + 3}"
 			th:classappend="${page==paging.number} ? 'active'" class="page-item">
-				<a th:text="${page+1}" class="page-link" th:href="@{|?page=${page}|}"></a>
+				<a th:text="${page+1}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
 			</li>
 			
 			<li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-				<a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+				<a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">
 					<span>다음</span>
 				</a>
 			</li>
 		</ul>
 	</div>
 	
+	<form th:action="@{/question/list}" method="get" id="searchForm">
+	        <input type="hidden" id="kw" name="kw" th:value="${kw}">
+	        <input type="hidden" id="page" name="page" th:value="${paging.number}">
+	</form>
 	
 </div>
 
+<script layout:fragment="script" type='text/javascript'>
+const page_elements = document.getElementsByClassName("page-link");
+Array.from(page_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        document.getElementById('page').value = this.dataset.page;
+        document.getElementById('searchForm').submit();
+    });
+});
+const btn_search = document.getElementById("btn_search");
+btn_search.addEventListener('click', function() {
+    document.getElementById('kw').value = document.getElementById('search_kw').value;
+    document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
+    document.getElementById('searchForm').submit();
+});
+</script>
 </div>
 
 </html>

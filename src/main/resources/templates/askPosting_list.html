@@ -30,7 +30,33 @@
 						<span class="text-danger small ms-2" th:if="${#lists.size(askPosting.askCommentList)>0}"
 						th:text="${#lists.size(askPosting.askCommentList)}"></span>
 					</td>
-					<td><span th:if="${askPosting.membernick != null}" th:text="${askPosting.membernick.membernick}"></span></td>
+				
+				<td>
+											
+											
+					<ul class="navbar-nav me-auto">
+					  <li class="nav-item dropdown">
+				    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+					 th:if="${askPosting.membernick != null}" th:text="${askPosting.membernick.membernick}"></a>
+					    <div class="dropdown-menu" >
+				      <a class="dropdown-item" href="#"> 프로필 보기</a>
+																			
+				  <div class="dropdown-item" sec:authorize="isAuthenticated()"
+				  th:if="${#authentication.getPrincipal().getUsername() != askPosting.membernick.memberid}"
+				  >
+					<form method="post" th:action="@{/friend/create}">
+					<input type="hidden" name="friendid" th:value="${askPosting.membernick.membernick}">
+					<button type="submit" class="btn btn-primary" style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .87rem;" onclick="alert('친구 추가 완료');" >친구 추가</button>
+					</form>
+					
+					
+					
+					
+				  </div>							
+		    </div>
+		  </li>
+			</ul>											
+				</td>
 					<td th:text="${#temporals.format(askPosting.createDate , 'yyyy-MM-dd HH:mm')}"></td>
 					<td th:text="${askPosting.cnt}"></td>
 					<td th:text="${#lists.size(askPosting.ddabong)}"></td>
