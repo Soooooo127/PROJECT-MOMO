@@ -29,9 +29,6 @@ public class OAuth2Member {
 	
 	@ManyToOne
 	private Member member;
-	
-	
-	
-	
+
 
 }

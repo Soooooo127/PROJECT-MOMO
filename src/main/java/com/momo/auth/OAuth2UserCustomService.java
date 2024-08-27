@@ -2,9 +2,7 @@ package com.momo.auth;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -37,7 +35,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         System.out.println("oAuth2User : " + oAuth2User.getAttributes());
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         OAuth2Response oAuth2Response = null;
-        String role = "ROLE_USER";
+        String role = "ROLE_MEMBER";
         
         System.out.println();
         
@@ -48,23 +46,17 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         }
 
         // 동일한 이메일을 가진 회원이 있는지 확인
-        Optional<Member> temp1 = memberRepository.findMemberByEmail(oAuth2Response.getEmail());
-        System.out.println("동일한 이메일 주소를 가진 회원 존재 여부(존재 시 true 출력) : " + temp1.isPresent());
+        Optional<Member> tempMember = memberRepository.findMemberByEmail(oAuth2Response.getEmail());
+        System.out.println("동일한 이메일 주소를 가진 회원 존재 여부(존재 시 true 출력) : " + tempMember.isPresent());
         
         
         // 동일 이메일을 가진 회원이 있다면 해당 SNS로 등록을 완료했는지 확인 
-        if(temp1.isPresent()) {
+        if(tempMember.isPresent()) {
 
-        	Member member = temp1.get();
+        	Member member = tempMember.get();
         	System.out.println("회원의 아이디 : " + member.getMemberid());
         	
         	addSnsInfo(member, oAuth2Response, registrationId);
-        	
-
-
-
-
-
 
         // 동일 이메일을 가진 회원이 없기 때문에 신규 가입 후 해당 SNS로 등록을 완료 
         } else {
@@ -72,6 +64,15 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         	addSnsInfo(createMember(oAuth2Response), oAuth2Response, registrationId);
         	
         }
+        
+        // 회원의 권한을 체크
+        Optional<Member> tempMember2 = memberRepository.findMemberByEmail(oAuth2Response.getEmail());
+        Member finalMember = tempMember2.get();
+        
+        if(finalMember.getCreateDate() != null) {
+        	role = "ROLE_MEMBER";
+        }
+        
         
         return new OAuth2CustomUser(oAuth2Response, role);
     }
@@ -117,6 +118,10 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 	// SNS 로그인 계정 정보를 업데이트 하는 메소드
 	public void addSnsInfo(Member member, OAuth2Response oAuth2Response, String registrationId) {
 		System.out.println("-----SNS계정 업데이트 메소드 진입");
+		System.out.println("RegistrationId : " + registrationId);
+		
+		Optional<List<OAuth2Member>> snsListTemp = oAuth2MemberRepository.findByMemberNo(member.getNo());
+		List<OAuth2Member> snsList = snsListTemp.get();
 		
 		// 폼 회원가입한 후 SNS 연결을 한 번도 하지 않은 회원의 경우
 		if(member.getOauth2MemberList() == null) {
@@ -125,54 +130,33 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 			createOAuth2Member(member, oAuth2Response, registrationId);
 			
 		
+			
 		// 폼 회원가입한 후 SNS 연결을 한 적이 있거나, SNS을 통한 회원가입을 한 회원	
 		} else {
 			System.out.println("SNSList 존재 여부 : 있습니다.");
-			List<OAuth2Member> snsList = member.getOauth2MemberList();
 			
-			// SNS 연결이 하나라도 있는지 여부 확인, 없다면
-			if(snsList.isEmpty()) {
-				System.out.println("SNSList : 비어있습니다.");
+			List<String> providerList = new ArrayList<>();
+			for(int i=0 ; i < snsList.size() ; i++) {
+				providerList.add(snsList.get(i).getProvider());
+			}
+			
+			// 해당 registrationId로 연결된 정보가 있는지 확인
+			if(providerList.contains(registrationId)) {
+				System.out.println(registrationId + "이 리스트에 있습니다.");
 				
-				snsList.add(createOAuth2Member(member, oAuth2Response, registrationId));
-			
-			// SNS 연결이 하나라도 있는지 여부 확인, 있다면
 			} else {
-				System.out.println("SNSList : 비어있지 않습니다.");
-				
-				if(!snsList.contains(registrationId)) {
-					System.out.println(registrationId + "이 리스트에 없습니다.");
-					snsList.add(createOAuth2Member(member, oAuth2Response, registrationId));
-				} 
+				System.out.println(registrationId + "이 리스트에 없습니다.");
+				createOAuth2Member(member, oAuth2Response, registrationId);
 				
 			}
 			
 		}
-		
+
 		memberRepository.save(member);
+	
 	}
 	
-	// 회원 SNS 로그인 정보 획득 메소드
-	/*
-	public Map<String, OAuth2Member> getSnsList(Member member) {
-		
-		Optional<Map<String, OAuth2Member>> tempList = oAuth2MemberRepository.findByMemberid(member.getMemberid());
-		
-		if(tempList.isPresent()) {
-			System.out.println("List가 존재합니다.");
-			Map<String, OAuth2Member> tempList2 = tempList.get();
-			Set<String> snsList = tempList2.keySet();
-			Iterator<String> iterator = snsList.iterator();
-			
-			while(iterator.hasNext()) {
-				String sns = iterator.next();
-			}
-			
-		}
-		
-		return null;
-	}
-*/
+
 
 
 	

@@ -54,6 +54,8 @@ public class Member implements UserDetails {
 	
 	private LocalDateTime createDate;
 	
+	private String role;
+	
 	@ManyToMany
 	private List<Member> friend;
 	
