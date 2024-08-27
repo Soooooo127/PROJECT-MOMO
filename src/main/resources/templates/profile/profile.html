@@ -7,15 +7,30 @@
 		    width:20%;
 		}
 	    
-		a.noline {
+		.noline {
 			text-decoration-line: none;
 			color: black;
 		}
 		
-		img.siz  {
+		.siz  {
 			width:40%;
 		}
 		
+		.box {
+		    width: 300px;
+		    height: 300px; 
+		    border-radius: 80%;
+		    overflow: hidden;
+		}
+		.profile {
+		    width: 100%;
+		    height: 100%;
+		    object-fit: cover;
+			border-style:solid;
+			border-width:3px;
+			border-color:black;
+			border-radius:100%;
+		}
 	
 		
 	</style>
@@ -27,37 +42,70 @@
 	     <tr>
 	       <th class="bg"><a class="noline" th:href="@{/mypage/profile}">내 프로필</a></th>
 		   <td rowspan="6">
-
+			
 			<center>
 				<span><h1>프로필 사진</h1></span>
-				<img class="siz" th:if="${memberProfile.image != null}" th:src="@{|/img/${memberProfile.image.storeFilename}|}" >
-			    <img class="siz" th:unless="${memberProfile.image != null}" src="/img/default_profile.png" >
+				<!--프로필 사진-->
+				<div class="box" >
+				<img class="profile" th:if="${memberProfile.image != null}" th:src="@{|/img/${memberProfile.image.storeFilename}|}" >
+			    <img class="profile" th:unless="${memberProfile.image != null}" src="/img/default_profile.png" >
+			    </div>
 			</center>
+			<form th:action="@{/image/delete}" method="post">
+				<button type="button">이미지 삭제</button>
+			</form>
+			<!-- 프로필 이미지 수정 modal -->
+			    <center>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				  프로필 이미지 수정
+				</button>
+				</center><br>
+
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="exampleModalLabel">프로필 이미지 수정</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+						<form th:action="@{/image/upload}" method="post" enctype="multipart/form-data">
+				        <input type="file" name="files" accept="image/png, image/jpg, image/jpeg" >
+						<span>(jpg, jpeg, png 파일만 가능)</span>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				        <button type="submit" class="btn btn-primary">저장하기</button>
+				      </div>
+					  </form>
+				    </div>
+				  </div>
+				</div>
 			<table class="table container">
 				<tr>
 				  <th class="bg">닉네임</th>	
-				  <td th:if="${memberProfile.image != null}" th:text="${memberProfile.profile.membernick}"></td>
-				  <td th:unless="${memberProfile.image != null}" >미입력</td>
+				  <td th:text="${memberProfile.membernick}"></td>
 				</tr>
 				<tr>
-				  <th class="bg">당도</thclass="bg">	
-				  <td th:if="${memberProfile.image != null}" th:text="${memberProfile.profile.brix}"></td>
-				  <td th:unless="${memberProfile.image != null}" >미입력</td>
+				  <th class="bg">당도</th>	
+				  <td th:if="${memberProfile.profile != null}" th:text="${memberProfile.profile.brix}"></td>
+				  <td th:unless="${memberProfile.profile != null}" >4.5</td>
 				</tr>
 				<tr>
 				  <th class="bg">성별</th>	
-				  <td th:if="${memberProfile.image != null}" th:text="${memberProfile.profile.gender}"></td>
-				  <td th:unless="${memberProfile.image != null}" >미입력</td>
+				  <td th:if="${memberProfile.profile != null}" th:text="${memberProfile.profile.gender}"></td>
+				  <td th:unless="${memberProfile.profile != null}" >미입력</td>
    			    </tr>
 				<tr>
 				  <th class="bg">MBTI</th>
-				  <td th:if="${memberProfile.image != null}" th:text="${memberProfile.profile.mbti}"></td>
-				  <td th:unless="${memberProfile.image != null}" >미입력</td>	
+				  <td th:if="${memberProfile.profile != null}" th:text="${memberProfile.profile.mbti}"></td>
+				  <td th:unless="${memberProfile.profile != null}" >미입력</td>	
 				</tr>
 				<tr>
 				  <th class="bg">자기소개</th>
-				  <td th:if="${memberProfile.image != null}" th:text="${memberProfile.profile.content}"></td>
-				  <td th:unless="${memberProfile.image != null}" >미입력</td>	
+				  <td th:if="${memberProfile.profile != null}" th:text="${memberProfile.profile.content}"></td>
+				  <td th:unless="${memberProfile.profile != null}" >미입력</td>	
 				</tr>
 			</table>
 			
@@ -69,16 +117,16 @@
 		   </td>
 	     </tr>
 		 <tr>
-		   <th><a class="noline" th:href="@{/mypage/inquiryPosting}">나의 활동</a></th>
+		   <th><a class="noline" th:href="@{/inquiryPosting}">나의 활동</a></th>
  	     </tr>
 		 <tr>
 		   <th >내 같이 먹기</th>
 		 </tr>
 		 <tr>
-		   <th >회원정보 수정</th>
+		   <th><a class="noline" th:href="@{/member/memberInfo}">회원정보 수정</a></th>
 		 </tr>
 		 <tr>
-		   <th ><a class="noline" th:href="@{/friend/list}">내 친구</a></th>
+		   <th><a class="noline" th:href="@{/friend/list}">내 친구</a></th>
 		 </tr>
 		 <tr>
 		   <th >회원 탈퇴</th>

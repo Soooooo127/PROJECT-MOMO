@@ -22,7 +22,7 @@ public class ProfileService {
 	private final MemberRepository memberRepository;
 	
 	
-	public void modifyProfile(String memberid, String membernick, String gender, String content, String mbti , MultipartFile file) throws IOException {
+	public void modifyProfile(String memberid, String gender, String content, String mbti){
 
 		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
 		Member member = new Member();
@@ -36,7 +36,6 @@ public class ProfileService {
 		
 		if(_profile.isEmpty()) {
 			Profile profile = new Profile();
-			profile.setMembernick(membernick);
 			profile.setGender(gender);
 			profile.setMbti(mbti);
 			profile.setContent(content);
@@ -45,7 +44,6 @@ public class ProfileService {
 
 		} else if(_profile.isPresent()) {
 			Profile profile = _profile.get();
-			profile.setMembernick(membernick);
 			profile.setGender(gender);
 			profile.setMbti(mbti);
 			profile.setContent(content);

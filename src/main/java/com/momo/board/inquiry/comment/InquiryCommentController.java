@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/mypage/inquiryComment")
+@RequestMapping("/inquiryComment")
 public class InquiryCommentController {
 	
 	private final InquiryCommentService inquiryCommentService;
@@ -40,14 +40,14 @@ public class InquiryCommentController {
 		   return "/inquiry/inquiryPosting_detail";	
 		}
 		this.inquiryCommentService.create(inquiryPosting, inquiryCommentForm.getContent(), member.getMembernick(), member);
-		return String.format("redirect:/mypage/inquiryPosting/detail/%s", no);
+		return String.format("redirect:/inquiryPosting/detail/%s", no);
 	}
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/delete/{pno}/{cno}")
 	public String deleteComment(@PathVariable(value="cno") Integer cno) {
 		this.inquiryCommentService.delete(cno);
-		return "redirect:/mypage/inquiryPosting/detail/{pno}";
+		return "redirect:/inquiryPosting/detail/{pno}";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -76,7 +76,7 @@ public class InquiryCommentController {
 			return "/inquiry/inquiryComment_form";
 		}
 		this.inquiryCommentService.update(cno, inquiryCommentForm.getContent());
-		return "redirect:/mypage/inquiryPosting/detail/{pno}";
+		return "redirect:/inquiryPosting/detail/{pno}";
 	} 
 	
 	
