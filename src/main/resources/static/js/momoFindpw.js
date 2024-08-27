@@ -20,13 +20,13 @@ function sendNumber(){
   if($("#mail").val() != "" && $("#membername").val() != "") {
     
       $.ajax({
-          url:"/mail/mailSend",
+          url:"/mail/mailSendPw",
           type:"post",
           crossDomain: true,
           dataType:"json",
           data:{"mail" : $("#mail").val(),
-      "membername" : $("#membername").val()
-
+      "membername" : $("#membername").val(),
+      "memberid" : $("#memberid").val()
     
     
       },
@@ -47,7 +47,7 @@ function sendNumber(){
      
     
   } else {
-    alert("이메일, 이름, 아이디를 입력해주세요");
+    alert("이메일과 이름을 입력해주세요");
   }
   
 }
@@ -59,23 +59,26 @@ function confirmNumber(){
         if(number1 == number2){
             alert("인증되었습니다.");
       
-      $("#found_id").css("display","block");
+      $("#found_pw").css("display","block");
 
-      checkId();
+      resetPw();
       
         }else{
             alert("번호가 다릅니다.");
         }
 }
   
-function checkId() {
+function resetPw() {
     $.ajax({
-      url:"/mail/checkCode",
+      url:"/mail/resetPw",
       type:"post",
       crossDomain:true,
       dataType:"json",
       data:{
-        "mail" : $("#mail").val()
+        "mail" : $("#mail").val(),
+        "membername" : $("#membername").val(),
+        "memberid" : $("#memberid").val()
+        
       },
       
       error:function(request, status, error){

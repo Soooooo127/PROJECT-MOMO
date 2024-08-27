@@ -48,6 +48,16 @@ public class MailController {
         return num;
     }
     
+    @ResponseBody
+    @PostMapping("/mailSendPw")
+    public String authMailSendPw(@RequestParam(value ="mail") String mail, @RequestParam(value = "membername") String membername
+    		, @RequestParam(value = "memberid") String memberid) {
+    	int number = mailService.sendMailPw(mail, membername, memberid);
+    	String num = "" + number;
+    	
+    	return num;
+    }
+    
     
     // JSON 테스트용
     @GetMapping("/jsontest")
@@ -60,6 +70,19 @@ public class MailController {
     @ResponseBody
     @PostMapping("/checkCode")
     public MailReturn checkCode(@RequestParam(value ="mail") String mail) {
+    	String memberid = mailService.checkCode(mail).getMemberid();
+    	MailReturn mailReturn = new MailReturn();
+    	mailReturn.setMemberid(memberid);
+    	
+    	System.out.println("확인된 아이디 : " + memberid);
+    	
+    	return mailReturn;
+    }
+    
+    // JSON 전용 인증번호 확인 후 비밀번호 재설정
+    @ResponseBody
+    @PostMapping("/resetPw")
+    public MailReturn resetPw(@RequestParam(value ="mail") String mail) {
     	String memberid = mailService.checkCode(mail).getMemberid();
     	MailReturn mailReturn = new MailReturn();
     	mailReturn.setMemberid(memberid);

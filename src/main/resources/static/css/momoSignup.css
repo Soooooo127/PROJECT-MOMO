@@ -42,7 +42,7 @@ body {
 
 .coutext {
 	border: solid 1px #e1e1e1;
-	height:10rem;
+	height:500px;
 }
 
 
@@ -56,20 +56,20 @@ body {
 }
 
 .frame-t2 {
-  width:800px;
-  height:500px;
+  width:850px;
+  height:600px;
 	padding:20px;
   margin: auto;
   overflow: auto;
 }
 
 .frame-l, .frame-r {
-	height:450px;
+	height:500px;
 	float:left;
 }
 
 .frame-l {
-	width:300px;
+	width:350px;
 	border-right:solid 1px #e1e1e1;
 }
 
