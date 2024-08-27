@@ -4,14 +4,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.momo.auth.OAuth2Member;
 import com.momo.image.Image;
 import com.momo.member.profile.Profile;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,11 +22,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
@@ -53,12 +54,11 @@ public class Member implements UserDetails {
 	
 	private LocalDateTime createDate;
 	
-	private String provider;
-	
-	private String providerId;
-	
 	@ManyToMany
 	private List<Member> friend;
+	
+	@OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+	private List<OAuth2Member> oauth2MemberList;
 	
 	@OneToOne
 	@JoinColumn(name = "image_no")
@@ -67,7 +67,9 @@ public class Member implements UserDetails {
 	@OneToOne
 	@JoinColumn(name = "profile_no")
 	private Profile profile;
+
 	
+	/*
 	@Builder
 	public Member(String memberid, String password, String membername
 			, String membernick, String email) {
@@ -78,6 +80,7 @@ public class Member implements UserDetails {
 		this.membernick = membernick;
 		this.email = email;
     }
+    */
 
 	public Member updateEmail(String email) {
 	    this.email = email;
@@ -136,5 +139,9 @@ public class Member implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+
+
 
 }

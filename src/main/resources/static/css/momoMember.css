@@ -30,6 +30,45 @@ body {
   float: left;
 }
 
+.frame-l2 {
+  width:170px;
+  border:1px solid #e1e1e1;
+  border-radius: 10px;
+  margin-left: 20px;
+  float:left;
+}
+
+.frame-main {
+  border: 1px solid #999999;
+  margin-left: 20px;
+  padding:20px;
+}
+
+.smlist {
+  margin:15px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.smlistl {
+  margin:15px;
+}
+
+ul {
+  list-style-type:none;
+  padding-left: 10px;
+}
+
+li {
+  line-height: 2rem;
+  color:#999999;
+}
+
+.titleMenu {
+  color:salmon;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
 .frame-t1 table {
   width: 100%;
 
@@ -47,12 +86,5 @@ td {
   border: none;
 }
 
-.findInfo {
-  width:300px;
-  border-bottom: 2px solid salmon;
-  font-size: 1.3rem;
-  font-weight: bold;
-  text-align: center;
 
 
-}

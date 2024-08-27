@@ -84,7 +84,6 @@ function checkId() {
       success : function(data) {
         alert("성공");
         $("#memberid").attr("value", data.memberid)
-        document.getElementById("foundid2").innerText = data.memberid;
       }
 
     });

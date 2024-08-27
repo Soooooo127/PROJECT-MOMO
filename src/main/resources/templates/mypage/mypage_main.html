@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+  <head>
+    <title>모두 모이자, 모모 : 마이페이지</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/momoMember.css}">
+
+  </head>
+  <body>
+    <!--전체 영역-->
+    <div layout:fragment="content">
+      <!--상단 영역-->
+      <div>
+  
+      </div>
+      <!--하단 영역-->
+      <div>
+        <table width="100%">
+          <tr>
+            <!--좌측 메뉴 영역-->
+            <td width="230px">
+              <div class="frame-l2">
+                <div class="smlist">
+                  <ul>
+                    <li class="titleMenu">내 활동</li>
+                    <li>내 게시물</li>
+                    <li>내 댓글</li>
+                    <li>내 친구</li>
+                    <li>내 랭킹</li>
+                  </ul>
+                  
+                </div>
+                <div class="smlist">
+                  <ul>
+                    <li class="titleMenu">내 가게</li>
+                    <li>내 리뷰</li>
+                    <li>내 찜</li>
+                    <li>내 같이 먹기</li>
+                  </ul>
+                  
+                </div>
+                <div class="smlist">
+                  <ul>
+                    <li class="titleMenu">회원정보</li>
+                    <li>회원정보 수정</li>
+                    <li>프로필 수정</li>
+                    <li>회원탈퇴</li>
+                  </ul>
+                  
+                </div>
+                <div class="smlist">
+                  <ul>
+                    <li class="titleMenu">고객센터</li>
+                    <li>공지사항</li>
+                    <li>자주 묻는 질문</li>
+                    <li>문의하기</li>
+                  </ul>
+                  
+                </div>
+                <div class="smlist last">
+                  <ul>
+                    <li>회원탈퇴</li>
+                  </ul>
+                  
+                </div>
+              </div>
+            </td>
+            <!--우측 메뉴 영역-->
+            <td style="vertical-align: top;">
+              <div class="frame-main">
+                메인 영역입니다
+              </div>
+            </td>
+          </tr>
+        </table>
+  
+      </div>
+
+
+    </div>
+
+  </body>
+</html>

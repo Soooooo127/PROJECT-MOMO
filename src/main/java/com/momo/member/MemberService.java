@@ -1,12 +1,14 @@
 package com.momo.member;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
+import com.momo.auth.OAuth2Member;
 import com.momo.image.Image;
 import com.momo.member.profile.Profile;
 
@@ -33,6 +35,7 @@ public class MemberService {
 	}
 	
 
+	/*
 	// Builder를 사용한 객체 생성 메소드
 	public Integer save(MemberAddRequest mar) {
 		return memberRepository.save(Member.builder()
@@ -43,7 +46,7 @@ public class MemberService {
 				.email(mar.getEmail())
 				.build()).getNo();
 	}
-	
+	*/
 	
 
 	public Member getMember(String memberid) {
@@ -72,6 +75,7 @@ public class MemberService {
 		
 	}
 	
+	// 회원정보 업데이트 메소드
 	public void updateMember(String memberid, String membernick, Profile profile , Image image) {
 		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
 		if(_member.isPresent()) {
@@ -84,5 +88,9 @@ public class MemberService {
 			throw new DataNotFoundException("site member not found");
 		}
 	}
+	
+
+	
+
 
 }

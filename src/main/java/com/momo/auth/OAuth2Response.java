@@ -7,13 +7,16 @@ public interface OAuth2Response {
 	String getProvider();
 	
 	// 각 업체에서의 사용자 id
-	String getProviderID();
+	String getProviderId();
 	
 	// 사용자의 email
 	String getEmail();
 	
 	// 사용자의 이름
 	String getName();
+	
+	// 사용자의 사진
+	String getPicture();
 	
 	
 }

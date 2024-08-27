@@ -31,25 +31,24 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-				//				.requestMatchers(new AntPathRequestMatcher("/**")).hasRole(null)
+//				.requestMatchers(new AntPathRequestMatcher("/**")).hasRole(null)
 				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
 
 
 
 
-		//				csrf 사이트 위변조 방지 설정이며, 개발 시에만 ignore 합니다
-		.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
-		// 인증메일 발송을 위한 csrf 관련 제외 추가
-		.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**")))
-		.headers((headers) -> headers.addHeaderWriter(
-				new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
-		.formLogin((formLogin) -> formLogin
+				// csrf 사이트 위변조 방지 설정이며, 개발 시에만 ignore 합니다
+				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
+				// 인증메일 발송을 위한 ignore
+				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**")))
+				.headers((headers) -> headers.addHeaderWriter(
+						new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
+				.formLogin((formLogin) -> formLogin
 				.usernameParameter("memberid")
-
 				.loginPage("/member/login")
 				.failureUrl("/member/loginfailed")
 				.defaultSuccessUrl("/"))
-		.logout((logout) -> logout
+				.logout((logout) -> logout
 				.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
 				.logoutSuccessUrl("/")
 				.invalidateHttpSession(true));
@@ -62,7 +61,7 @@ public class SecurityConfig {
 		/*
 		 * 
 		 *  	.oauth2Login
- 	.loginPage(Customizer.withDefaults()); 
+ 				.loginPage(Customizer.withDefaults()); 
 		        // OAuth 2.0 로그인 방식 설정
 		        http
 		                .oauth2Login((auth) -> auth.loginPage("/oauth-login/login")

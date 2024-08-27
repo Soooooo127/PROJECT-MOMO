@@ -43,7 +43,7 @@ public class OAuth2CustomUser implements OAuth2User {
 	
 	
 	public String getMemberid() {
-		return oAuth2Response.getProvider() + "" + oAuth2Response.getProviderID();
+		return oAuth2Response.getProvider() + "" + oAuth2Response.getProviderId();
 	}
 	
 

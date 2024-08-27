@@ -42,6 +42,10 @@ public class MemberController {
 		return "member/login_form";
 	}
 	
+	@GetMapping("/mypage")
+	public String goToMypage() {
+		return "mypage/mypage_main";
+	}
 	/*
 	@GetMapping("/loginsuccessful")
 	public String loginSuccessful(MemberCreateForm memberCreateForm, Principal principal,

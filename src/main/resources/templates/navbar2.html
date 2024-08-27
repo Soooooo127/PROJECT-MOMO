@@ -14,9 +14,7 @@
   
           <!--회원 메뉴-->
           <div class="navMember">
-            <!--
-            <a sec:authorize="isAuthenticated()" th:text="|Welcome, ${#authentication.getPrincipal().getMembernick()}!|" th:href="@{/mypage/inquiryPosting}"></a>
-          -->
+            <a sec:authorize="isAuthenticated()" th:text="|Welcome, ${#authentication.getPrincipal().getMembernick()}!|" th:href="@{/member/mypage}"></a>
             <span sec:authorize="isAnonymous()"><a th:href="@{/member/login}">로그인</a></span>
             <span sec:authorize="isAuthenticated()">| <a th:href="@{/member/logout}">로그아웃</a></span>
             <span sec:authorize="isAnonymous()">| <a th:href="@{/member/signup}">회원가입</a></span>
@@ -33,7 +31,7 @@
           <!--메뉴-->
           <span><a th:href="@{/}">모모 소개</a>&nbsp;&nbsp;&nbsp;</span>
           <span><a th:href="@{/rest/}">식당 검색</a>&nbsp;&nbsp;&nbsp;</span>
-          <span><a href="#">같이 먹기</a>&nbsp;&nbsp;&nbsp;</span>
+          <span><a th:href="@{/rest/et}">같이 먹기</a>&nbsp;&nbsp;&nbsp;</span>
           <span><a th:href="@{/free/list}">자유게시판</a>&nbsp;&nbsp;&nbsp;</span>
           <span><a th:href="@{/askPosting/list}">질문과 답변</a>&nbsp;&nbsp;&nbsp;</span>
           <span><a th:href="@{/attendComment/list}">출석체크</a>&nbsp;&nbsp;&nbsp;</span>

@@ -9,4 +9,5 @@ public interface FreePostingRepository extends JpaRepository<FreePosting, Intege
 	Page<FreePosting> findAll(Pageable pageable);
 
 	
+	
 }

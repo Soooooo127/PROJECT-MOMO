@@ -34,6 +34,7 @@ public class FreePostingService {
 		freePosting.setCreateDate(LocalDateTime.now());
 		freePosting.setAuthor(member);
 		freePostingRepository.save(freePosting);
+		
 	}
 	
 	public void update(FreePosting freePosting, String subject, String content) {

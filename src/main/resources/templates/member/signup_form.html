@@ -17,6 +17,9 @@
 				<div class="frame-t1">
 					<!--상세 필드 영역-->
 					<form method="post" th:action="@{/member/signup}" th:object="${memberCreateForm}">
+						<div>
+							필수 입력 정보
+						</div>
 						<div class="border border-secondary-subtle rounded">
 							<div th:replace="~{/member/member_form_errors :: formErrorsFragment}">
 							</div>
@@ -48,12 +51,39 @@
 									</tr>
 								</table>
 							</div>
+
+						</div>
+
+						<div>
+							선택 입력 정보
+						</div>
+						<div class="border border-secondary-subtle rounded">
+							<!--
+							<div th:replace="~{/member/member_form_errors :: formErrorsFragment}">
+							</div>
+						-->
+							<div>
+								<table>
+									<tr>
+										<td><i class="fi fi-sr-user"></i> 성별</td>
+										<td><input type="text" th:field="*{memberid}"></td>
+									</tr>
+									<tr>
+										<td><i class="fi fi-sr-lock"></i> MBTI</td>
+										<td><input type="password" th:field="*{password1}"></td>
+									</tr>
+									<tr>
+										<td><i class="fi fi-sr-lock"></i> 자기소개</td>
+										<td><input type="password" th:field="*{password2}"></td>
+									</tr>
+								</table>
+							</div>
+
 						</div>
 						<div>
 							<div class="d-grid gap-2">
 								<br>
 								<button type="submit" class="btn btn-lg btn-primary">회원가입</button>
-								<img th:src="@{/css/tired.png}">
 							</div>
 						</div>
 
