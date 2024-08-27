@@ -29,5 +29,11 @@ public class MemberCreateForm {
 	@Email
 	@NotEmpty(message = "이메일은 필수 항목입니다")
 	private String email;
+	
+	private String gender;
+	
+	private String mbti;
+	
+	private String content;
 
 }
