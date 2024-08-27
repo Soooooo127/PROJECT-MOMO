@@ -171,4 +171,32 @@ public class FreePostingController {
 		freePostingService.delete(pno);
 		return "redirect:/free/list";
 	}
+	
+	//찜 테스트를 위한 임시 메소드
+	@GetMapping("/nope/1")
+	public String jjimTest() {
+		System.out.println("테스트 메소드에 들어왔습니다.");
+		FreePosting freePosting = freePostingService.getPosting(1);
+		int nope = freePosting.getCnt();
+		nope++;
+		freePosting.setCnt(nope);
+		freePostingService.update(freePosting);
+		
+		return "redirect:/rest/";
+		
+	}
+	
+	//찜 테스트를 위한 임시 메소드2
+	@GetMapping("/nope/2")
+	public String jjimTest2() {
+		System.out.println("테스트 메소드에 들어왔습니다.");
+		FreePosting freePosting = freePostingService.getPosting(1);
+		int nope = freePosting.getCnt();
+		nope--;
+		freePosting.setCnt(nope);
+		freePostingService.update(freePosting);
+		
+		return "redirect:/rest/";
+		
+	}
 }

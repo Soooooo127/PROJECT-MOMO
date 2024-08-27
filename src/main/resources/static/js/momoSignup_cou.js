@@ -58,3 +58,24 @@ checkAll.addEventListener('click', (e) => {
   toggleSubmitButton();
 });
 
+const open = document.querySelectorAll("#open");
+const modalBox = document.querySelectorAll("#modal-box");
+const close = document.querySelectorAll("#close");
+
+open[0].addEventListener("click", () => {
+  modalBox[0].classList.toggle("active"); 
+});
+
+close[0].addEventListener("click", () => {
+  modalBox[0].classList.remove("active"); 
+});
+
+open[1].addEventListener("click", () => {
+  modalBox[1].classList.toggle("active"); 
+});
+
+close[1].addEventListener("click", () => {
+  modalBox[1].classList.remove("active"); 
+});
+
+

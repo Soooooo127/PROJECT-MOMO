@@ -98,6 +98,10 @@ public class MemberService {
 		}
 	}
 	
+	// 회원정보 업데이트(일반) 메소드
+	public void updateMember(Member member) {
+		memberRepository.save(member);
+	}
 
 	
 

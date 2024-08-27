@@ -58,10 +58,7 @@ function confirmNumber(){
 
         if(number1 == number2){
             alert("인증되었습니다.");
-      
-      $("#found_pw").css("display","block");
-
-      resetPw();
+           $("#found_pw").css("display","block");
       
         }else{
             alert("번호가 다릅니다.");
@@ -69,26 +66,34 @@ function confirmNumber(){
 }
   
 function resetPw() {
-    $.ajax({
-      url:"/mail/resetPw",
-      type:"post",
-      crossDomain:true,
-      dataType:"json",
-      data:{
-        "mail" : $("#mail").val(),
-        "membername" : $("#membername").val(),
-        "memberid" : $("#memberid").val()
-        
-      },
-      
-      error:function(request, status, error){
-        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-      },
-      
-      success : function(data) {
-        alert("성공");
-        $("#memberid").attr("value", data.memberid)
-      }
+    var password1 = $("#password1").val();
+    var password2 = $("#password2").val();
 
-    });
+    if(password1 == password2) {
+      
+      $.ajax({
+        url:"/mail/resetPw",
+        type:"post",
+        crossDomain:true,
+        data:{
+          "memberid" : $("#memberid").val(),
+          "password" : password1
+        },
+        
+        error:function(request, status, error){
+          alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+        
+        success : function() {
+          alert("성공");
+          window.location.href = "/";
+        }
+  
+      });
+
+    } else {
+      alert("비밀번호를 다르게 입력하였습니다. 다시 입력해주세요");
+    }
+
+
 }

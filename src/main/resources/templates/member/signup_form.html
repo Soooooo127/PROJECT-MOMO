@@ -13,51 +13,55 @@
 				<div>
 					로고
 				</div>
-				<!--입력 필드 영역-->
 				<div class="frame-t1">
+					<!--입력 필드 영역-->
+					<div class="signinInfo searchTitle">
+						필수 입력 정보
+					</div>
+					<div>
+						<p class="signinInfoSm detailCheck">
+							<span style="color: salmon; font-weight: bold;">*</span>표시는 필수 입력 항목입니다.
+						</p>
+					</div>
 					<!--상세 필드 영역-->
 					<form method="post" th:action="@{/member/signup}" th:object="${memberCreateForm}">
-						<div>
-							필수 입력 정보
-						</div>
 						<div class="border border-secondary-subtle rounded">
 							<div th:replace="~{/member/member_form_errors :: formErrorsFragment}">
 							</div>
 							<div>
 								<table>
 									<tr>
-										<td><i class="fi fi-sr-user"></i> 아이디</td>
-										<td><input type="text" th:field="*{memberid}"></td>
+										<td width="150px"><i class="fi fi-sr-user"></i> 아이디<span>*</span></td>
+										<td><input type="text" th:field="*{memberid}" placeholder="아이디를 입력하세요"></td>
 									</tr>
 									<tr>
-										<td><i class="fi fi-sr-lock"></i> 비밀번호</td>
-										<td><input type="password" th:field="*{password1}"></td>
+										<td><i class="fi fi-sr-lock"></i> 비밀번호<span>*</span></td>
+										<td><input type="password" th:field="*{password1}" placeholder="비밀번호를 입력하세요"></td>
 									</tr>
 									<tr>
-										<td><i class="fi fi-sr-lock"></i> 비밀번호 확인</td>
-										<td><input type="password" th:field="*{password2}"></td>
+										<td><i class="fi fi-sr-lock"></i> 비밀번호 확인<span>*</span></td>
+										<td><input type="password" th:field="*{password2}" placeholder="비밀번호를 한 번 더 입력하세요"></td>
 									</tr>
 									<tr>
-										<td><i class="fi fi-sr-grin-squint"></i> 이름(실명)</td>
-										<td><input type="text" th:field="*{membername}"></td>
+										<td><i class="fi fi-sr-grin-squint"></i> 이름(실명)<span>*</span></td>
+										<td><input type="text" th:field="*{membername}" placeholder="이름을 입력하세요"></td>
 									</tr>
 									<tr>
-										<td><i class="fi fi-sr-grin-beam"></i> 닉네임</td>
-										<td><input type="text" th:field="*{membernick}"></td>
+										<td><i class="fi fi-sr-grin-beam"></i> 닉네임<span>*</span></td>
+										<td><input type="text" th:field="*{membernick}" placeholder="닉네임을 입력하세요"></td>
 									</tr>
 									<tr class="last">
-										<td><i class="fi fi-sr-envelope"></i> 이메일</td>
-										<td><input type="email" th:field="*{email}"></td>
+										<td><i class="fi fi-sr-envelope"></i> 이메일<span>*</span></td>
+										<td><input type="email" th:field="*{email}" placeholder="name@example.com"></td>
 									</tr>
 								</table>
 							</div>
-
 						</div>
 
+
+
 						<!--선택 입력 영역-->
-
-
-						<div>
+						<div class="signinInfo searchTitle mt-4">
 							선택 입력 정보
 						</div>
 						<div class="border border-secondary-subtle rounded">

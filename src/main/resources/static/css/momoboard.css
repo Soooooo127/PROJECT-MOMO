@@ -1,5 +1,8 @@
 	body {
-		font-size:0.9em;
+		font-family: "Noto Sans KR", sans-serif;
+		font-optical-sizing: auto;
+		font-weight: 350;
+		font-style: normal;
 	}
 	
 	.foundid {
@@ -257,6 +260,16 @@
 		color:#fb5e4d;
 	}
 	
+.membermenu {
+	text-align: center;
+	color: salmon;
+	font-weight: bold;
+}
+
+a:hover, a:link, a:visited {
+	text-decoration-line: none;
+}
+
 	.mainmenu:after{display:block; content:''; clear:both;}
 	.mainmenu > li{position:relative; float:left; margin-right:5px;}
 	.mainmenu > li > a{display:block; padding:0 15px; height:40px; line-height:40px; color:#999999;}
