@@ -43,12 +43,19 @@ public class ImageService {
             String originalFilename = "default_profile.png";
             String storeFilename = "default_profile.png";
             
-            Image image = new Image();
-            image.setOriginalFilename(originalFilename);
-            image.setStoreFilename(storeFilename);
-            image.setAuthor(member);
-            return image;
-            
+            Optional<Image> _image = this.imageRepository.findByAuthor(member);
+            if(_image.isPresent()) {
+             Image image = _image.get();
+             image.setOriginalFilename(originalFilename);
+             image.setStoreFilename(storeFilename);
+             return image;
+            } else {
+             Image image = new Image();
+             image.setOriginalFilename(originalFilename);
+             image.setStoreFilename(storeFilename);
+             image.setAuthor(member);
+             return image;
+            }
         }
         
         String originalFilename = file.getOriginalFilename();
@@ -62,18 +69,25 @@ public class ImageService {
         String myDirectory = System.getProperty("user.dir");
         String fullPath = myDirectory + "\\src\\main\\resources\\static\\img\\" + storeFilename;
                            
-
         // 파일을 저장하는 부분 -> 파일경로 + storeFilename 에 저장
-          file.transferTo(new File(fullPath));
-        
+        file.transferTo(new File(fullPath));
+         
        // Path path = Paths.get(fullPath).toAbsolutePath();
        // file.transferTo(path.toFile());
-       
-        Image image = new Image();
-        image.setOriginalFilename(originalFilename);
-        image.setStoreFilename(storeFilename);
-        image.setAuthor(member);
-        return image;
+       // Image image = getImage(member.getMemberid());
+          Optional<Image> _image = this.imageRepository.findByAuthor(member);
+          if(_image.isPresent()) {
+            Image image = _image.get();
+            image.setStoreFilename(storeFilename);
+            image.setAuthor(member);
+            return image;
+        } else {
+            Image image = new Image();
+            image.setOriginalFilename(originalFilename);
+            image.setStoreFilename(storeFilename);
+            image.setAuthor(member);
+            return image;
+        }
     }
 	
 	 public Image getImage(String memberid) {
@@ -105,8 +119,9 @@ public class ImageService {
 			  img.setStoreFilename(image.getStoreFilename());
 			  this.imageRepository.save(img);
 		  } else {
-			  throw new DataNotFoundException("해당 이미지를 찾을 수 없습니다");
+			  throw new DataNotFoundException("해당 회원의 이미지를 찾을 수 없습니다");
 		  }
 		  
 	  }
+	  
 }

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+  <head>
+    <title>모두 모이자, 모모 : 마이페이지</title>
+  </head>
+  <body>
+
+    <div layout:fragment="content">
+      <div class="mypageLayout">
+        <div class="mypageLayout-l" th:insert="~{/mypage/mypage_menu :: mypageMenu}">
+        </div>
+        <div class="mypageLayout-r">
+          <th:block layout:fragment="mypageContent"></th:block>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -58,6 +58,7 @@ public class MailService {
     	return message;
     }
     
+    // 아이디 찾기용 sendMail
     public int sendMail(String mail, String membername) {
         MimeMessage message = CreateMail(mail);
         
@@ -72,6 +73,30 @@ public class MailService {
         
 
         return number;
+    }
+    
+    // 비밀번호 찾기용 sendMailPw
+    public int sendMailPw(String mail, String membername, String memberid) {
+    	MimeMessage message = CreateMail(mail);
+    	
+    	Member member = memberService.getMemberByEmail(mail);
+    	System.out.println(member.toString());
+    	
+    	if(membername.equals(member.getMembername())) {
+    		
+    		if(memberid.equals(member.getMemberid())) {
+    			javaMailSender.send(message);
+    			
+    		} else {
+    			throw new DataNotFoundException("일치하는 회원을 찾을 수 없습니다");
+    		}
+    		
+    	} else {
+    		throw new DataNotFoundException("일치하는 회원을 찾을 수 없습니다");
+    	}
+    	
+    	
+    	return number;
     }
     
     

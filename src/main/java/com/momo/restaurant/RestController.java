@@ -1,5 +1,6 @@
 package com.momo.restaurant;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.momo.restaurant.et.EatTogether;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +30,19 @@ public class RestController {
 	@GetMapping("/detail/{no}")
 	public String restDetail(Model model, @PathVariable("no")Integer no) {
 		Restaurant rest = this.restService.getRestaurant(no);
+		
+		List<EatTogether> etList = rest.getEtList();
+		
+		LocalDate today = LocalDate.now();
+		Integer expired = 0;
+		for(EatTogether et : etList) {
+			if(today.isAfter(et.getEtdate().toLocalDate())) {
+				expired += 1;
+				
+			}
+		}
+		rest.setProgresset(etList.size() - expired);
+		
 		model.addAttribute("rest", rest);
 		
 		return "rest/rest_detail";

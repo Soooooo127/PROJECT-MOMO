@@ -18,7 +18,7 @@
 	
 	
 	
-	<table class="table table-hover container my-3">
+	<table class="table container my-3">
 	 
 	     <tr>
 	       <th class="bg"><a class="noline" th:href="@{/mypage/profile}">내 프로필</a></th>
@@ -29,31 +29,88 @@
 			
 			</center>
 			<!--내가 입력할 값들의 타입이 text와 file형태다. 타입이 같으면 상관없지만 다른 타입을 동시에 제출해야하므로 이를 구분해주는 것이 multipart이다-->
-			<form th:action="@{/mypage/modifyProfile}" th:object="${profileForm}" method="post" enctype="multipart/form-data">
+			
+			<form th:action="@{/mypage/modifyProfile}" method="post" enctype="multipart/form-data">
 			  <table class="table container">
 				<tr>
+				<!--닉네임-->
 				  <th class="bg">닉네임</th>	
-				  <td><input th:field="*{membernick}"></td>
+				  <td th:text="|${memberProfile.membernick} (회원정보에서 수정 가능)|"></td>
 				</tr>
 				<tr>
+				<!--당도-->
 				  <th class="bg">당도</th>	
-				  <td></td>
+				  <td th:if="${memberProfile.profile != null}" th:text="${memberProfile.profile.brix}"></td>
+				  <td th:unless="${memberProfile.profile != null}">4.5</td>
 				</tr>
 				<tr>
+				<!--성별 라디오버튼-->
 				  <th class="bg">성별</th>	
-				  <td><input th:field="*{gender}"></td>
+				  <td>
+				  <div class="form-check">
+				    <input class="form-check-input" type="radio" name="gender" value="남자" th:text="남자" checked>
+				  </div>
+				  <div class="form-check">
+				    <input class="form-check-input" type="radio" name="gender" value="여자" th:text="여자">
+				  </div>
+				  </td>
    			    </tr>
 				<tr>
+				<!--mbti-->
 				  <th class="bg">MBTI</th>
-				  <td><input th:field="*{mbti}"></td>	
+				  <td>
+					<!--프로필 처음 작성-->
+				  <select th:unless="${memberProfile.profile != null}" class="form-select form-select-lg mb-3" aria-label="Large select example" name="mbti">
+					<option selected>없음</option>
+					<option value="ISTJ">ISTJ</option>
+					<option value="ISFJ">ISFJ</option>
+					<option value="INFJ">INFJ</option>
+					<option value="INTJ">INTJ</option>
+					<option value="ISTP">ISTP</option>
+					<option value="ISFP">ISFP</option>
+					<option value="INFP">INFP</option>
+					<option value="INTP">INTP</option>
+					<option value="ESTP">ESTP</option>
+					<option value="ESFP">ESFP</option>
+					<option value="ENFP">ENFP</option>
+					<option value="ENTP">ENTP</option>
+					<option value="ESTJ">ESTJ</option>
+					<option value="ESFJ">ESFJ</option>
+					<option value="ENFJ">ENFJ</option>
+					<option value="ENTJ">ENTJ</option>
+				  </select>
+					<!--프로필이 이미 존재할 때 -->
+				  <select th:if="${memberProfile.profile != null}" class="form-select form-select-lg mb-3" aria-label="Large select example" name="mbti">
+				    <option th:if="${memberProfile.profile.mbti != null}" th:text="${memberProfile.profile.mbti}" th:value="${memberProfile.profile.mbti}" selected></option>
+					<option th:unless="${memberProfile.profile.mbti != null}" selected>없음</option>
+				    <option th:if="${memberProfile.profile.mbti != 'ISTJ'}" value="ISTJ">ISTJ</option>
+				    <option th:if="${memberProfile.profile.mbti != 'ISFJ'}" value="ISFJ">ISFJ</option>
+				    <option th:if="${memberProfile.profile.mbti != 'INFJ'}" value="INFJ">INFJ</option>
+					<option th:if="${memberProfile.profile.mbti != 'INTJ'}" value="INTJ">INTJ</option>
+					<option th:if="${memberProfile.profile.mbti != 'ISTP'}" value="ISTP">ISTP</option>
+					<option th:if="${memberProfile.profile.mbti != 'ISFP'}" value="ISFP">ISFP</option>
+				    <option th:if="${memberProfile.profile.mbti != 'INFP'}" value="INFP">INFP</option>
+				    <option th:if="${memberProfile.profile.mbti != 'INTP'}" value="INTP">INTP</option>
+					<option th:if="${memberProfile.profile.mbti != 'ESTP'}" value="ESTP">ESTP</option>
+					<option th:if="${memberProfile.profile.mbti != 'ESFP'}" value="ESFP">ESFP</option>
+					<option th:if="${memberProfile.profile.mbti != 'ENFP'}" value="ENFP">ENFP</option>
+					<option th:if="${memberProfile.profile.mbti != 'ENTP'}" value="ENTP">ENTP</option>
+					<option th:if="${memberProfile.profile.mbti != 'ESTJ'}" value="ESTJ">ESTJ</option>
+				    <option th:if="${memberProfile.profile.mbti != 'ESFJ'}" value="ESFJ">ESFJ</option>
+					<option th:if="${memberProfile.profile.mbti != 'ENFJ'}" value="ENFJ">ENFJ</option>
+					<option th:if="${memberProfile.profile.mbti != 'ENTJ'}" value="ENTJ">ENTJ</option>
+				  </select>
+				  </td> 
 				</tr>
 				<tr>
+				<!--자기소개-->
 				  <th class="bg">자기소개</th>
-				  <td><input th:field="*{content}"></td>
-				</tr>
-				<tr>
-				  <th class="bg">프로필사진</th>
-				  <td><input type="file" name="files"></td>
+				  <td th:if="${not #strings.isEmpty(memberProfile.profile)}" >
+					<textarea name="content" id="content" rows="5" th:text="${memberProfile.profile.content}"></textarea>
+				  </td>
+				  <td th:unless="${not #strings.isEmpty(memberProfile.profile)}">
+				  	<textarea name="content" id="content" rows="5" th:text="없음"></textarea>
+				  </td>
 				</tr>
 			  </table>
 			 <center>
@@ -64,16 +121,16 @@
 		   </td>
 	     </tr>
 		 <tr>
-		   <th><a class="noline" th:href="@{/mypage/inquiryPosting}">나의 활동</a></th>
+		   <th><a class="noline" th:href="@{/inquiryPosting}">나의 활동</a></th>
  	     </tr>
 		 <tr>
 		   <th >내 같이 먹기</th>
 		 </tr>
 		 <tr>
-		   <th >회원정보 수정</th>
+		   <th><a class="noline" th:href="@{/member/memberInfo}">회원정보 수정</a></th>
 		 </tr>
 		 <tr>
-		   <th ><a class="noline" th:href="@{/mypage/friend}">내 친구</a></th>
+		   <th><a class="noline" th:href="@{/friend/list}">내 친구</a></th>
 		 </tr>
 		 <tr>
 		   <th >회원 탈퇴</th>

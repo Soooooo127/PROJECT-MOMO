@@ -42,6 +42,21 @@ public class MemberController {
 		return "member/login_form";
 	}
 	
+	@GetMapping("/mypage")
+	public String goToMypage() {
+		return "layout_mypage";
+	}
+	
+	@GetMapping("/mypageTest")
+	public String goToMypageTest() {
+		return "mypage/mypage_test";
+	}
+	
+	@GetMapping("/modifyMember")
+	public String goToModify() {
+		return "mypage/mypage_test";
+	}
+	
 	/*
 	@GetMapping("/loginsuccessful")
 	public String loginSuccessful(MemberCreateForm memberCreateForm, Principal principal,
@@ -103,10 +118,19 @@ public class MemberController {
 		return "member/find_id3";
 	}
 	
+	@GetMapping("/findpw")
+	public String findpw() {
+		return "member/find_pw";
+	}
 
 	@GetMapping("/test")
-	public String test() {
-		return "member/mail_test";
+	public void test() {
+		
+		System.out.println("불러오기 테스트");
+		
+//		Member member = memberService.getMember(58);
+		
+		
 	}
 	
 	/*

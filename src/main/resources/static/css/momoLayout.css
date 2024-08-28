@@ -66,3 +66,16 @@
   width:100%;
   border:none;
 }
+
+.mypageLayout {
+  overflow: auto;
+}
+
+.mypageLayout-l, .mypageLayout-r {
+  float: left;
+}
+
+.mypageLayout-l {
+  width:300px;
+  padding:20px;
+}

@@ -1,0 +1,81 @@
+<html layout:decorate="~{layout}">
+	<div layout:fragment="content" class="container my-3">
+		<h5>같이먹기 상세페이지</h5>
+		
+		<div class="card my-3">
+			<div class="card-body">
+				<div>
+					<h5 th:text="|${et.ettitle}|"></h5>
+				</div>
+				
+				<div>
+					<h5 th:text="|가게명 : ${rest.name}|"></h5>
+				</div>
+				
+				<div class="my-3">
+					<div class="d-flex justify-content-start">
+						<div class="mb-2" th:text="|방장 : ${et.applymember.membernick}|"></div>
+					</div>
+					
+					<div class="d-flex justify-content-end">
+						<div th:text="|신청일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></div>
+					
+					</div>
+				
+					<div class="d-flex justify-content-end">
+						<div class="" th:text="|같이먹는날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></div>
+					</div>
+				
+					
+				</div>
+				
+				<a th:text="|*** 함께 모모하는 사람들 ***|"></a>
+				
+				<div class="mb-2">
+					<th:block th:each="member : ${et.prtmember}">
+						<div><a href="#"  th:text="${member.membernick}"></a></div>
+						
+					</th:block>
+				</div>
+			
+				<div class="d-flex justify-content-end">
+					<div class="mx-2">
+						<a th:if="${isMemberIn} and ${et.applymember.memberid != #authentication.getPrincipal().getUsername()}"
+						th:href="@{|/et/leave/${rest.no}/${et.no}|}" class="btn btn-primary">방 나가기</a>
+					</div>
+					
+					<div>
+						<a th:if="${!isMemberIn}"
+						th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
+						<a th:if="${et.applymember.memberid == #authentication.getPrincipal().getUsername()}"
+						href="javascript:void(0)" th:data-uri="@{|/et/delete/${rest.no}/${et.no}|}" class="delete btn btn-primary">모모방 삭제</a>
+					</div>
+					
+					
+				</div>
+					<div>
+					<a href="#" th:onClick="window.open('/message/list','message','width=800, height=800')" class="chat icon-wrap">
+					<img th:src="@{/css/images/chatting.png}" width="70px" height="70px" alt="채팅 아이콘" class="icon">
+								</a>
+							</div>
+			</div>
+			<!--${et.applymember.memberid != #authentication.getPrincipal().getUsername()}-->
+			
+		</div>
+		
+		<script layout:fragment="script" type="text/javascript">
+			//이미 방 참여시 알림창 구문
+			
+			//모모방 삭제구문
+			const delete_elements = document.getElementsByClassName("delete");
+			Array.from(delete_elements).forEach(function(element){
+				element.addEventListener('click' , function(){
+					if(confirm("정말로 삭제하시겠습니까?")){
+						location.href = this.dataset.uri;
+					}
+				})
+			})
+		</script>
+		
+	</div>
+</html>

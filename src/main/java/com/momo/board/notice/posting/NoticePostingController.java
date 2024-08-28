@@ -39,7 +39,7 @@ public class NoticePostingController {
 		Page<NoticePosting> paging = this.noticePostingService.getList(page,kw);
 		model.addAttribute("paging", paging);
 		model.addAttribute("kw", kw);
-		return "notice_list";
+		return "notice/notice_list";
 	}
 	
 	//공지사항 상세보기
@@ -48,7 +48,7 @@ public class NoticePostingController {
 		
 		 NoticePosting noticePosting = this.noticePostingService.getNoticePosting(no);
 		 model.addAttribute("noticePosting", noticePosting);
-		 return "notice_detail";
+		 return "notice/notice_detail";
 	}
 	
 	
@@ -57,7 +57,7 @@ public class NoticePostingController {
 
 	@GetMapping("/create")
 	public String noticeCreate(NoticePostingForm noticePostingForm) {
-		return "notice_form";
+		return "notice/notice_form";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -67,7 +67,7 @@ public class NoticePostingController {
 		  Member member  = this.memberService.getMember(principal.getName());
 		
 		if(bindingResult.hasErrors()) {
-			return "notice_form";
+			return "notice/notice_form";
 		}
 		
 		this.noticePostingService.create(noticePostingForm.getSubject(), noticePostingForm.getContent(),member);
@@ -92,7 +92,7 @@ public class NoticePostingController {
 	
 		noticePostingForm.setSubject(noticePosting.getSubject()); //저장되어있는 걸로 가져오기
 		noticePostingForm.setContent(noticePosting.getContent());
-		return "notice_form";
+		return "notice/notice_form";
 	
 		
 	}

@@ -26,6 +26,7 @@ function sendNumber(){
           dataType:"json",
           data:{"mail" : $("#mail").val(),
       "membername" : $("#membername").val()
+
     
     
       },
@@ -46,7 +47,7 @@ function sendNumber(){
      
     
   } else {
-    alert("이메일과 이름을 입력해주세요");
+    alert("이메일, 이름, 아이디를 입력해주세요");
   }
   
 }

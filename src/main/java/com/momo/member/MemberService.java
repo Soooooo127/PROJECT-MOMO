@@ -1,12 +1,14 @@
 package com.momo.member;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
+import com.momo.auth.OAuth2Member;
 import com.momo.image.Image;
 import com.momo.member.profile.Profile;
 
@@ -18,6 +20,7 @@ public class MemberService {
 	
 	private final MemberRepository memberRepository;
 	private final PasswordEncoder passwordEncoder;
+
 	
 	public Member create(MemberCreateForm memberCreateForm) {
 		Member member = new Member();
@@ -30,6 +33,21 @@ public class MemberService {
 		this.memberRepository.save(member);
 		return member;
 	}
+	
+
+	/*
+	// Builder를 사용한 객체 생성 메소드
+	public Integer save(MemberAddRequest mar) {
+		return memberRepository.save(Member.builder()
+				.memberid(mar.getMemberid())
+				.password(passwordEncoder.encode(mar.getPassword1()))
+				.membername(mar.getMembername())
+				.membernick(mar.getMembernick())
+				.email(mar.getEmail())
+				.build()).getNo();
+	}
+	*/
+	
 
 	public Member getMember(String memberid) {
 		Optional<Member> member = this.memberRepository.findBymemberid(memberid);
@@ -57,17 +75,35 @@ public class MemberService {
 		
 	}
 	
-	public void updateMember(String memberid, String membernick, Profile profile , Image image) {
+	// 회원정보 업데이트 메소드
+	public void updateMember(String memberid, Profile profile) {
 		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
 		if(_member.isPresent()) {
 			Member member = _member.get();
-			member.setMembernick(membernick);
 			member.setProfile(profile);
+			this.memberRepository.save(member);
+		} else {
+			throw new DataNotFoundException("site member not found");
+		}
+	}
+	
+	public void updateMember(String memberid, Image image) {
+		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
+		if(_member.isPresent()) {
+			Member member = _member.get();
 			member.setImage(image);
 			this.memberRepository.save(member);
 		} else {
 			throw new DataNotFoundException("site member not found");
 		}
 	}
+	
+	// 회원정보 업데이트(일반) 메소드
+	public void updateMember(Member member) {
+		memberRepository.save(member);
+	}
+
+	
+
 
 }

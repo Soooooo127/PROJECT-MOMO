@@ -1,13 +1,14 @@
 package com.momo.mail;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.momo.member.Member;
 import com.momo.member.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 public class MailController {
 
 	private final MailService mailService;
+	private final MemberService memberService;
+	private final PasswordEncoder passwordEncoder;
     private int number; // 이메일 인증 숫자를 저장하는 변수
 
     // 테스트용 이메일 전송 : 본문 직접 작성용(get)
@@ -48,6 +51,16 @@ public class MailController {
         return num;
     }
     
+    @ResponseBody
+    @PostMapping("/mailSendPw")
+    public String authMailSendPw(@RequestParam(value ="mail") String mail, @RequestParam(value = "membername") String membername
+    		, @RequestParam(value = "memberid") String memberid) {
+    	int number = mailService.sendMailPw(mail, membername, memberid);
+    	String num = "" + number;
+    	
+    	return num;
+    }
+    
     
     // JSON 테스트용
     @GetMapping("/jsontest")
@@ -67,6 +80,20 @@ public class MailController {
     	System.out.println("확인된 아이디 : " + memberid);
     	
     	return mailReturn;
+    }
+    
+    // JSON 전용 인증번호 확인 후 비밀번호 재설정
+    @ResponseBody
+    @PostMapping("/resetPw")
+    public void resetPw(@RequestParam(value = "memberid") String memberid, @RequestParam(value = "password") String password) {
+    	System.out.println("확인된 아이디 : " + memberid);
+    	System.out.println("확인된 패스워드 : " + password);
+    	
+    	Member member = memberService.getMember(memberid);
+    	member.setPassword(passwordEncoder.encode(password));
+    	
+    	memberService.updateMember(member);
+    	
     }
 
 

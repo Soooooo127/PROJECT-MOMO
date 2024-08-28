@@ -14,22 +14,24 @@
 				<!--(좌측)로고/안내 영역-->
 				<div class="frame-l">
 					<div>
-						<p class="border-bottom border-danger border-2 p-2 fs-3">
+						<p class="infoTitle">
 							모두 모이자, 모모
 						</p>
-						<p>
-							모모 아이디/비밀번호 찾기 메뉴입니다.<br>
-							아이디 또는 비밀번호가 기억나지 않는 경우에는
+						<p class="infoContent">
+							모모 <strong>아이디 찾기</strong> 메뉴입니다.<br>
+							아이디가 기억나지 않는 경우에는
 							본 메뉴에서 확인하시기 바랍니다.
 						</p>
 					</div>
-					<div id="found_id" name="found_id" style="display: none;">
+					<div id="found_id" name="found_id" class="infoFound" style="display: none;">
 						<input type="text" id="Confirm" name="Confirm" style="display: none" value="">
 						<div id="found_data"></div>
-						<span>회원님의 아이디는</span>
-						<input name="memberid" id="memberid" class="foundid" disabled value="">
-						<span>입니다.</span><br>
-						<a th:href="@{/member/login}"><span>로그인 하러 가기</span></a>
+						<p>
+							회원님의 아이디는<br>
+							<input name="memberid" id="memberid" class="infoFoundid" disabled value=""><br>
+							입니다.<br>
+						</p>
+						<a th:href="@{/member/login}"><button type="button" class="btn btn-sm btn-lg btn-primary">로그인 하러 가기</button></a>
 					</div>
 				</div>
 				<!--(우측)사용자 입력 영역-->

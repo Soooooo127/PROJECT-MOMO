@@ -11,11 +11,6 @@
 		
 		<div layout:fragment="content" class="container">
 			<div>
-				
-				<span sec:authorize="isAuthenticated()" th:text="|${#authentication.getPrincipal().getMembernick()}님 환영합니다.|"></span>
-				<!--자바스크립트 테스트-->
-
-
 			</div>
 			<!--게시글 목록-->
 			<div>
@@ -57,8 +52,7 @@
 								  		<button type="submit" class="btn btn-primary"  style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .87rem;" onclick="alert('친구 추가 완료');" >친구 추가</button>
 									  								  									
 								  	  </form>
-  									  </div>								
-									
+  									  </div>									
 							    </div>
 							  </li>
 							</ul>

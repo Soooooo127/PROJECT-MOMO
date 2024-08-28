@@ -34,6 +34,7 @@ public class FreePostingService {
 		freePosting.setCreateDate(LocalDateTime.now());
 		freePosting.setAuthor(member);
 		freePostingRepository.save(freePosting);
+		
 	}
 	
 	public void update(FreePosting freePosting, String subject, String content) {
@@ -124,4 +125,8 @@ public class FreePostingService {
 		freePostingRepository.deleteById(no);
 	}
 	
+	// 찜 테스트를 위한 임시 메소드
+	public void update(FreePosting freePosting) {
+		freePostingRepository.save(freePosting);
+	}
 }
