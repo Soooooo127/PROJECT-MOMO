@@ -8,6 +8,11 @@
   font-style: normal;
 }
 
+.layoutFrame {
+  width:1400px;
+  margin: auto;
+}
+
 .nav1st, .nav2nd {
   width:100%;
   overflow: hidden;

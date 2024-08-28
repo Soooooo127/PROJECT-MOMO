@@ -54,7 +54,7 @@ public class MemberController {
 	
 	@GetMapping("/modifyMember")
 	public String goToModify() {
-		return "mypage/mypage_test";
+		return "mypage/mypage_check";
 	}
 	
 	/*

@@ -36,6 +36,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         OAuth2Response oAuth2Response = null;
         String role = "ROLE_MEMBER";
+        String membernick = null;
         
         System.out.println();
         
@@ -74,7 +75,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         }
         
         
-        return new OAuth2CustomUser(oAuth2Response, role);
+        return new OAuth2CustomUser(oAuth2Response, role, finalMember);
     }
     
     
