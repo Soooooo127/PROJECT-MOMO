@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-	<head>
+<h2>채팅 화면 테스트</h2>
+<head>
 		<!--Required meta tags-->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!--bootstrap css-->
-		<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
 		<!--Bootstrap js-->
 		<script th:src="@{/bootstrap.min.js}"></script>
 		<style>
@@ -29,19 +29,18 @@
 				        stompClient = Stomp.over(socket);
 				        stompClient.connect({}, function (frame) {
 				            console.log('Connected: ' + frame);
-				            stompClient.subscribe('/topic/messages', function (messageOutput) {
+				            stompClient.subscribe('/topic/message', function (messageOutput) {
 				                showMessage(JSON.parse(messageOutput.body));
 				            });
 				        });
 				    }
 					
-					let selectedUsername = null; // 유저목록에서 선택한 유저
-				    function openMessageRoom(username, name) { // 유저목록에서 유저를 클릭하면 시작
-						test_id.innerHTML = name;
-						selectedUsername = username;
-				        document.getElementById('messageRoom').classList.remove('d-none');
+					let selectMember = null; // 유저목록에서 선택한 유저
+				    function openMessageRoom(membernick) { // 유저목록에서 유저를 클릭하면 시작
+						selectMember = membernick;
+				        document.getElementById('messageRoom').classList.remove('d-none'); 
 			
-						fetch(`/message/messages/${selectedUsername}`) // Controller로 보내기
+						fetch(`/chat/message/${selectMember}`) // Controller로 보내기
 						    .then(response => response.json())
 						    .then(messages => {
 						        let messagesDiv = document.getElementById('messages');
@@ -53,35 +52,8 @@
 						
 							
 				    }
-				    function sendMessage() { // 전송을 누르면, 대화내용 정보를 Controller로 보냄
-				        let content = document.getElementById('messageInput').value;
-				        stompClient.send("/app/message.sendMessage", {}, JSON.stringify({
-				            'content': content,
-				            'chatRoom': { 'user2': { 'username': selectedUsername } }
-				        }));
-						scrollToBottom();
-						document.getElementById("messageInput").value = "";
-				    }
 					
-				    function showMessage(message, name) { // 상대방은 왼쪽정렬, 본인은 오른쪽정렬
-						
-				        let messages = document.getElementById('messages');
-				        let messageElement = document.createElement('div');
-						let mess = document.createElement('div');
-						
-						
-						
-						let messageTime = message.sendTime.substring(2,10) +'  ' + message.sendTime.substring(11, 16);
-						let alignmentClass = (message.sender.username === selectedUsername) ? 'left-align' : 'right-align';
-						messageElement.classList.add(alignmentClass);
-						messageElement.innerText =  '[ ' + message.content + ' ]' + '\n';
-						mess.classList.add(alignmentClass);
-						mess.innerText = messageTime + 	'\n\n' ;
-						messages.appendChild(messageElement);
-						messages.appendChild(mess);
-						scrollToBottom();
-				    }
-					
+				
 					
 					
 				    window.onload = connect;
@@ -89,57 +61,50 @@
 	
 
 	</head>
+
+
+<body>
 	
-	<body>
-	
+	<div>					
+	<table class="table">
 		
-		<div class="container my-3" style = "width: 600px;">
-				    <div class="row justify-content-center">
-				        <div class="col-2" style = "width: 200px;">
-				            <hr>
-				            <table class="table table-striped">
-				                <thead class="table-primary">
-				                    <tr>
-				                        <th>#</th>
-				                        <th>유저목록</th>
+		<thead class="table-primary">
+			<tr>
+				<th>같이먹기 리스트</th>
+				
+				
+			</tr>
+		</thead>
+		
+		
+		<tbody>
+			
+
+			<tr th:each="member : ${etMemberList}">
+							 <td><a href="#" th:text="${member.membernick}" th:onclick="openMessageRoom([[${member.membernick}]])"></a></td>
 				                    </tr>
-				                </thead>
-				                <tbody>
-				                    <tr th:each="member : ${nameList}">
-				                        <td th:text="${loop.index} + 1"></td>
-				                        <td><a href="#" th:text="${user.name}" th:onclick="openMessageRoom([[${membernick}]], [[${user.name}]])"></a></td>
-				                    </tr>
-				                </tbody>
-				            </table>
-				        </div>
-						
-				        <div class="col-3" style = "width: 400px;">
 
-				            <div id="messageRoom" class="d-none">
-								<h4><div id="test"></div></h4>
-								<hr>
-								<!--대화 입력-->
-				                <div id="messages" style="height: 350px; overflow-y: auto"></div>
-								
-								<div class="row justify-content-center my-3">
-									<div class="col-9">
-				                	<input class="form-control" type="text" id="messageInput" placeholder="메시지를 입력하세요">
-									</div>
-									<div class="col">
-									<button class="btn btn-primary" id="enterkey" onclick="sendMessage()">전송</button>
-									</div>
-								</div>
-				            </div>
 
-							
-				        </div>
-				    </div>
-				</div>
+		</tbody>
 		
+	</table>
+	</div>
 
-	</body>
-	<script>
-		
-	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
 
 </html>
