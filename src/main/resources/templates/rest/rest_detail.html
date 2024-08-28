@@ -95,10 +95,111 @@
 						<!--같이먹기 현황, 신청-->
 						<div class="et_now">
 							같이먹기 현황
+							<div class="card my-3 py-2">
+								<div class="mx-3">
+									<div class="d-flex justify-content-center" th:text="|현재 진행중인 같이먹기 : ${rest.progresset}건|"></div>
+															
+															
+									<table class="table">
+										<thead>
+											<td>제목</td>
+											<td>먹는날짜</td>
+											<td>신청날짜</td>
+											<td>방장</td>
+										</thead>
+																
+										<tr th:each="et : ${rest.etList}">
+											<div th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') >= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">
+												<td><a th:href="@{|/et/detail/${rest.no}/${et.no}|}" th:text="${et.ettitle}"></a>
+													<span class="text-danger small ms-2" th:text="|${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>
+												</td>
+												<td th:text="${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}"></td>
+												<td th:text="${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}"></td>
+												<td th:text="${et.applymember.membernick}"></td>
+											</div>
+										</tr>
+									</table>
+								</div>
+													
+														
+							</div>
 						</div>
 						<!--같이먹기 신규생성-->
-						<div class="et_new">
+						<div sec:authorize="isAuthenticated()" class="et_new">
 							같이먹기 신규생성
+							<div class="card my-3 py-2">
+														
+								<form th:action="@{|/et/create/${rest.no}|}" method="post">
+									<div class="d-flex justify-content-center">
+										<h5>새 같이먹기 신청</h5>
+									</div>
+															
+									<table class="table">
+																
+										<tr class="my-3">
+											<td>
+												<b>제목</b>
+												<input type="text" name="ettitle" id="ettitle" class="form-control">
+											</td>
+																	
+											<td>
+												<b>신청일시</b>
+												<input type="datetime-local" name="etdate" id="etdate" class="form-control">
+											</td>
+										</tr>
+																
+										<tr>
+											<td>
+												<b>인원수</b>
+												<select type="text" name="prtnumber" id="prtnumber" class="form-control">
+													<option value="" selected>인원수 선택</option>
+													<option value="2">2명</option>
+													<option value="3">3명</option>
+													<option value="4">4명</option>
+												</select>
+											</td>
+																	
+											<td>
+												<b>선호 성별</b>
+												<select type="text" name="prefgender" id="prefgender" class="form-control">
+													<option value="" selected>성별 선택</option>
+													<option value="male">남</option>
+													<option value="female">여</option>
+													<option value="both">혼성</option>
+												</select>
+											</td>
+																	
+											<td>
+												<b>선호 mbti</b>
+												<select type="text" name="prefmbti" id="prefmbti" class="form-control">
+												<option value="" selected disabled="disabled">MBTI</option>
+												<option value="ENFJ">ENFJ</option>
+												<option value="ENFP">ENFP</option>
+												<option value="ENTJ">ENTJ</option>
+												<option value="ENTP">ENTP</option>
+												<option value="ESFJ">ESFJ</option>
+												<option value="ESFP">ESFP</option>
+												<option value="ESTJ">ESTJ</option>
+												<option value="ESTP">ESTP</option>
+												<option value="INFJ">INFJ</option>
+												<option value="INFP">INFP</option>
+												<option value="INTJ">INTJ</option>
+												<option value="INTP">INTP</option>
+												<option value="ISFJ">ISFJ</option>
+												<option value="ISFP">ISFP</option>
+												<option value="ISTJ">ISTJ</option>
+												<option value="ISTP">ISTP</option>
+												</select>
+											</td>
+										</tr>
+									</table>
+												
+									<div class="d-flex justify-content-end">
+										<input type="submit" value="신청하기" class="btn btn-primary my-3 mx-3">
+									</div>
+								</form>
+												
+							</div>
 						</div>
 					</div>
 				</div>
