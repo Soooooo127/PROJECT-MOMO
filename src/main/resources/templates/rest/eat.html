@@ -2,12 +2,13 @@
 <html layout:decorate="~{layout}">
 	<head>
 
-		
+		<link rel="stylesheet" type="text/css" th:href="@{/css/restEat.css}">
+
 	<title>같이먹자</title>
 
 	</head>
 	<body>
-		<div layout:fragment="content" >
+		<div layout:fragment="content" class="container">
 			<!--들어갈 내용-->
 			
 			
@@ -16,23 +17,67 @@
 			
 			
 		<div>
-			<span th:text="같이먹기">
-			</span>
+
 		</div>
 		
 		
 		
-		
+		<!-- 같이먹기 방 리스트-->	
 		<div class="card w-75 mb-3">
-		  <div class="card-body">
-		    <h5 class="card-title">Card title</h5>
-		    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-		    <a href="#" class="btn btn-primary">Button</a>
+		<a href="#"  class="" data-bs-toggle="modal" data-bs-target="#exampleModal">  
+			<div class="card-body">
+		    <h5 class="card-title" th:value="${방제목}">선배! 마라탕 사주세요</h5>
+		    <p class="card-text" th:value="${소제목}">탕후루도 같이?</p>
+			<ul>
+
+				<li>
+					식당
+				</li>
+				<li>
+					날짜
+				</li>
+				<li>
+					인원수
+				</li>	
+			</ul>
+			
+			</div>
+		</a>
+		</div>
+		
+
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered " >
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h1 class="modal-title fs-5" id="exampleModalLabel" th:value="${방제목}">선배! 마라탕 사주세요</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      		<div class="modal-body">
+						<p class="card-text" th:value="${소제목}">탕후루도 같이?</p>
+		      			<ul>
+							<li>
+								식당
+							</li>
+							<li>
+								날짜
+							</li>
+							<li>
+								인원수
+							</li>	
+						</ul>
+		
+					</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">참여하기</button>
+		      </div>
+		    </div>
 		  </div>
 		</div>
-		
-		
-		
 		
 		
 		<!--내용의 끝-->

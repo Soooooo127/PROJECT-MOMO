@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.momo.member.Member;
 import com.momo.member.MemberRepository;
 import com.momo.member.MemberService;
+import com.momo.restaurant.RestService;
 
 @SpringBootTest
 class MomoApplicationTests {
@@ -16,9 +17,12 @@ class MomoApplicationTests {
 	@Autowired
 	private MemberRepository memberRepository;
 	
+	@Autowired
+	private RestService restService;
+	
 	@Test
 	void contextLoads() {
-		
+		/*
 		Member member = new Member();
 		member.setMemberid("admin");
 		member.setPassword("12345");
@@ -27,7 +31,13 @@ class MomoApplicationTests {
 		member.setCreateDate(LocalDateTime.now());
 		
 		memberRepository.save(member);
+		*/
 		
+		for(int i = 0; i<=10; i++) {
+			String name = String.format("테스트 데이터 : [%03d]", i);
+			String category = "중식";
+			this.restService.create(name, category);
+		}
 		
 	}
 
