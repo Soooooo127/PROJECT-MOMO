@@ -7,14 +7,19 @@ import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import com.momo.member.Member;
+
 public class OAuth2CustomUser implements OAuth2User {
-	
+
+
 	private final OAuth2Response oAuth2Response;
 	private final String role;
+	private final Member member;
 	
-	public OAuth2CustomUser(OAuth2Response oAuth2Response, String role) {
+	public OAuth2CustomUser(OAuth2Response oAuth2Response, String role, Member member) {
 		this.oAuth2Response = oAuth2Response;
 		this.role = role;
+		this.member = member;
 	}
 
 	@Override
@@ -38,12 +43,19 @@ public class OAuth2CustomUser implements OAuth2User {
 
 	@Override
 	public String getName() {
-		return oAuth2Response.getName();
+		return oAuth2Response.getProvider() + "" + oAuth2Response.getProviderId();
 	}
-	
 	
 	public String getMemberid() {
 		return oAuth2Response.getProvider() + "" + oAuth2Response.getProviderId();
+	}
+	
+	public String getMembernick() {
+		return this.member.getMembernick();
+	}
+	
+	public String getUsername() {
+		return this.member.getMemberid();
 	}
 	
 

@@ -1,12 +1,19 @@
 package com.momo.restaurant;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
+import com.momo.board.faq.posting.FaqPosting;
+import com.momo.member.Member;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -21,12 +28,7 @@ public class RestService {
 	private final RestRepository restRepository;
 	
 	
-	public void create(String name , String category) {
-		Restaurant rest = new Restaurant();
-		rest.setName(name);
-		rest.setCategory(category);
-		this.restRepository.save(rest);
-	}
+
 	
 	public Restaurant getRestaurant(Integer no) {
 		Optional<Restaurant> rest = this.restRepository.findById(no);
@@ -39,26 +41,32 @@ public class RestService {
 		
 	}
 	
-	public List<Restaurant> getList(String category){
-		
-		Optional<List<Restaurant>> rest = this.restRepository.findByCategory(category);
-	
-		List<Restaurant> r = rest.get();
-	 
-		if(rest.isPresent()) {
-			return r;
-		}else {
-			throw new DataNotFoundException("데이터가 없습니다");
-		}	
+	public Page<Restaurant> getList(String category, int page){	
+		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
+		sorts.add(Sort.Order.asc("name"));
+		Pageable pageable = PageRequest.of(page ,  9 , Sort.by(sorts));
+		return this.restRepository.findByCategory(category, pageable);	
 	} 
+
 	
-	public List<Restaurant>getListSearch(String kw){
+	
+	public Page<Restaurant>getListSearch(String kw, int page){
 		Specification<Restaurant> spec = search(kw);
+		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
+		sorts.add(Sort.Order.asc("name"));
+		Pageable pageable = PageRequest.of(page ,  9 , Sort.by(sorts));
 		
-		
-		return this.restRepository.findAll(spec);
+		return this.restRepository.findAll(spec, pageable);
 	}
 	
+
+	public List<Restaurant>getList(String kw){
+		Specification<Restaurant> spec = search(kw);
+		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
+		sorts.add(Sort.Order.asc("name"));
+		return this.restRepository.findAll(spec);
+		
+	}
 	
 	
 	private Specification<Restaurant> search(String kw) {
@@ -79,4 +87,24 @@ public class RestService {
             }
         };
     }
+	
+	public void create(String name, String category) {
+		Restaurant rest = new Restaurant();
+		rest.setName(name);
+		rest.setCategory(category);;
+		this.restRepository.save(rest);
+	}
+	
+	/*
+	public void Jjim(Restaurant rest, Member member) {
+		rest.getJjim().add(member);
+		this.restRepository.save(rest);
+	}
+	
+	public void NoJjim(Restaurant rest, Member member) {
+		rest.getJjim().remove(member);
+		this.restRepository.save(rest);
+	}
+*/
+
 }

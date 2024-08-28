@@ -3,6 +3,7 @@ package com.momo.restaurant;
 import java.util.List;
 
 import com.momo.restaurant.et.EatTogether;
+import com.momo.restaurant.review.Review;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -29,9 +30,7 @@ public class Restaurant {
 	private String category;
 	
 	private String addr;
-	
-	
-	
+		
 	private String phone;
 	
 	private String menu;
@@ -41,6 +40,9 @@ public class Restaurant {
 	private String map1;
 	
 	private String map2;
+
+	@OneToMany(mappedBy = "rest", cascade = CascadeType.REMOVE )
+	private List<Review> reviewList;
 	
 	@OneToMany(mappedBy = "rest" , cascade = CascadeType.REMOVE)
 	private List<EatTogether> etList;
