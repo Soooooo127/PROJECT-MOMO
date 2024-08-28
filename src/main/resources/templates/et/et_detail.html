@@ -33,7 +33,7 @@
 				
 				<div class="mb-2">
 					<th:block th:each="member : ${et.prtmember}">
-						<div th:text="${member.membernick}"></div>
+						<div><a href="#"  th:text="${member.membernick}"></a></div>
 						
 					</th:block>
 				</div>
@@ -50,7 +50,14 @@
 						<a th:if="${et.applymember.memberid == #authentication.getPrincipal().getUsername()}"
 						href="javascript:void(0)" th:data-uri="@{|/et/delete/${rest.no}/${et.no}|}" class="delete btn btn-primary">모모방 삭제</a>
 					</div>
+					
+					
 				</div>
+					<div>
+					<a href="#" th:onClick="window.open('/message/list','message','width=800, height=800')" class="chat icon-wrap">
+					<img th:src="@{/css/images/chatting.png}" width="70px" height="70px" alt="채팅 아이콘" class="icon">
+								</a>
+							</div>
 			</div>
 			<!--${et.applymember.memberid != #authentication.getPrincipal().getUsername()}-->
 			

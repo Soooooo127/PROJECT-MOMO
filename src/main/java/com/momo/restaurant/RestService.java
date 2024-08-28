@@ -21,7 +21,12 @@ public class RestService {
 	private final RestRepository restRepository;
 	
 	
-
+	public void create(String name , String category) {
+		Restaurant rest = new Restaurant();
+		rest.setName(name);
+		rest.setCategory(category);
+		this.restRepository.save(rest);
+	}
 	
 	public Restaurant getRestaurant(Integer no) {
 		Optional<Restaurant> rest = this.restRepository.findById(no);

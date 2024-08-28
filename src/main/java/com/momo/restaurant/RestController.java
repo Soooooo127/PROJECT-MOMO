@@ -69,5 +69,12 @@ public class RestController {
 		return "rest/rest_search";
 	}
 	
+	@GetMapping("/eat")
+	public String eat() {
+		
+		return "rest/eat";
+	}
+
+	
 	
 }
