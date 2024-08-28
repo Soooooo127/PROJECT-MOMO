@@ -1,9 +1,15 @@
 package com.momo.restaurant;
 
+import java.util.List;
+
+import com.momo.restaurant.et.EatTogether;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,4 +42,8 @@ public class Restaurant {
 	
 	private String map2;
 	
+	@OneToMany(mappedBy = "rest" , cascade = CascadeType.REMOVE)
+	private List<EatTogether> etList;
+	
+	private Integer progresset;
 }
