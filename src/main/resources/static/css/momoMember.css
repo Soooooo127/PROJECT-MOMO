@@ -30,18 +30,19 @@ body {
   float: left;
 }
 
-.frame-l2 {
-  width:170px;
-  border:1px solid #e1e1e1;
-  border-radius: 10px;
-  margin-left: 20px;
-  float:left;
-}
 
 .frame-main {
   border: 1px solid #999999;
   margin-left: 20px;
   padding:20px;
+}
+
+.frame-menu {
+  width:170px;
+  border:1px solid #e1e1e1;
+  border-radius: 10px;
+  margin-left: 20px;
+  float:left;
 }
 
 .smlist {

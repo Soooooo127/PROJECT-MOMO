@@ -44,7 +44,17 @@ public class MemberController {
 	
 	@GetMapping("/mypage")
 	public String goToMypage() {
-		return "mypage/mypage_main";
+		return "layout_mypage";
+	}
+	
+	@GetMapping("/mypageTest")
+	public String goToMypageTest() {
+		return "mypage/mypage_test";
+	}
+	
+	@GetMapping("/modifyMember")
+	public String goToModify() {
+		return "mypage/mypage_test";
 	}
 	
 	/*
