@@ -61,15 +61,20 @@ body {
 }
 
 .frame-t1 {
-  width:500px;
+  width:600px;
   margin:auto;
 }
 
 .frame-t2 {
-  width:850px;
+	width:850px;
 	padding:20px;
   margin: auto;
   overflow: auto;
+}
+
+.frame-t3 {
+	width:700px;
+	margin:auto;
 }
 
 .frame-l, .frame-r {
@@ -87,8 +92,14 @@ body {
 	border-left:solid 1px #e1e1e1;
 }
 
-.frame-t1 table {
+.tableInfo {
   width: 100%;
+	padding:0px;
+	border:none;
+}
+
+table {
+	width: 100%;
 	padding:0px;
 }
 
@@ -136,6 +147,7 @@ input:focus {
 	font-size: 1.2rem;
 	font-weight:bold;
 	color:salmon;
+	padding-left: 0;
 }
 
 .alignLeft {
