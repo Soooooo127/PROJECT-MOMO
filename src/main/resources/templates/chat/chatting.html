@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko">
-<h2>채팅 화면 테스트</h2>
 <head>
 		<!--Required meta tags-->
 		<meta charset="utf-8">
@@ -28,12 +27,15 @@
 
 	<div class="container my-3" style="width:600px;">
 		<div class="row justify-content-start">
-			<div class="col-2" style="width: 200px;">					
+			<div class="col-2" style="width: 200px;">	
+				
+			<!-- (로그인한 닉네임)의 채팅 -->	
+				<h5><div th:text="|${me.membernick}님의 채팅|"></div></h5>			
 	<table class="table">
 		
 		<thead class="table-primary">
 			<tr>
-				<th>같이먹기 리스트</th>
+				<th>같이먹기 신청 목록</th>
 				
 				
 			</tr>
@@ -44,7 +46,7 @@
 			
 
 			<tr th:each="member : ${etMemberList}">
-							 <td><a href="#" th:text="${member.membernick}" th:onclick="openMessageRoom([[${member.memberid}]])"></a></td>
+							 <td><a href="#" th:text="${member.membernick}" th:onclick="openMessageRoom([[${member.memberid}]],[[${member.membernick}]])"></a></td>
 				                    </tr>
 		</tbody>
 		
@@ -53,41 +55,26 @@
 
 <!-- 채팅 -->
 
-	<div class="col-3" style="width: 400px;">
+	<div class="col-3" style="width: 300px;">
 		
 		<div id="messageRoom" class="d-none">
-							<h4><div id="test"></div></h4>
+							<h5><div id="receiverName"></div></h5>
 							<hr>
-							<!--대화 입력창-->
+							<!--------------------------대화 입력창-------------------------->
 			                <div id="messages" style="height: 350px; overflow-y: auto"></div>
-							
+							<!--------------------------대화 입력창-------------------------->
 							<div class="row justify-content-center my-3">
 								<div class="col-9">
 								
 			                	<input class="form-control" type="text" id="messageInput" placeholder="메세지를 입력하세요" > 
 								</div>
 								<div class="col">
-								<button class="btn btn-primary" onclick="sendMessage()">전송</button>
+								<button class="btn btn-primary" id="EnterKey"  style="--bs-btn-padding-y: .50rem; --bs-btn-padding-x: .40rem; --bs-btn-font-size: .75rem;" onclick="sendMessage()">전송</button>
 								</div>
 							</div>
 			            </div>
-		
-		
-		
-		
-		
-		
-		
 	</div>
 	
-
-
-
-
-
-
-
-
 		</div>
 
 		</div>
@@ -109,9 +96,9 @@
 				    }
 					
 					let selectMember = null; // 같이먹기 목록에서 선택한 유저 변수 null로 선언
-				    function openMessageRoom(memberid) { // 유저목록에서 유저를 클릭하면 시작
-						console.log(memberid);
+				    function openMessageRoom(memberid,membernick) { // 유저목록에서 유저를 클릭하면 시작
 						selectMember = memberid;
+						receiverName.innerHTML = membernick;
 				        document.getElementById('messageRoom').classList.remove('d-none'); //숨긴요소 제거 = 보여주기
 						
 			
@@ -133,6 +120,8 @@
 							'content':content,
 							'chatroom' : {'member2': {'memberid': selectMember}}
 						}));
+						scrollToBottom(); //스크롤 메소드
+						document.getElementById('messageInput').value = "";  //전송 누르고 입력창 초기화 
 					}
 				
 					function showMessage(message,memberid){  //메세지 보여주는 메소드 상대는 왼쪽 , 본인은 오른쪽
@@ -141,26 +130,69 @@
 						let mess = document.createElement('div');
 						
 						
-						
+						let messageSendTime = message.sendtime.substring(0,10) +'   '+ message.sendtime.substring(11,16);
 						let alignmentClass = (message.sender.memberid === selectMember) ? 'left-align' : 'right-align';
 						messageElement.classList.add(alignmentClass);
-						messageElement.innerText = '['+ message.content + ']' + message.sender.membernick;
+						messageElement.innerText =  message.content  +'    '+'['+ message.sender.membernick + ']';
 						mess.classList.add(alignmentClass);
+						mess.innerText = messageSendTime;
 						messages.appendChild(messageElement);
 						messages.appendChild(mess);
+						scrollToBottom(); //스크롤 메소드
 						
+					}
+					
+				    window.onload = connect;
+					
+					
+					
+					//스크롤 아래로
+					let scrollable = document.getElementById('messages');
+					function scrollToBottom(){
+						scrollable.scrollTop = scrollable.scrollHeight;		
+								}
+					
+					//엔터로 메세지 입력 가능하도록
+					
+					var inputMessage = document.getElementById('messageInput');
+					inputMessage.addEventListener("keypress",function(event){
+						if(event.key === "Enter"){
+							event.preventDefault();
+							document.getElementById("EnterKey").click();
+						}
 					}
 					
 					
 					
 					
+					);
+					
+					//대화창에 상대 이름 띄우기
+					var receiverName = document.getElementById("receiverName");
+					receiverName.innerHTML = "상대방";
 					
 					
 					
 					
-				    window.onload = connect;
+					
+					
+					
 				</script>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </html>
