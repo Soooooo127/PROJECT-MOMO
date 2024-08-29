@@ -44,20 +44,19 @@
           <!--우측 영역-->
           <div class="frame-dvd-l ms-4">
             <div style="padding:150px 0px 150px 0px;">
-              <div>
+              <div class="infoContent last">
                 회원정보 확인을 위해 비밀번호를 입력하세요.
               </div>
               <form method="post" th:action="@{/member/checkPw}">
                 <div th:if="${param.error}">
-                  <div>아이디나 비밀번호를 확인하3</div>
+                  <div>비밀번호를 정확히 입력하세요</div>
                 </div>
                 <div class="form-floating">
                   <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="비밀번호를 입력하세요" autocomplete="off">
                   <label for="floatingPassword">비밀번호</label>
                 </div>
                 <div class="d-grid gap-2">
-                  <br>
-                  <button type="submit" class="btn btn-lg btn-primary">비밀번호 확인</button>
+                  <button type="submit" class="btn btn-lg btn-primary mt-3">비밀번호 확인</button>
                 </div>
               </form>
             </div>
