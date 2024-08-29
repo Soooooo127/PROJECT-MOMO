@@ -18,46 +18,6 @@
 					.right-align {
 					    text-align: right;}
 		</style>
-		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
-		<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js}"></script>
-		
-				<script th:inline="javascript">
-				    let stompClient = null;
-				    function connect() { // 웹소켓 연결
-				        let socket = new SockJS("/ws");
-				        stompClient = Stomp.over(socket);
-				        stompClient.connect({}, function (frame) {
-				            console.log('Connected: ' + frame);
-				            stompClient.subscribe('/topic/message', function (messageOutput) {
-				                showMessage(JSON.parse(messageOutput.body));
-				            });
-				        });
-				    }
-					
-					let selectMember = null; // 유저목록에서 선택한 유저
-				    function openMessageRoom(membernick) { // 유저목록에서 유저를 클릭하면 시작
-						selectMember = membernick;
-				        document.getElementById('messageRoom').classList.remove('d-none'); 
-			
-						fetch(`/chat/message/${selectMember}`) // Controller로 보내기
-						    .then(response => response.json())
-						    .then(messages => {
-						        let messagesDiv = document.getElementById('messages');
-						        messagesDiv.innerHTML = ''; // 기존 메시지 초기화
-						        messages.forEach(message => {
-						            showMessage(message, name);
-						        });
-						    });
-						
-							
-				    }
-					
-				
-					
-					
-				    window.onload = connect;
-				</script>
 	
 
 	</head>
@@ -65,7 +25,10 @@
 
 <body>
 	
-	<div>					
+
+	<div class="container my-3" style="width:600px;">
+		<div class="row justify-content-start">
+			<div class="col-2" style="width: 200px;">					
 	<table class="table">
 		
 		<thead class="table-primary">
@@ -83,13 +46,40 @@
 			<tr th:each="member : ${etMemberList}">
 							 <td><a href="#" th:text="${member.membernick}" th:onclick="openMessageRoom([[${member.membernick}]])"></a></td>
 				                    </tr>
-
-
 		</tbody>
 		
 	</table>
 	</div>
 
+<!-- 채팅 -->
+
+	<div class="col-3" style="width: 400px;">
+		
+		<div id="messageRoom" class="d-none">
+							<h4><div id="test"></div></h4>
+							<hr>
+							<!--대화 입력창-->
+			                <div id="messages" style="height: 350px; overflow-y: auto"></div>
+							
+							<div class="row justify-content-center my-3">
+								<div class="col-9">
+								
+			                	<input class="form-control" type="text" id="messageInput" placeholder="메세지를 입력하세요" > 
+								</div>
+								<div class="col">
+								<button class="btn btn-primary" onclick="sendMessage()">전송</button>
+								</div>
+							</div>
+			            </div>
+		
+		
+		
+		
+		
+		
+		
+	</div>
+	
 
 
 
@@ -98,12 +88,78 @@
 
 
 
+		</div>
 
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+		<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js}"></script>
 
-
-
-
-
+				<script th:inline="javascript">
+				    let stompClient = null;
+				    function connect() { // 웹소켓 연결
+				        let socket = new SockJS("/ws");
+				        stompClient = Stomp.over(socket);
+				        stompClient.connect({}, function (frame) {
+				            console.log('Connected: ' + frame);
+				            stompClient.subscribe('/topic/message', function (messageOutput) {
+				                showMessage(JSON.parse(messageOutput.body));
+				            });
+				        });
+				    }
+					
+					let selectMember = null; // 같이먹기 목록에서 선택한 유저 변수 null로 선언
+				    function openMessageRoom(membernick) { // 유저목록에서 유저를 클릭하면 시작
+						console.log(membernick);
+						selectMember = membernick;
+				        document.getElementById('messageRoom').classList.remove('d-none'); //숨긴요소 제거 = 보여주기
+						
+			
+						fetch(`/chat/message/${selectMember}`) // Controller로 보내기
+						    .then(response => response.json())
+						    .then(messages => {
+						        let messagesDiv = document.getElementById('messages');
+						        messagesDiv.innerHTML = ''; // 기존 메시지 초기화
+						        messages.forEach(message => {
+						            showMessage(message, name);
+						        });
+								console.log('openMessageRoom 메소드 끝');
+						    });
+				    }
+					
+					function sendMessage(){  //전송을 누르면 
+						let content = document.getElementById('messageInput').value;
+						stompClient.send("/app/message.sendMessage",{},JSON.stringify({
+							'content':content,
+							'chatroom' : {'member2': {'memberid': selectMember}}
+						}));
+					}
+				
+					function showMessage(message,name){  //메세지 보여주는 메소드 상대는 왼쪽 , 본인은 오른쪽
+						let messages = document.getElementById('messages'); //대화 입력창에서 보낸거
+						let messageElement = document.createElement('div');
+						let mess = document.createElement('div');
+						
+						
+						
+						let alignmentClass = (message.sender.member1 === selectMember) ? 'left-align' : 'right-align';
+						messageElement.classList.add(alignmentClass);
+						messageElement.innerText = '['+ message.content + ']' + '/n';
+						mess.classList.add(alignmentClass);
+						messages.appendChild(messageElement);
+						messages.appendChild(mess);
+						
+					}
+					
+					
+					
+					
+					
+					
+					
+					
+				    window.onload = connect;
+				</script>
 </body>
 
 
