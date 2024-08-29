@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout_mypage}">
   <head>
+    <script type="text/javascript" defer th:src="@{/js/momoMypage.js}"></script>
 
   </head>
   <body layout:fragment="mypageContent">
@@ -25,19 +26,19 @@
             <div class="mt-5 ms-5">
               <p class="mb-4">
                 <span class="contentTitle">아이디</span><br>
-                <span th:text="${member.memberid}"></span>
+                <span th:text="${member.memberid}" id="foundId"></span>
               </p>
               <p class="mb-4">
                 <span class="contentTitle">이름</span><br>
-                <span th:text="${member.membername}"></span>
+                <span th:text="${member.membername}" id="foundName"></span>
               </p>
               <p class="mb-4">
                 <span class="contentTitle">닉네임</span><br>
-                <span th:text="${member.membernick}"></span>
+                <span th:text="${member.membernick}" id="foundNick"></span>
               </p>
               <p class="mb-4">
                 <span class="contentTitle">이메일</span><br>
-                <span th:text="${member.email}"></span>
+                <span th:text="${member.email}" id="foundEmail"></span>
               </p>
             </div>
           </div>
