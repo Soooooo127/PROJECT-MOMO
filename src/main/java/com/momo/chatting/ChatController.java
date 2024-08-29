@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.momo.member.Member;
@@ -36,10 +35,15 @@ public class ChatController {
 	
 		System.out.println("채팅 화면 초기 진입 확인");
 		
-		//같이먹기 리스트 검색 
-	EatTogether eatTogether = eatTogetherService.getET(no);
-	List<Member> etMemberList	= eatTogether.getPrtmember();
+	
+	EatTogether eatTogether = eatTogetherService.getET(no);  //같이먹기 고유번호를 객체로
+	
+	List<Member> etMemberList	= eatTogether.getPrtmember(); //객체의 같이먹기 리스트를 검색
+	//검색한 리스트에서 로그인한 정보가 있는지 확인
+	Member me = memberService.getMember(principal.getName());
+	etMemberList.remove(me);
 	model.addAttribute("etMemberList", etMemberList); //모델에 저장 
+	model.addAttribute("me", me);
 	return "/chat/chatting";
 		
 	}
