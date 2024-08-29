@@ -91,3 +91,6 @@ li a:link, li a:visited {
   font-weight: bold;
 }
 
+.last {
+  border-bottom: none;
+}

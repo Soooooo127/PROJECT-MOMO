@@ -49,7 +49,7 @@ public class SecurityConfig {
 				.usernameParameter("memberid")
 				.loginPage("/member/login")
 				.failureUrl("/member/loginfailed")
-				.defaultSuccessUrl("/member/roleCheck"))
+				.defaultSuccessUrl("/member/mypage"))
 				.logout((logout) -> logout
 				.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
 				.logoutSuccessUrl("/")
