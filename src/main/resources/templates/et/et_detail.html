@@ -49,12 +49,14 @@
 						th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
 						<a th:if="${et.applymember.memberid == #authentication.getPrincipal().getUsername()}"
 						href="javascript:void(0)" th:data-uri="@{|/et/delete/${rest.no}/${et.no}|}" class="delete btn btn-primary">모모방 삭제</a>
+						<input type="hidden" th:value="${et.no}" name="chatRoomNo" id="chatRoomNo">
 					</div>
 					
 					
 				</div>
 					<div>
-					<a href="#" th:onClick="window.open('/message/list','message','width=800, height=800')" class="chat icon-wrap">
+		
+					<a onclick='openNewChatRoom()' class="chat icon-wrap">
 					<img th:src="@{/css/images/chatting.png}" width="70px" height="70px" alt="채팅 아이콘" class="icon">
 								</a>
 							</div>
@@ -75,6 +77,13 @@
 					}
 				})
 			})
+			
+			var no = document.querySelector("#chatRoomNo").value;
+			var no2 = '/chat/list/' + no;
+			
+			function openNewChatRoom() {
+				window.open(no2,'_blank','width=700, height=500');
+			}
 		</script>
 		
 	</div>
