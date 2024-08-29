@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class ChatService {
 
 	
-	private final ChatRoomRepository chatRoomRepository; 
+	private final ChatRoomRepository chatRoomRepository;   
 	private final MessageRepository messageRepository;
 	private final MemberService memberService; 
 	
@@ -67,6 +67,8 @@ public class ChatService {
 	
 	//기존 대화내용 불러오기
 	public List<Message> getMessage(String member1, String member2){
+		System.out.println("=================================");
+		System.out.println("기존 대화내용 리스트 서비스 진입 확인");
 		//유저들
 		Member getMember1 = this.memberService.getMember(member1);		
 		Member getMember2 = this.memberService.getMember(member2);
@@ -85,6 +87,7 @@ public class ChatService {
 				return chatRoom.get().getMessage();
 			}else {
 				return new ArrayList<>();
+		
 			}
 			}
 		
