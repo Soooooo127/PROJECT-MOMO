@@ -41,10 +41,15 @@ public class EatTogetherService {
 		System.out.println("같이먹기 등록 데이터입력완료");
 	}
 	
-	public List<EatTogether> getList() {
-		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
-		sorts.add(Sort.Order.desc("regdate"));
-		return this.etRepository.findAll();
+	//같이먹기 전체 리스트 등록날짜의 내림차순으로 출력하기
+	public List<EatTogether> getListAll(){
+		return this.etRepository.findAllOrderByDesc();
+	}
+	
+	//가게 정보로 같이먹기 리스트 등록날짜의 내림차순으로 출력하기
+	public List<EatTogether> getList(Restaurant rest) {
+		
+		return this.etRepository.findByRestOrderByDesc(rest);
 	}
 	
 	//같이먹기 참여 서비스구문

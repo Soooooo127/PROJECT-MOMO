@@ -32,7 +32,15 @@ public class EatTogetherController {
 	private final MemberService momoMemberService;
 	private final RestService restService;
 	
-	
+	@GetMapping("/list")
+	public String listET(Model model) {
+		List<EatTogether> etList = this.etService.getListAll();
+		model.addAttribute("etList", etList);
+		
+		
+		
+		return "et/et_list";
+	}
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{no}")
