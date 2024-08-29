@@ -102,6 +102,20 @@ public class MemberService {
 	public void updateMember(Member member) {
 		memberRepository.save(member);
 	}
+	
+	// 비밀번호 체크 메소드
+	public boolean checkPassword(Member member, String password) {
+		Optional<Member> _member = memberRepository.findById(member.getNo());
+		Member foundMember = _member.get();
+		String savedPassword = foundMember.getPassword();
+		boolean result = false;
+		
+		if(savedPassword.equals(password)) {
+			result = true;
+		}
+		
+		return result;
+	}
 
 	
 

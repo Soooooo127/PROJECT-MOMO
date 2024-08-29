@@ -25,19 +25,19 @@
             <div class="mt-5 ms-5">
               <p class="mb-4">
                 <span class="contentTitle">아이디</span><br>
-                <span>eeeee</span>
+                <span th:text="${member.memberid}"></span>
               </p>
               <p class="mb-4">
                 <span class="contentTitle">이름</span><br>
-                <span>eeeee</span>
+                <span th:text="${member.membername}"></span>
               </p>
               <p class="mb-4">
                 <span class="contentTitle">닉네임</span><br>
-                <span>eeeee</span>
+                <span th:text="${member.membernick}"></span>
               </p>
               <p class="mb-4">
                 <span class="contentTitle">이메일</span><br>
-                <span>eeeee</span>
+                <span th:text="${member.email}"></span>
               </p>
             </div>
           </div>
@@ -47,7 +47,7 @@
               <div>
                 회원정보 확인을 위해 비밀번호를 입력하세요.
               </div>
-              <form method="post" th:action="@{/member/login}">
+              <form method="post" th:action="@{/member/checkPw}">
                 <div th:if="${param.error}">
                   <div>아이디나 비밀번호를 확인하3</div>
                 </div>

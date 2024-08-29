@@ -52,8 +52,24 @@ public class MemberController {
 		return "mypage/mypage_test";
 	}
 	
+	@PostMapping("/checkPw")
+	public String checkPw(@RequestParam(value = "password") String password, Principal principal, Model model) {
+		Member member = memberService.getMember(principal.getName());
+		boolean result = memberService.checkPassword(member, password);
+		
+		if(result) {
+			model.addAttribute("member", member);
+			return "mypage/mypage_modify";
+		} else {
+			return "mypage/
+		}
+		
+	}
+	
 	@GetMapping("/modifyMember")
-	public String goToModify() {
+	public String goToModify(Principal principal, Member member, Model model) {
+		member = memberService.getMember(principal.getName());
+		model.addAttribute("member", member);
 		return "mypage/mypage_check";
 	}
 	

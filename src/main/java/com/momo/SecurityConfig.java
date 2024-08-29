@@ -57,6 +57,9 @@ public class SecurityConfig {
 		http.oauth2Login((oauth2) -> oauth2.userInfoEndpoint
 				((userInfoEndpointConfig) -> userInfoEndpointConfig.userService(oAuth2UserCustomService)));
 
+        http.authorizeHttpRequests((auth) -> auth
+                .requestMatchers("/", "/oauth2/**", "/login/**").permitAll()
+                .anyRequest().authenticated());
 
 		/*
 		 * 
