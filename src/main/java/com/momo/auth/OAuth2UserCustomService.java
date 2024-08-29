@@ -35,13 +35,15 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         System.out.println("oAuth2User : " + oAuth2User.getAttributes());
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         OAuth2Response oAuth2Response = null;
-        String role = "ROLE_MEMBER";
+        String role = "ROLE_SOCIAL";
         String membernick = null;
         
         System.out.println();
         
         if(registrationId.equals("google")) {
         	oAuth2Response = new OAuth2ResponseGoogle(oAuth2User.getAttributes());
+        } else if(registrationId.equals("naver")) {
+        	oAuth2Response = new OAuth2ResponseNaver(oAuth2User.getAttributes());
         } else {
         	return null;
         }
@@ -81,8 +83,19 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
     
     // SNS 로그인한 회원이 기존 회원이 아닌 경우 신규 가입하는 메소드
 	public Member createMember(OAuth2Response oAuth2Response) {
+		System.out.println("OAuth2 신규 회원 가입 메소드에 진입하였습니다.");
+		System.out.println("oAuth2 Provider : " + oAuth2Response.getProvider());
 		
-    	String memberid = oAuth2Response.getProvider() + oAuth2Response.getProviderId();
+		String memberid = null;
+		
+		if(oAuth2Response.getProvider().equals("naver")) {
+			String _memberid = oAuth2Response.getProviderId();
+			memberid = "naver" + _memberid.substring(0, 10);
+			System.out.println("네이버 로그인 가입자의 아이디 " + oAuth2Response.getProvider());
+		} else {
+			memberid = oAuth2Response.getProvider() + oAuth2Response.getProviderId();
+		}
+		
     	String membernameBefore = oAuth2Response.getName();
     	String membername = membernameBefore.replaceAll(" ", "");
     	System.out.println("임시 아이디 : " + memberid);

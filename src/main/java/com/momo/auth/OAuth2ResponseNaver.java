@@ -2,22 +2,23 @@ package com.momo.auth;
 
 import java.util.Map;
 
-public class OAuth2ResponseGoogle implements OAuth2Response {
+public class OAuth2ResponseNaver implements OAuth2Response {
 
-	private final Map<String, Object> attribute;
-	
-	public OAuth2ResponseGoogle(Map<String, Object> attribute) {
-		this.attribute = attribute;
-	}
+    private final Map<String, Object> attribute;
+
+    public OAuth2ResponseNaver(Map<String, Object> attribute) {
+
+        this.attribute = (Map<String, Object>) attribute.get("response");
+    }
 	
 	@Override
 	public String getProvider() {
-		return "google";
+		return "naver";
 	}
 
 	@Override
 	public String getProviderId() {
-		return attribute.get("sub").toString();
+		return attribute.get("id").toString();
 	}
 
 	@Override
@@ -30,4 +31,5 @@ public class OAuth2ResponseGoogle implements OAuth2Response {
 		return attribute.get("name").toString();
 	}
 	
+
 }
