@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
 import com.momo.restaurant.et.EatTogether;
+import com.momo.restaurant.et.EatTogetherService;
 import com.momo.restaurant.jjim.Jjim;
 import com.momo.restaurant.jjim.JjimService;
 import com.momo.restaurant.review.Review;
@@ -35,6 +36,7 @@ public class RestController {
 	private final JjimService jjimService;
 	private final ReviewService reviewService;
 	private final RestRepository restRepository;
+	private final EatTogetherService etService;
 	
 	@GetMapping("/")
 	public String restAll() {
@@ -59,7 +61,7 @@ public class RestController {
 		Restaurant rest = this.restService.getRestaurant(no);
 		
 		
-		List<EatTogether> etList = rest.getEtList();
+		List<EatTogether> etList = this.etService.getList(rest);
 		
 		LocalDate today = LocalDate.now();
 		Integer expired = 0;
@@ -69,6 +71,7 @@ public class RestController {
 				
 			}
 		}
+		rest.setEtList(etList);
 		rest.setProgresset(etList.size() - expired);
 		this.restRepository.save(rest);
 		model.addAttribute("rest", rest);
