@@ -58,6 +58,15 @@ public class MemberService {
 		}
 	}
 	
+	public Member getMember(Integer memberno) {
+		Optional<Member> member = this.memberRepository.findById(memberno);
+		if (member.isPresent()) {
+			return member.get();
+		} else {
+			return null;
+		}
+	}
+	
 	public Member getMemberByEmail (String email) {
 		Optional<Member> member = this.memberRepository.findMemberByEmail(email);
 		if(member.isPresent()) {

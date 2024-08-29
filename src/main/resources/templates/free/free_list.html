@@ -47,11 +47,11 @@
 																	
 									  <div class="dropdown-item"  sec:authorize="isAuthenticated()"
 								  		th:if="${!#lists.contains(member.friend, freePosting.author) and #authentication.getPrincipal().getUsername() != freePosting.author.memberid}">
-  								  		<form method="post" th:action="@{/friend/create}">
-										<input type="hidden" name="friendid" th:value="${freePosting.author.memberid}"> 
-								  		<span type="submit" onclick="alert('친구 추가 완료');" >친구 추가</span>
+  								  		<!-- <form method="post" th:action="@{/friend/create}">
+										<input type="hidden" name="friendid" th:value="${freePosting.author.memberid}"> -->
+								  		<a th:href="@{|/friend/create/${freePosting.author.no}|}" onclick="alert('친구 추가 완료');" >친구 추가</a>
 									  								  									
-								  	  </form>
+								  	<!--  </form> -->
   									  </div>									
 							    </div>
 							  </li>
