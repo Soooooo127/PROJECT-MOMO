@@ -110,7 +110,7 @@ public class MemberService {
 		String savedPassword = foundMember.getPassword();
 		boolean result = false;
 		
-		if(savedPassword.equals(password)) {
+		if(passwordEncoder.matches(password, savedPassword)) {
 			result = true;
 		}
 		
