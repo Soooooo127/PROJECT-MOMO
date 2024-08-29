@@ -1,7 +1,4 @@
-var foundid = document.querySelector('#foundId')
-var foundnick = document.getElementById("#foundname")
-var foundnick = document.getElementById("#foundnick")
-var foundemail = document.getElementById("#foundEmail")
+var foundId = [[${member.memberid}]];
 
 
 function masking(name) {

@@ -94,3 +94,31 @@ li a:link, li a:visited {
 .last {
   border-bottom: none;
 }
+
+.myModify {
+  width:400px;
+  overflow: auto;
+  margin:20px 0px 20px 0px;
+}
+
+.myModify-content {
+  width:350px;
+  float: left;
+}
+
+.myModify-icon {
+  width:50px;
+  float:left;
+  text-align: center;
+  font-size: x-large;
+  padding:10px;
+}
+
+.myModify-right {
+  width:400px;
+  padding:20px 0px 0px 20px;
+}
+
+.myModify-btn {
+  width:350px;
+}
