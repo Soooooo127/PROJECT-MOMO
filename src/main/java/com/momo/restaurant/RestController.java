@@ -34,6 +34,7 @@ public class RestController {
 	private final MemberService memberService;
 	private final JjimService jjimService;
 	private final ReviewService reviewService;
+	private final RestRepository restRepository;
 	
 	@GetMapping("/")
 	public String restAll() {
@@ -56,7 +57,7 @@ public class RestController {
 		
 		
 		Restaurant rest = this.restService.getRestaurant(no);
-		model.addAttribute("rest", rest);
+		
 		
 		List<EatTogether> etList = rest.getEtList();
 		
@@ -69,8 +70,8 @@ public class RestController {
 			}
 		}
 		rest.setProgresset(etList.size() - expired);
-		
-		
+		this.restRepository.save(rest);
+		model.addAttribute("rest", rest);
 		
 		
 		Member member = this.memberService.getMember(principal.getName());
