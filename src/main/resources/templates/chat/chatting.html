@@ -44,7 +44,7 @@
 			
 
 			<tr th:each="member : ${etMemberList}">
-							 <td><a href="#" th:text="${member.membernick}" th:onclick="openMessageRoom([[${member.membernick}]])"></a></td>
+							 <td><a href="#" th:text="${member.membernick}" th:onclick="openMessageRoom([[${member.memberid}]])"></a></td>
 				                    </tr>
 		</tbody>
 		
@@ -109,9 +109,9 @@
 				    }
 					
 					let selectMember = null; // 같이먹기 목록에서 선택한 유저 변수 null로 선언
-				    function openMessageRoom(membernick) { // 유저목록에서 유저를 클릭하면 시작
-						console.log(membernick);
-						selectMember = membernick;
+				    function openMessageRoom(memberid) { // 유저목록에서 유저를 클릭하면 시작
+						console.log(memberid);
+						selectMember = memberid;
 				        document.getElementById('messageRoom').classList.remove('d-none'); //숨긴요소 제거 = 보여주기
 						
 			
@@ -135,16 +135,16 @@
 						}));
 					}
 				
-					function showMessage(message,name){  //메세지 보여주는 메소드 상대는 왼쪽 , 본인은 오른쪽
+					function showMessage(message,memberid){  //메세지 보여주는 메소드 상대는 왼쪽 , 본인은 오른쪽
 						let messages = document.getElementById('messages'); //대화 입력창에서 보낸거
 						let messageElement = document.createElement('div');
 						let mess = document.createElement('div');
 						
 						
 						
-						let alignmentClass = (message.sender.member1 === selectMember) ? 'left-align' : 'right-align';
+						let alignmentClass = (message.sender.memberid === selectMember) ? 'left-align' : 'right-align';
 						messageElement.classList.add(alignmentClass);
-						messageElement.innerText = '['+ message.content + ']' + '/n';
+						messageElement.innerText = '['+ message.content + ']' + message.sender.membernick;
 						mess.classList.add(alignmentClass);
 						messages.appendChild(messageElement);
 						messages.appendChild(mess);

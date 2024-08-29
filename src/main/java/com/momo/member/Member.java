@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.momo.auth.OAuth2Member;
 import com.momo.image.Image;
 import com.momo.member.profile.Profile;
@@ -47,27 +48,33 @@ public class Member implements UserDetails {
 	@Column(nullable = false)
 	private String membername;
 	
+	@JsonIgnore
 	private String password;
 	
 	@Column(nullable = false, unique = true)
 	private String email;
 	
+	@JsonIgnore
 	private LocalDateTime createDate;
 	
 	private String role;
 	
 	@ManyToMany
+	@JsonIgnore
 	private List<Member> friend;
 	
 	@OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+	@JsonIgnore
 	private List<OAuth2Member> oauth2MemberList;
 	
 	@OneToOne
 	@JoinColumn(name = "image_no")
+	@JsonIgnore
 	private Image image;
 	
 	@OneToOne
 	@JoinColumn(name = "profile_no")
+	@JsonIgnore
 	private Profile profile;
 
 	
@@ -91,6 +98,7 @@ public class Member implements UserDetails {
 	
 	// 권한 반환
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
        // 사용자의 권한이 'user'뿐인 경우 반환하는 코드(List.of는 List를 생성하는 메소드이다)
 //        return List.of(new SimpleGrantedAuthority("user"));

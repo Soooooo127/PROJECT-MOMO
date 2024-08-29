@@ -54,7 +54,7 @@ public class ChatController {
 		//보내는 사람 = 로그인 한 사람
 		Member sender = this.memberService.getMember(principal.getName()); 
 		//받는 사람
-		Member receiver = this.memberService.getMember(message.getChatroom().getMember2().getMembernick());
+		Member receiver = this.memberService.getMember(message.getChatroom().getMember2().getMemberid());
 		
 		//메세지
 		String content = message.getContent();
@@ -66,7 +66,7 @@ public class ChatController {
 	//기존 대화방, 대화내용 불러오기
 	@GetMapping("/chat/message/{member2}")
 	@ResponseBody
-	public List<Message> getMessage(Principal principal,@PathVariable("member2")String member2){
+	public List<Message> getMessage(@PathVariable("member2")String member2,Principal principal){
 		System.out.println("=======================================================");
 		System.out.println("대화방,대화내용 불러오기 확인");
 		List<Message> mList = this.chatService.getMessage(principal.getName(),member2);	

@@ -31,7 +31,7 @@ public class ChatRoom {
 	private Member member2;
 	
 	@OneToMany(mappedBy = "chatroom",cascade = CascadeType.REMOVE)
-	@JsonIgnore  //이건 뭐지
+	@JsonIgnore  
 	private List<Message> message;
 	
 	
