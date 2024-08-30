@@ -18,8 +18,6 @@ import com.momo.member.Member;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
@@ -30,30 +28,29 @@ public class InquiryPostingService {
 
 	private final InquiryPostingRepository inquiryPostingRepository;
 	
-	
-	public Page<InquiryPosting> getMyList(Member member, int page) {
+	public Page<InquiryPosting> getMyList(Member member, String subject, int page) {
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc(("createDate")));
-		Pageable pageable = PageRequest.of(page,10, Sort.by(sorts));
-		return this.inquiryPostingRepository.findByAuthor(member, pageable);
-		
-	}
+		Pageable pageable = PageRequest.of(page,5, Sort.by(sorts));
+		return this.inquiryPostingRepository.findByAuthorAndSubject(member, subject, pageable);
+	} 
 	
 	public Page<InquiryPosting> getList(int page, String kw){
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("createDate"));
 		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
 		Specification<InquiryPosting> spec = search(kw);
-		return this.inquiryPostingRepository.findAll(pageable);
+		return this.inquiryPostingRepository.findAll(spec, pageable);
 	}
 	
 	public Page<InquiryPosting> getNoCommentList(int page, List<InquiryComment> commentList){
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("createDate"));
 		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		return this.inquiryPostingRepository.findByCommentList(pageable, null);
+		return this.inquiryPostingRepository.findByCommentList(null, pageable);
 
-	}
+	} 
+	
 	
 	public InquiryPosting getInquiryPosting(Integer no) {
 		Optional<InquiryPosting> posting = this.inquiryPostingRepository.findById(no);
@@ -105,4 +102,6 @@ public class InquiryPostingService {
 			}
 		};
 	}
+	
+
 }

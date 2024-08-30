@@ -1,6 +1,8 @@
 package com.momo.restaurant.review;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -10,13 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.momo.board.free.comment.FreeComment;
-import com.momo.board.free.comment.FreeCommentForm;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
 import com.momo.restaurant.RestService;
 import com.momo.restaurant.Restaurant;
+import com.momo.restaurant.et.EatTogether;
+import com.momo.restaurant.jjim.Jjim;
+import com.momo.restaurant.jjim.JjimService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +33,7 @@ public class ReviewController {
 	private final ReviewService reviewService;
 	private final RestService restService;
 	private final MemberService memberService;
+	private final JjimService jjimService;
 	
 	@GetMapping("/list/{no}")
 	private String getList(@PathVariable("no")Integer no) {
@@ -38,18 +43,16 @@ public class ReviewController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{no}")
-	public String create(Model model
+	public String create(Model model,  @RequestParam(value="star") Integer star
+			,@RequestParam(value="content") String content 
 			, @PathVariable("no") Integer no, Principal principal
-			,@Valid ReviewForm reviewForm, BindingResult bindingResult) {
+			) {
 		
 		Restaurant rest = restService.getRestaurant(no);
 		
-		if(bindingResult.hasErrors()) {
-			model.addAttribute("rest", rest);
-			return "/rest/rest_detail";
-		}
+
 		Member member = memberService.getMember(principal.getName());
-		reviewService.create(no, member, reviewForm.getContent());
+		reviewService.create(no, member, content, star);
 		
 		return "redirect:/rest/detail/{no}";
 	}
@@ -69,6 +72,21 @@ public class ReviewController {
 		
 		return "rest/_comment_form";
 	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/ddabong/{no}/{rno}")
+	public String ddabong(Principal principal
+			,@PathVariable("no") Integer no
+			, @PathVariable("rno") Integer rno) {
+		Review review = this.reviewService.getReview(rno);
+		Member member = this.memberService.getMember(principal.getName());
+		reviewService.ddabong(review, member);
+		
+		return "redirect:/rest/detail/{no}";
+	}
+	
+	
+	
 	
 	
 }

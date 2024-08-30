@@ -44,8 +44,10 @@ public class AskComment {
 	@Column(columnDefinition = "integer default 0")
 	private Integer cnt;
 	
+	private String membernick;
+	
 	@ManyToOne
-	private Member membernick;
+	private Member author;
 	
 	@ManyToOne
 	private AskPosting askPosting;

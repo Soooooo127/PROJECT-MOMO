@@ -24,12 +24,13 @@ public class AskCommentService {
 	private final AskCommentRepository askCommentRepository;
 	
 	//답변작성 서비스구문(앵커 기능 추가를 위해 AskComment 타입으로 전환)
-	public AskComment create(AskPosting askPosting , String content , Member membernick) {
+	public AskComment create(AskPosting askPosting , String content , Member author) {
 		AskComment ac = new AskComment();
 		ac.setContent(content);
 		ac.setCreateDate(LocalDateTime.now());
 		ac.setAskPosting(askPosting);
-		ac.setMembernick(membernick);
+		ac.setAuthor(author);
+		ac.setMembernick(author.getMembernick());
 		this.askCommentRepository.save(ac);
 		
 		return ac;

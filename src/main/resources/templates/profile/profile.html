@@ -1,5 +1,5 @@
-<html layout:decorate="~{layout}">
-<div layout:fragment="content">
+<html layout:decorate="~{layout_mypage}">
+<div layout:fragment="mypageContent">
 	
 	<style>
 		th.bg{ 
@@ -32,30 +32,32 @@
 			border-radius:100%;
 		}
 	
+	
 		
 	</style>
 	
 	
-	
-	<table class="table container my-3">
-	 
-	     <tr>
-	       <th class="bg"><a class="noline" th:href="@{/mypage/profile}">내 프로필</a></th>
-		   <td rowspan="6">
+	<!--전체 영역-->
+	<div>
+		<!--콘텐츠 영역-->
+		<div>	
+			<!--로고 영역-->	
+			<div>
+				로고
+			</div>
+			<!--콘텐츠 세부 영역-->
+			<div class="frame-dvd my-3">
 			
 			<center>
-				<span><h1>프로필 사진</h1></span>
 				<!--프로필 사진-->
+				<span class="bg"><h3><a class="noline" th:href="@{/mypage/profile}">내 프로필</a></h3></span>
 				<div class="box" >
 				<img class="profile" th:if="${memberProfile.image != null}" th:src="@{|/img/${memberProfile.image.storeFilename}|}" >
 			    <img class="profile" th:unless="${memberProfile.image != null}" src="/img/default_profile.png" >
 			    </div>
 			</center>
-			<form th:action="@{/image/delete}" method="post">
-				<button type="button">이미지 삭제</button>
-			</form>
 			<!-- 프로필 이미지 수정 modal -->
-			    <center>
+			    <center class="my-3">
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
 				  프로필 이미지 수정
 				</button>
@@ -72,7 +74,7 @@
 				      <div class="modal-body">
 						<form th:action="@{/image/upload}" method="post" enctype="multipart/form-data">
 				        <input type="file" name="files" accept="image/png, image/jpg, image/jpeg" >
-						<span>(jpg, jpeg, png 파일만 가능)</span>
+						<span>(jpg, jpeg, png)</span>
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -82,10 +84,10 @@
 				    </div>
 				  </div>
 				</div>
-			<table class="table container">
+			<table class="table table-bordered container my-4" style="width:60%">
 				<tr>
 				  <th class="bg">닉네임</th>	
-				  <td th:text="${memberProfile.membernick}"></td>
+				  <td align="" th:text="${memberProfile.membernick}"></td>
 				</tr>
 				<tr>
 				  <th class="bg">당도</th>	
@@ -113,27 +115,9 @@
 				<a th:href="@{/mypage/modifyProfile}" class="btn btn-primary">프로필수정</a>
 			</center>
 			
-			
-		   </td>
-	     </tr>
-		 <tr>
-		   <th><a class="noline" th:href="@{/inquiryPosting}">나의 활동</a></th>
- 	     </tr>
-		 <tr>
-		   <th >내 같이 먹기</th>
-		 </tr>
-		 <tr>
-		   <th><a class="noline" th:href="@{/member/memberInfo}">회원정보 수정</a></th>
-		 </tr>
-		 <tr>
-		   <th><a class="noline" th:href="@{/friend/list}">내 친구</a></th>
-		 </tr>
-		 <tr>
-		   <th >회원 탈퇴</th>
-		 </tr>
-	   </table>
-	
-		 
-	
+		  
+		</div>
+	   </div>
+	  </div>
 </div>	
 </html>
