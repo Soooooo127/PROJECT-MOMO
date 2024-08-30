@@ -49,11 +49,14 @@ public class SecurityConfig {
 				.invalidateHttpSession(true));
 
 		http.oauth2Login((oauth2) -> oauth2
+				.loginPage("/member/login")
 				.userInfoEndpoint
-				((userInfoEndpointConfig) -> userInfoEndpointConfig.userService(oAuth2UserCustomService)));
+				((userInfoEndpointConfig) -> userInfoEndpointConfig.userService(oAuth2UserCustomService))
+				.defaultSuccessUrl("/member/modifyMember"));
 
         http.authorizeHttpRequests((auth) -> auth
-                .requestMatchers("/", "/oauth2/**", "/login/**").permitAll()
+        		.requestMatchers("/member/mypage/**").hasAnyRole("ADMIN", "MEMBER", "SOCIAL")
+                .requestMatchers("/**").permitAll()
                 .anyRequest().authenticated());
 		return http.build();
 	}

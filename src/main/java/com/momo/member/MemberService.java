@@ -11,6 +11,7 @@ import com.momo.DataNotFoundException;
 import com.momo.auth.OAuth2Member;
 import com.momo.image.Image;
 import com.momo.member.profile.Profile;
+import com.momo.member.profile.ProfileRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberService {
 	
 	private final MemberRepository memberRepository;
+	private final ProfileRepository profileRepository;
 	private final PasswordEncoder passwordEncoder;
 
 	
@@ -31,6 +33,17 @@ public class MemberService {
 		member.setCreateDate(LocalDateTime.now());
 		member.setPassword(passwordEncoder.encode(memberCreateForm.getPassword1()));
 		this.memberRepository.save(member);
+		
+		Profile profile = new Profile();
+		profile.setGender(memberCreateForm.getGender());
+		profile.setMbti(memberCreateForm.getMbti());
+		profile.setContent(memberCreateForm.getContent());
+		profile.setAuthor(member);
+		this.profileRepository.save(profile);
+		
+		member.setProfile(profile);
+		this.memberRepository.save(member);
+		
 		return member;
 	}
 	

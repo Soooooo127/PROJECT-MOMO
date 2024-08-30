@@ -105,7 +105,29 @@ public class MemberController {
 	@GetMapping("/modifyMember")
 	public String goToModify(Principal principal, Member member, Model model) {
 		member = memberService.getMember(principal.getName());
+		
+		String _aid = member.getMemberid();
+		String _aname = member.getMembername();
+		String _amail = member.getEmail();
+		
+		int _mailAt = _amail.indexOf("@");
+		int _mailShow = _amail.length() - _mailAt;
+		
+		_aid = _aid.substring(0, 2) + "*".repeat(_aid.length()-3) + _aid.substring(_aid.length()-1);
+		_aname = _aname.substring(0, 1) + "*".repeat(_aname.length()-2) + _aname.substring(_aname.length()-1);
+		_amail = _amail.substring(0, 2) + "*".repeat(_mailShow-2) + _amail.substring(_mailAt-1, _amail.length());
+
+		member.setMemberid(_aid);
+		member.setMembername(_aname);
+		member.setEmail(_amail);
+
 		model.addAttribute("member", member);
+		
+//		if(member.getCreateDate() == null) {
+//			return "mypage/mypage_check_social";
+//		} else {
+//			return "mypage/mypage_check";
+//		}
 		return "mypage/mypage_check";
 	}
 	
@@ -125,7 +147,7 @@ public class MemberController {
 		memberService.updateMember(member);
 		
 		model.addAttribute("member", member);
-
+		
 		return "redirect:/member/modifyMember";
 	}
 	
@@ -193,7 +215,9 @@ public class MemberController {
 	}
 	
 	@GetMapping("/mypageTest")
-	public String goToMypageTest() {
+	public String goToMypageTest(Principal principal) {
+		System.out.println("=================테스트 페이지 진입=================");
+		System.out.println("principal username : " + principal.getName());
 		return "mypage/mypage_test";
 	}
 	/*
