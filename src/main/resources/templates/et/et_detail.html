@@ -31,12 +31,33 @@
 				
 				<a th:text="|*** 함께 모모하는 사람들 ***|"></a>
 				
-				<div class="mb-2">
-					<th:block th:each="member : ${et.prtmember}">
-						<div><a href="#"  th:text="${member.membernick}"></a></div>
+				<div class="mb-2" >
+					<!--<th:block th:each="member : ${et.prtmember}">
+						<div  th:text="${member.membernick}"></div>
 						
+					</th:block>-->
+					<table>
+						<tr>
+							<th width="100px">닉네임</th>
+							<th width="100px">MBTI</th>
+							<th width="100px">성별</th>
+						</tr>
+						<tr th:each="member : ${et.prtmember}">
+							<td th:text="${member.membernick}"></td>
+							<td th:if="${member.profile != null}" th:text="${member.profile.mbti}"></td>
+							<td th:if="${member.profile != null}" th:text="${member.profile.gender}"></td>
+						</tr>
+					</table>
+					<br>
+					<th:block th:each="member : ${et.prtmember}">
+						<img th:if="${member.memberid == #authentication.getPrincipal().getUsername()}" 
+						th:src="@{/css/images/chatting.png}" width="70px" height="70px" alt="채팅 아이콘" class="icon"
+						onclick='openNewChatRoom()'>
+						<input type="hidden" th:value="${et.no}" name="chatRoomNo" id="chatRoomNo">
+											
 					</th:block>
-				</div>
+											
+				</div> 
 			
 				<div class="d-flex justify-content-end">
 					<div class="mx-2">
@@ -49,17 +70,18 @@
 						th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
 						<a th:if="${et.applymember.memberid == #authentication.getPrincipal().getUsername()}"
 						href="javascript:void(0)" th:data-uri="@{|/et/delete/${rest.no}/${et.no}|}" class="delete btn btn-primary">모모방 삭제</a>
-						<input type="hidden" th:value="${et.no}" name="chatRoomNo" id="chatRoomNo">
+						
+					
 					</div>
 					
 					
 				</div>
+				<!--
 					<div>
-		
 					<a onclick='openNewChatRoom()' class="chat icon-wrap">
 					<img th:src="@{/css/images/chatting.png}" width="70px" height="70px" alt="채팅 아이콘" class="icon">
 								</a>
-							</div>
+							</div>-->
 			</div>
 			<!--${et.applymember.memberid != #authentication.getPrincipal().getUsername()}-->
 			
@@ -94,7 +116,9 @@
 			var no2 = '/chat/list/' + no;
 			
 			function openNewChatRoom() {
-				window.open(no2,'_blank','width=700, height=500');
+				let options = "width=700, height=650" 
+				window.open(no2,'_blank',options);
+			//	window.open(no2,'_blank','width=700, height=900'); 이전코드
 			}
 		</script>
 		
