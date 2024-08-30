@@ -46,5 +46,6 @@ public class Review {
 	@ManyToOne
 	private Restaurant rest;
 	
+	private Integer star;
 
 }

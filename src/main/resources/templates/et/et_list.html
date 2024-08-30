@@ -24,11 +24,11 @@
 		<!--class="card w-75 mb-3"--> 
 		<!-- 같이먹기 방 리스트-->	
 		<div th:each="et : ${etList}">
-		<a href="#"  class="" data-bs-toggle="modal" data-bs-target="#exampleModal">  
+		<!--<a href="#"  class="" data-bs-toggle="modal" data-bs-target="#exampleModal">-->  
 			<div class="card w-75 mb-3">
 				
 				<div class="card-body">
-					<h5 class="card-title" th:text="${et.ettitle}"></h5>
+					<a th:href=@{|detail/${et.rest.no}/${et.no}|} th:text="${et.ettitle}"></a>
 					<p class="card-text" th:text="${et.rest.name}"></p>
 					<ul>
 						
@@ -44,13 +44,6 @@
 							<a th:text="|같이먹는날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></a>
 						</li>
 						
-						<li>
-							<a th:text="|선호하는 성별 : ${et.prefgender}|"></a>
-						</li>
-						
-						<li>
-							<a th:text="|선호 MBTI : ${et.prefmbti}|"></a>
-						</li>
 					</ul>
 				</div>
 		    <!--<h5 class="card-title" th:value="${방제목}">선배! 마라탕 사주세요</h5>
@@ -71,7 +64,7 @@
 			</div>
 		</a>
 		
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog modal-dialog-centered " >
 				    <div class="modal-content">
 				      <div class="modal-header">
@@ -99,7 +92,7 @@
 				      </div>
 				    </div>
 				  </div>
-				</div>
+				</div>-->
 		</div>
 		
 

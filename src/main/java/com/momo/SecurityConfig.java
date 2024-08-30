@@ -31,17 +31,10 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-//				.requestMatchers(new AntPathRequestMatcher("/**")).hasRole(null)
-				.requestMatchers(new AntPathRequestMatcher("/admin")).hasAnyAuthority("ROLE_ADMIN")
+				.requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAnyAuthority("ROLE_ADMIN")
 				.requestMatchers(new AntPathRequestMatcher("/member/mypage/**")).hasAnyRole("ADMIN", "MEMBER", "SOCIAL")
 				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
-
-
-
-
-				// csrf 사이트 위변조 방지 설정이며, 개발 시에만 ignore 합니다
 				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
-				// 인증메일 발송을 위한 ignore
 				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**")))
 				.headers((headers) -> headers.addHeaderWriter(
 						new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
@@ -49,13 +42,12 @@ public class SecurityConfig {
 				.usernameParameter("memberid")
 				.loginPage("/member/login")
 				.failureUrl("/member/loginfailed")
-				.defaultSuccessUrl("/member/mypage"))
+				.defaultSuccessUrl("/mypage/profile"))
 				.logout((logout) -> logout
 				.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
 				.logoutSuccessUrl("/")
 				.invalidateHttpSession(true));
 
-		//OAuth2 로그인 추가
 		http.oauth2Login((oauth2) -> oauth2
 				.userInfoEndpoint
 				((userInfoEndpointConfig) -> userInfoEndpointConfig.userService(oAuth2UserCustomService)));
@@ -63,30 +55,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests((auth) -> auth
                 .requestMatchers("/", "/oauth2/**", "/login/**").permitAll()
                 .anyRequest().authenticated());
-        
-
-		/*
-		 * 
-		 *  	.oauth2Login
- 				.loginPage(Customizer.withDefaults()); 
-		        // OAuth 2.0 로그인 방식 설정
-		        http
-		                .oauth2Login((auth) -> auth.loginPage("/oauth-login/login")
-		                        .defaultSuccessUrl("/oauth-login")
-		                        .failureUrl("/oauth-login/login")
-		                        .permitAll());
-
-		        http
-		                .logout((auth) -> auth
-		                        .logoutUrl("/oauth-login/logout"));
-
-		        http
-		                .csrf((auth) -> auth.disable());
-		 */
 		return http.build();
 	}
 
-//	비밀번호 암호화
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -98,11 +69,4 @@ public class SecurityConfig {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
 	
-	/*
-	@Bean
-	AuthenticationFailureHandler customAuthFailureHandler(){
-	        return new MomoAuthenticationFailureHandler();
-	    }
-	    */
-
 }

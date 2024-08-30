@@ -26,9 +26,10 @@ public class ProfileController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/profile")
 	public String profile(Model model, Principal principal) {
+		System.out.println(principal.getName());
 		Member memberProfile = this.memberService.getMember(principal.getName());
 		model.addAttribute("memberProfile", memberProfile);
-		return "/profile/profile";
+		return "profile/profile";
 	}
 	
 	
@@ -37,7 +38,7 @@ public class ProfileController {
 	public String modifyProfile(Model model, Principal principal) {
 		Member memberProfile = this.memberService.getMember(principal.getName());
 		model.addAttribute("memberProfile", memberProfile);
-		return "/profile/profile_form";
+		return "profile/profile_form";
 	}
 	
 	

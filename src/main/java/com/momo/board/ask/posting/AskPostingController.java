@@ -79,7 +79,7 @@ public class AskPostingController {
 	@GetMapping("/update/{no}")
 	public String updateAskPosting(AskPostingForm askPostingForm , @PathVariable("no") Integer no , Principal principal){
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
-		if(!askPosting.getMembernick().getMemberid().equals(principal.getName())) {
+		if(!askPosting.getAuthor().getMemberid().equals(principal.getName())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "수정 권한이 없습니다.");
 		}
 		askPostingForm.setSubject(askPosting.getSubject());
@@ -98,7 +98,7 @@ public class AskPostingController {
 		}
 		
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
-		if(!askPosting.getMembernick().getMemberid().equals(principal.getName())) {
+		if(!askPosting.getAuthor().getMemberid().equals(principal.getName())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "수정 권한이 없습니다.");
 		}
 		
@@ -111,7 +111,7 @@ public class AskPostingController {
 	@GetMapping("/delete/{no}")
 	public String deleteAskPosting(Principal principal , @PathVariable("no") Integer no) {
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
-		if(!askPosting.getMembernick().getMemberid().equals(principal.getName())) {
+		if(!askPosting.getAuthor().getMemberid().equals(principal.getName())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "삭제 권한이 없습니다");
 		}
 		this.askPostingService.delete(askPosting);

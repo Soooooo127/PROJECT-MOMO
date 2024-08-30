@@ -1,6 +1,7 @@
 package com.momo.board.inquiry.posting;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -43,18 +44,21 @@ public class InquiryPostingController {
 	@GetMapping("/noCommentList")
 	public String getNoCommentList(Model model, @RequestParam(value="page", defaultValue = "0")int page) {
 		Page<InquiryPosting> paging = this.inquiryPostingService.getNoCommentList(page, null);
-		model.addAttribute("paging", paging);
-		return "/inquiry/inquiryPosting_admin";
-	}
+		
+		model.addAttribute("paging", paging); 
+		return "/inquiry/inquiryPosting_admin(noCommentList)";
+	} 
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/myList")
-	public String getMyPosting(Model model, Principal principal,  @RequestParam(value="page", defaultValue = "0")int page) {
+	public String getMyPosting(Model model, Principal principal, @RequestParam(value="subject", defaultValue="")String subject
+			                   , @RequestParam(value="page", defaultValue = "0")int page) {
 		Member member = this.memberService.getMember(principal.getName());
-		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(member, page);
+		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(member, subject ,page);
 		model.addAttribute("paging", paging);
+		model.addAttribute("subject", subject);
 		return "/inquiry/inquiryPosting";
-	}
+	} 
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/create")
@@ -67,9 +71,7 @@ public class InquiryPostingController {
 	public String createPosting(@Valid InquiryPostingForm inquiryPostingForm, BindingResult bindingResult, Principal principal, Model model
 		                       , @RequestParam(value="page", defaultValue = "0")int page) {
 		Member member = this.memberService.getMember(principal.getName());
-		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(member, page);
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("paging",paging);
 			return "/inquiry/inquiryPosting_create";
 		}
 		this.inquiryPostingService.createPosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), member.getMembernick() , member);

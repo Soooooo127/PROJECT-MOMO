@@ -59,11 +59,4 @@ public class OAuth2CustomUser implements OAuth2User {
 		return this.member.getMemberid();
 	}
 	
-	/*
-	//테스트용으로 남겨둠
-	public String getMemberid() {
-		return oAuth2Response.getProvider() + "" + oAuth2Response.getProviderId();
-	}
-	*/
-
 }

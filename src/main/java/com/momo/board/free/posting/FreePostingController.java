@@ -32,9 +32,10 @@ public class FreePostingController {
 	private final MemberService memberService;
 	
 	@GetMapping("/list")
-	public String getList(Model model, @RequestParam(value = "page", defaultValue = "0") int page,Principal principal) {
+	public String getList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, Principal principal) {
 		Page<FreePosting> paging = freePostingService.getList(page);
 		model.addAttribute("paging", paging);
+		
 		Member member = memberService.getMember(principal.getName());
 		model.addAttribute("member", member);
 		return "free/free_list";

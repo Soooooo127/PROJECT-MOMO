@@ -66,7 +66,7 @@ li a:link, li a:visited {
 }
 
 .frame-dvd-l {
-  width:450px;
+  width:460px;
   float: left;
 }
 
@@ -75,6 +75,15 @@ li a:link, li a:visited {
 	padding:10px;
 	margin: auto;
   border-bottom: 2px solid salmon;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.infoTitle2 {
+  width:100%;
+	padding:10px;
+	margin: auto;
   font-size: 1.3rem;
   font-weight: bold;
   text-align: center;
@@ -93,4 +102,39 @@ li a:link, li a:visited {
 
 .last {
   border-bottom: none;
+}
+
+.myModify {
+  width:450px;
+  overflow: auto;
+}
+
+.myModify-p {
+  padding-top: 100px;
+
+}
+
+.myModify-r {
+  width:450px;
+  margin-left: 20px;
+
+}
+
+.myModify-content {
+  width:380px;
+  float: left;
+  padding: 10px 0px 10px 0px;
+}
+
+.myModify-icon {
+  width:50px;
+  float:left;
+  text-align: center;
+  font-size: x-large;
+  padding:10px;
+}
+
+.myModify-btn {
+  width:380px;
+  padding: 10px 0px 10px 0px;
 }

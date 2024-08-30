@@ -25,11 +25,6 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 	
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-//    	System.out.println("userRequest - clientId : " + userRequest.getClientRegistration().getClientId());
-//    	System.out.println("userRequest - clientName : " + userRequest.getClientRegistration().getClientName());
-//    	System.out.println("userRequest - clientSecret : " + userRequest.getClientRegistration().getClientSecret());
-    	System.out.println("userRequest - RegistrationId : " + userRequest.getClientRegistration().getRegistrationId());
-    	
     	
         OAuth2User oAuth2User = super.loadUser(userRequest);
         System.out.println("oAuth2User : " + oAuth2User.getAttributes());
@@ -169,9 +164,6 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 		memberRepository.save(member);
 	
 	}
-	
-
-
 
 	
 }

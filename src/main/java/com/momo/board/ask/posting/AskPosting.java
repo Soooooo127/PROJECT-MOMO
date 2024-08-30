@@ -49,8 +49,10 @@ public class AskPosting {
 	@ManyToMany
 	private Set<Member> nope;
 	
+	private String membernick;
+	
 	@ManyToOne
-	private Member membernick;
+	private Member author;
 	
 	@Column(columnDefinition = "integer default 0")
 	private Integer cnt;

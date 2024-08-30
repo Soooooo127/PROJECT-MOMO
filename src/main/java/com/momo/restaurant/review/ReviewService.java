@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.momo.DataNotFoundException;
 import com.momo.board.free.comment.FreeComment;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
@@ -21,7 +22,7 @@ public class ReviewService {
 
 	private final ReviewRepository reviewRepository;
 	private final RestRepository restRepository;
-	private final MemberService memberService;
+	//private final MemberService memberService;
 	
 	public List<Review> getList(Restaurant rest){
 		return this.reviewRepository.findByRest(rest);
@@ -36,17 +37,21 @@ public class ReviewService {
 	public Review getReview(Integer no) {
 		
 		Optional<Review> re = reviewRepository.findById(no);
-		Review review = re.get();
-		return review;
+		if(re.isPresent()) {
+			return re.get();
+		}else {
+			throw new DataNotFoundException("데이터가 없습니다");
+		}
+
 	}
 	
-	public void create(Integer no, Member member, String content) {
+	public void create(Integer no, Member member, String content, Integer star) {
 		Restaurant rest = new Restaurant();
 		Optional<Restaurant> findRest = restRepository.findById(no);
 		rest = findRest.get();
 		
 		Review review = new Review();
-		
+		review.setStar(star);
 		review.setAuthor(member);
 		review.setRest(rest);
 		review.setContent(content);
@@ -63,6 +68,12 @@ public class ReviewService {
 	public void update(Review review, String content) {
 		review.setContent(content);
 		review.setUpdateDate(LocalDateTime.now());
+		reviewRepository.save(review);
+	}
+	
+
+	public void ddabong(Review review, Member member) {
+		review.getDdabong().add(member);
 		reviewRepository.save(review);
 	}
 	

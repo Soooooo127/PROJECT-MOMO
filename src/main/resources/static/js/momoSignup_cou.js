@@ -77,5 +77,3 @@ open[1].addEventListener("click", () => {
 close[1].addEventListener("click", () => {
   modalBox[1].classList.remove("active"); 
 });
-
-

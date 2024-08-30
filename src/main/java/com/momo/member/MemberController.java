@@ -1,12 +1,9 @@
 package com.momo.member;
 
 import java.security.Principal;
-import java.util.Collection;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	
 	private final MemberService memberService;
+	private final PasswordEncoder passwordEncoder;
 	
 	// 첫페이지(인덱스)
 	@GetMapping("/welcome")
@@ -41,50 +40,6 @@ public class MemberController {
 	@GetMapping("/signup_next")
 	public String signupNext(MemberCreateForm memberCreateForm) {
 		return "member/signup_form";
-	}
-	
-	// 로그인 화면으로 이동
-	@GetMapping("/login")
-	public String login() {
-		return "member/login_form";
-	}
-	
-	// 로그인 실패
-	@GetMapping("/loginfailed")
-	public String loginFailed(MemberCreateForm memberCreateForm) {
-		return "redirect:member/login_form";
-	}
-	
-	// 아이디 찾기
-	@GetMapping("/findid")
-	public String findId() {
-		return "member/find_id3";
-	}
-	
-	// 비밀번호 찾기
-	@GetMapping("/findpw")
-	public String findpw() {
-		return "member/find_pw";
-	}
-	
-	// 마이페이지 진입
-	@GetMapping("/mypage")
-	public String goToMypage() {
-		return "layout_mypage";
-	}
-	
-	// 회원정보 수정 메뉴 진입(초기화면 : 기본 정보를 보여준다)
-	@GetMapping("/modifyMember")
-	public String goToModify(Principal principal, Member member, Model model) {
-		member = memberService.getMember(principal.getName());
-		model.addAttribute("member", member);
-		return "mypage/mypage_check";
-	}
-	
-	// 소셜 로그인 회원이 회원정보 첫 수정을 안했을 때 이동하는 페이지
-	@GetMapping("/mypage/social")
-	public String goToMypageSocial() {
-		return "mypage/mypage_social";
 	}
 	
 	// 회원가입을 위한 메소드
@@ -116,6 +71,71 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	// 로그인 화면으로 이동
+	@GetMapping("/login")
+	public String login() {
+		return "member/login_form";
+	}
+	
+	// 로그인 실패
+	@GetMapping("/loginfailed")
+	public String loginFailed(MemberCreateForm memberCreateForm) {
+		return "redirect:member/login_form";
+	}
+	
+	// 아이디 찾기
+	@GetMapping("/findid")
+	public String findId() {
+		return "member/find_id3";
+	}
+	
+	// 비밀번호 찾기
+	@GetMapping("/findpw")
+	public String findpw() {
+		return "member/find_pw";
+	}
+	
+//	// 마이페이지 진입
+//	@GetMapping("/mypage")
+//	public String goToMypage() {
+//		return "profile/profile";
+//	}
+	
+	// 회원정보 수정 메뉴 진입(초기화면 : 기본 정보를 보여준다)
+	@GetMapping("/modifyMember")
+	public String goToModify(Principal principal, Member member, Model model) {
+		member = memberService.getMember(principal.getName());
+		model.addAttribute("member", member);
+		return "mypage/mypage_check";
+	}
+	
+	// 회원정보 수정 메소드
+	@PostMapping("/modifyMember")
+	public String modifyMember(@RequestParam(value = "memberid") String memberid, @RequestParam(value = "membernick") String membernick
+			, @RequestParam(value = "email") String email, Member member, Model model) {
+		System.out.println("=================회원정보 수정 메뉴 진입============");
+		System.out.println("memberid : " + memberid);
+		System.out.println("membernick : " + membernick);
+		System.out.println("email : " + email);
+		
+		member = memberService.getMember(memberid);
+		member.setMembernick(membernick);
+		member.setEmail(email);
+		
+		memberService.updateMember(member);
+		
+		model.addAttribute("member", member);
+
+		return "redirect:/member/modifyMember";
+	}
+	
+	// 소셜 로그인 회원이 회원정보 첫 수정을 안했을 때 이동하는 페이지
+	@GetMapping("/mypage/social")
+	public String goToMypageSocial() {
+		return "mypage/mypage_social";
+	}
+	
+	
 	// 마이페이지의 회원정보 수정을 진입하기 위한 비밀번호 체크 메소드
 	@PostMapping("/checkPw")
 	public String checkPw(@RequestParam(value = "password") String password, Principal principal, Model model) {
@@ -126,7 +146,7 @@ public class MemberController {
 			model.addAttribute("member", member);
 			return "mypage/mypage_modify";
 		} else {
-			return "mypage/";
+			return "/";
 		}
 		
 	}

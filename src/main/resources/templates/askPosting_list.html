@@ -37,15 +37,15 @@
 					<ul class="navbar-nav me-auto">
 					  <li class="nav-item dropdown">
 				    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-					 th:if="${askPosting.membernick != null}" th:text="${askPosting.membernick.membernick}"></a>
+					 th:if="${askPosting.author != null}" th:text="${askPosting.membernick}"></a>
 					    <div class="dropdown-menu" >
 				      <a class="dropdown-item" href="#"> 프로필 보기</a>
 																			
 				  <div class="dropdown-item" sec:authorize="isAuthenticated()"
-				  th:if="${#authentication.getPrincipal().getUsername() != askPosting.membernick.memberid}"
+				  th:if="${#authentication.getPrincipal().getUsername() != askPosting.author.memberid}"
 				  >
 					<form method="post" th:action="@{/friend/create}">
-					<input type="hidden" name="friendid" th:value="${askPosting.membernick.membernick}">
+					<input type="hidden" name="friendid" th:value="${askPosting.author.membernick}">
 					<button type="submit" class="btn btn-primary" style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .87rem;" onclick="alert('친구 추가 완료');" >친구 추가</button>
 					</form>
 					

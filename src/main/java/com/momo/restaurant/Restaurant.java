@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.momo.restaurant.et.EatTogether;
 import com.momo.restaurant.review.Review;
+import com.momo.restaurant.time.RestTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -48,4 +49,7 @@ public class Restaurant {
 	private List<EatTogether> etList;
 	
 	private Integer progresset;
+	
+	@OneToMany(mappedBy = "rest", cascade = CascadeType.REMOVE )
+	private List<RestTime> timeList;
 }

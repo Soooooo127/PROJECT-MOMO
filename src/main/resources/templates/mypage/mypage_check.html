@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout_mypage}">
   <head>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" defer th:src="@{/js/momoMypage.js}"></script>
   </head>
   <body layout:fragment="mypageContent">
     <!--전체 영역-->
-    <div>
-      <!--콘텐츠 영역-->
+    <div class="frame-dvd">
       <div>
-        <!--로고 영역-->
-        <div>
-          로고
+       로고 
+      </div>
+      <!--회원정보 노출 및 수정(좌)-->
+      <div class="frame-dvd-l infoBorder">
+        <div class="myModify infoTitle">
+          회원정보 확인
         </div>
-        <!--콘텐츠 세부 영역-->
-        <div class="frame-dvd">
-          <!--좌측(정보 확인) 영역-->
-          <div class="frame-dvd-l infoBorder">
-            <div class="infoTitle">
-              회원정보 확인
-            </div>
-            <div class="infoContent">
-              회원정보 수정 전, 기본 정보를 확인하여주시기 바랍니다.
-            </div>
-            <div class="mt-5 ms-5">
-              <p class="mb-4">
-                <span class="contentTitle">아이디</span><br>
-                <span th:text="${member.memberid}"></span>
+        <div class="myModify infoContent">
+          회원정보 수정 전, 기본 정보를 확인하여주시기 바랍니다.
+        </div>
+        <div class="myModify-content">
+          <div class="mt-5 ms-5">
+            <p class="mb-4">
+              <span class="contentTitle">아이디</span><br>
+              <span th:text="${member.memberid}" id="maskingId"></span>
+            </p>
+            <p class="mb-4">
+              <span class="contentTitle">이름</span><br>
+              <span th:text="${member.membername}" id="foundName"></span>
+            </p>
+            <p class="mb-4">
+              <span class="contentTitle">닉네임</span><br>
+              <span th:text="${member.membernick}" id="foundNick"></span>
+            </p>
+            <p class="mb-4">
+              <span class="contentTitle">이메일</span><br>
+              <span th:text="${member.email}" id="foundEmail"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--회원정보 수정 메뉴 진입을 위한 비밀번호 확인-->
+      <div class="frame-dvd-l">
+        <div class="myModify-p">
+          <div class="myModify-r">
+            <div class="myModify-btn">
+              <div class="infoTitle2">
+                비밀번호 확인
+              </div>
+              <p style="text-align: center;">
+                정보보호을 위해 비밀번호를 입력하여주시기 바랍니다.
               </p>
-              <p class="mb-4">
-                <span class="contentTitle">이름</span><br>
-                <span th:text="${member.membername}"></span>
-              </p>
-              <p class="mb-4">
-                <span class="contentTitle">닉네임</span><br>
-                <span th:text="${member.membernick}"></span>
-              </p>
-              <p class="mb-4">
-                <span class="contentTitle">이메일</span><br>
-                <span th:text="${member.email}"></span>
-              </p>
+    
+    
             </div>
           </div>
-          <!--우측 영역-->
-          <div class="frame-dvd-l ms-4">
-            <div style="padding:150px 0px 150px 0px;">
-              <div class="infoContent last">
-                회원정보 확인을 위해 비밀번호를 입력하세요.
-              </div>
-              <form method="post" th:action="@{/member/checkPw}">
+          <div class="myModify-r">
+            <form method="post" th:action="@{/member/checkPw}">
+              <div class="myModify-btn">
                 <div th:if="${param.error}">
                   <div>비밀번호를 정확히 입력하세요</div>
                 </div>
@@ -58,19 +68,11 @@
                 <div class="d-grid gap-2">
                   <button type="submit" class="btn btn-lg btn-primary mt-3">비밀번호 확인</button>
                 </div>
-              </form>
-            </div>
-  
+              </div>
+            </form>
           </div>
-
-
-
-
-
         </div>
       </div>
-
-
     </div>
 
   </body>
