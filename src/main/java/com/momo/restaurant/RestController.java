@@ -54,6 +54,14 @@ public class RestController {
 			model.addAttribute("review", review);
 			List<Jjim> j = this.jjimService.getList(rest);
 			model.addAttribute("j", j);
+			double avg=0.00d; int sum =0;
+			for(int i=0; i<review.size(); i++) {
+			    sum+= review.get(i).getStar();
+			}
+			double size=review.size();
+			avg=sum / size ;
+			String starAvg = String.format("%.1f", avg);
+			model.addAttribute("starAvg", starAvg);
 			return "rest/rest_detail";
 		}
 		
@@ -85,6 +93,14 @@ public class RestController {
 		model.addAttribute("j", j);
 		
 		List<Review> review=this.reviewService.getList(rest);
+		double avg=0.00d; int sum =0;
+		for(int i=0; i<review.size(); i++) {
+		    sum+= review.get(i).getStar();
+		}
+		double size=review.size();
+		avg=sum / size ;
+		String starAvg = String.format("%.1f", avg);
+		model.addAttribute("starAvg", starAvg);
 		model.addAttribute("review", review);
 		
 		

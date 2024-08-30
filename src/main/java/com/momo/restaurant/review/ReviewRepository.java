@@ -10,4 +10,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer>{
 
 	List<Review> findByRest(Restaurant rest);
 	
+	
+	
+	
 }
