@@ -32,10 +32,22 @@
 				<a th:text="|*** 함께 모모하는 사람들 ***|"></a>
 				
 				<div class="mb-2" >
-					<th:block th:each="member : ${et.prtmember}">
+					<!--<th:block th:each="member : ${et.prtmember}">
 						<div  th:text="${member.membernick}"></div>
 						
-					</th:block>
+					</th:block>-->
+					<table>
+						<tr>
+							<th width="100px">닉네임</th>
+							<th width="100px">MBTI</th>
+							<th width="100px">성별</th>
+						</tr>
+						<tr th:each="member : ${et.prtmember}">
+							<td th:text="${member.membernick}"></td>
+							<td th:if="${member.profile != null}" th:text="${member.profile.mbti}"></td>
+							<td th:if="${member.profile != null}" th:text="${member.profile.gender}"></td>
+						</tr>
+					</table>
 					<br>
 					<th:block th:each="member : ${et.prtmember}">
 						<img th:if="${member.memberid == #authentication.getPrincipal().getUsername()}" 
