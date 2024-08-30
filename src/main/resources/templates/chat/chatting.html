@@ -52,12 +52,11 @@
 	
 <!-- 채팅 -->
 
-	<div class="col-3" style="width: 60%;">
+	<div class="col-3" style="width: 60%;" >
 		
-		<div id="messageRoom" class="d-none">
-							<br>
-							<h5><div id="receiverName"></div></h5>
-							<br>
+							<h5><div id="receiverName" ></div></h5>
+		<div id="messageRoom" class="d-none" style=" border: 1px solid #e1e1e1; border-radius: 10px;" >
+						<br>
 							<!--------------------------대화 입력하고 보여줌 -------------------------->
 			                <div id="messages" style="height: 350px; overflow-y: auto" ></div>  
 			
@@ -179,7 +178,7 @@
 					
 					//대화창에 상대 이름 띄우기
 					var receiverName = document.getElementById("receiverName");
-					receiverName.innerHTML = "상대방";
+					receiverName.innerHTML = "";
 					
 					//document.getElementById('messages').style.overflow = "hidden";
 					
