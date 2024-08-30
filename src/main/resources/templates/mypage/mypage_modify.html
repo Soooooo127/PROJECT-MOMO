@@ -6,15 +6,105 @@
   <body>
 
     <div layout:fragment="mypageContent">
+      <!--전체 프레임-->
+      <div class="frame-dvd">
+        <div>
+          로고
+        </div>
+        <div class="frame-dvd-l">
+          <!--회원정보 노출 및 수정(좌)-->
+          <div class="infoBorder">
+            <div class="titleMenu">
+              회원정보 수정
+            </div>
+            <form>
+              <div class="myModify">
+                <div class="myModify-content">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingPassword"
+                    autocomplete="off" disabled th:value="${member.memberid}">
+                    <label for="floatingPassword">아이디 : 아이디는 변경할 수 없습니다</label>
+                  </div>
+                </div>
+                <div class="myModify-icon">
+                  <i class="fi fi-br-pen-field"></i>
+                </div>
+              </div>
+              <div class="myModify">
+                <div class="myModify-content">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingPassword"
+                    autocomplete="off" disabled th:value="${member.membername}">
+                    <label for="floatingPassword">이름(실명) : 이름은 변경할 수 없습니다</label>
+                  </div>
+                </div>
+                <div class="myModify-icon">
+                  <i class="fi fi-br-pen-field"></i>
+                </div>
+              </div>
+              <div class="myModify">
+                <div class="myModify-content">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingPassword" 
+                    autocomplete="off" th:value="${member.membernick}">
+                    <label for="floatingPassword">닉네임</label>
+                  </div>
+                </div>
+                <div class="myModify-icon">
+                  <i class="fi fi-br-pen-field"></i>
+                </div>
+              </div>
+              <div class="myModify">
+                <div class="myModify-content">
+                  <div class="form-floating">
+                    <input type="email" class="form-control" id="floatingPassword" 
+                    autocomplete="off" th:value="${member.email}">
+                    <label for="floatingPassword">이메일(email@example.com)</label>
+                  </div>
+                </div>
+                <div class="myModify-icon">
+                  <i class="fi fi-br-pen-field"></i>
+                </div>
+              </div>
+              <div class="myModify-btn">
+                <div class="d-grid gap-2 mt-6">
+                  <button class="btn btn-lg btn-primary" type="button">회원정보 수정</button>
+                </div>
+              </div>
+            </form>
+            
+          </div>
+          
+        </div>
+        <div class="frame-dvd-l">
+          <!--회원정보 노출 및 수정(우)-->
+          <div class="myModify-right">
+            <div class="titleMenu">
+              비밀번호 수정
+            </div>
+            <form>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">비밀번호</label>
+              </div>
+              <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password" autocomplete="off">
+                <label for="floatingPassword">비밀번호 확인</label>
+              </div>
+              <div class="d-grid gap-2 mt-4">
+                <button class="btn btn-lg btn-primary" type="button">비밀번호 변경</button>
+              </div>
+            </form>
+            <div class="alert alert-dismissible alert-light">
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              <strong>이메일 변경 시 주의!</strong><br>
+               소셜 로그인 <a href="#" class="alert-link">(구글, 네이버)</a> 연결 회원은
+                이메일 변경 시 소셜 로그인이 적용되지 않습니다.
+            </div>
+          </div>
 
-
-      마이페이지이~~~~~~~~~~~~~
-      회원정보 수우저엉~~~~
-
-
-
-
+        </div>
+      </div>
     </div>
-
   </body>
 </html>
