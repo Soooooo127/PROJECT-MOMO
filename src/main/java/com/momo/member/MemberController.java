@@ -1,12 +1,9 @@
 package com.momo.member;
 
 import java.security.Principal;
-import java.util.Collection;
 
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	
 	private final MemberService memberService;
+	private final PasswordEncoder passwordEncoder;
 	
 	// 첫페이지(인덱스)
 	@GetMapping("/welcome")
@@ -41,6 +40,35 @@ public class MemberController {
 	@GetMapping("/signup_next")
 	public String signupNext(MemberCreateForm memberCreateForm) {
 		return "member/signup_form";
+	}
+	
+	// 회원가입을 위한 메소드
+	@PostMapping("/signup")
+	public String signup(@Valid MemberCreateForm memberCreateForm, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "member/signup_form";
+		}
+		
+		if (!memberCreateForm.getPassword1().equals(memberCreateForm.getPassword2())) {
+			bindingResult.rejectValue("password2", "passwordInCorrect", "2개의 패스워드가 일치하지 않습니다.");
+			return "member/signup_form";
+		}
+		
+		try {
+			memberService.create(memberCreateForm);
+			
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
+			return "member/signup_form";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			bindingResult.reject("signupFailed", e.getMessage());
+			return "member/signup_form";
+		}
+		
+		return "redirect:/";
 	}
 	
 	// 로그인 화면으로 이동
@@ -81,40 +109,32 @@ public class MemberController {
 		return "mypage/mypage_check";
 	}
 	
+	// 회원정보 수정 메소드
+	@PostMapping("/modifyMember")
+	public String modifyMember(@RequestParam(value = "memberid") String memberid, @RequestParam(value = "membernick") String membernick
+			, @RequestParam(value = "email") String email, Member member, Model model) {
+		System.out.println("=================회원정보 수정 메뉴 진입============");
+		System.out.println("memberid : " + memberid);
+		System.out.println("membernick : " + membernick);
+		System.out.println("email : " + email);
+		
+		member = memberService.getMember(memberid);
+		member.setMembernick(membernick);
+		member.setEmail(email);
+		
+		memberService.updateMember(member);
+		
+		model.addAttribute("member", member);
+
+		return "redirect:/member/modifyMember";
+	}
+	
 	// 소셜 로그인 회원이 회원정보 첫 수정을 안했을 때 이동하는 페이지
 	@GetMapping("/mypage/social")
 	public String goToMypageSocial() {
 		return "mypage/mypage_social";
 	}
 	
-	// 회원가입을 위한 메소드
-	@PostMapping("/signup")
-	public String signup(@Valid MemberCreateForm memberCreateForm, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			return "member/signup_form";
-		}
-		
-		if (!memberCreateForm.getPassword1().equals(memberCreateForm.getPassword2())) {
-			bindingResult.rejectValue("password2", "passwordInCorrect", "2개의 패스워드가 일치하지 않습니다.");
-			return "member/signup_form";
-		}
-		
-		try {
-			memberService.create(memberCreateForm);
-			
-		} catch (DataIntegrityViolationException e) {
-			e.printStackTrace();
-			bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
-			return "member/signup_form";
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			bindingResult.reject("signupFailed", e.getMessage());
-			return "member/signup_form";
-		}
-		
-		return "redirect:/";
-	}
 	
 	// 마이페이지의 회원정보 수정을 진입하기 위한 비밀번호 체크 메소드
 	@PostMapping("/checkPw")
@@ -126,7 +146,7 @@ public class MemberController {
 			model.addAttribute("member", member);
 			return "mypage/mypage_modify";
 		} else {
-			return "mypage/";
+			return "/";
 		}
 		
 	}

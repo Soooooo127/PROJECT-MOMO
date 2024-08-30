@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout_mypage}">
   <head>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" defer th:src="@{/js/momoMypage.js}"></script>
   </head>
   <body>
 
     <div layout:fragment="mypageContent">
-      <!--전체 프레임-->
+      <!--전체 영역-->
       <div class="frame-dvd">
         <div>
           로고
@@ -17,50 +18,53 @@
             회원정보 수정
 
           </div>
-          <div class="myModify">
-            <div class="myModify-content">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="floatingPassword"
-                autocomplete="off" disabled th:value="${member.membername}">
-                <label for="floatingPassword">이름(실명) : 이름은 변경할 수 없습니다</label>
+          <form method="post" th:action="@{/member/modifyMember}">
+            <div class="myModify">
+              <div class="myModify-content">
+                <div class="form-floating">
+                  <input type="hidden" name="memberid" id="memberid" th:value="${member.memberid}">
+                  <input type="text" class="form-control" 
+                  autocomplete="off" disabled th:value="${member.memberid}">
+                  <label for="floatingPassword">아이디 : 아이디는 변경할 수 없습니다</label>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="myModify">
-            <div class="myModify-content">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="floatingPassword"
-                autocomplete="off" disabled th:value="${member.membername}">
-                <label for="floatingPassword">이름(실명) : 이름은 변경할 수 없습니다</label>
+            <div class="myModify">
+              <div class="myModify-content">
+                <div class="form-floating">
+                  <input type="text" class="form-control" 
+                  autocomplete="off" disabled th:value="${member.membername}">
+                  <label for="floatingPassword">이름(실명) : 이름은 변경할 수 없습니다</label>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="myModify">
-            <div class="myModify-content">
-              <div class="form-floating">
-                <input type="text" class="form-control" id="floatingPassword" 
-                autocomplete="off" th:value="${member.membernick}">
-                <label for="floatingPassword">닉네임</label>
+            <div class="myModify">
+              <div class="myModify-content">
+                <div class="form-floating">
+                  <input type="text" class="form-control"  
+                  autocomplete="off" name="membernick" th:value="${member.membernick}">
+                  <label for="floatingPassword">닉네임</label>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="myModify">
-            <div class="myModify-content">
-              <div class="form-floating">
-                <input type="email" class="form-control" id="floatingPassword" 
-                autocomplete="off" th:value="${member.email}">
-                <label for="floatingPassword">이메일(email@example.com)</label>
+            <div class="myModify">
+              <div class="myModify-content">
+                <div class="form-floating">
+                  <input type="email" class="form-control"  
+                  autocomplete="off" name="email" th:value="${member.email}">
+                  <label for="floatingPassword">이메일(email@example.com)</label>
+                </div>
+              </div>
+              <div class="myModify-icon titleMenu">
+                <i class="fi fi-br-location-exclamation"></i>
               </div>
             </div>
-            <div class="myModify-icon titleMenu">
-              <i class="fi fi-br-location-exclamation"></i>
+            <div class="myModify-btn">
+              <div class="d-grid gap-2 mt-6">
+                <button type="submit" class="btn btn-lg btn-primary">회원정보 수정</button>
+              </div>
             </div>
-          </div>
-          <div class="myModify-btn">
-            <div class="d-grid gap-2 mt-6">
-              <button class="btn btn-lg btn-primary" type="button">회원정보 수정</button>
-            </div>
-          </div>
+          </form>
           
         </div>
         <!--회원정보 노출 및 수정(우)-->
@@ -70,25 +74,23 @@
   
           </div>
           <div class="myModify-r">
-            <form>
               <div class="myModify-btn">
                 <div class="form-floating">
-                  <input type="password" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <input type="password" class="form-control" name="modifyPw1" id="modifyPw1" autocomplete="off">
                   <label for="floatingInput">비밀번호</label>
                 </div>
               </div>
               <div class="myModify-btn">
                 <div class="form-floating">
-                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password" autocomplete="off">
+                  <input type="password" class="form-control" name="modifyPw2" id="modifyPw2" autocomplete="off">
                   <label for="floatingPassword">비밀번호 확인</label>
                 </div>
               </div>
               <div class="myModify-btn">
                 <div class="d-grid gap-2">
-                  <button class="btn btn-lg btn-primary" type="button">비밀번호 변경</button>
+                  <button class="btn btn-lg btn-primary" type="button" onclick="resetPw2()">비밀번호 변경</button>
                 </div>
               </div>
-            </form>
 
           </div>
         </div>

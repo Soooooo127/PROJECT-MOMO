@@ -168,6 +168,15 @@ input:focus {
   text-align: center;
 }
 
+.infoTitle-b {
+  width:100%;
+	padding:10px;
+	margin: auto;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
 .infoContent {
 	padding-top: 15px;
 }

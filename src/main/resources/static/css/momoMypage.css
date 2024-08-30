@@ -80,6 +80,15 @@ li a:link, li a:visited {
   text-align: center;
 }
 
+.infoTitle2 {
+  width:100%;
+	padding:10px;
+	margin: auto;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
 .infoContent {
 	padding: 15px 0 15px 0;
   text-align: center;
@@ -98,6 +107,11 @@ li a:link, li a:visited {
 .myModify {
   width:450px;
   overflow: auto;
+}
+
+.myModify-p {
+  padding-top: 100px;
+
 }
 
 .myModify-r {
