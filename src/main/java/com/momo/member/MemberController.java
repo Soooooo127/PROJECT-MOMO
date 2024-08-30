@@ -67,11 +67,11 @@ public class MemberController {
 		return "member/find_pw";
 	}
 	
-	// 마이페이지 진입
-	@GetMapping("/mypage")
-	public String goToMypage() {
-		return "layout_mypage";
-	}
+//	// 마이페이지 진입
+//	@GetMapping("/mypage")
+//	public String goToMypage() {
+//		return "profile/profile";
+//	}
 	
 	// 회원정보 수정 메뉴 진입(초기화면 : 기본 정보를 보여준다)
 	@GetMapping("/modifyMember")
