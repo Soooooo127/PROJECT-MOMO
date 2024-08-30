@@ -57,6 +57,14 @@ public class FreePostingService {
 		return freePostingList;
 	}
 	
+	//나의 자유게시판 글 목록 페이지형식 + 검색 기능
+    public Page<FreePosting> getMyList(Member member, String subject, int page) {	
+		List<Sort.Order> sort = new ArrayList<>();
+		sort.add(Sort.Order.desc("createDate"));
+		Pageable pageable = PageRequest.of(page, 5, Sort.by(sort));
+		return freePostingRepository.findByAuthorAndSubject(member, subject, pageable);
+    }
+	
 
 	public FreePosting getPosting(Integer no) {
 		Optional<FreePosting> freePosting = freePostingRepository.findById(no);

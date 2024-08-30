@@ -44,6 +44,14 @@ public class AskPostingService {
 		return this.askPostingRepository.findAll(spec , pageable);
 	}
 	
+	//나의 질문과답변 글 목록 페이지형식+검색 서비스구문
+		public Page<AskPosting> getMyList(Member author, String subject, int page) {
+			List<Sort.Order> sorts = new ArrayList<Sort.Order>();
+			sorts.add(Sort.Order.desc("createDate"));
+			Pageable pageable = PageRequest.of(page ,  5 , Sort.by(sorts));
+			return this.askPostingRepository.findByAuthorAndSubject(author, subject, pageable);
+		}
+		
 	//질문글 조회 서비스구문
 	public AskPosting getAskPosting(Integer no) {
 		Optional<AskPosting> askPosting = this.askPostingRepository.findById(no);
