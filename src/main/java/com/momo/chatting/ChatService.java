@@ -104,14 +104,32 @@ public class ChatService {
 					System.out.println("비어있슴다");
 				} 
 				 return  room.getMessage();
-				
-		
 			}
 			}
+
+	} //기존대화내용 불러오기 메소드 끝
+	
+	
+	
 		
 		
 		
-	}
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
