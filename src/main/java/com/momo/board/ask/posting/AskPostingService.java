@@ -57,11 +57,12 @@ public class AskPostingService {
 	}
 	
 	//질문글 작성 서비스구문
-	public void create(String subject , String content , Member membernick) {
+	public void create(String subject , String content , Member author) {
 		AskPosting ap = new AskPosting();
 		ap.setSubject(subject);
 		ap.setContent(content);
-		ap.setMembernick(membernick);
+		ap.setAuthor(author);
+		ap.setMembernick(author.getMembernick());
 		ap.setCreateDate(LocalDateTime.now());
 		this.askPostingRepository.save(ap);
 	}
@@ -101,9 +102,9 @@ public class AskPostingService {
 			public Predicate toPredicate(Root<AskPosting> ap , CriteriaQuery<?> query
 					, CriteriaBuilder cb) {
 				query.distinct(true);
-				Join<AskPosting , Member> m1 = ap.join("membernick" , JoinType.LEFT);
+				Join<AskPosting , Member> m1 = ap.join("author" , JoinType.LEFT);
 				Join<AskPosting , AskComment> ac = ap.join("askCommentList" , JoinType.LEFT);
-				Join<AskComment , Member> m2 = ap.join("membernick" , JoinType.LEFT);
+				Join<AskComment , Member> m2 = ap.join("author" , JoinType.LEFT);
 				
 				return cb.or(cb.like(ap.get("subject"), "%" + kw + "%"),
 							cb.like(ap.get("content"), "%" + kw + "%"),

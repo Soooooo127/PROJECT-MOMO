@@ -22,7 +22,7 @@
 					<div class="badge bg-light text-dark p-2 text-start">
 						
 						<div class="mb-2">
-							<span th:if="${askPosting.membernick != null}" th:text="${askPosting.membernick.membernick}"></span>
+							<span th:if="${askPosting.author != null}" th:text="${askPosting.membernick}"></span>
 						</div>
 						
 						<div th:text="${#temporals.format(askPosting.createDate , 'yyyy-MM-dd HH:mm')}"></div>
@@ -51,14 +51,14 @@
 					<div class="m-2">
 						<a th:href="@{|/askPosting/update/${askPosting.no}|}" class="btn btn-sm btn-outline-secondary"
 						sec:authorize="isAuthenticated()"
-						th:if="${askPosting.membernick != null and #authentication.getPrincipal().getUsername() == askPosting.membernick.memberid}"
+						th:if="${askPosting.author != null and #authentication.getPrincipal().getUsername() == askPosting.author.memberid}"
 						th:text="수정"></a>
 					
 					<!--질문글 삭제버튼-->
 					
 						<a href="javascript:void(0)" th:data-uri="@{|/askPosting/delete/${askPosting.no}|}" class="delete btn btn-sm btn-outline-secondary"
 						sec:authorize="isAuthenticated()"
-						th:if="${askPosting.membernick != null and #authentication.getPrincipal.getUsername() == askPosting.membernick.memberid}"
+						th:if="${askPosting.author != null and #authentication.getPrincipal.getUsername() == askPosting.author.memberid}"
 						th:text="삭제"></a>
 					</div>
 				</div>
@@ -92,7 +92,7 @@
 					<div class="badge bg-light text-dark p-2 text-start">
 										
 						<div class="mb-2">
-							<span th:if="${askComment.membernick != null}" th:text="${askComment.membernick.membernick}"></span>
+							<span th:if="${askComment.author != null}" th:text="${askComment.membernick}"></span>
 						</div>
 									
 						<div th:text="${#temporals.format(askComment.createDate , 'yyyy-MM-dd HH:mm')}"></div>
@@ -120,13 +120,13 @@
 					<div class="m-2">
 						<a th:href="@{|/askComment/update/${askComment.no}|}" class="btn btn-sm btn-outline-secondary"
 						sec:authorize="isAuthenticated()"
-						th:if="${askComment.membernick != null and #authentication.getPrincipal().getUsername() == askComment.membernick.memberid}"
+						th:if="${askComment.author != null and #authentication.getPrincipal().getUsername() == askComment.author.memberid}"
 						th:text="수정"></a>
 					<!--질문글 삭제버튼-->
 												
 						<a href="javascript:void(0)" th:data-uri="@{|/askComment/delete/${askComment.no}|}" class="delete btn btn-sm btn-outline-secondary"
 						sec:authorize="isAuthenticated()"
-						th:if="${askComment.membernick != null and #authentication.getPrincipal.getUsername() == askComment.membernick.memberid}"
+						th:if="${askComment.author != null and #authentication.getPrincipal.getUsername() == askComment.author.memberid}"
 						th:text="삭제"></a>
 										
 					</div>
