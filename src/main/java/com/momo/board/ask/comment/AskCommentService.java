@@ -59,6 +59,14 @@ public class AskCommentService {
 		}
 	}
 	
+	//마이페이지 내 답변조희 + 검색 + 페이징
+		public Page<AskComment> getMyAskComment(Member member, String content, int page) { 
+			List<Sort.Order> sorts = new ArrayList<>();
+			sorts.add(Sort.Order.desc("createDate"));
+			Pageable pageable = PageRequest.of(page, 5, Sort.by(sorts));
+			return this.askCommentRepository.findByAuthorAndContent(member, content, pageable);
+		}
+	
 	//답변 페이지화 서비스구문
 	public Page<AskComment> askCommentPage(AskPosting askPosting , int page){
 		List<Sort.Order> sorts = new ArrayList<>();

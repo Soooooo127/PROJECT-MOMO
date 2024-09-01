@@ -12,6 +12,17 @@
 			color: black;
 		}
 		
+		td {
+				max-width: 0;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+		   }
+			    td.column_a {width: 60%;}
+			    td.column_b {width: 20%;}
+		   	    td.column_c {width: 10%;}
+				td.column_d {width: 10%;}
+		
 
 	</style>
 	<!--전체 영역-->
@@ -39,18 +50,25 @@
 									<tr class="table-primary">
 									  <th>제목</th>
 									  <th>작성일</th>
+									  <th>추천</th>
+									  <th>비추천</th>
 									</tr>
 								</thead>
 								<tbody>
 								  <div >
 									<tr class="table" th:each="posting :${myFreePosting}">
-										<td>
+										<td class="column_a">
 										<a class="noline" th:href="@{|/free/detail/${posting.no}|}" th:text="${posting.subject}"></a>
+										<span th:if="${#lists.size(posting.freeCommentList) > 0}" 
+											th:text="${#lists.size(posting.freeCommentList)}"
+											class="badge bg-primary rounded-pill"></span>
 										</td>
-										<td th:if="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
+										<td class="column_b" th:if="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
 										th:text="${#temporals.format(posting.createDate, 'HH:mm')}"></td>
-										<td th:unless="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
-										th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd')}"></td>	
+										<td class="column_b" th:unless="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
+										th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd')}"></td>
+										<td class="column_c" th:text="${#lists.size(posting.ddabong)}"></td>
+										<td class="column_d" th:text="${#lists.size(posting.nope)}"></td>	
 									</tr>
 								 </div>
 								</tbody>
@@ -90,18 +108,25 @@
 							<tr class="table-primary">
 								<th>제목</th>
 								<th>작성일</th>
+								<th>추천</th>
+								<th>비추천</th>
 							</tr>
 						</thead>
 						<tbody>
 							<div>
 							   <tr class="table" th:each="posting :${myAskPosting}">
-									<td>
+									<td class="column_a">
 								    <a class="noline" th:href="@{|/askPosting/detail/${posting.no}|}" th:text="${posting.subject}"></a>
+									<span th:if="${#lists.size(posting.askCommentList) > 0}" 
+										th:text="${#lists.size(posting.askCommentList)}"
+										class="badge bg-primary rounded-pill"></span>
 									</td>
-								    <td th:if="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
+								    <td class="column_b" th:if="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
 								     th:text="${#temporals.format(posting.createDate, 'HH:mm')}"></td>
-									<td th:unless="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
+									<td class="column_b" th:unless="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
 								     th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd')}"></td>	
+									 <td class="column_c" th:text="${#lists.size(posting.ddabong)}"></td>
+									 <td class="column_d" th:text="${#lists.size(posting.nope)}"></td>
 								</tr>
 							</div>
 						</tbody>
