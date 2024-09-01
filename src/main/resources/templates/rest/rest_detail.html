@@ -3,242 +3,352 @@
 	<head>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/restdetail.css}">
 		<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script>
+	
+			$('.star_rating > .star').click(function() {
+			  $(this).parent().children('span').removeClass('on');
+			  $(this).addClass('on').prevAll('span').addClass('on');
+			})
+		
+			function review(){
+			$("#collapseOne").toggle();
+			}
+			
+
+		</script>
+		
+
 	<title>맛집검색하자</title>
 	<meta charset="UTF-8">
-	<script>
-		
-		function review(){
-			$("#collapseOne").toggle();
-		}
-	</script>					    
+
 	</head>
 	<body>
 <div layout:fragment="content" class="container">
 	
+	<h2 th:text="${rest.name}"></h2>
 	<div class="rest" >
-		<h2 th:text="${rest.name}"></h2>
+		
 		
 			<!--상단-->
 			<div class="upper">
 				
-				<div class="pic_info">
+				<div class="rest_info card">
+					<div class="rest_pic_info">
+					
 					<!--가게사진-->
 					<div class="pic" >
-						<img th:src="${rest.img}" class="img">
-
+						<img th:src="${rest.img}" class="img" >
 						
 					</div>
 					
 					<!--가게정보-->
 					<div class="info">
-						<ul class="info_detail">
-						
-							<li th:text="${rest.category}">
+						<div class="info_detail">
+							<div class="info_menu">
+								<ul >
 								
-							</li>
-							<li th:text="${rest.menu}">
-								
-							</li>
-							<li th:text="${rest.addr}">
-								
-							</li>
-							<li th:text="${rest.phone}"></li>
-						
-						</ul>
-					</div>
-				</div>
-				<!--찜, 평점, 리뷰갯수, 랭킹등-->
-				<div class="etc">
-					<div class="etc_total">
-						<div class="jjim" >
-								<!--찜하기-->
-								<form method="post" th:action="@{|/rest/jjim/${no}|}">
-								<button th:if="${jjim == null }" type="submit" class="btn btn-outline-primary"  style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .87rem;" 
-								 >♡
-								<span class="badge rounded-pill bg-success" th:text="${#lists.size(j)}"></span>	
-								</button>									  									
-								</form>
-								<!--찜취소-->							
-								<form method="post" th:action="@{|/rest/nojjim/${no}|}">
-								<button th:unless="${jjim == null }" type="submit" class="btn btn-outline-primary"  style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .87rem; " 
-								 >♥
-								 <span class="badge rounded-pill bg-success" th:text="${#lists.size(j)}"></span>	
-							 	</button>						
-								</form>	  
-						</div>
+									<li th:text="${rest.category}"></li>
+									<li th:text="${rest.menu}"></li>
+									<li th:text="${rest.addr}"></li>
+									<li th:text="${rest.phone}"></li>
+									<li>메뉴1 	1000원</li>
+									<li>메뉴2 	1500월</li>
+									<li>메뉴3 	50000원</li>
+									<li>메뉴4</li>
+									<li>메뉴5</li>
+								</ul>
+							</div>
+							<div class="info_time">
+								<ul>
+									<li>[오늘] 08.30 (금)영업시간: 07:00 - 16:00</li>
+									<li>08.31 (토)영업시간: 07:00 - 16:00</li>
+									<li>09.01 (일)휴무일</li>
+									<li>09.02 (월)영업시간: 07:00 - 16:00</li>
+									<li>09.03 (화)영업시간: 07:00 - 16:00</li>
+									<li>09.04 (수)영업시간: 07:00 - 16:00</li>
+									<li>09.05 (목)영업시간: 07:00 - 16:00</li>
 
-						<div class="star">평점</div>
-						<div class="re">
-							<span class="badge rounded-pill bg-success" th:text="|리뷰 ${#lists.size(review)} 개|">
-							</span>
+								</ul>
+							</div>
 						</div>
-						<div class="lank">랭킹</div>
+						
 					</div>
+					</div>
+					
+					<!--찜, 평점, 리뷰갯수, 랭킹등-->
+					<div class="etc">
+						<div class="etc_total">
+							<div class="jjim" >
+									<!--찜하기-->
+									<form method="post" th:action="@{|/rest/jjim/${no}|}">
+									<button th:if="${jjim == null }" type="submit" class="btn btn-outline-primary"  style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .87rem;" 
+									 ><i class="fi fi-br-peach"></i>
+									<span class="badge rounded-pill bg-success" th:text="${#lists.size(j)}"></span>	
+									</button>									  									
+									</form>
+									<!--찜취소-->							
+									<form method="post" th:action="@{|/rest/nojjim/${no}|}">
+									<button th:unless="${jjim == null }" type="submit" class="btn btn-outline-primary"  style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .87rem; " 
+									 >
+									 <i class="fi fi-sr-peach"></i>
+									 <span class="badge rounded-pill bg-success" th:text="${#lists.size(j)}"></span>	
+								 	</button>						
+									</form>	  
+							</div>
+
+							<div class="star">
+								<span th:text="|평점 ${starAvg} |" >
+									
+								</span>
+								
+								
+							</div>
+							<div class="re">
+								<span class="btn btn-outline-primary" th:text="|리뷰 ${#lists.size(review)} 개|">
+								</span>
+							</div>
+							<div class="lank">랭킹</div>
+						</div>
+					</div>
+					
+					
+					
 				</div>
-			</div>
 				
+
+				</div>	
+				
+
+				<!--같이먹기-->
+								<div class="et">
+									<div class="et_mid">
+										<!--같이먹기 현황, 신청-->
+										<div class="et_now">
+											
+											<div class="card my-3 py-2">
+												<div class="mx-3">
+													<div class="d-flex justify-content-center" th:text="|현재 진행중인 같이먹기 : ${rest.progresset}건|"></div>
+																			
+																			
+													<table class="table">
+														<thead>
+															<td>제목</td>
+															<td>먹는날짜</td>
+															<!--<td>신청날짜</td>-->
+															<td>방장</td>
+														</thead>
+																				
+														<tr th:each="et : ${rest.etList}">
+															<div th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') >= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">
+																<td><a th:href="@{|/et/detail/${rest.no}/${et.no}|}" th:text="${et.ettitle}"></a>
+																	<span class="text-danger small ms-2" th:text="|${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>
+																</td>
+																<td th:text="${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}"></td>
+															<!--	<td th:text="${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}"></td>-->
+																<td th:text="${et.applymember.membernick}"></td>
+															</div>
+														</tr>
+													</table>
+												</div>
+																	
+																		
+											</div>
+										</div>
+										<!--같이먹기 신규생성-->
+										<div sec:authorize="isAuthenticated()" th:object="${eatTogetherForm}" class="et_new">
+											
+											<div th:replace="~{form_errors :: formErrorsFragment}"></div>
+											
+											<div class="card my-3 py-2">				
+												<form th:action="@{|/et/create/${rest.no}|}" method="post">
+													<div class="d-flex justify-content-center">
+														<h5>새 같이먹기 신청</h5>
+													</div>
+																			
+													<table class="table">
+																				
+														<tr class="my-3">
+															<td >
+																<b>제목</b>
+																<input type="text" th:field="*{ettitle}" class="form-control">
+															</td>			
+															<td>
+																<b>신청일시</b><!--min="2024-08-01T00:00" max="2024-09-03T18:00"-->
+																<input min="2024-08-01T00:00" max="2024-09-03T18:00" type="datetime-local"  th:field="*{etdate}" class="form-control">
+															</td>
+
+															<td>
+																<b>선호 mbti</b>
+																<select type="text" th:field="*{prefmbti}" class="form-control">
+																<option value="" selected disabled="disabled">MBTI</option>
+																<option value="ENFJ">ENFJ</option>
+																<option value="ENFP">ENFP</option>
+																<option value="ENTJ">ENTJ</option>
+																<option value="ENTP">ENTP</option>
+																<option value="ESFJ">ESFJ</option>
+																<option value="ESFP">ESFP</option>
+																<option value="ESTJ">ESTJ</option>
+																<option value="ESTP">ESTP</option>
+																<option value="INFJ">INFJ</option>
+																<option value="INFP">INFP</option>
+																<option value="INTJ">INTJ</option>
+																<option value="INTP">INTP</option>
+																<option value="ISFJ">ISFJ</option>
+																<option value="ISFP">ISFP</option>
+																<option value="ISTJ">ISTJ</option>
+																<option value="ISTP">ISTP</option>
+																</select>
+															</td>
+														</tr>
+																				
+														<tr>
+															<td>
+																<b>인원수</b>
+																<select type="text" th:field="*{prtnumber}" class="form-control">
+																	<option value="" selected>인원수 선택</option>
+																	<option value="2">2명</option>
+																	<option value="3">3명</option>
+																	<option value="4">4명</option>
+																</select>
+															</td>
+																					
+															<td>
+																<b>선호 성별</b>
+																<select type="text" th:field="*{prefgender}" class="form-control">
+																	<option value="" selected>성별 선택</option>
+																	<option value="male">남</option>
+																	<option value="female">여</option>
+																	<option value="both">혼성</option>
+																</select>
+															</td>
+
+															<td class="d-flex justify-content-end">
+																<input type="submit" value="신청하기" class="btn btn-primary my-3 mx-3">
+															</td>	
+														</tr>
+													</table>
+															
+												</form>
+																
+											</div>
+										</div>
+									</div>
+								</div>
+				
+				
+					
 			<!--하단-->
 			<div class="bottom">
-				<!--같이먹기-->
-				<div class="et">
-					<div class="et_mid">
-						<!--같이먹기 현황, 신청-->
-						<div class="et_now">
-							같이먹기 현황
-							<div class="card my-3 py-2">
-								<div class="mx-3">
-									<div class="d-flex justify-content-center" th:text="|현재 진행중인 같이먹기 : ${rest.progresset}건|"></div>
-															
-															
-									<table class="table">
-										<thead>
-											<td>제목</td>
-											<td>먹는날짜</td>
-											<td>신청날짜</td>
-											<td>방장</td>
-										</thead>
-																
-										<tr th:each="et : ${rest.etList}">
-											<div th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') >= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">
-												<td><a th:href="@{|/et/detail/${rest.no}/${et.no}|}" th:text="${et.ettitle}"></a>
-													<span class="text-danger small ms-2" th:text="|${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>
-												</td>
-												<td th:text="${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}"></td>
-												<td th:text="${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}"></td>
-												<td th:text="${et.applymember.membernick}"></td>
-											</div>
-										</tr>
-									</table>
-								</div>
-													
-														
-							</div>
-						</div>
-						<!--같이먹기 신규생성-->
-						<div sec:authorize="isAuthenticated()" class="et_new">
-							같이먹기 신규생성
-							<div class="card my-3 py-2">
-														
-								<form th:action="@{|/et/create/${rest.no}|}" method="post">
-									<div class="d-flex justify-content-center">
-										<h5>새 같이먹기 신청</h5>
-									</div>
-															
-									<table class="table">
-																
-										<tr class="my-3">
-											<td>
-												<b>제목</b>
-												<input type="text" name="ettitle" id="ettitle" class="form-control">
-											</td>
-																	
-											<td>
-												<b>신청일시</b>
-												<input type="datetime-local" name="etdate" id="etdate" class="form-control">
-											</td>
-										</tr>
-																
-										<tr>
-											<td>
-												<b>인원수</b>
-												<select type="text" name="prtnumber" id="prtnumber" class="form-control">
-													<option value="" selected>인원수 선택</option>
-													<option value="2">2명</option>
-													<option value="3">3명</option>
-													<option value="4">4명</option>
-												</select>
-											</td>
-																	
-											<td>
-												<b>선호 성별</b>
-												<select type="text" name="prefgender" id="prefgender" class="form-control">
-													<option value="" selected>성별 선택</option>
-													<option value="male">남</option>
-													<option value="female">여</option>
-													<option value="both">혼성</option>
-												</select>
-											</td>
-																	
-											<td>
-												<b>선호 mbti</b>
-												<select type="text" name="prefmbti" id="prefmbti" class="form-control">
-												<option value="" selected disabled="disabled">MBTI</option>
-												<option value="ENFJ">ENFJ</option>
-												<option value="ENFP">ENFP</option>
-												<option value="ENTJ">ENTJ</option>
-												<option value="ENTP">ENTP</option>
-												<option value="ESFJ">ESFJ</option>
-												<option value="ESFP">ESFP</option>
-												<option value="ESTJ">ESTJ</option>
-												<option value="ESTP">ESTP</option>
-												<option value="INFJ">INFJ</option>
-												<option value="INFP">INFP</option>
-												<option value="INTJ">INTJ</option>
-												<option value="INTP">INTP</option>
-												<option value="ISFJ">ISFJ</option>
-												<option value="ISFP">ISFP</option>
-												<option value="ISTJ">ISTJ</option>
-												<option value="ISTP">ISTP</option>
-												</select>
-											</td>
-										</tr>
-									</table>
-												
-									<div class="d-flex justify-content-end">
-										<input type="submit" value="신청하기" class="btn btn-primary my-3 mx-3">
-									</div>
-								</form>
-												
-							</div>
-						</div>
-					</div>
-				</div>
 				
 				<!--리뷰-->
+
 				<div class="review">
 					<!--리뷰쓰기-->
-					<div class="accordion-item">
-					  <div class="accordion-header" id="headingOne" sec:authorize="isAuthenticated()">
+					<!--로그아웃 했을떄
+					<div class="re_logout"  sec:authorize="isAnonymous()">
+						<button class="btn btn-primary" type="button" onclick="review()">
+						 리뷰쓰기
+						</button>
+					</div>-->
+					<!--로그인 했을때-->
+					<div class="accordion-item" > 
+					  <div class="accordion-header" id="headingOne">
 					    <button class="accordion-button" type="button" onclick="review()">
-					     리뷰쓰기(글자 눌러조★)
+					     리뷰쓰기
 					    </button>
 					  </div>
-					  <div id="collapseOne"  style="display: none;">
-					    <div class="accordion-body">
-								<div class="wrapping outline">
-									<form method="post" th:action="@{|/rest/review/create/${rest.no}|}" th:object="${reviewForm}">
-										<div th:replace="~{form_errors :: formErrorsFragment}"></div>
-											<div><textarea th:field="*{content}" rows="3" placeholder="리뷰를 작성해주세요"></textarea></div>
-											<div class="dvd2">
-													<button type="submit" class="btn btn-primary">리뷰등록</button>
-											</div>
-									</form>
-								</div>					      
-						</div>
-					  </div>
+						  <div class="card">
+							  <div id="collapseOne"  style="display: none;">
+							    <div class="accordion-body">
+										<div class="wrapping outline">
+											<form class="mb-3" name="myform" id="myform" method="post" th:action="@{|/rest/review/create/${rest.no}|}" th:object="${reviewForm}">
+												
+		
+												<!--별점-->
+												<link href="/assets/css/star.css" rel="stylesheet"/>
+													<fieldset>
+														<span class="text-bold">별점을 선택해주세요</span>
+														<input type="radio" name="star" value="5" id="rate1" ><label
+															for="rate1">★</label>
+														<input type="radio" name="star" value="4" id="rate2"><label
+															for="rate2">★</label>
+														<input type="radio" name="star" value="3" id="rate3"><label
+															for="rate3">★</label>
+														<input type="radio" name="star" value="2" id="rate4"><label
+															for="rate4">★</label>
+														<input type="radio" name="star" value="1" id="rate5" checked><label
+															for="rate5">★</label>
+													</fieldset>
+													
+												<!--리뷰작성칸-->
+													
+													<form class="row g-3 needs-validation" novalidate>
+														
+														<div class="col-md-6">
+														  <label for="validationCustom03" class="form-label"></label>
+														  <textarea type="text" class="form-control" id="validationCustom03" required name="content"></textarea>
+														  <div class="invalid-feedback">
+														   내용을 입력하세요
+														  </div>
+														</div>
+														
+														
+													<div class="col-md-6"  >
+														    <div>
+														      <button class="btn btn-primary" type="submit">등록</button>
+														    </div>
+														</div>
+													  </form>
+												
+												</form>	
+
+											</div>					      
+								</div>
+							  </div>
+						  </div>
 					</div>
 					<!--리뷰 리스트-->
 					<th:block th:each="review : ${rest.reviewList}" th:field="${review}">
-						<div class="re_dvd" >
-							<ul class="list-group">
-							  <li class="list-group-item d-flex justify-content-between align-items-center" >
-							    <span th:text="|작성자 : ${review.membernick}|"></span>
-							    <span th:text="|내용 : ${review.content}|"></span>
-								<span th:text="|최초 작성일 : ${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
-									<div class="review_edit" sec:authorize="isAuthenticated()">
-										<p th:if="${review.author.memberid != null and #authentication.getPrincipal().getUsername() == review.author.memberid}">
-										<a th:href="@{|/rest/review/delete/${rest.no}/${review.no}|}" onclick="confirm('정말로 삭제하시겠습니까?')">삭제</a>
-									</div>							
-							  </li>
-							</ul>						
-						</div>
+					<div class="re_dvd" >
+
+						<ul class="list-group">
+							
+						  <li class="list-group-item d-flex justify-content-between align-items-center" >
+						    <span th:text="|★ ${review.star} 점|"></span>
+						    <span th:text="|작성자 : ${review.membernick}|"></span>
+						    <span th:text="|내용 : ${review.content}|"></span>
+							<span th:text="|최초 작성일 : ${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
+							<!--따봉-->
+							<span> 
+								
+								<a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+							    th:data-uri="@{|/rest/review/ddabong/${rest.no}/${review.no}|}">
+							    추천
+								<span class="badge rounded-pill bg-success" th:text="${#lists.size(review.ddabong)}"></span>
+							</a>
+							</span>
+							
+						<div class="review_edit" sec:authorize="isAuthenticated()">
+							<p th:if="${review.author.memberid != null and #authentication.getPrincipal().getUsername() == review.author.memberid}">
+						<a th:href="@{|/rest/review/delete/${rest.no}/${review.no}|}" onclick="confirm('정말로 삭제하시겠습니까?')  ">삭제</a>
+						</div>							
+						  </li>
+						  
+						</ul>
+
+						
+						
+					</div>
+					
 					</th:block>
+			
 				</div>
 				
+				
+
 				<!--지도-->
 				<div class="map">
-
-
 					<form>
 						<input type="hidden" th:value="${rest.map1}" id="map1" >
 						<input type="hidden" th:value="${rest.map2}" id="map2">
@@ -249,37 +359,68 @@
 					<head>
 					    <meta charset="UTF-8">
 					    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-					    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+					    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">		    
 					    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=/zcynsyz8ui"></script>
 					</head>
 					<body>
 					<div id="map" style="width:100%;height:400px;"></div>
-					<script>		
+					<script>	
 					var map33 = document.querySelector("#map1").value;
-					var map44 = document.querySelector("#map2").value;
-						
+					var map44 = document.querySelector("#map2").value;						
 					var mapOptions = {
 					    center: new naver.maps.LatLng(map33, map44),
 					    zoom: 18
 					};
-					var map = new naver.maps.Map('map', mapOptions);
-
+					var map = new naver.maps.Map('map', mapOptions);					
 					var marker = new naver.maps.Marker({
 					    position: new naver.maps.LatLng(map33, map44),
 					    map: map
-					});	
+					});		
 					</script>
 					</body>
-					</html>
-				</div>	
+					</html>					
+				</div>										
 			</div>
-	</div>
+	</div>	
+</div>
+
+	<script layout:fragment="script" type="text/javascript">
+	const recommend_elements = document.getElementsByClassName("recommend");
+	Array.from(recommend_elements).forEach(function(element) {
+	    element.addEventListener('click', function() {
+	        if(confirm("정말로 추천하시겠습니까?")) {
+	            location.href = this.dataset.uri;
+	        };
+	    });
+	});
 	
 	
 
-</div>
+	
+	// Example starter JavaScript for disabling form submissions if there are invalid fields
+	(() => {
+	  'use strict'
+
+	  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+	  const forms = document.querySelectorAll('.needs-validation')
+
+	  // Loop over them and prevent submission
+	  Array.from(forms).forEach(form => {
+	    form.addEventListener('submit', event => {
+	      if (!form.checkValidity()) {
+	        event.preventDefault()
+	        event.stopPropagation()
+	      }
+
+	      form.classList.add('was-validated')
+	    }, false)
+	  })
+	})()
+	
+</script>
+
+
+
+
 </body>
 </html>
-
-
-

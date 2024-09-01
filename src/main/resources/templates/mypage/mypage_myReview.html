@@ -1,0 +1,118 @@
+<html layout:decorate="~{layout_mypage}">
+<div layout:fragment="mypageContent">
+		
+	<style>
+		th.bg{ 
+			background-color: #fbe1e0;
+			width:20%;
+		}
+		    
+		.noline {
+			text-decoration-line: none;
+			color: black;
+		}
+		
+		td {
+				max-width: 0;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			   }
+			   td.column_a {width: 60%;}
+			   td.column_b {width: 20%;}
+			   td.column_c {width: 10%;}
+			   td.column_d {width: 10%;}
+
+	</style>
+	<!--전체 영역-->
+	<div>
+		<!--콘텐츠 영역-->
+		<div>	
+			<!--로고 영역-->	
+			<div>
+				로고
+			</div>
+			<!--콘텐츠 세부 영역-->
+				<div class="frame-dvd">
+					<!--본문 전체-->
+					<div>
+						<form th:action="@{/mypage/myReview}" method="get" id="searchForm">
+							<input type="hidden" id="content" name="content" th:value="${content}">
+							<input type="hidden" id="page" name="page" th:value="${myReview.number}">
+					 	</form>
+				    <!--리뷰 목록-->
+					<table class="table table-hover">
+						<h5>내 리뷰</h5>
+						<thead>
+							<tr class="table-primary">
+								<th>내용</th>
+								<th>작성일</th>
+								<th>추천</th>
+								<th>비추천</th>
+							</tr>
+						</thead>
+						<tbody>
+							<div>
+							   <tr class="table" th:each="review :${myReview}">
+									<td class="column_a">
+								    <a class="noline" th:href="@{|/rest/detail/${review.rest.no}|}" th:text="${review.content}"></a>
+									</td>
+								    <td class="column_b" th:if="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(review.createDate, 'yyyy.MM.dd')}" 
+								     th:text="${#temporals.format(review.createDate, 'HH:mm')}"></td>
+									<td class="column_b" th:unless="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(review.createDate, 'yyyy.MM.dd')}" 
+								     th:text="${#temporals.format(review.createDate, 'yyyy.MM.dd')}"></td>	
+									 <td class="column_c" th:text="${#lists.size(review.ddabong)}"></td>
+									 <td class="column_d" th:text="${#lists.size(review.nope)}"></td>
+								</tr>
+							</div>
+						</tbody>
+					</table>			
+					<!--리뷰 검색-->
+					<div class="my-3" align="right">
+						<form th:action="@{/mypage/myReview}" method="get">
+							<input type="text" id="search_content" th:value="${content}">
+							<button type="button" id="btn_search_content" class="btn btn-outline-secondary">검색</button>
+						</form>	
+					</div>
+					<!--리뷰  페이징-->
+					 <div th:if="${!myReview.isEmpty()}">
+						<ul class="pagination pagination-sm justify-content-center">
+							<li class="page-item" th:classappend="${!myReview.hasPrevious} ? 'disabled'">
+						      <a class="page-link" href="javascript:void(0)" th:data-page="${myReview.number-1}">
+								 <span>이전</span>
+							  </a>
+							</li>
+							<li th:each="page : ${#numbers.sequence(0, myReview.totalPages-1) }"
+							   th:if="${page >= myReview.number -3 and page <= myReview.number + 3}"
+							   th:classappend="${page==myReview.number} ? 'active'" class="page-item">
+							   <a th:text="${page+1}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
+							</li>
+							<li class="page-item" th:classappend="${!myReview.hasNext} ? 'disabled'">
+							   <a class="page-link" href="javascript:void(0)" th:data-page="${myReview.number+1}">
+								 <span>다음</span>
+							   </a>
+							</li>
+						</ul>
+					  </div>	     					
+					  </div>
+					 </div>
+				  </div>
+			    </div> 
+		    
+	  <script layout:fragment="script" type="text/javascript">
+	  	const page_elements = document.getElementsByClassName("page-link")
+	  	Array.from(page_elements).forEach(function(element){
+	  	  element.addEventListener('click' , function(){
+	  	    document.getElementById('page').value = this.dataset.page;
+	  		document.getElementById('searchForm').submit();
+	  	  });
+	  	});
+	  	const btn_search = document.getElementById("btn_search_content");
+	  	btn_search.addEventListener('click' , function(){
+	  	  document.getElementById('content').value = document.getElementById('search_content').value;
+	  	  document.getElementById('page').value = 0;
+	  	  document.getElementById('searchForm').submit();
+	  	});
+	  </script>
+</div>	
+</html>
