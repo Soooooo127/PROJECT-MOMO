@@ -16,9 +16,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.momo.member.Member;
 import com.momo.member.MemberService;
-
 import com.momo.restaurant.RestService;
 import com.momo.restaurant.Restaurant;
+import com.momo.restaurant.jjim.Jjim;
+import com.momo.restaurant.jjim.JjimService;
+import com.momo.restaurant.review.Review;
+import com.momo.restaurant.review.ReviewService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +34,8 @@ public class EatTogetherController {
 	private final EatTogetherService etService;
 	private final MemberService momoMemberService;
 	private final RestService restService;
+	private final JjimService jjimService;
+	private final ReviewService reviewService;
 	
 	@GetMapping("/list")
 	public String listET(Model model) {
@@ -52,8 +57,20 @@ public class EatTogetherController {
 		model.addAttribute("rest" , rest);
 		if(bindingResult.hasErrors()) {
 			System.out.println("같이먹기 등록 실패");
-			return String.format("redirect:/rest/detail/%s", no);
-			//return "rest/rest_detail";
+			
+			List<Review> review=this.reviewService.getList(rest);
+			model.addAttribute("review", review);
+			List<Jjim> j = this.jjimService.getList(rest);
+			model.addAttribute("j", j);
+			double avg=0.00d; int sum =0;
+			for(int i=0; i<review.size(); i++) {
+			    sum+= review.get(i).getStar();
+			}
+			double size=review.size();
+			avg=sum / size ;
+			String starAvg = String.format("%.1f", avg);
+			model.addAttribute("starAvg", starAvg);
+			return "rest/rest_detail";
 		}
 		System.out.println("같이먹기 등록 데이터 입력전");
 		
