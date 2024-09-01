@@ -19,7 +19,7 @@
 							<h5>내 찜 목록</h5>
 								<div class="list">
 									<div class="card border-primary mb-3   c" style="max-width: 50rem;" th:each="jjim : ${paging}">
-										<a th:href="@{|/rest/detail/${jjim.no}|}">
+										<a th:href="@{|/rest/detail/${jjim.rest.no}|}">
 										  <h6 class="card-header ">
 											<span th:text="${jjim.rest.name}"></span></h6>
 								            <!--사진-->	
