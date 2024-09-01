@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +54,14 @@ public class EatTogetherService {
 		
 		return this.etRepository.findByRestOrderByDesc(rest);
 	}
+	
+	//마이페이지 내 같이 먹기 + 페이징 + 검색
+		public Page<EatTogether> getMyET(Member momoMember, String ettitle, int page) {
+			List<Sort.Order> sorts = new ArrayList<>();
+			sorts.add(Sort.Order.asc("etdate"));
+			Pageable pageable = PageRequest.of(page,  3, Sort.by(sorts));
+			return this.etRepository.findByAuthorAndEttitle(momoMember, ettitle, pageable);
+		}
 	
 	//같이먹기 참여 서비스구문
 	public void participate(EatTogether et , Member momoMember) {
