@@ -32,6 +32,7 @@
             <div class="myModify">
               <div class="myModify-content">
                 <div class="form-floating">
+                  <input type="hidden" name="membername" id="membername" th:value="${member.membername}">
                   <input type="text" class="form-control" 
                   autocomplete="off" disabled th:value="${member.membername}">
                   <label for="floatingPassword">이름(실명) : 이름은 변경할 수 없습니다</label>
@@ -56,16 +57,17 @@
                 </div>
               </div>
               <div class="myModify-icon titleMenu">
-                <i class="fi fi-br-location-exclamation"></i>
+                <i class="fi fi-br-location-exclamation" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
+                data-bs-content="소셜(구글, 네이버)로그인 회원은 이메일 변경 시 기존 로그인 연동은 해제되며, 기존 소셜로그인 계정 사용 시 신규 회원 가입됩니다." 
+                data-bs-original-title="Popover Title" aria-describedby="popover92027"></i>
               </div>
             </div>
             <div class="myModify-btn">
               <div class="d-grid gap-2 mt-6">
-                <button type="submit" class="btn btn-lg btn-primary">회원정보 수정</button>
+                <button type="submit" class="btn btn-lg btn-primary" onclick="modifyFormCheck()">회원정보 수정</button>
               </div>
             </div>
           </form>
-          
         </div>
         <!--회원정보 노출 및 수정(우)-->
         <div class="frame-dvd-l">

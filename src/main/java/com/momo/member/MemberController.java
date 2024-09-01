@@ -105,7 +105,30 @@ public class MemberController {
 	@GetMapping("/modifyMember")
 	public String goToModify(Principal principal, Member member, Model model) {
 		member = memberService.getMember(principal.getName());
+		
+		String _aid = member.getMemberid();
+		String _aname = member.getMembername();
+		String _amail = member.getEmail();
+		
+		int _mailAt = _amail.indexOf("@");
+		int _mailShow = _amail.length() - _mailAt;
+		
+		_aid = _aid.substring(0, 2) + "*".repeat(_aid.length()-3) + _aid.substring(_aid.length()-1);
+		_aname = _aname.substring(0, 1) + "*".repeat(_aname.length()-2) + _aname.substring(_aname.length()-1);
+		_amail = _amail.substring(0, 2) + "*".repeat(_mailShow-2) + _amail.substring(_mailAt-1, _amail.length());
+
+		member.setMemberid(_aid);
+		member.setMembername(_aname);
+		
+		System.out.println("CreateDate : " + member.getCreateDate());
+
 		model.addAttribute("member", member);
+		
+//		if(member.getCreateDate() == null) {
+//			return "mypage/mypage_check_social";
+//		} else {
+//			return "mypage/mypage_check";
+//		}
 		return "mypage/mypage_check";
 	}
 	
@@ -125,14 +148,32 @@ public class MemberController {
 		memberService.updateMember(member);
 		
 		model.addAttribute("member", member);
-
+		
 		return "redirect:/member/modifyMember";
 	}
 	
 	// 소셜 로그인 회원이 회원정보 첫 수정을 안했을 때 이동하는 페이지
-	@GetMapping("/mypage/social")
-	public String goToMypageSocial() {
-		return "mypage/mypage_social";
+	@GetMapping("/social")
+	public String goToMypageSocial(Principal principal, Model model) {
+		Member member  = memberService.getMember(principal.getName());
+		
+		if(member.getCreateDate() != null) {
+			return "rediret:/member/modifyMember";
+		} else {
+			model.addAttribute("member", member);
+			return "mypage/mypage_social";
+		}
+	}
+	
+	// 소셜 로그인 회원의 회원정보 첫 수정을 위한 페이지
+	@PostMapping("/social")
+	public void modifySocial(@RequestParam(value = "memberid") String memberid, @RequestParam(value = "membername") String membername,
+			@RequestParam(value = "membernick") String membernick, @RequestParam(value = "password") String password
+			,@RequestParam(value = "email") String email, Principal principal, Model model) {
+		System.out.println("=========소셜 회원의 회원정보 첫 수정 메소드 진입==========");
+		
+		
+
 	}
 	
 	
@@ -193,7 +234,9 @@ public class MemberController {
 	}
 	
 	@GetMapping("/mypageTest")
-	public String goToMypageTest() {
+	public String goToMypageTest(Principal principal) {
+		System.out.println("=================테스트 페이지 진입=================");
+		System.out.println("principal username : " + principal.getName());
 		return "mypage/mypage_test";
 	}
 	/*

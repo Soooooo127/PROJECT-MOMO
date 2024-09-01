@@ -1,8 +1,13 @@
 package com.momo.restaurant.jjim;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.momo.member.Member;
@@ -68,6 +73,15 @@ public class JjimService {
 	
 	public List<Jjim> getList(Restaurant rest){
 		return this.jjimRepository.findByRest(rest);
+		
+	}
+	
+	//마이페이지에서 내 찜 리스트 가져오기
+	public Page<Jjim> getMyJjimList(Member member, int page) {
+		List<Sort.Order> sorts = new ArrayList<>();
+		sorts.add(Sort.Order.desc("no"));
+		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		return this.jjimRepository.findByMember(member, pageable);
 		
 	}
 }
