@@ -18,7 +18,7 @@ public class EatTogetherForm {
 	private String ettitle;
 	
 	@NotNull(message = "날짜를 선택해주세요")
-	@Future
+	@Future(message = "현재보다 이후의 시간을 선택해주세요")
 	private LocalDateTime etdate;
 	
 	@NotEmpty(message = "인원수를 선택해주세요")

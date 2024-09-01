@@ -156,7 +156,10 @@
 											</div>
 										</div>
 										<!--같이먹기 신규생성-->
-										<div sec:authorize="isAuthenticated()" class="et_new">
+										<div sec:authorize="isAuthenticated()" th:object="${eatTogetherForm}" class="et_new">
+											
+											<div th:replace="~{form_errors :: formErrorsFragment}"></div>
+											
 											<div class="card my-3 py-2">				
 												<form th:action="@{|/et/create/${rest.no}|}" method="post">
 													<div class="d-flex justify-content-center">
@@ -168,16 +171,16 @@
 														<tr class="my-3">
 															<td >
 																<b>제목</b>
-																<input type="text" name="ettitle" id="ettitle" class="form-control">
+																<input type="text" th:field="*{ettitle}" class="form-control">
 															</td>			
 															<td>
 																<b>신청일시</b><!--min="2024-08-01T00:00" max="2024-09-03T18:00"-->
-																<input min="2024-08-01T00:00" max="2024-09-03T18:00" type="datetime-local"  name="etdate" id="etdate" class="form-control">
+																<input min="2024-08-01T00:00" max="2024-09-03T18:00" type="datetime-local"  th:field="*{etdate}" class="form-control">
 															</td>
 
 															<td>
 																<b>선호 mbti</b>
-																<select type="text" name="prefmbti" id="prefmbti" class="form-control">
+																<select type="text" th:field="*{prefmbti}" class="form-control">
 																<option value="" selected disabled="disabled">MBTI</option>
 																<option value="ENFJ">ENFJ</option>
 																<option value="ENFP">ENFP</option>
@@ -202,7 +205,7 @@
 														<tr>
 															<td>
 																<b>인원수</b>
-																<select type="text" name="prtnumber" id="prtnumber" class="form-control">
+																<select type="text" th:field="*{prtnumber}" class="form-control">
 																	<option value="" selected>인원수 선택</option>
 																	<option value="2">2명</option>
 																	<option value="3">3명</option>
@@ -212,7 +215,7 @@
 																					
 															<td>
 																<b>선호 성별</b>
-																<select type="text" name="prefgender" id="prefgender" class="form-control">
+																<select type="text" th:field="*{prefgender}" class="form-control">
 																	<option value="" selected>성별 선택</option>
 																	<option value="male">남</option>
 																	<option value="female">여</option>

@@ -45,7 +45,7 @@ public class EatTogetherController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{no}")
 	public String createET(Model model , @PathVariable("no") Integer no 
-			, Principal principal , @Valid EatTogetherForm etForm , BindingResult bindingResult) {
+			, Principal principal , @Valid EatTogetherForm eatTogetherForm , BindingResult bindingResult) {
 		
 		Restaurant rest = this.restService.getRestaurant(no);
 		Member applymember = this.momoMemberService.getMember(principal.getName());
@@ -57,8 +57,8 @@ public class EatTogetherController {
 		}
 		System.out.println("같이먹기 등록 데이터 입력전");
 		
-		this.etService.create(rest , applymember , etForm.getEttitle() , etForm.getEtdate()
-				, etForm.getPrtnumber() , etForm.getPrefgender() , etForm.getPrefmbti());
+		this.etService.create(rest , applymember , eatTogetherForm.getEttitle() , eatTogetherForm.getEtdate()
+				, eatTogetherForm.getPrtnumber() , eatTogetherForm.getPrefgender() , eatTogetherForm.getPrefmbti());
 		
 		
 		return String.format("redirect:/rest/detail/%s", no);
