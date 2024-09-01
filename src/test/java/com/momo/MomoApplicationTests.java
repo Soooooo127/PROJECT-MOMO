@@ -41,9 +41,9 @@ class MomoApplicationTests {
 			String name = String.format("테스트가게[%03d]", i);
 			String category = "한식";
 			this.restService.create(name, category);
-		}
+		}*/
 		
-		*/
+		
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
 import com.momo.restaurant.et.EatTogether;
+import com.momo.restaurant.et.EatTogetherForm;
 import com.momo.restaurant.et.EatTogetherService;
 import com.momo.restaurant.jjim.Jjim;
 import com.momo.restaurant.jjim.JjimService;
@@ -46,9 +47,24 @@ public class RestController {
 	//@ResponseBody JSON 으로 보내
 	@GetMapping("/detail/{no}")
 	public String restDetail(Model model, @PathVariable("no")Integer no
-			, Principal principal, ReviewForm reviewForm) {
+			, Principal principal, ReviewForm reviewForm , EatTogetherForm eatTogetherForm) {
 		if(principal==null) {
 			Restaurant rest = this.restService.getRestaurant(no);
+			//추가된 부분 시작
+			List<EatTogether> etList = this.etService.getList(rest);
+			
+			LocalDate today = LocalDate.now();
+			Integer expired = 0;
+			for(EatTogether et : etList) {
+				if(today.isAfter(et.getEtdate().toLocalDate())) {
+					expired += 1;
+					
+				}
+			}
+			rest.setEtList(etList);
+			rest.setProgresset(etList.size() - expired);
+			this.restRepository.save(rest);
+			//추가된 부분 끝
 			model.addAttribute("rest", rest);
 			List<Review> review=this.reviewService.getList(rest);
 			model.addAttribute("review", review);

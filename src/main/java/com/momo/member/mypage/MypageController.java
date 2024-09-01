@@ -20,8 +20,12 @@ import com.momo.board.free.posting.FreePosting;
 import com.momo.board.free.posting.FreePostingService;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
+import com.momo.restaurant.et.EatTogether;
+import com.momo.restaurant.et.EatTogetherService;
 import com.momo.restaurant.jjim.Jjim;
 import com.momo.restaurant.jjim.JjimService;
+import com.momo.restaurant.review.Review;
+import com.momo.restaurant.review.ReviewService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,6 +42,9 @@ public class MypageController {
 	
 	private final FreeCommentService freeCommentService;
 	private final AskCommentService askCommentService;
+	private final ReviewService reviewService;
+	
+	private final EatTogetherService eatTogetherService;
 	
 	// 마이페이지 내 게시물 보기
 	@PreAuthorize("isAuthenticated()")
@@ -67,6 +74,7 @@ public class MypageController {
 		return "/mypage/mypage_myJjim";
 	}
 	
+	// 마이페이지 내 댓글(자유게시판, 질문&답변) 보기
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/myComment")
 	public String getMyComment(Model model, @RequestParam(value="freeContent", defaultValue="")String freeContent, 
@@ -82,5 +90,30 @@ public class MypageController {
 		model.addAttribute("myAskComment", myAskComment);
 		model.addAttribute("askCotent", askContent);
 		return "/mypage/mypage_myComment";
+	}
+	
+	// 마이페이지 내 리뷰 보기
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/myReview")
+	public String getMyReview(Model model, @RequestParam(value="content", defaultValue="")String content, 
+			                   @RequestParam(value="page", defaultValue="0")int page, Principal principal) {
+		Member member = this.memberService.getMember(principal.getName());
+		Page<Review> myReview = this.reviewService.getMyReview(member, content, page);
+		model.addAttribute("myReview", myReview);
+		model.addAttribute("content", content);
+		return "/mypage/mypage_myReview";
+	}
+	
+	// 마이페이지 내 같이 먹기
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/myET")
+	public String getMyEatTogether(Model model, @RequestParam(value="ettitle", defaultValue="")String ettitle,
+			                       @RequestParam(value="page", defaultValue="0")int page, Principal principal) {
+		
+		Member member = this.memberService.getMember(principal.getName());
+		Page<EatTogether> myET = this.eatTogetherService.getMyET(member, ettitle, page);
+		model.addAttribute("myET", myET );
+		model.addAttribute("ettitle", ettitle);
+		return "/mypage/mypage_myET";
 	}
 }

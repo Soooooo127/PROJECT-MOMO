@@ -1,4 +1,10 @@
 <html layout:decorate="~{layout}">
+	<head>
+		<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+
+	</head>
+<body>		
 	<div layout:fragment="content" class="container my-3">
 		<h5>같이먹기 상세페이지</h5>
 		
@@ -36,17 +42,34 @@
 						<div  th:text="${member.membernick}"></div>
 						
 					</th:block>-->
-					<table>
+					<table class="table table-hover">
+						<thead class="table-primary">
 						<tr>
 							<th width="100px">닉네임</th>
 							<th width="100px">MBTI</th>
 							<th width="100px">성별</th>
 						</tr>
+						</thead>
+						<tbody>
 						<tr th:each="member : ${et.prtmember}">
-							<td th:text="${member.membernick}"></td>
+							<td>								
+								<ul class="navbar-nav me-auto">
+															  <li class="nav-item dropdown">
+																	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+																	th:if="${member.membernick != null}" th:text="${member.membernick}"></a>
+																	<div sec:authorize="isAuthenticated()">
+																		<div class="dropdown-menu" th:if="${#authentication.getPrincipal().getUsername != member.memberid}">																			<a class="dropdown-item" href="#">프로필 보기</a>
+																			<a class="dropdown-item" th:if="${!#lists.contains(member.friend, member) and #authentication.getPrincipal().getUsername() != member.memberid}"
+																			th:href="@{|/friend/create/${freePosting.author.no}|}" onclick="alert('친구 추가 완료');">친구 추가</a>
+																		</div>
+																	</div>
+																</li>
+															</ul>
+							</td>
 							<td th:if="${member.profile != null}" th:text="${member.profile.mbti}"></td>
 							<td th:if="${member.profile != null}" th:text="${member.profile.gender}"></td>
 						</tr>
+						</tbody>
 					</table>
 					<br>
 					<th:block th:each="member : ${et.prtmember}">
@@ -98,7 +121,7 @@
 				</div>
 			</div>
 		</div>
-		
+	</div>
 		<script layout:fragment="script" type="text/javascript">
 			//이미 방 참여시 알림창 구문
 			
@@ -122,5 +145,6 @@
 			}
 		</script>
 		
-	</div>
+	
+</body>
 </html>
