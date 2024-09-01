@@ -32,6 +32,7 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
 				.requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAnyAuthority("ROLE_ADMIN")
+				.requestMatchers(new AntPathRequestMatcher("/member/social")).hasAnyRole("SOCIAL", "MEMBER")
 				.requestMatchers(new AntPathRequestMatcher("/member/mypage/**")).hasAnyRole("ADMIN", "MEMBER", "SOCIAL")
 				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
 				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
