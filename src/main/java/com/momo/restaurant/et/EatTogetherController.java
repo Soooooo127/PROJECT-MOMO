@@ -52,8 +52,8 @@ public class EatTogetherController {
 		model.addAttribute("rest" , rest);
 		if(bindingResult.hasErrors()) {
 			System.out.println("같이먹기 등록 실패");
-			
-			return "rest/rest_detail";
+			return String.format("redirect:/rest/detail/%s", no);
+			//return "rest/rest_detail";
 		}
 		System.out.println("같이먹기 등록 데이터 입력전");
 		
