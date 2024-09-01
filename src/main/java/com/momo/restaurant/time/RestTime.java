@@ -29,6 +29,8 @@ public class RestTime {
 	
 	private String lastOrder;
 	
+	private String dayoff;
+	
 	@ManyToOne
 	private Restaurant rest;
 }

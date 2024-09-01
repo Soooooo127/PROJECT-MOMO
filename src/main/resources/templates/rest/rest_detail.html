@@ -52,22 +52,15 @@
 									<li th:text="${rest.menu}"></li>
 									<li th:text="${rest.addr}"></li>
 									<li th:text="${rest.phone}"></li>
-									<li>메뉴1 	1000원</li>
-									<li>메뉴2 	1500월</li>
-									<li>메뉴3 	50000원</li>
-									<li>메뉴4</li>
-									<li>메뉴5</li>
+							
 								</ul>
 							</div>
-							<div class="info_time">
+							<div class="info_time" th:each=" time : ${rest.timeList}">
 								<ul>
-									<li>[오늘] 08.30 (금)영업시간: 07:00 - 16:00</li>
-									<li>08.31 (토)영업시간: 07:00 - 16:00</li>
-									<li>09.01 (일)휴무일</li>
-									<li>09.02 (월)영업시간: 07:00 - 16:00</li>
-									<li>09.03 (화)영업시간: 07:00 - 16:00</li>
-									<li>09.04 (수)영업시간: 07:00 - 16:00</li>
-									<li>09.05 (목)영업시간: 07:00 - 16:00</li>
+									<li th:text="|영업시간 : ${time.open} ~ ${time.close}|"></li>
+									<li th:text="|영업 준비시간 : ${time.breakStart} ~ ${time.breakFinish}|"></li>
+									<li th:text="|마지막 주문시간 : ${time.lastOrder}|"></li>
+									<li th:text="|휴무일 : ${time.dayoff}|"></li>
 
 								</ul>
 							</div>
@@ -314,9 +307,11 @@
 
 						<ul class="list-group">
 							
-						  <li class="list-group-item d-flex justify-content-between align-items-center" >
-						    <span th:text="|★ ${review.star} 점|"></span>
-						    <span th:text="|작성자 : ${review.membernick}|"></span>
+						<li class="list-group-item " >
+							<span th:text="|작성자 : ${review.membernick}|"></span>
+							<span th:text="|★ ${review.star} 점|" ></span>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center" >
 						    <span th:text="|내용 : ${review.content}|"></span>
 							<span th:text="|최초 작성일 : ${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
 							<!--따봉-->
