@@ -45,12 +45,12 @@
         <div>
           <div class="myModify-r">
             <div class="myModify-btn">
-              <div class="alert alert-dismissible alert-success">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" th:if="${member.createDate == null}"></button>
+              <div class="alert alert-dismissible alert-success" th:if="${member.createDate == null}">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <strong>소셜(구글, 네이버) 가입 회원님!</strong><br>
-                 회원님께서는 아이디, 이름(실명)을 1회 변경하실 수 있습니다.<br>
+                 회원님께서는 아이디, 이름(실명)을 <strong><u>1회</u></strong> 변경하실 수 있습니다.<br>
                  또한 비밀번호를 설정하시면 아이디/비밀번호로 일반 로그인하실 수 있습니다.<br>
-                 <a href="#" class="alert-link"><i class="fi fi-br-hand-back-point-right"></i> 회원정보 설정하러 가기</a>
+                 <center><a th:href="@{/member/social}" class="alert-link"><i class="fi fi-br-hand-back-point-right"></i> 회원정보 설정하러 가기</a></center>
               </div>
               <div class="infoTitle2">
                 비밀번호 확인
