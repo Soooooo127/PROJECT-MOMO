@@ -1,19 +1,21 @@
 package com.momo.restaurant.review;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
-import com.momo.board.free.comment.FreeComment;
 import com.momo.member.Member;
-import com.momo.member.MemberService;
 import com.momo.restaurant.RestRepository;
 import com.momo.restaurant.Restaurant;
 
-import groovy.cli.Option;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -43,6 +45,14 @@ public class ReviewService {
 			throw new DataNotFoundException("데이터가 없습니다");
 		}
 
+	}
+	
+	//마이페이지 내 리뷰 + 검색 + 페이징
+	public Page<Review> getMyReview(Member member, String content, int page) {
+			List<Sort.Order> sorts = new ArrayList<>();
+			sorts.add(Sort.Order.desc("createDate"));
+			Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+			return this.reviewRepository.findByAuthorAndContent(member, content, pageable);
 	}
 	
 	public void create(Integer no, Member member, String content, Integer star) {
