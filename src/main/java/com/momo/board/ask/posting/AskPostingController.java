@@ -36,10 +36,12 @@ public class AskPostingController {
 	@GetMapping("/list")
 	public String listAskPosting(Model model , @RequestParam(value = "page" , defaultValue = "0") int page
 			,@RequestParam(required = false , value = "order" , defaultValue = "createDate") String order
-			, @RequestParam(value = "kw" , defaultValue = "") String kw) {
+			, @RequestParam(value = "kw" , defaultValue = "") String kw, Principal principal) {
 		Page<AskPosting> paging = this.askPostingService.getList(page , order , kw);
+		Member member = momoMemberService.getMember(principal.getName());
 		model.addAttribute("paging", paging);
 		model.addAttribute("kw" , kw);
+		model.addAttribute("member", member);
 		return "askPosting_list";
 	}
 	//질문게시글 상세보기 + 내부 답변댓글 페이지화

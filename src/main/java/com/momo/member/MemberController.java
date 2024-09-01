@@ -1,8 +1,15 @@
 package com.momo.member;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -75,6 +82,18 @@ public class MemberController {
 	@GetMapping("/login")
 	public String login() {
 		return "member/login_form";
+	}
+	
+	// 로그인 성공
+	@GetMapping("/loginsuccessful")
+	public String loginSuccessful(HttpSession session, Principal principal) {
+		System.out.println("===========로그인 성공============");
+		/*
+		Member member = memberService.getMember(principal.getName());
+		session.setAttribute("member", member);
+		*/
+		return "redirect:/mypage/profile";
+		
 	}
 	
 	// 로그인 실패
@@ -167,15 +186,31 @@ public class MemberController {
 	
 	// 소셜 로그인 회원의 회원정보 첫 수정을 위한 페이지
 	@PostMapping("/social")
-	public void modifySocial(@RequestParam(value = "memberid") String memberid, @RequestParam(value = "membername") String membername,
-			@RequestParam(value = "membernick") String membernick, @RequestParam(value = "password") String password
-			,@RequestParam(value = "email") String email, Principal principal, Model model) {
+	public String modifySocial(@RequestParam(value = "memberid") String memberid, @RequestParam(value = "membername") String membername
+			, @RequestParam(value = "membernick") String membernick, @RequestParam(value = "modifyPw3") String password
+			, @RequestParam(value = "mail") String email, Principal principal, Model model) {
 		System.out.println("=========소셜 회원의 회원정보 첫 수정 메소드 진입==========");
+		System.out.println("email : " + email);
+		System.out.println("memberid : " + memberid);
+		System.out.println("nick : " + membernick);
+		System.out.println("name : " + membername);
 		
 		
+		Member member = memberService.getMemberByEmail(email);
+		
+		member.setMemberid(memberid);
+		member.setMembername(membername);
+		member.setMembernick(membernick);
+		member.setPassword(passwordEncoder.encode(password));
+		member.setCreateDate(LocalDateTime.now());
+		
+		memberService.updateMember(member);
+		
+		model.addAttribute("member", member);
+
+		return "redirect:/member/modifyMember";
 
 	}
-	
 	
 	// 마이페이지의 회원정보 수정을 진입하기 위한 비밀번호 체크 메소드
 	@PostMapping("/checkPw")

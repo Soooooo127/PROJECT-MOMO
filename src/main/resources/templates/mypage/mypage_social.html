@@ -13,6 +13,7 @@
           로고 : 소셜소셜소셜이에유~~~
         </div>
         <!--회원정보 노출 및 수정(좌)-->
+        <form method="post" th:action="@{/member/social}">
         <div class="frame-dvd-l infoBorder">
           <div class="myModify titleMenu">
             선택 입력 항목
@@ -40,9 +41,9 @@
             <div class="myModify">
               <div class="myModify-content">
                 <div class="form-floating">
-                  <input type="hidden" name="email" id="email" th:value="@{number.email}">
+                  <input type="hidden" name="mail" id="mail" th:value="${member.email}">
                   <input type="email" class="form-control"  
-                  autocomplete="off" name="email" disabled th:value="${member.email}">
+                  autocomplete="off" disabled th:value="${member.email}">
                   <label for="floatingPassword">이메일(email@example.com)</label>
                 </div>
               </div>
@@ -71,7 +72,7 @@
                 <div class="form-floating">
                   <input type="text" class="form-control"  name="membername" id="membername"
                   autocomplete="off" th:value="${member.membername}">
-                  <label for="floatingPassword">이름(실명) : 이름은 최초 1회만 설정할 수 없습니다</label>
+                  <label for="floatingPassword">이름(실명) : 이름은 최초 1회만 설정할 수 있습니다</label>
                 </div>
               </div>
             </div>
@@ -87,14 +88,20 @@
                   <label for="floatingPassword">비밀번호 확인</label>
                 </div>
               </div>
-              <div class="myModify-btn">
+              <div class="myModify-btn" name="checkResult" id="checkResult">
                 <div class="d-grid gap-2">
-                  <button class="btn btn-lg btn-primary" type="button" onclick="resetSocial()">비밀번호 변경</button>
+                  <button class="btn btn-lg btn-secondary" type="button" onclick="confirmNumber()">비밀번호 확인</button>
+                </div>
+              </div>
+              <div class="myModify-btn" name="modifySocial" id="modifySocial" style="display: none;">
+                <div class="d-grid gap-2">
+                  <button class="btn btn-lg btn-primary" type="submit" style="">회원정보 입력</button>
                 </div>
               </div>
 
           </div>
         </div>
+        </form>
       </div>
     </div>
   </body>
