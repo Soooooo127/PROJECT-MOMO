@@ -307,9 +307,11 @@
 
 						<ul class="list-group">
 							
-						  <li class="list-group-item d-flex justify-content-between align-items-center" >
-						    <span th:text="|★ ${review.star} 점|"></span>
-						    <span th:text="|작성자 : ${review.membernick}|"></span>
+						<li class="list-group-item " >
+							<span th:text="|작성자 : ${review.membernick}|"></span>
+							<span th:text="|★ ${review.star} 점|" ></span>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center" >
 						    <span th:text="|내용 : ${review.content}|"></span>
 							<span th:text="|최초 작성일 : ${#temporals.format(review.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
 							<!--따봉-->
