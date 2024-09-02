@@ -64,7 +64,7 @@ public class Member implements UserDetails {
 	@JsonIgnore
 	private List<OAuth2Member> oauth2MemberList;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "image_no")
 	@JsonIgnore
 	private Image image;

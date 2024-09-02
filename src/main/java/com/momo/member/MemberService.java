@@ -41,7 +41,6 @@ public class MemberService {
 		profile.setAuthor(member);
 		this.profileRepository.save(profile);
 		
-		member.setProfile(profile);
 		this.memberRepository.save(member);
 		
 		return member;
@@ -102,7 +101,7 @@ public class MemberService {
 		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
 		if(_member.isPresent()) {
 			Member member = _member.get();
-			member.setProfile(profile);
+//			member.setProfile(profile);
 			this.memberRepository.save(member);
 		} else {
 			throw new DataNotFoundException("site member not found");
@@ -123,6 +122,11 @@ public class MemberService {
 	// 회원정보 업데이트(일반) 메소드
 	public void updateMember(Member member) {
 		memberRepository.save(member);
+	}
+	
+	// 회원 탈퇴 메소드
+	public void deleteMember(Member member) {
+		memberRepository.delete(member);
 	}
 	
 	// 비밀번호 체크 메소드
