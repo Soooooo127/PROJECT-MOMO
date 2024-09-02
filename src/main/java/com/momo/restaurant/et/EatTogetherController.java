@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.momo.member.Member;
@@ -40,10 +42,13 @@ public class EatTogetherController {
 
 	
 	@GetMapping("/list")
-	public String listET(Model model) {
-		List<EatTogether> etList = this.etService.getListAll();
-		model.addAttribute("etList", etList);
-		
+	public String listET(Model model , @RequestParam(value="page" , defaultValue = "0") int page
+			,@RequestParam(value="kw" , defaultValue = "") String kw) {
+		System.out.println("페이지 : " + page);
+		Page<EatTogether> paging = this.etService.getListAll(page , kw);
+		model.addAttribute("paging", paging);
+		model.addAttribute("kw", kw);
+		System.out.println("검색키워드 : " + kw);
 		
 		
 		return "et/et_list";
