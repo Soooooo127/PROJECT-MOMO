@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.momo.member.Member;
 import com.momo.member.MemberService;
+import com.momo.member.profile.Profile;
 import com.momo.restaurant.RestService;
 import com.momo.restaurant.Restaurant;
 import com.momo.restaurant.jjim.Jjim;
@@ -118,12 +119,13 @@ public class EatTogetherController {
 			System.out.println(temp.get(i).getMembernick());
 		}
 		Member member = this.momoMemberService.getMember(principal.getName());
-		boolean isMemberIn = temp.contains(member);		
+		boolean isMemberIn = temp.contains(member);	
 		System.out.println(isMemberIn);
 		model.addAttribute("isMemberIn" , isMemberIn);
 		model.addAttribute("rest", rest);
 		model.addAttribute("et", et);
 		model.addAttribute("member", member);
+		
 		return "et/et_detail";
 	}
 	
