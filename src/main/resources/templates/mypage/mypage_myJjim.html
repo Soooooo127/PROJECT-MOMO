@@ -24,9 +24,10 @@
 											<span th:text="${jjim.rest.name}"></span></h6>
 								            <!--사진-->	
 											<img th:src="${jjim.rest.img}" class="img">
-												<div class="card-body">
-												   <p class="card-text" th:text="${jjim.rest.category}"></p>
-												</div>			  
+											<li class="list-group-item ms-3">
+											  <span th:text="|${jjim.rest.category} / |"></span>
+											  <span th:text="|평점 : ${jjim.rest.avgStar}|"></span>
+											</li>			  
 											<!--태그-->	
 										<div class="card-footer text-muted " >
 											<span class="tag" th:if="${jjim.rest.etList != null}" th:text="|같이먹기 방 : ${#lists.size(jjim.rest.etList)}|"></span>

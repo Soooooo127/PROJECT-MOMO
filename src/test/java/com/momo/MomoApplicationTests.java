@@ -36,12 +36,12 @@ class MomoApplicationTests {
 			String category = "중식";
 			this.restService.create(name, category);
 		}
-		
+		*/
 		for(int i = 0 ; i < 5 ; i++) {
 			String name = String.format("테스트가게[%03d]", i);
 			String category = "한식";
 			this.restService.create(name, category);
-		}*/
+		}
 		
 		
 	}

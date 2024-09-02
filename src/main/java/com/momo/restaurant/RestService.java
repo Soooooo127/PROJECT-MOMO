@@ -106,5 +106,19 @@ public class RestService {
 		this.restRepository.save(rest);
 	}
 */
+	// 가게 평점 업데이트
+	public void update(Integer no, double avg) {
+		Optional<Restaurant> _rest = this.restRepository.findById(no);
+		Restaurant rest = new Restaurant();
+		if(_rest.isPresent()) {
+			rest = _rest.get();
+		} else {
+			throw new DataNotFoundException("식당을 찾을 수 없습니다");
+		}
+		
+		double avgStar = Math.round(avg * 10) / 10.0;
+		rest.setAvgStar(avgStar);
+		this.restRepository.save(rest);
+	}
 
 }

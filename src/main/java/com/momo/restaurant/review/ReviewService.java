@@ -87,4 +87,18 @@ public class ReviewService {
 		reviewRepository.save(review);
 	}
 	
+	// 가게 평점 계산 메소드
+	// 해당 가게에 회원이 등록한 점수를 토대로 반영
+	public double avg(Restaurant rest) {
+		List<Review> reviewList = this.reviewRepository.findByRest(rest);
+		double avgStar = 0.0d;
+		int sum = 0;
+		for(int i = 0; i<reviewList.size(); i++) {
+			sum += reviewList.get(i).getStar();
+		}
+		double size = reviewList.size();
+		avgStar = sum / size;
+		return avgStar;
+	}
+	
 }
