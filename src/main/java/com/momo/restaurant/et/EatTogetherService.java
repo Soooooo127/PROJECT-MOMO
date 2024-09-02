@@ -11,12 +11,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
 import com.momo.member.Member;
 import com.momo.restaurant.Restaurant;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -45,8 +52,14 @@ public class EatTogetherService {
 	}
 	
 	//같이먹기 전체 리스트 등록날짜의 내림차순으로 출력하기
-	public List<EatTogether> getListAll(){
-		return this.etRepository.findAllOrderByDesc();
+	public Page<EatTogether> getListAll(int page , String kw){
+		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
+		sorts.add(Sort.Order.desc("regdate"));
+		Pageable pageable = PageRequest.of(page, 3 , Sort.by(sorts));
+		
+		Specification<EatTogether> spec = search(kw);
+		
+		return this.etRepository.findAll(spec , pageable);
 	}
 	
 	//가게 정보로 같이먹기 리스트 등록날짜의 내림차순으로 출력하기
@@ -90,25 +103,24 @@ public class EatTogetherService {
 		et.getPrtmember().remove(momoMember);
 		this.etRepository.save(et);
 	}
-	/*
-	//같이먹기 날짜비교
-	public Integer compareDate(EatTogether et) {
-		LocalDate date1 = LocalDate.now();
-		LocalDateTime etdate = et.getEtdate();
-		if(date1.isAfter(etdate.toLocalDate())) {
-			return 1;
-		}else {
-			return 0;
-		}
-		
-	}*/
-	/*
-	//같이먹기 자동삭제
-	@Transactional
-	@Async
-	@Scheduled(cron = "0 0 0 * * *")
-	public void autoDelete(EatTogether et) {
-		etRepository.deleteByCreatedAtLessThanEqual(et.getEtDate().minusDays(0));
+	
+	//같이먹기 검색 키워드 조인
+	private Specification<EatTogether> search(String kw){
+		return new Specification<>() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public Predicate toPredicate(Root<EatTogether> et , CriteriaQuery<?> query
+					, CriteriaBuilder cb) {
+				query.distinct(true);
+				Join<EatTogether , Member> m = et.join("prtmember" , JoinType.LEFT);
+				Join<Restaurant , EatTogether> r = et.join("rest" , JoinType.LEFT);
+				
+				return cb.or(cb.like(et.get("ettitle"), "%" + kw + "%"),
+						cb.like(et.get("prefmbti"), "%" + kw + "%" ),
+						cb.like(r.get("name"), "%" + kw + "%"),
+						cb.like(m.get("membernick"), "%" + kw + "%"));
+			
+			}
+		};
 	}
-	*/
 }

@@ -1,17 +1,14 @@
 
 .rest{/*전체*/
-	width: 1000px;
+	width: 1080px;
 	height:auto;	
 
-	padding: 5px;
-	border: 4px solid rgb(255, 255, 255);
-	border-radius: 15px;
 	
 }
 
 
 	.upper{ /*상단부*/
-		width: 100%;
+		width: 1080px;
 		height: 50%;
 		/*display: flex;*/
 		box-sizing: border-box;
@@ -38,13 +35,21 @@
 		width: 280px;
 
 	}
-	.info{/*가게정보*/
-		width: 760px;
-		padding: 5px;
+	.info_menu{/*가게정보*/
+		width: 380px;
+		
 	}
 	
 	.info_detail{
 		display: flex;
+	}
+	
+	.map{/*지도*/
+		width: 280px;
+
+		margin-top: 10px;
+
+
 	}
 	
 	.etc{/*기타*/
@@ -60,24 +65,18 @@
 			
 	}
 		.jjim{/*찜*/
-			width: 25%;
+			width: 200px;
 			padding: 5px;
+
 			
 		}
 		.star{/*평점*/
-			width: 25%;
+			width: 200px;
 			padding: 5px;
+			font-size:20px;
+			color:rgb(255, 128, 128);
+		}
 
-		}
-		.re{/*리뷰갯수*/
-			width: 25%;
-			padding: 5px;
-		}
-		.lank{/*랭킹*/
-			width: 25%;
-			padding: 5px;
-		}					
-	
 		
 .bottom{/*하단부
 	width: 100%;
@@ -108,10 +107,14 @@
 	
 			}
 	
-	
+			.et_table table, .et_table tr,  .et_table td {
+				border:none;
+			}
+			
 	.review{/*리뷰*/
-		width: 100%;
+		width: 1000px;
 		height: 30%;
+		
 
 	}
 	summary::-webkit-details-marker { /* Safari 브라우저용 사용자 정의 스타일 */
@@ -120,10 +123,25 @@
 	summary {
 	    list-style-type: none; /* 그 외의 브라우저용 사용자 정의 스타일 */
 	}
+	.accordion-header{
+		margin:20px;
+	}
+	.accordion-body{
+		margin:20px;
+	
+	}
 	
 	.re_dvd {
-		width: 100%;
-		overflow: auto;
+		
+		margin:20px;
+		
+	}
+	.re_table table, .re_table tr, .re_table th, .re_table td {
+		border:none;
+	}
+	
+	.re_table td{
+		color:dimgray;
 		
 	}
 	
@@ -131,6 +149,14 @@
 		border: 2px solid rgb(255, 128, 0);
 	}
 
+	.re_ddabong a{
+		color:dimgray;
+		
+	}
+	.review_edit{
+	
+		font-size:10px; 
+	}
 
 
 	.dvd1, .dvd2 {
@@ -139,14 +165,6 @@
 	}
 	
 
-	
-	.map{/*지도*/
-		width: 100%;
-		height: 30%;
-		margin-top: 10px;
-
-
-	}
 	
 	#myform fieldset{
 				    display: inline-block;
@@ -165,13 +183,13 @@
 				    text-shadow: 0 0 0 #f0f0f0;
 				}
 				#myform label:hover{
-				    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+				    text-shadow: 0 0 0 rgb(255, 128, 128);
 				}
 				#myform label:hover ~ label{
-				    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+				    text-shadow: 0 0 0 rgb(255, 128, 128);
 				}
 				#myform input[type=radio]:checked ~ label{
-				    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+				    text-shadow: 0 0 0 rgb(255, 128, 128);
 				}
 				#reviewContents {
 				    width: 100%;
