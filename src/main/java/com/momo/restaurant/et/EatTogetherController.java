@@ -1,8 +1,10 @@
 package com.momo.restaurant.et;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -12,10 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.momo.member.Member;
 import com.momo.member.MemberService;
+import com.momo.member.profile.Profile;
 import com.momo.restaurant.RestService;
 import com.momo.restaurant.Restaurant;
 import com.momo.restaurant.jjim.Jjim;
@@ -36,12 +40,16 @@ public class EatTogetherController {
 	private final RestService restService;
 	private final JjimService jjimService;
 	private final ReviewService reviewService;
+
 	
 	@GetMapping("/list")
-	public String listET(Model model) {
-		List<EatTogether> etList = this.etService.getListAll();
-		model.addAttribute("etList", etList);
-		
+	public String listET(Model model , @RequestParam(value="page" , defaultValue = "0") int page
+			,@RequestParam(value="kw" , defaultValue = "") String kw) {
+		System.out.println("페이지 : " + page);
+		Page<EatTogether> paging = this.etService.getListAll(page , kw);
+		model.addAttribute("paging", paging);
+		model.addAttribute("kw", kw);
+		System.out.println("검색키워드 : " + kw);
 		
 		
 		return "et/et_list";
@@ -110,19 +118,18 @@ public class EatTogetherController {
 	public String detailET(Model model , @PathVariable("rno") Integer rno
 			, @PathVariable("etno") Integer etno , Principal principal) {
 		Restaurant rest = this.restService.getRestaurant(rno);
-		EatTogether et = this.etService.getET(etno);
-		
+		EatTogether et = this.etService.getET(etno);	
 		List<Member> temp = et.getPrtmember();
 		for(int i=0 ; i < temp.size() ; i++) {
 			System.out.println(temp.get(i).getMembernick());
 		}
 		Member member = this.momoMemberService.getMember(principal.getName());
-		boolean isMemberIn = temp.contains(member);
+		boolean isMemberIn = temp.contains(member);	
 		System.out.println(isMemberIn);
-		
 		model.addAttribute("isMemberIn" , isMemberIn);
 		model.addAttribute("rest", rest);
 		model.addAttribute("et", et);
+		model.addAttribute("member", member);
 		
 		return "et/et_detail";
 	}

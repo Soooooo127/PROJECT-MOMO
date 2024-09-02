@@ -46,7 +46,7 @@ public class FriendController {
 			 Member myMember = memberService.getMember(principal.getName()); //나의 로그인한 정보 있는지 유무 확인 후 객체 생성 
 			 model.addAttribute("myMember", myMember);  //객체 생성해서 모델에 저장 
 			friendService.createFriend(principal.getName(),friendMember ); //로그인한 정보, 친구 객체를 매개변수로
-			return "redirect:/free/list";
+			return "redirect:/friend/list";
 		}
 		
 	

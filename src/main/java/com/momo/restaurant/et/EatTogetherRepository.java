@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,8 +18,7 @@ public interface EatTogetherRepository extends JpaRepository<EatTogether, Intege
 	@Query("select et from EatTogether et where et.rest = :rest order by et.regdate desc")
 	List<EatTogether> findByRestOrderByDesc(@Param("rest") Restaurant rest);
 	
-	@Query("select et from EatTogether et order by et.regdate desc")
-	List<EatTogether> findAllOrderByDesc();
+	Page<EatTogether> findAll(Specification<EatTogether> spec , Pageable pageable);
 	
 	@Query("select et from EatTogether et where et.applymember=:applymember and et.ettitle like %:ettitle%")
 	Page<EatTogether> findByAuthorAndEttitle(@Param(value="applymember")Member author, @Param(value="ettitle")String ettitle, Pageable pageable);
