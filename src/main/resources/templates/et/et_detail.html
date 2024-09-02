@@ -42,7 +42,7 @@
 						<div  th:text="${member.membernick}"></div>
 						
 					</th:block>-->
-					<table class="table table-hover">
+					<table class="table table-hover" style="border: none;">
 						<thead class="table-primary">
 						<tr>
 							<th width="100px">닉네임</th>
@@ -51,23 +51,34 @@
 						</tr>
 						</thead>
 						<tbody>
-						<tr th:each="member : ${et.prtmember}">
-							<td>								
-								<ul class="navbar-nav me-auto">
-															  <li class="nav-item dropdown">
-																	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-																	th:if="${member.membernick != null}" th:text="${member.membernick}"></a>
-																	<div sec:authorize="isAuthenticated()">
-																		<div class="dropdown-menu" th:if="${#authentication.getPrincipal().getUsername != member.memberid}">																			<a class="dropdown-item" href="#">프로필 보기</a>
-																			<a class="dropdown-item" th:if="${!#lists.contains(member.friend, member) and #authentication.getPrincipal().getUsername() != member.memberid}"
-																			th:href="@{|/friend/create/${freePosting.author.no}|}" onclick="alert('친구 추가 완료');">친구 추가</a>
-																		</div>
-																	</div>
-																</li>
-															</ul>
+						<tr th:each="etmember : ${et.prtmember}" style="border: none;">
+							<td style="border: none;">								
+								<ul class="navbar-nav me-auto" >
+							  <li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+								th:if="${etmember.membernick != null}" th:text="${etmember.membernick}"></a>
+							<div sec:authorize="isAuthenticated()">
+							<div class="dropdown-menu" th:if="${#authentication.getPrincipal().getUsername != etmember.memberid}">																			
+							<a class="dropdown-item" href="#">프로필 보기</a>
+							<a class="dropdown-item" th:if="${!#lists.contains(member.friend,etmember)}"
+							th:href="@{|/friend/create/${etmember.no}|}" onclick="alert('친구 추가 완료');">친구 추가</a>
+							</div>
+							</div>
+								</li>
+								</ul>
+															
+														<!--	#authentication.getPrincipal().getUsername() != etmember.memberid -->
+															
+															
+							</td >
+							<td style="border: none;">
+								<span th:if="${etmember.profile != null}" th:text="${etmember.profile.mbti}"></span>
+								<span  th:if="${etmember.profile == null}" th:text="미입력"></span>
 							</td>
-							<td th:if="${member.profile != null}" th:text="${member.profile.mbti}"></td>
-							<td th:if="${member.profile != null}" th:text="${member.profile.gender}"></td>
+							<td style="border: none;">
+								<span th:if="${etmember.profile != null}" th:text="${etmember.profile.gender}"></span>
+								<span  th:if="${etmember.profile == null}" th:text="미입력"></span>
+							</td>
 						</tr>
 						</tbody>
 					</table>

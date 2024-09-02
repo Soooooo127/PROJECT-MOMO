@@ -5,7 +5,15 @@
 	<style>
 	
 			img.siz  {
+				/*width:80px;*/
+				
+				border-radius: 50%;
 				width:80px;
+				height: 80px;
+				object-fit: cover;
+				margin-left: auto;
+				margin-right: auto;
+				vertical-align: middle;
 			}
 			
 		
@@ -22,37 +30,42 @@
 	<h6 class="py-2 my-3" th:text="|친구 ${#lists.size(member.friend)}명|"></h6>
 		
 		<table class="table table-hover">
-							<thead class="table-primary">
-								<tr>
-									<th>친구</th>
-								</tr>
-							</thead>
-							<tbody>
+			<thead class="table-primary">
+				<tr>
+					<td colspan="3">친구</td>
+				</tr>
+			</thead>
+		
+			<tbody>
+				
 								
-								<tr th:each="friends : ${member.friend}">
-									<td>
-										<img class="siz" th:src="@{|/img/${friends.image.storeFilename}|}" th:if="${friends.image != null}">
-										<img class="siz" th:unless="${friends.image != null}" src="/img/default_profile.png" >&nbsp; &nbsp; &nbsp;
-										
-										<span href="#" th:text="${friends.membernick}"></span>
-									 
-										
-										<div class="d-flex justify-content-end">
-										<form th:action="@{/friend/delete}" method="post">
-										<input type="hidden" name="friendid" th:value="${friends.memberid}">
-									    <button class="btn btn-primary" onclick="alert('친구 삭제 완료')"  type="submit" >친구 삭제</button> 
-										
-										</form>
-										</div>
-									  	
-									</td>
-								</tr>
+				<tr th:each="friends : ${member.friend}">
+				<td>
+				<img class="siz" th:src="@{|/img/${friends.image.storeFilename}|}" th:if="${friends.image != null}">
+				<img class="siz" th:unless="${friends.image != null}" src="/img/default_profile.png" >&nbsp; &nbsp; &nbsp;
+									
+				<span href="#" th:text="${friends.membernick}"></span>
+				</td>					 
+				
+				<td style="vertical-align: middle;">
+											
+				<div class="d-flex justify-content-end"> 
+				<form th:action="@{/friend/delete}" method="post">
+				<input type="hidden" name="friendid" th:value="${friends.memberid}">
+			    <button class="btn btn-primary" onclick="alert('친구 삭제 완료')"  type="submit" >친구 삭제</button> 					
+				</form>
+				</div>
+				</td>			  	
+				</tr>
+				
 									
 								
 						
-							</tbody>
+			</tbody>
 							
-						</table>
+		</table>
+			
+		
 </div>
 
 </div>

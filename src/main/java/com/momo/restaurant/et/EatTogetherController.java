@@ -1,6 +1,7 @@
 package com.momo.restaurant.et;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,7 @@ public class EatTogetherController {
 	private final RestService restService;
 	private final JjimService jjimService;
 	private final ReviewService reviewService;
+
 	
 	@GetMapping("/list")
 	public String listET(Model model) {
@@ -110,20 +112,18 @@ public class EatTogetherController {
 	public String detailET(Model model , @PathVariable("rno") Integer rno
 			, @PathVariable("etno") Integer etno , Principal principal) {
 		Restaurant rest = this.restService.getRestaurant(rno);
-		EatTogether et = this.etService.getET(etno);
-		
+		EatTogether et = this.etService.getET(etno);	
 		List<Member> temp = et.getPrtmember();
 		for(int i=0 ; i < temp.size() ; i++) {
 			System.out.println(temp.get(i).getMembernick());
 		}
 		Member member = this.momoMemberService.getMember(principal.getName());
-		boolean isMemberIn = temp.contains(member);
+		boolean isMemberIn = temp.contains(member);		
 		System.out.println(isMemberIn);
-		
 		model.addAttribute("isMemberIn" , isMemberIn);
 		model.addAttribute("rest", rest);
 		model.addAttribute("et", et);
-		
+		model.addAttribute("member", member);
 		return "et/et_detail";
 	}
 	
