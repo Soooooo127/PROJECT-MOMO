@@ -7,8 +7,10 @@
 		<p>모두모이자<br>
 		<a href="momo.2gather@gmail.com">momo.2gather@gmail.com</a></p>
 		<hr>
-		<span>공지사항</span>
-		<span>자주 묻는 질문</span>
+		<span><a th:href="@{/notice/list}">공지사항</a>&nbsp;&nbsp;&nbsp;</span>
+		<span><a th:href="@{/faq/list}">자주 묻는 질문</a>&nbsp;&nbsp;&nbsp;</span>
+		<span><a sec:authorize="hasRole('ROLE_MEMBER')" th:href="@{/inquiryPosting/myList}">문의하기</a> </span>
+		<span><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/inquiryPosting/list}">문의답변(관리자)</a> </span>
 		<hr>
 		<p style="text-align: center;">회사소개 &nbsp;|&nbsp; 인재채용&nbsp;|&nbsp;제휴제안&nbsp;|&nbsp;이용약관&nbsp;|&nbsp;개인정보&nbsp;|&nbsp;처리방침&nbsp;|&nbsp;청소년보호정책&nbsp;|&nbsp; 모모 정책 &nbsp;|&nbsp;고객센터&nbsp;&nbsp;ⓒ MOMO Corp.</p>
 	
