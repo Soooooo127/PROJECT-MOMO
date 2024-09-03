@@ -5,6 +5,11 @@ body {
   font-style: normal;
 }
 
+i {
+  vertical-align: middle;
+
+}
+
 .frame-c {
   width:1280px;
   margin:auto;
@@ -37,6 +42,13 @@ body {
   border-radius: 10px;
 }
 
+.frame-comment-reply {
+  margin:20px 0px 20px 20px;
+  padding:10px 10px 10px 20px;
+  border: 2px solid #e1e1e1;
+  border-radius: 10px;
+}
+
 .half {
   width:50%;
 }
@@ -59,7 +71,117 @@ body {
   border-radius: 50%;
 }
 
-.postingTitle {
-  font-size: 1.2rem;
+.authorImageB {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
+.postingTitle {
+  padding: 7px 0 15px 0;
+  font-size: 1.4rem;
+  font-weight : bold;
+}
+
+.postingInfoBox {
+  padding:20px;
+
+}
+
+.postingBoardInfo {
+  color: #eb6864;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.postingAuthorInfo {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.postingAuthorInfo span, .postingRankingInfo span {
+  margin-bottom: 5px;
+}
+
+.postingRankingInfo {
+  font-size: 0.9rem;
+  font-weight: 500 ;
+  color: #555555;
+}
+
+.postingContentBox {
+  padding:25px;
+}
+
+.rotate {
+  rotate: 180deg;
+}
+
+.ddabongBox {
+  width:300px;
+  border-radius: 10px;
+  padding:20px;
+  background-color: #f4f4f4;
+  margin: auto;
+  margin-bottom: 50px;
+  font-size: xx-large;
+  text-align: center;
+}
+
+.commentBox {
+  padding:20px;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.commentNickW {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.commentAria {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  padding:10px;
+  max-height: 100px;
+}
+
+.commentInfo-s {
+  color: #555555;
+  font-size: 0.9rem;
+}
+
+.commentInfoBox {
+  width:100%;
+  padding:20px;
+  text-align: center;
+
+}
+
+.commentReplyBox {
+  padding: 20px 0 20px 20px;
+  margin-top: 20px;
+  border-top: 1px solid #f4f4f4;
+}
+
+.commentReplyWrite {
+  padding: 15px 0px 15px 0px;
+}
+
+.commentBox td, .commentReplyBox td {
+  padding: 5px 0px;
+}
+
+.salmon {
+  background-color: salmon;
+}
+
+.e1e1e1 {
+  background-color: #e1e1e1;
+}
+
+.f4f4f4 {
+  background-color: #f4f4f4;
+}
