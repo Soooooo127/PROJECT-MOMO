@@ -22,7 +22,7 @@
 			
 				.etd{
 					
-				/*	border: 1px solid black;*/
+					/*border: 1px solid black;*/
 					width: 600px;
 					height: 500px;
 					justify-content: center;
@@ -49,14 +49,6 @@
 <body>		
 	<div layout:fragment="content" class="container my-3" >
 	
-		
-	<!--	<div class="parent" >
-			
-			<div class="child">왼쪽</div>
-			<div class="child">오른쪽</div>
-			
-<<<<<<< HEAD
-		</div>-->
 	
 		
 		
@@ -67,32 +59,8 @@
 				<div style="margin-bottom: 20px;">
 					<span style="font-size: 40px;"   th:text="|${et.ettitle}|"></span><br>
 					<span style="font-size: 20px;"  th:text="|방장 : ${et.applymember.membernick}|" ></span>
-=======
-				<!--==============================방 참여, 나가기 , 삭제 버튼 =================================================-->
-				<div class="d-flex justify-content-end">
-					<div class="mx-2">
-						<a th:if="${isMemberIn} and ${et.applymember.memberid != #authentication.getPrincipal().getUsername()}"
-						th:href="@{|/et/leave/${rest.no}/${et.no}|}" class="btn btn-primary">방 나가기</a>
-											
-						<div th:if="${!isMemberIn}">
-							<div th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') > #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">
-								<a th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
-													
-							</div>
-												
-							<a th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}" class="btn btn-primary">참여기간 만료</a>
-											
 						</div>
-											
-											
-										
-						<a th:if="${et.applymember.memberid == #authentication.getPrincipal().getUsername() and #lists.size(et.prtmember) == 1}"
-						href="javascript:void(0)" th:data-uri="@{|/et/delete/${rest.no}/${et.no}|}" class="delete btn btn-primary">모모방 삭제</a>
-					</div>
-					
-					
->>>>>>> eb2eea9548f40818570f72d9743b54f83d05cc29
-				</div>
+
 				<div style="margin-bottom: 20px;">
 					<span th:text="|가게명 : ${rest.name}|"></span><br>
 					<span th:text="|등록일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></span><br>
@@ -107,8 +75,8 @@
 					</div>
 				
 	
-			
 			</div>
+			
 			<div class="etd" style="text-align: center;"  >
 				<br>
 				<br>
@@ -235,25 +203,31 @@
 					<br>
 					<br>
 					
-				
-	  <!--==============================방 참여, 나가기 , 삭제 버튼 =================================================-->
-	  <div class="d-flex justify-content-end" >
-	  	<div class="mx-2 ">
-	  		<a th:if="${isMemberIn} and ${et.applymember.memberid != #authentication.getPrincipal().getUsername()}"
-	  		th:href="@{|/et/leave/${rest.no}/${et.no}|}" class="btn btn-primary">방 나가기</a>
-	  	</div>
-	  	
-	  	<div>
-	  		<a th:if="${!isMemberIn}"
-	  		th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
-	  		<a th:if="${et.applymember.memberid == #authentication.getPrincipal().getUsername()}"
-	  		href="javascript:void(0)" th:data-uri="@{|/et/delete/${rest.no}/${et.no}|}" class="delete btn btn-primary">모모방 삭제</a>
-	  		
-	  	
-	  	</div>
-	  	
-	  	
-	  </div>
+					<!--==============================방 참여, 나가기 , 삭제 버튼 =================================================-->
+					<div class="d-flex justify-content-end">
+						<div class="mx-2">
+							<a th:if="${isMemberIn} and ${et.applymember.memberid != #authentication.getPrincipal().getUsername()}"
+							th:href="@{|/et/leave/${rest.no}/${et.no}|}" class="btn btn-primary">방 나가기</a>
+												
+							<div th:if="${!isMemberIn}">
+								<div th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') > #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">
+									<a th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
+														
+								</div>
+													
+								<a th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}" class="btn btn-primary">참여기간 만료</a>
+												
+							</div>
+												
+												
+											
+							<a th:if="${et.applymember.memberid == #authentication.getPrincipal().getUsername() and #lists.size(et.prtmember) == 1}"
+							href="javascript:void(0)" th:data-uri="@{|/et/delete/${rest.no}/${et.no}|}" class="delete btn btn-primary">모모방 삭제</a>
+						</div>
+						
+						
+
+					</div>
 				</div>
 			</div><!--같이먹기 테이블 끝-->
 			
@@ -277,7 +251,7 @@
 								<a style="font-weight: bolder; font-size: large;"  th:href="@{|${etother.no}|}" th:text="${etother.ettitle}"></a>
 								<div th:text="|등록일 : ${#temporals.format(etother.regdate , 'yyyy-MM-dd')}|"></div>
 								<div th:text="|모두 모이는 날 : ${#temporals.format(etother.etdate, 'yyyy-MM-dd HH:mm')}|"></div>
-								<div th:text="|모집하는 인원 수 : ${#lists.size(et.prtmember)}/${etother.prtnumber}|"></div>
+								<div th:text="|모집하는 인원 수 : ${#lists.size(etother.prtmember)}/${etother.prtnumber}|"></div>
 							</div>										
 						</div><!-- card-body 끝 -->
 
