@@ -119,3 +119,34 @@
 a:link, a:visited {
   text-decoration-line: none;
 }
+
+#wrapper{
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 200px;
+}
+footer{
+
+	height: 200px;
+	width: 100%;
+	background-color:#f4f4f4;
+}
+
+
+
+html, body{
+	margin:0;
+	padding: 0;
+	height: 100%;
+}
+body{
+	height: 100%;
+	
+}
+/*
+body > div{
+	height: calc(100% - 335px);
+}*/
+.container{
+	height: calc(100% - 335px);
+}
