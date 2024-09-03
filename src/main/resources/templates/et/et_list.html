@@ -27,81 +27,45 @@
 			<input type="hidden" id="page" name="page" th:value="${paging.number}">
 		</form>
 		
-		<!--class="card w-75 mb-3"--> 
-		<!-- 같이먹기 방 리스트-->	
-		<div th:each="et , loop : ${paging}">
-		<!--<a href="#"  class="" data-bs-toggle="modal" data-bs-target="#exampleModal">-->  
-			<div class="card w-75 mb-3">
-				
-				<div class="card-body">
-					<a th:href=@{|detail/${et.rest.no}/${et.no}|} th:text="${et.ettitle}"></a>
-					<p class="card-text" th:text="${et.rest.name}"></p>
-					<ul>
-						
-						<li>
-							<a th:text="|모집하는 인원수 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></a>
-						</li>
-						
-						<li>
-							<a th:text="|신청일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></a>
-						</li>
-						
-						<li>
-							<a th:text="|같이먹는날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></a>
-						</li>
-						
-					</ul>
-				</div>
-		    <!--<h5 class="card-title" th:value="${방제목}">선배! 마라탕 사주세요</h5>
-		    <p class="card-text" th:value="${소제목}">탕후루도 같이?</p>
-			<ul>
-
-				<li>
-					식당
-				</li>
-				<li>
-					날짜
-				</li>
-				<li>
-					인원수
-				</li>	
-			</ul>-->
-			
-			</div>
-		</a>
 		
-		<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				  <div class="modal-dialog modal-dialog-centered " >
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h1 class="modal-title fs-5" id="exampleModalLabel" th:text="${et.ettitle}"></h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				      </div>
-				      		<div class="modal-body">
-								<p class="card-text" th:value="${소제목}">탕후루도 같이?</p>
-				      			<ul>
-									<li>
-										식당
-									</li>
-									<li>
-										날짜
-									</li>
-									<li>
-										인원수
-									</li>	
-								</ul>
-				
-							</div>
-				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				        <button type="button" class="btn btn-primary">참여하기</button>
-				      </div>
-				    </div>
-				  </div>
-				</div>-->
+		<!-- 같이먹기 방 리스트-->	
+		<div class="list">
+			
+			<div class="card border-primary mb-3   c" style="max-width: 25rem;" th:each="et : ${paging}">
+				<a th:href="@{|detail/${et.rest.no}/${et.no}|}">
+					<h5 class="card-header ">
+						<span th:text="${et.ettitle}"></span>
+								
+						<span style="font-size: 13px;" th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">(참여기간 만료)</span>
+					</h5>
+												 
+						<!--사진-->						 
+					<img th:src="${et.rest.img}" class="img">
+											
+						<!--태그-->						 
+												  
+					<div class="card-footer text-muted " >
+						<h5 th:text="${et.rest.name}"></h5>
+							<span  class="tag">
+								<li>
+									<a th:text="|모집하는 인원수 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></a>
+								</li>
+																				
+								<li>
+									<a th:text="|신청일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></a>
+								</li>
+																		
+								<li>
+									<a th:text="|같이먹는날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></a>
+								</li>
+							</span>
+					</div>
+				</a>			  
+			</div>
+
 		</div>
 		
-
+	<!--페이징-->
 		<div th:if="${!paging.isEmpty()}">
 			<ul class="pagination justify-content-center">
 				<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
@@ -124,67 +88,7 @@
 			</ul>
 		</div>
 
-		<!-- Modal -->
 		
-		<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered " >
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="exampleModalLabel" th:text="${제목}"></h1>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      		<div class="modal-body">
-						<p class="card-text" th:value="${소제목}">탕후루도 같이?</p>
-		      			<ul>
-							<li>
-								식당
-							</li>
-							<li>
-								날짜
-							</li>
-							<li>
-								인원수
-							</li>	
-						</ul>
-		
-					</div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">참여하기</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>-->
-		
-		<!--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered " >
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="exampleModalLabel" th:value="${방제목}">선배! 마라탕 사주세요</h1>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      		<div class="modal-body">
-						<p class="card-text" th:value="${소제목}">탕후루도 같이?</p>
-		      			<ul>
-							<li>
-								식당
-							</li>
-							<li>
-								날짜
-							</li>
-							<li>
-								인원수
-							</li>	
-						</ul>
-		
-					</div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">참여하기</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>-->
 		
 		
 		<!--내용의 끝-->

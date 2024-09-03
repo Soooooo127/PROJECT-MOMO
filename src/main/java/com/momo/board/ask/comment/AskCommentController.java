@@ -41,7 +41,7 @@ public class AskCommentController {
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("askPosting", askPosting);
-			return "askPosting_detail";
+			return "ask/askPosting_detail";
 		}
 		AskComment askComment = this.askCommentService.create(askPosting, askCommentForm.getContent() , momoMember);
 		return String.format("redirect:/askPosting/detail/%s#askComment_%s", askComment.getAskPosting().getNo() , askComment.getNo());
@@ -55,7 +55,7 @@ public class AskCommentController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "수정 권한이 없습니다");
 		}
 		askCommentForm.setContent(askComment.getContent());
-		return "askComment_form";
+		return "ask/askComment_form";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -63,7 +63,7 @@ public class AskCommentController {
 	public String updateAskComment(@Valid AskCommentForm askCommentForm , BindingResult bindingResult
 			, @PathVariable("no") Integer no , Principal principal) {
 		if(bindingResult.hasErrors()) {
-			return "askComment_form";
+			return "ask/askComment_form";
 		}
 		AskComment askComment = this.askCommentService.getAskComment(no);
 		if(!askComment.getAuthor().getMemberid().equals(principal.getName())) {

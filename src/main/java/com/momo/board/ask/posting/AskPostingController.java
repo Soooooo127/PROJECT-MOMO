@@ -42,7 +42,7 @@ public class AskPostingController {
 		model.addAttribute("paging", paging);
 		model.addAttribute("kw" , kw);
 		model.addAttribute("member", member);
-		return "askPosting_list";
+		return "ask/askPosting_list";
 	}
 	//질문게시글 상세보기 + 내부 답변댓글 페이지화
 	@GetMapping("/detail/{no}")
@@ -53,14 +53,14 @@ public class AskPostingController {
 		model.addAttribute("paging", paging);
 		
 		model.addAttribute("askPosting", askPosting);
-		return "askPosting_detail";
+		return "ask/askPosting_detail";
 	}
 	
 	//사용자 인증 + 질문게시글쓰기 화면
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/create")
 	public String createAskPosting(AskPostingForm askPostingForm) {
-		return "askPosting_form";
+		return "ask/askPosting_form";
 	}
 	
 	//사용자 인증 + 질문게시글 작성완료
@@ -69,7 +69,7 @@ public class AskPostingController {
 	public String createAskPosting(@Valid AskPostingForm askPostingForm 
 			, BindingResult bindingResult , Principal principal) {
 		if(bindingResult.hasErrors()) {
-			return "askPosting_form";
+			return "ask/askPosting_form";
 		}
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askPostingService.create(askPostingForm.getSubject(), askPostingForm.getContent() , momoMember);
@@ -87,7 +87,7 @@ public class AskPostingController {
 		askPostingForm.setSubject(askPosting.getSubject());
 		askPostingForm.setContent(askPosting.getContent());
 		
-		return "askPosting_form";
+		return "ask/askPosting_form";
 	}
 	
 	//사용자 인증 + 질문게시글 수정완료
@@ -96,7 +96,7 @@ public class AskPostingController {
 	public String updateAskPosting(@Valid AskPostingForm askPostingForm , BindingResult bindingResult 
 			, @PathVariable("no") Integer no , Principal principal) {
 		if(bindingResult.hasErrors()) {
-			return "askPosting_form";
+			return "ask/askPosting_form";
 		}
 		
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
