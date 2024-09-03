@@ -27,10 +27,11 @@
 		<!--자바 스크립트-->
 		<th:block layout:fragment="script"></th:block>
 			
-		<!--푸터-->
-		<th:block layout:fragment="footer"></th:block>
-			
-			
+		
+		
 	</body>
+	
+	<footer th:replace="~{footer :: footerFragment}">
+	</footer>
 	
 </html>
