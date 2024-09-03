@@ -181,16 +181,18 @@
 															<th>먹는날짜</th>
 														<!--<th>신청날짜</td>-->
 															<th>방장</th>
+															<th></th>
 														</thead>
 																				
 														<tr th:each="et : ${rest.etList}">
 															<div th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') >= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">
-																<td><a th:href="@{|/et/detail/${rest.no}/${et.no}|}" th:text="${et.ettitle}"></a>
+																<td style="border: none;"><a th:href="@{|/et/detail/${rest.no}/${et.no}|}" th:text="${et.ettitle}"></a>
 																	<span class="text-danger small ms-2" th:text="|${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>
 																</td>
-																<td th:text="${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}"></td>
+																<td style="border: none;" th:text="${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}"></td>
 															<!--<td th:text="${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}"></td>-->
-																<td th:text="${et.applymember.membernick}"></td>
+																<td style="border: none;" th:text="${et.applymember.membernick}"></td>
+																<td style="border: none;" th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}" th:text="|참여기간 만료|"></td>
 															</div>
 														</tr>
 													</table>

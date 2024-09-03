@@ -183,15 +183,21 @@
 					<div class="mx-2">
 						<a th:if="${isMemberIn} and ${et.applymember.memberid != #authentication.getPrincipal().getUsername()}"
 						th:href="@{|/et/leave/${rest.no}/${et.no}|}" class="btn btn-primary">방 나가기</a>
-					</div>
-					
-					<div>
-						<a th:if="${!isMemberIn}"
-						th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
-						<a th:if="${et.applymember.memberid == #authentication.getPrincipal().getUsername()}"
+											
+						<div th:if="${!isMemberIn}">
+							<div th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') > #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">
+								<a th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
+													
+							</div>
+												
+							<a th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}" class="btn btn-primary">참여기간 만료</a>
+											
+						</div>
+											
+											
+										
+						<a th:if="${et.applymember.memberid == #authentication.getPrincipal().getUsername() and #lists.size(et.prtmember) == 1}"
 						href="javascript:void(0)" th:data-uri="@{|/et/delete/${rest.no}/${et.no}|}" class="delete btn btn-primary">모모방 삭제</a>
-						
-					
 					</div>
 					
 					
