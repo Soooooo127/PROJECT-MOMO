@@ -10,5 +10,5 @@ public class MomoController {
 	public String root() {
 		return "redirect:/member/welcome";
 	}
-
+	
 }
