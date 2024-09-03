@@ -1,39 +1,41 @@
 <html layout:decorate="~{layout}">
-	<div layout:fragment="content">
-		<style>
-		
-			a.no {
-			text-decoration: none;
-			color :black;
-			font-size : 20px;
-			
-		   }
-		   
-		   a.noline {
-			        
-		   			text-decoration: none;
-		   			color : black;
+	<div layout:fragment="content" class="container">
+	<style>
 
-		   		}
+		a.no {
+		text-decoration: none;
+		color :black;
+		font-size : 20px;
 		
-				
-		   th.bg{ 
-					background-color: #fbe1e0;
-				    width:20%;
-				}	
-				
-				
-		   td {
-			max-width: 0;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		   }
-		   td.column_a {width: 50%;}
-		   td.column_b {width: 25%;}
-		   td.column_c {width: 25%;}
-		   
-		</style>
+	   }
+	   
+	   a.noline {
+		        
+	   			text-decoration: none;
+	   			color : black;
+
+	   		}
+
+			
+	   th.bg{ 
+				background-color: #fbe1e0;
+			    width:20%;
+			}	
+			
+			
+	   td {
+		max-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	   }
+	   td.column_a {width: 50%;}
+	   td.column_b {width: 25%;}
+	   td.column_c {width: 25%;}
+	   
+	</style>
+
+
     <!--전체-->   
 
 	<form th:action="@{/inquiryPosting/myList}" method="get" id="searchForm">
