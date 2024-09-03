@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.momo.member.profile.Profile;
+import com.momo.member.profile.ProfileService;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -51,6 +54,7 @@ public class MemberController {
 	// 회원가입을 위한 메소드
 	@PostMapping("/signup")
 	public String signup(@Valid MemberCreateForm memberCreateForm, BindingResult bindingResult) {
+		
 		if (bindingResult.hasErrors()) {
 			return "member/signup_form";
 		}
@@ -259,9 +263,31 @@ public class MemberController {
 				
 				if(mail.equals(_member.getEmail())) {
 					System.out.println("========모든 정보가 일치합니다=========");
-					memberService.deleteMember(_member);
+					
+					_member.setMemberid(null);
+					_member.setMembernick(null);
+					_member.setMembername(null);
+					_member.setEmail(null);
+					_member.setPassword(null);
+					
+					if(!_member.getOauth2MemberList().isEmpty()) {
+						System.out.println("===연결된 OAuth2가 있습니다===");
+						_member.getOauth2MemberList().clear();
+					}
+					
+					if(_member.getProfile() != null) {
+						Profile _profile = _member.getProfile();
+						_profile.setBrix(0.0d);
+						_profile.setGender(null);
+						_profile.setMbti(null);
+						_profile.setContent(null);
+						_member.setProfile(_profile);
+					}
+					
+					memberService.updateMember(_member);
 					
 					return "redirect:/member/logout";
+
 				} else {
 					System.out.println("메일주소가 다릅니다");
 					

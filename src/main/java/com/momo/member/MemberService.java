@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
 import com.momo.auth.OAuth2Member;
+import com.momo.board.free.posting.FreePostingRepository;
 import com.momo.image.Image;
 import com.momo.member.profile.Profile;
 import com.momo.member.profile.ProfileRepository;
@@ -21,6 +22,7 @@ public class MemberService {
 	
 	private final MemberRepository memberRepository;
 	private final ProfileRepository profileRepository;
+	private final FreePostingRepository freePostingRepository;
 	private final PasswordEncoder passwordEncoder;
 
 	
