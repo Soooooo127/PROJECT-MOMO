@@ -93,6 +93,11 @@ public class FreePostingService {
     	freePostingRepository.save(freePosting);
     }
     
+    // 일괄 삭제 메소드 테스트
+    public void deleteAll(Member member) {
+    	freePostingRepository.deleteAllByI;
+    }
+    
     /*
 	public FreePosting updateDdabong(Integer no) {
 		Optional<FreePosting> freePosting = freePostingRepository.findById(no);

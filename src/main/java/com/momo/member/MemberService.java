@@ -34,35 +34,19 @@ public class MemberService {
 		member.setEmail(memberCreateForm.getEmail());
 		member.setCreateDate(LocalDateTime.now());
 		member.setPassword(passwordEncoder.encode(memberCreateForm.getPassword1()));
-		this.memberRepository.save(member);
 		
 		Profile profile = new Profile();
 		profile.setGender(memberCreateForm.getGender());
 		profile.setMbti(memberCreateForm.getMbti());
 		profile.setContent(memberCreateForm.getContent());
-		profile.setAuthor(member);
 		this.profileRepository.save(profile);
 		
-		this.memberRepository.save(member);
+		member.setProfile(profile);
+		memberRepository.save(member);
 		
 		return member;
 	}
 	
-
-	/*
-	// Builder를 사용한 객체 생성 메소드
-	public Integer save(MemberAddRequest mar) {
-		return memberRepository.save(Member.builder()
-				.memberid(mar.getMemberid())
-				.password(passwordEncoder.encode(mar.getPassword1()))
-				.membername(mar.getMembername())
-				.membernick(mar.getMembernick())
-				.email(mar.getEmail())
-				.build()).getNo();
-	}
-	*/
-	
-
 	public Member getMember(String memberid) {
 		Optional<Member> member = this.memberRepository.findBymemberid(memberid);
 		if (member.isPresent()) {
@@ -103,7 +87,7 @@ public class MemberService {
 		Optional<Member> _member = this.memberRepository.findBymemberid(memberid);
 		if(_member.isPresent()) {
 			Member member = _member.get();
-//			member.setProfile(profile);
+			member.setProfile(profile);
 			this.memberRepository.save(member);
 		} else {
 			throw new DataNotFoundException("site member not found");
@@ -128,7 +112,27 @@ public class MemberService {
 	
 	// 회원 탈퇴 메소드
 	public void deleteMember(Member member) {
-		memberRepository.delete(member);
+		member.setMemberid(null);
+		member.setMembernick(null);
+		member.setMembername(null);
+		member.setEmail(null);
+		member.setPassword(null);
+		
+		if(!member.getOauth2MemberList().isEmpty()) {
+			System.out.println("===연결된 OAuth2가 있습니다===");
+			member.getOauth2MemberList().clear();
+		}
+		
+		if(member.getProfile() != null) {
+			Profile _profile = member.getProfile();
+			_profile.setBrix(0.0d);
+			_profile.setGender(null);
+			_profile.setMbti(null);
+			_profile.setContent(null);
+			member.setProfile(_profile);
+		}
+		
+		memberRepository.save(member);
 	}
 	
 	// 비밀번호 체크 메소드
@@ -144,8 +148,6 @@ public class MemberService {
 		
 		return result;
 	}
-
-	
 
 
 }

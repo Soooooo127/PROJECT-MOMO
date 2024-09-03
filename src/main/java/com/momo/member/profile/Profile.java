@@ -34,7 +34,7 @@ public class Profile {
 	
 	private String content;
 
-	@OneToOne(mappedBy = "profile", cascade = CascadeType.REMOVE)
+	@OneToOne(cascade = CascadeType.REMOVE)
     private Member author;
 	
 

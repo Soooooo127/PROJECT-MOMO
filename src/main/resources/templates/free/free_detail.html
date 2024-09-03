@@ -44,9 +44,11 @@
 												<span class="badge bg-dark">프로필</span>
 												<span class="badge salmon">친구 추가</span><br>
 												<span class="text-success">
+													<i class="fi fi-sr-thumbs-up"></i><br>
 													<i class="fi fi-rr-smile-beam lg"></i> <span th:text="${freePosting.ddabong.size()}"></span>
 												</span>&nbsp;&nbsp;
 												<span class="text-danger">
+													<i class="fi fi-sr-thumbs-down"></i>
 													<i class="fi fi-rr-smile-beam lg"></i><span th:text="${freePosting.nope.size()}"></span>
 												</span>
 											</p>
@@ -73,24 +75,21 @@
 
 							<!--추천과 비추천-->
 							<div class="ddabongBox">
-								<div class="frame-d">
-									<div class="frame-dl">
-										<i class="fi fi-br-social-network"></i>
-										<span>ddabong!</span>
-										
-									</div>
-									<div class="frame-dl">
-										<i class="fi fi-br-social-network rotate"></i>
-										<span>nope!</span>
-
-									</div>
-									
-									
-
-
-								</div>
+								<table style="width:100%;">
+									<tr>
+										<td style="width:50%;border-right:1px solid #e1e1e1;">
+											<i class="fi fi-sr-thumbs-up"></i><br>
+											<span th:text="${freePosting.ddabong.size()}" class="ddabongText"></span>
+										</td>
+										<td>
+											<i class="fi fi-sr-thumbs-down"></i><br>
+											<span th:text="${freePosting.nope.size()}" class="ddabongText"></span>
+										</td>
+									</tr>
+								</table>
+							</div>
 								<!--기존 따봉 버튼2
-																	<a href="javascript:void(0);" th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
+									<a href="javascript:void(0);" th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
 										<i class="fi fi-rr-smile-beam lg"></i>
 									</a>
 									<a href="javascript:void(0);" th:data-uri="@{|/free/nope/${freePosting.no}|}">
@@ -103,7 +102,6 @@
 									<button type="button" class="btn btn-danger p-3 rounded-circle btn-lg">비추</button>
 								</form>
 								-->
-							</div>
 						</div>
 
 						<!--댓글 정보 영역(개수 출력)-->

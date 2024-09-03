@@ -112,6 +112,7 @@ i {
 
 .postingContentBox {
   padding:25px;
+  margin-bottom: 50px;
 }
 
 .rotate {
@@ -119,15 +120,26 @@ i {
 }
 
 .ddabongBox {
-  width:300px;
+  width:190px;
   border-radius: 10px;
-  padding:20px;
+  padding:15px;
   background-color: #f4f4f4;
   margin: auto;
   margin-bottom: 50px;
-  font-size: xx-large;
   text-align: center;
+  color: #555555;
 }
+
+.ddabongBox i {
+  font-size: xx-large;
+}
+
+.ddabongText {
+  color: #555555;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
 
 .commentBox {
   padding:20px;
