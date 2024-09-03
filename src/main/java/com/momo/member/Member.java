@@ -38,19 +38,15 @@ public class Member implements UserDetails {
 	@Column(updatable = false)
 	private Integer no;
 	
-	@Column(nullable = false, unique = true)
 	private String memberid;
 	
-	@Column(nullable = false, unique = true)
 	private String membernick;
 	
-	@Column(nullable = false)
 	private String membername;
 	
 	@JsonIgnore
 	private String password;
 	
-	@Column(nullable = false, unique = true)
 	private String email;
 	
 	@JsonIgnore
@@ -64,7 +60,7 @@ public class Member implements UserDetails {
 	@JsonIgnore
 	private List<OAuth2Member> oauth2MemberList;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "image_no")
 	@JsonIgnore
 	private Image image;

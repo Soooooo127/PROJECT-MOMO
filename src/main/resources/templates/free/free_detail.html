@@ -2,239 +2,225 @@
 <html layout:decorate="~{layout}">
 	<head>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/momoboard.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/momoCommunity.css}">
 		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 		<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.5.1/uicons-bold-straight/css/uicons-bold-straight.css'>
-		<script src="js/httpRequest.js"></script>
 	</head>
 	<body>
-		<!--전체 영역-->
+
 		<div layout:fragment="content">
-			<!--게시물 전체 영역-->
-			<div>
-				<!--타이틀 영역-->
+			<!--전체 영역(width:1280px)-->
+			<div class="frame-c">
+				<!--로고 영역(?)-->
 				<div>
-					게시글 상세입니다.
-					<div sec:authorize="isAuthenticated()" th:text="${#authentication.principal.getUsername()}">
-						
-					</div>
+
+
 				</div>
-				<!--게시글 영역-->
-				<div class="wrapping outline">
-					<!--게시판 이동 링크-->
-					<div>
-						<span class="btitle" th:href="@{/free/list}">자유게시판 ≫</span>
-					</div>
-					<!--게시물 정보 출력(제목, 작성자, 조회수 등)-->
-					<div>
-						<!--게시물 제목-->
-						<div class="title" align="left" th:text="${freePosting.subject}"></div>
-						<!--작성자 등 세부 정보-->
+				<!--게시판 전체 영역(width:1100px)-->
+				<div class="frame-b">
+					<!--게시물 본문-->
+					<div class="frame-f">
+						<!--게시물 정보 출력(제목, 작성자, 조회수 등)-->
 						<div class="underline">
-							<div class="dvd">
-								<!--좌측 영역-->
-								<div class="dvd1 nick">
-									<div class="div">
-										<div class="divimg">
-											<img src="https://drive.google.com/file/d/1PaNcFYZVqzbLDk99YNDfVUIviOIh9ebr/view?usp=sharing"
-											width="34" height="34">
+							<!--게시판 이동 링크-->
+							<div>
+								<span class="btitle" th:href="@{/free/list}">자유게시판 ≫</span>
+							</div>
+							<!--게시물 제목-->
+							<div class="postingTitle" align="left" th:text="${freePosting.subject}">
+							</div>
+							<!--게시물 세부 정보-->
+							<div class="frame-d">
+								<!--작성자 정보-->
+								<div class="frame-dl half">
+									<div class="frame-d">
+										<div class="frame-dl" style="width:80px;">
+											<img class="authorImage" th:if="${freePosting.author.image != null}" th:src="@{|/img/${freePosting.author.image.storeFilename}|}" >
+											<img class="authorImage" th:unless="${freePosting.author.image != null}" src="/img/default_profile.png" >
 										</div>
-										<div>
-												<ul class="navbar-nav me-auto">
-												  <li class="nav-item dropdown">
-												    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-													 th:if="${freePosting.membernick != null}" th:text="${freePosting.membernick}"></a>
-												    <div class="dropdown-menu" >
-												      <a class="dropdown-item" href="#"> 프로필 보기</a>
-																													
-													  <div class="dropdown-item" sec:authorize="isAuthenticated()"
-													  th:if="${!#lists.contains(member.friend, freePosting.author) and #authentication.getPrincipal().getUsername() != freePosting.author.memberid}">
-													  
-							  								<form method="post" th:action="@{/friend/create}">
-							  								<input type="hidden" name="friendid" th:value="${freePosting.author.memberid}"> 
-							  								<button type="submit" class="btn btn-primary"   style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .87rem;"  onclick="alert('내친구에서 추가된 친구를 확인해보세요!');" >친구 추가</button>																		  									
-							  						 	  </form>
-						  							  </div>									
-																				
-												    </div>
-												  </li>
-												</ul>
-																				
-												<span class="badge bg-primary">우수회원</span><br>
-												<span th:text="|최초 작성일: ${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
-												<span th:if="${freePosting.updateDate != null}" th:text="|최종 수정일: ${#temporals.format(freePosting.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
-												<span th:text="|조회수 : ${freePosting.cnt}|"></span><br>				
+										<div class="frame-dl">
+											<span th:text="${freePosting.membernick}"></span><span class="badge bg-primary">우수회원</span>
+											<span th:text="${freePosting.membernick}"></span><br>
+											<span>프로필 보기</span>
+											<span>친구 맺기</span>
 										</div>
 									</div>
-
 								</div>
-								<!--우측 영역-->
-								<div class="dvd2 nick">
+								<!--게시물 정보-->
+								<div class="frame-dl half right">
 									<span th:text="|조회수 ${freePosting.cnt}|"></span><br>
 									<span th:text="|추천수 ${freePosting.ddabong.size()}|"> </span>
 									<span th:text="|비추수 ${freePosting.nope.size()}|"></span>
+									<span th:text="|최초 작성일: ${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
+									<span th:if="${freePosting.updateDate != null}" th:text="|최종 수정일: ${#temporals.format(freePosting.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
+									<span th:text="|조회수 : ${freePosting.cnt}|"></span>
+
 								</div>
 							</div>
-							
 						</div>
-					</div>
-					<!--본문-->
-					<div>
-						<div th:text="${freePosting.content}"></div>
-					</div>
-					<!--추천과 비추천-->
-					<div align="center">
-						<a href="javascript:void(0);" class="ddabong"
-						               th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
-							<button type="submit" class="dbbutton"><i class="fi fi-rr-smile-beam lg"></i></button>
-						</a>
-						<a href="javascript:void(0);" class="nope"
-						               th:data-uri="@{|/free/nope/${freePosting.no}|}">
-							<button type="submit" class="dbbutton"><i class="fi fi-rr-sad lg"></i></button>
-						</a>
-						<!--기존 따봉 버튼2
-						<form method="get">
-							<button type="submit" class="dbbutton" th:formaction="@{|/free/ddabong/${freePosting.no}|}"><i class="fi fi-rr-smile-beam lg"></i></button>
-							<button type="submit" class="dbbutton" th:formaction="@{|/free/nope/${freePosting.no}|}"><i class="fi fi-rr-sad lg"></i></button>
-							<button type="button" class="btn btn-info p-3 rounded-circle btn-lg">따봉</button>
-							<button type="button" class="btn btn-danger p-3 rounded-circle btn-lg">비추</button>
-						</form>
-						-->
-					</div>
-					<!--댓글 정보 영역-->
-					<div style="width:100%;overflow:auto;">
-						<div style="width:50%;float:left;text-align:left;">
-							<span th:text="|${#lists.size(freePosting.freeCommentList)}개|"></span>
+
+						<!--게시물 본문 출력-->
+						<div class="underline">
+							<!--본문-->
+							<div>
+								<div th:text="${freePosting.content}"></div>
+							</div>
+
+							<!--추천과 비추천-->
+							<div align="center">
+								<a href="javascript:void(0);" th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
+									<i class="fi fi-rr-smile-beam lg"></i>
+								</a>
+								<a href="javascript:void(0);" th:data-uri="@{|/free/nope/${freePosting.no}|}">
+									<i class="fi fi-rr-sad lg"></i>
+								</a>
+								<!--기존 따봉 버튼2
+								<form method="get">
+									<button type="submit" class="dbbutton" th:formaction="@{|/free/ddabong/${freePosting.no}|}"><i class="fi fi-rr-smile-beam lg"></i></button>
+									<button type="submit" class="dbbutton" th:formaction="@{|/free/nope/${freePosting.no}|}"><i class="fi fi-rr-sad lg"></i></button>
+									<button type="button" class="btn btn-info p-3 rounded-circle btn-lg">따봉</button>
+									<button type="button" class="btn btn-danger p-3 rounded-circle btn-lg">비추</button>
+								</form>
+								-->
+							</div>
 						</div>
-						<div style="width:50%;float:left;text-align:right;">
-							
+
+						<!--댓글 정보 영역-->
+						<div class="frame-d">
+							<!--댓글 개수 출력-->
+							<div class="frame-dl half left">
+								<span th:text="|${#lists.size(freePosting.freeCommentList)}개|"></span>
+							</div>
+							<!--댓글 정렬 선택-->
+							<div class="frame-dl half right">
+								<span>최신순</span>
+								<span>추천순</span>
+							</div>
 						</div>
-					</div>
-					<!--댓글 영역-->
-					<div>
-						<!--정렬 선택 영역-->
+
+						<!--댓글 노출 영역-->
 						<div>
-							
-						</div>
-			
-						<!--댓글 반복 출력 영역-->
-						<div>
-							<th:block th:each="freeComment : ${freePosting.freeCommentList}" th:field="${freeComment}">
-								<div class="topline">
-									<!--댓글 정보 영역-->
-									<div>
-										<div class="dvd" id="myContent">
-											<div class="dvd1">
-												<span th:text="${freeComment.membernick}"></span><br>
-												<span th:text="|최초 작성일 : ${#temporals.format(freeComment.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
-												<span th:if="${freeComment.updateDate != null}" th:text="|최종 수정일 : ${#temporals.format(freeComment.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
-												
-												
-												<a href="javascript:void(0);" class="ddabong"
-												               th:data-uri="@{|/free/comment/ddabong/${freePosting.no}/${freeComment.no}|}"
-															    th:text="|추천(${freeComment.ddabong.size()})|">
-												</a>
-												<a href="javascript:void(0);" class="nope"
-												               th:data-uri="@{|/free/comment/nope/${freePosting.no}/${freeComment.no}|}" 
-															   th:text="|비공감(${freeComment.nope.size()})|">
-												</a>
-												
-												
-												<span th:text="|댓글의댓글 : ${#lists.size(freeComment.freeCommentReplyList)}개|"></span>
-											</div>
-											<div class="dvd2" sec:authorize="isAuthenticated()">
-												<p th:if="${freeComment.author.memberid != null and #authentication.getPrincipal().getUsername() == freeComment.author.memberid}">
-													<a th:href="@{|/free/comment/update/${freePosting.no}/${freeComment.no}|}">수정</a>
-													<span onclick="commentUpdateForm()">수정2</span>
-													<a th:href="@{|/free/comment/delete/${freePosting.no}/${freeComment.no}|}" onclick="confirm('정말로 삭제하시겠습니까?')">삭제</a>
-												</p>
-											</div>
-										</div>
-										<div th:text="${freeComment.content}"></div>
-									</div>
-									<!--댓글의 댓글 쓰기 영역-->
-									<div sec:authorize="isAuthenticated()">
-										<details>
-											<summary><span class="reply">답댓글 쓰기</span></summary>
+								<!--댓글 반복 출력 영역-->
+								<div>
+									<th:block th:each="freeComment : ${freePosting.freeCommentList}" th:field="${freeComment}">
+										<div class="topline">
+											<!--댓글 정보 영역-->
 											<div>
-												<div class="wrapping outline">
-													<form method="post" th:action="@{|/free/comment/reply/create/${freePosting.no}/${freeComment.no}|}" th:object="${freeCommentForm}">
-														<div th:replace="~{/free/free_form_errors :: formErrorsFragment}"></div>
-														<!--
-														<div class="nick" th:text="${session.member.membernick}"></div>
-														-->
-														<div><textarea th:field="*{content}" placeholder="답댓글을 작성해주세요"></textarea></div>
-														<div class="dvd">
-															<div class="dvd1">
-															</div>
-															<div class="dvd2">
-																<button type="submit" class="btn btn-light btn-sm">댓글등록</button>
-															</div>
-														</div>
-													</form>
-												</div>
-											</div>
-										</details>
-									</div>
-									<!--댓글의 댓글 반복 출력 영역-->
-									<th:block>
-										
-									</th:block>
-									<th:block th:each="freeCommentReply : ${freeComment.freeCommentReplyList}">
-										<div class="dvd">
-											<div class="dvd3">
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
-												  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5"/>
-												</svg>
-											</div>
-											<div class="dvd4 topline">
-												<div class="dvd">
+												<div class="dvd" id="myContent">
 													<div class="dvd1">
-														<span th:text="${freeCommentReply.membernick}"></span><br>
-														<span th:text="${#temporals.format(freeCommentReply.createDate, 'yyyy-MM-dd HH:mm')}"></span>
-														<span th:if="${freeCommentReply.updateDate != null}" th:text="|최종 수정일 : ${#temporals.format(freeCommentReply.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
+														<span th:text="${freeComment.membernick}"></span><br>
+														<span th:text="|최초 작성일 : ${#temporals.format(freeComment.createDate, 'yyyy-MM-dd HH:mm')}|"></span>
+														<span th:if="${freeComment.updateDate != null}" th:text="|최종 수정일 : ${#temporals.format(freeComment.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
 														
 														
 														<a href="javascript:void(0);" class="ddabong"
-															               th:data-uri="@{|/free/comment/reply/ddabong/${freePosting.no}/${freeCommentReply.no}|}"
-																		    th:text="|추천(${freeCommentReply.ddabong.size()})|">
-															</a>
-															<a href="javascript:void(0);" class="nope"
-															               th:data-uri="@{|/free/comment/reply/nope/${freePosting.no}/${freeCommentReply.no}|}" 
-																		   th:text="|비공감(${freeCommentReply.nope.size()})|">
-															</a>
-															
-															
-															
+																					th:data-uri="@{|/free/comment/ddabong/${freePosting.no}/${freeComment.no}|}"
+																			th:text="|추천(${freeComment.ddabong.size()})|">
+														</a>
+														<a href="javascript:void(0);" class="nope"
+																					th:data-uri="@{|/free/comment/nope/${freePosting.no}/${freeComment.no}|}" 
+																		th:text="|비공감(${freeComment.nope.size()})|">
+														</a>
+														
+														
+														<span th:text="|댓글의댓글 : ${#lists.size(freeComment.freeCommentReplyList)}개|"></span>
 													</div>
 													<div class="dvd2" sec:authorize="isAuthenticated()">
-														<p th:if="${freeCommentReply.author.memberid != null and #authentication.getPrincipal().getUsername() == freeCommentReply.author.memberid}">
-															<a th:href="@{|/free/comment/reply/update/${freePosting.no}/${freeCommentReply.no}|}">수정</a>
-															<a th:href="@{|/free/comment/reply/delete/${freePosting.no}/${freeCommentReply.no}|}" onclick="alert('정말로 삭제하시겠습니까?')">삭제</a>
+														<p th:if="${freeComment.author.memberid != null and #authentication.getPrincipal().getUsername() == freeComment.author.memberid}">
+															<a th:href="@{|/free/comment/update/${freePosting.no}/${freeComment.no}|}">수정</a>
+															<span onclick="commentUpdateForm()">수정2</span>
+															<a th:href="@{|/free/comment/delete/${freePosting.no}/${freeComment.no}|}" onclick="confirm('정말로 삭제하시겠습니까?')">삭제</a>
 														</p>
 													</div>
 												</div>
-												<div th:text="${freeCommentReply.content}"></div>
+												<div th:text="${freeComment.content}"></div>
 											</div>
-											
+											<!--댓글의 댓글 쓰기 영역-->
+											<div sec:authorize="isAuthenticated()">
+												<details>
+													<summary><span class="reply">답댓글 쓰기</span></summary>
+													<div>
+														<div class="wrapping outline">
+															<form method="post" th:action="@{|/free/comment/reply/create/${freePosting.no}/${freeComment.no}|}" th:object="${freeCommentForm}">
+																<div th:replace="~{/free/free_form_errors :: formErrorsFragment}"></div>
+																<!--
+																<div class="nick" th:text="${session.member.membernick}"></div>
+																-->
+																<div><textarea th:field="*{content}" placeholder="답댓글을 작성해주세요"></textarea></div>
+																<div class="dvd">
+																	<div class="dvd1">
+																	</div>
+																	<div class="dvd2">
+																		<button type="submit" class="btn btn-light btn-sm">댓글등록</button>
+																	</div>
+																</div>
+															</form>
+														</div>
+													</div>
+												</details>
+											</div>
+											<!--댓글의 댓글 반복 출력 영역-->
+											<th:block>
+												
+											</th:block>
+											<th:block th:each="freeCommentReply : ${freeComment.freeCommentReplyList}">
+												<div class="dvd">
+													<div class="dvd3">
+														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+															<path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5"/>
+														</svg>
+													</div>
+													<div class="dvd4 topline">
+														<div class="dvd">
+															<div class="dvd1">
+																<span th:text="${freeCommentReply.membernick}"></span><br>
+																<span th:text="${#temporals.format(freeCommentReply.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+																<span th:if="${freeCommentReply.updateDate != null}" th:text="|최종 수정일 : ${#temporals.format(freeCommentReply.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
+																
+																
+																<a href="javascript:void(0);" class="ddabong"
+																								th:data-uri="@{|/free/comment/reply/ddabong/${freePosting.no}/${freeCommentReply.no}|}"
+																						th:text="|추천(${freeCommentReply.ddabong.size()})|">
+																	</a>
+																	<a href="javascript:void(0);" class="nope"
+																								th:data-uri="@{|/free/comment/reply/nope/${freePosting.no}/${freeCommentReply.no}|}" 
+																					th:text="|비공감(${freeCommentReply.nope.size()})|">
+																	</a>
+																	
+																	
+																	
+															</div>
+															<div class="dvd2" sec:authorize="isAuthenticated()">
+																<p th:if="${freeCommentReply.author.memberid != null and #authentication.getPrincipal().getUsername() == freeCommentReply.author.memberid}">
+																	<a th:href="@{|/free/comment/reply/update/${freePosting.no}/${freeCommentReply.no}|}">수정</a>
+																	<a th:href="@{|/free/comment/reply/delete/${freePosting.no}/${freeCommentReply.no}|}" onclick="alert('정말로 삭제하시겠습니까?')">삭제</a>
+																</p>
+															</div>
+														</div>
+														<div th:text="${freeCommentReply.content}"></div>
+													</div>
+													
+												</div>
+											</th:block>
 										</div>
-									</th:block>
+									</th:block> 
 								</div>
-							</th:block> 
+
+								<!---->
+
+
+
+
+
 						</div>
 						<!--댓글 쓰기 영역-->
-						<div class="topline" sec:authorize="isAuthenticated()">
+						<div sec:authorize="isAuthenticated()">
 							<!--댓글 폼 영역-->
-							<div class="wrapping outline">
-								<!--테스트용-->
-								<!--
-								<form th:action="@{|/free/comment/create/${freePosting.no}|}" th:object="${freeCommentForm}" method="post">
-									<div th:replace="~{/free/free_form_errors :: formErrorsFragment}"></div>
-									<textarea th:field="*{content}" rows="10"></textarea>
-									<input type="submit" value="답변등록">
-								</form>
-								-->
-								<!--테스트용 종료-->
+							<div class="frame-comment">
+								<!--닉네임 영역-->
+								<div>
+									<span th:text="${#authentication.getPrincipal().getMembernick()}"></span>
+								</div>
 								<!--원래 코드-->
 								<form method="post" th:object="${freeCommentForm}" th:action="@{|/free/comment/create/${freePosting.no}|}" >
 									<div th:replace="~{/free/free_form_errors :: formErrorsFragment}"></div>
@@ -250,35 +236,41 @@
 										</div>
 									</div>
 								</form>
+								<!--댓글 작성 버튼 영역-->
+								<div class="right">
+									<button type="button" class="btn btn-outline-secondary">댓글 등록</button>
+								</div>
 								<!--원래 코드 종료-->
 							</div>
+						</div>
+
+
+					</div>
+
+					<!--버튼 영역-->
+					<div class="frame-d">
+						<div class="frame-dl half left">
+							<form th:action="@{/free/list}" method="get">
+								<button type="submit" class="btn btn-secondary">목록</button>
+							</form>
+						</div>
+						<div class="frame-dl half right">
+							<p sec:authorize="isAuthenticated()">
+								<a th:href="@{/free/create}"><button type="button" class="btn btn-primary">글쓰기</button></a>
+								<span th:if="${freePosting.author.memberid != null and #authentication.getPrincipal().getUsername() == freePosting.author.memberid}">
+									<a th:href="@{|/free/update/${freePosting.no}|}"><button type="botton" class="btn btn-light">수정</button></a>
+									<a th:href="@{|/free/delete/${freePosting.no}|}"><button type="botton" class="btn btn-light" onclick="alert('정말로 삭제하시겠습니까?')">삭제</button></a>
+								</span>
+								<span sec:authorize="hasRole('ROLE_ADMIN')">
+									<a th:href="@{|/free/update/${freePosting.no}|}"><button type="botton" class="btn btn-light">수정</button></a>
+									<a th:href="@{|/free/delete/${freePosting.no}|}" ><button type="botton" class="btn btn-light" onclick="alert('정말로 삭제하시겠습니까?')">삭제</button></a>
+								</span>
+							</p>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!--버튼 영역-->
-			<div class="wrapping">
-				<div class="dvd">
-					<div class="dvd1">
-						<p sec:authorize="isAuthenticated()">
-							<a th:href="@{/free/create}"><button type="button" class="btn btn-primary btn-sm">글쓰기</button></a>
-							<span th:if="${freePosting.author.memberid != null and #authentication.getPrincipal().getUsername() == freePosting.author.memberid}">
-								<a th:href="@{|/free/update/${freePosting.no}|}"><button type="botton" class="btn btn-light btn-sm">수정</button></a>
-								<a th:href="@{|/free/delete/${freePosting.no}|}"><button type="botton" class="btn btn-light btn-sm" onclick="alert('정말로 삭제하시겠습니까?')">삭제</button></a>
-							</span>
-							<span sec:authorize="hasRole('ROLE_ADMIN')">
-								<a th:href="@{|/free/update/${freePosting.no}|}"><button type="botton" class="btn btn-light btn-sm">수정</button></a>
-								<a th:href="@{|/free/delete/${freePosting.no}|}" ><button type="botton" class="btn btn-light btn-sm" onclick="alert('정말로 삭제하시겠습니까?')">삭제</button></a>
-							</span>
-						</p>
-					</div>
-					<div class="dvd2">
-						<form th:action="@{/free/list}" method="get">
-							<button type="submit" class="btn btn-secondary btn-sm">목록</button>
-						</form>
-					</div>
-				</div>
-			</div>
+
 			
 		<!--전체 영역 마무리-->
 		</div>
@@ -286,131 +278,131 @@
 
 	
 	
-	<script layout:fragment="script" type='text/javascript'>
-	const delete_elements = document.getElementsByClassName("delete");
-	Array.from(delete_elements).forEach(function(element) {
-	    element.addEventListener('click', function() {
-	        if(confirm("정말로 삭제하시겠습니까?")) {
-	            location.href = this.dataset.uri;
-	        };
-	    });
-	});
-	const ddabong_elements = document.getElementsByClassName("ddabong");
-	Array.from(ddabong_elements).forEach(function(element) {
-	    element.addEventListener('click', function() {
-	        if(confirm("정말로 추천하시겠습니까?")) {
-	            location.href = this.dataset.uri;
-	        };
-	    });
-	});
-	const nope_elements = document.getElementsByClassName("nope");
-	Array.from(nope_elements).forEach(function(element) {
-	    element.addEventListener('click', function() {
-	        if(confirm("정말로 비공감하시겠습니까?")) {
-	            location.href = this.dataset.uri;
-	        };
-	    });
-	});
-	
-	function submitCommentForm(commentForm) {
-	    const formData = new FormData(commentForm);
-	    $.ajax({
-	        url: commentForm.action,
-	        type: "POST",
-	        data: formData,
-	        processData: false,
-	        contentType: false,
-	        success: function (data) {
-	            $('.comment-container').html(data);
-	        },
-	        error: function (error) {
-	            console.log(error);
-	        }
-	    });
-	}
-	
-	function requestEditCommentForm(commentItemContainer, comment){
-	    $.ajax({
-	        url: '/free/comment/updateForm',
-	        type: "POST",
-	        data: JSON.stringify(comment),
-	        processData: false,
-	        contentType: 'application/json',
-	        success: function (data) {
-	            $(commentItemContainer).children('.comment-item-body').replaceWith(data);
-	            commentEditFormWordCount(commentItemContainer);
-	        },
-	        error: function (error) {
-	            errorHandler(error);
-	        }
-	    });
-	}
-	
-	function commentUpdateForm(commentItemContainer, comment){
-	    $.ajax({
-	        url: '/comment/editForm',
-	        type: "POST",
-	        data: JSON.stringify(comment),
-	        processData: false,
-	        contentType: 'application/json',
-	        success: function (data) {
-	            $(commentItemContainer).children('.comment-item-body').replaceWith(data);
-	            commentEditFormWordCount(commentItemContainer);
-	        },
-	        error: function (error) {
-	            errorHandler(error);
-	        }
-	    });
-	}
-
-	</script>
-	
-
-
-	<!--
-	<script layout:fragment="script" >
-	$(document).ready(function(){    
-	$("#commentUpdate").click(replaceComment); //id="commentUpdate"인 태그에 click하면 function replaceComment() 실행
-	});
-	function replaceComment(){
-		$.ajax({
-			type: 'post',
-			url:"/free/comment/update",                    //list.jsp에 AJAX요청
-			success:function(data){
-
-	
-			$("#myContent").replaceWith(data);
-
+		<script layout:fragment="script" type='text/javascript'>
+			const delete_elements = document.getElementsByClassName("delete");
+			Array.from(delete_elements).forEach(function(element) {
+					element.addEventListener('click', function() {
+							if(confirm("정말로 삭제하시겠습니까?")) {
+									location.href = this.dataset.uri;
+							};
+					});
+			});
+			const ddabong_elements = document.getElementsByClassName("ddabong");
+			Array.from(ddabong_elements).forEach(function(element) {
+					element.addEventListener('click', function() {
+							if(confirm("정말로 추천하시겠습니까?")) {
+									location.href = this.dataset.uri;
+							};
+					});
+			});
+			const nope_elements = document.getElementsByClassName("nope");
+			Array.from(nope_elements).forEach(function(element) {
+					element.addEventListener('click', function() {
+							if(confirm("정말로 비공감하시겠습니까?")) {
+									location.href = this.dataset.uri;
+							};
+					});
+			});
+			
+			function submitCommentForm(commentForm) {
+					const formData = new FormData(commentForm);
+					$.ajax({
+							url: commentForm.action,
+							type: "POST",
+							data: formData,
+							processData: false,
+							contentType: false,
+							success: function (data) {
+									$('.comment-container').html(data);
+							},
+							error: function (error) {
+									console.log(error);
+							}
+					});
 			}
-		});
-	    }
-		
-		function inputData(){
-		    var book = $('#form').serialize();
-		    $.ajax({
-		        url: "/home/test7_1",
-		        data: book,
-		        type:"POST",
-		        cache: false
-		    }).done(function (fragment) {
-		         $("#list").replaceWith(fragment);
-		    });
-	</script>
-	
-	
-	
-	
-	<script layout:fragment="script" type='text/javascript'>
-	function divReplacement(fragment) {
-	  $('#myComment').replaceWith(fragment);
-	}
-	</script>
+			
+			function requestEditCommentForm(commentItemContainer, comment){
+					$.ajax({
+							url: '/free/comment/updateForm',
+							type: "POST",
+							data: JSON.stringify(comment),
+							processData: false,
+							contentType: 'application/json',
+							success: function (data) {
+									$(commentItemContainer).children('.comment-item-body').replaceWith(data);
+									commentEditFormWordCount(commentItemContainer);
+							},
+							error: function (error) {
+									errorHandler(error);
+							}
+					});
+			}
+			
+			function commentUpdateForm(commentItemContainer, comment){
+					$.ajax({
+							url: '/comment/editForm',
+							type: "POST",
+							data: JSON.stringify(comment),
+							processData: false,
+							contentType: 'application/json',
+							success: function (data) {
+									$(commentItemContainer).children('.comment-item-body').replaceWith(data);
+									commentEditFormWordCount(commentItemContainer);
+							},
+							error: function (error) {
+									errorHandler(error);
+							}
+					});
+			}
 
-	<script layout:fragment="script" type='text/javascript'>
-	function divReplacement() {
-	  document.getElementById("myContent").href = "/free/free_comment_form.html";
-	}
-	</script>
-	-->
+		</script>
+	
+
+
+		<!--
+		<script layout:fragment="script" >
+		$(document).ready(function(){    
+		$("#commentUpdate").click(replaceComment); //id="commentUpdate"인 태그에 click하면 function replaceComment() 실행
+		});
+		function replaceComment(){
+			$.ajax({
+				type: 'post',
+				url:"/free/comment/update",                    //list.jsp에 AJAX요청
+				success:function(data){
+
+		
+				$("#myContent").replaceWith(data);
+
+				}
+			});
+				}
+			
+			function inputData(){
+			    var book = $('#form').serialize();
+			    $.ajax({
+			        url: "/home/test7_1",
+			        data: book,
+			        type:"POST",
+			        cache: false
+			    }).done(function (fragment) {
+			         $("#list").replaceWith(fragment);
+			    });
+		</script>
+		
+		
+		
+		
+		<script layout:fragment="script" type='text/javascript'>
+		function divReplacement(fragment) {
+			$('#myComment').replaceWith(fragment);
+		}
+		</script>
+
+		<script layout:fragment="script" type='text/javascript'>
+		function divReplacement() {
+			document.getElementById("myContent").href = "/free/free_comment_form.html";
+		}
+		</script>
+		-->
 	</body>
 </html>
