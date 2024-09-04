@@ -50,19 +50,22 @@
 }
 
 .navMember a, .navMember a:hover {
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .nav1st {
   height:35px;
-  background-color: salmon;
-  color:white;
+  background-color: rgb(255, 255, 255);
+  color:rgb(0, 0, 0);
   font-weight:bold;
 }
 
 .nav2nd {
   height:100px;
   border-bottom: solid 1px #e1e1e1;
+
+
+
 }
 
 .navSize1, .navSize2 {
