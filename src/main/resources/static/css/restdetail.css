@@ -2,8 +2,8 @@
 .rest{/*전체*/
 	width: 1080px;
 	height:auto;	
-
-	
+	margin:auto;
+	margin-top:50px;
 }
 
 
@@ -16,7 +16,7 @@
 	
 	.rest_info{ /*사진과 가게정보*/
 		width: 680px;
-		height: 80%;
+		
 		display: flex;
 		margin-right:20px;
 	}

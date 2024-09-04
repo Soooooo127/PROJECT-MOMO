@@ -23,9 +23,9 @@
 	<body>
 <div layout:fragment="content" class="container">
 	
-	<h2 th:text="${rest.name}"></h2>
+	
 	<div class="rest" >
-		
+	<h2 th:text="${rest.name}"></h2>	
 		
 			<!--상단-->
 			<div class="upper" >
@@ -35,7 +35,9 @@
 					
 					<!--가게사진-->
 					<div class="pic" >
-						<img th:src="${rest.img}" class="img" >
+						<img src="	https://flexible.img.hani.co.kr/flexible/normal/640/427/imgdb/original/2023/0306/20230306502777.jpg" class="img">
+
+					<!--<img th:src="${rest.img}" class="img" >-->
 					</div>
 					
 					<!--가게정보-->

@@ -37,9 +37,7 @@ public class NoticePosting {
 	private String content; //내용
 	
 	
-	private String memberid;   // 아이디 (관리자만 보이게)
-	
-	private String membernick; //닉네임 (관리자만 보이게)
+
 	
 	
 	private LocalDateTime createDate; //작성일
@@ -51,12 +49,7 @@ public class NoticePosting {
 	@Column(columnDefinition = "integer default 0", nullable = false)
 	private Integer cnt;  //조회수 (관리자만 보이게)
 	
-	@ColumnDefault("0")
-	private Integer ddabong;  //추천
-	
-	@ColumnDefault("0")
-	private Integer nope; //비추천
-	
+
 	
 	//comment 와 관계맺기
 	@OneToMany(mappedBy = "posting",cascade = CascadeType.REMOVE)
