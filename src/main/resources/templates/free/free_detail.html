@@ -38,18 +38,15 @@
 											<img class="authorImageB" th:if="${freePosting.author.image != null}" th:src="@{|/img/${freePosting.author.image.storeFilename}|}" >
 											<img class="authorImageB" th:unless="${freePosting.author.image != null}" src="/img/default_profile.png" >
 										</div>
-										<div class="frame-dl">
-											<p class="postingAuthorInfo">
+										<div class="frame-dl postingAuthorInfo">
 												<span th:text="${freePosting.membernick}"></span>
 												<span class="badge bg-dark">프로필</span>
 												<span class="badge salmon">친구 추가</span><br>
-												<span class="text-success">
-													<i class="fi fi-rr-smile-beam lg"></i> <span th:text="${freePosting.ddabong.size()}"></span>
-												</span>&nbsp;&nbsp;
-												<span class="text-danger">
-													<i class="fi fi-rr-smile-beam lg"></i><span th:text="${freePosting.nope.size()}"></span>
-												</span>
-											</p>
+												<i class="fi fi-sr-thumbs-up text-success"></i>
+												<span class="text-success" th:text="|추천(${freePosting.ddabong.size()})|"></span>
+												&nbsp;&nbsp;
+												<i class="fi fi-sr-thumbs-down text-danger"></i>
+												<span class="text-danger" th:text="|비공감(${freePosting.nope.size()})|"></span>
 										</div>
 									</div>
 								</div>
@@ -73,24 +70,25 @@
 
 							<!--추천과 비추천-->
 							<div class="ddabongBox">
-								<div class="frame-d">
-									<div class="frame-dl">
-										<i class="fi fi-br-social-network"></i>
-										<span>ddabong!</span>
-										
-									</div>
-									<div class="frame-dl">
-										<i class="fi fi-br-social-network rotate"></i>
-										<span>nope!</span>
-
-									</div>
-									
-									
-
-
-								</div>
+								<table style="width:100%;">
+									<tr>
+										<td style="width:50%;border-right:1px solid #e1e1e1;">
+											<i href="javascript:void(0);" class="ddabong fi fi-sr-thumbs-up"
+											th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
+											</i><br>
+											<span th:text="${freePosting.ddabong.size()}" class="ddabongText"></span>
+										</td>
+										<td>
+											<i href="javascript:void(0);" class="nope fi fi-sr-thumbs-down"
+											th:data-uri="@{|/free/nope/${freePosting.no}|}">
+											</i><br>
+											<span th:text="${freePosting.nope.size()}" class="ddabongText"></span>
+										</td>
+									</tr>
+								</table>
+							</div>
 								<!--기존 따봉 버튼2
-																	<a href="javascript:void(0);" th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
+									<a href="javascript:void(0);" th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
 										<i class="fi fi-rr-smile-beam lg"></i>
 									</a>
 									<a href="javascript:void(0);" th:data-uri="@{|/free/nope/${freePosting.no}|}">
@@ -103,7 +101,6 @@
 									<button type="button" class="btn btn-danger p-3 rounded-circle btn-lg">비추</button>
 								</form>
 								-->
-							</div>
 						</div>
 
 						<!--댓글 정보 영역(개수 출력)-->
@@ -132,14 +129,14 @@
 													<td style="text-align:right;">
 														<th:block sec:authorize="isAuthenticated()"
 														 th:if="${freeComment.author.memberid != null and #authentication.getPrincipal().getUsername() == freeComment.author.memberid}">
-														 <a th:href="@{|/free/comment/update/${freePosting.no}/${freeComment.no}|}">수정</a>
-														 <span onclick="commentUpdateForm()">수정2</span>
 														 <a th:href="@{|/free/comment/delete/${freePosting.no}/${freeComment.no}|}" onclick="confirm('정말로 삭제하시겠습니까?')">삭제</a>
 														</th:block>
-														<a href="javascript:void(0);" class="ddabong"
+														<i class="fi fi-sr-thumbs-up text-success"></i>
+														<a href="javascript:void(0);" class="ddabong text-success"
 														th:data-uri="@{|/free/comment/ddabong/${freePosting.no}/${freeComment.no}|}"
 														th:text="|추천(${freeComment.ddabong.size()})|"></a>
-														<a href="javascript:void(0);" class="nope"
+														<i class="fi fi-sr-thumbs-down text-danger"></i>
+														<a href="javascript:void(0);" class="nope text-danger"
 														th:data-uri="@{|/free/comment/nope/${freePosting.no}/${freeComment.no}|}" 
 														th:text="|비공감(${freeComment.nope.size()})|"></a>
 
@@ -157,7 +154,7 @@
 														th:text="|(최종 수정일 : ${#temporals.format(freeComment.updateDate, 'yyyy-MM-dd HH:mm')})|"></span>
 													</td>
 													<td style="text-align: right;">
-														<span th:text="|댓글의댓글 : ${#lists.size(freeComment.freeCommentReplyList)}개|"></span>
+														
 
 													</td>
 												</tr>
@@ -207,13 +204,14 @@
 																		<td style="text-align: right;">
 																			<th:block sec:authorize="isAuthenticated()"
 																			th:if="${freeCommentReply.author.memberid != null and #authentication.getPrincipal().getUsername() == freeCommentReply.author.memberid}">
-																				<a th:href="@{|/free/comment/reply/update/${freePosting.no}/${freeCommentReply.no}|}">수정</a>
 																				<a th:href="@{|/free/comment/reply/delete/${freePosting.no}/${freeCommentReply.no}|}" onclick="alert('정말로 삭제하시겠습니까?')">삭제</a>
 																			</th:block>
-																			<a href="javascript:void(0);" class="ddabong"
+																			<i class="fi fi-sr-thumbs-up text-success"></i>
+																			<a href="javascript:void(0);" class="ddabong text-success"
 																			th:data-uri="@{|/free/comment/reply/ddabong/${freePosting.no}/${freeCommentReply.no}|}"
 																			th:text="|추천(${freeCommentReply.ddabong.size()})|"></a>
-																			<a href="javascript:void(0);" class="nope"
+																			<i class="fi fi-sr-thumbs-down text-danger"></i>
+																			<a href="javascript:void(0);" class="nope text-danger"
 																			th:data-uri="@{|/free/comment/reply/nope/${freePosting.no}/${freeCommentReply.no}|}" 
 																			th:text="|비공감(${freeCommentReply.nope.size()})|"></a>
 
@@ -315,6 +313,7 @@
 			Array.from(ddabong_elements).forEach(function(element) {
 					element.addEventListener('click', function() {
 							if(confirm("정말로 추천하시겠습니까?")) {
+								  ddabong_elements.classList.toggle('.salmon')
 									location.href = this.dataset.uri;
 							};
 					});

@@ -91,10 +91,10 @@ public class MemberController {
 	@GetMapping("/loginsuccessful")
 	public String loginSuccessful(HttpSession session, Principal principal) {
 		System.out.println("===========로그인 성공============");
-		/*
+		
 		Member member = memberService.getMember(principal.getName());
 		session.setAttribute("member", member);
-		*/
+
 		return "redirect:/mypage/profile";
 		
 	}
@@ -116,12 +116,6 @@ public class MemberController {
 	public String findpw() {
 		return "member/find_pw";
 	}
-	
-//	// 마이페이지 진입
-//	@GetMapping("/mypage")
-//	public String goToMypage() {
-//		return "profile/profile";
-//	}
 	
 	// 회원정보 수정 메뉴 진입(초기화면 : 기본 정보를 보여준다)
 	@GetMapping("/modifyMember")
@@ -146,11 +140,6 @@ public class MemberController {
 
 		model.addAttribute("member", member);
 		
-//		if(member.getCreateDate() == null) {
-//			return "mypage/mypage_check_social";
-//		} else {
-//			return "mypage/mypage_check";
-//		}
 		return "mypage/mypage_check";
 	}
 	
@@ -264,27 +253,7 @@ public class MemberController {
 				if(mail.equals(_member.getEmail())) {
 					System.out.println("========모든 정보가 일치합니다=========");
 					
-					_member.setMemberid(null);
-					_member.setMembernick(null);
-					_member.setMembername(null);
-					_member.setEmail(null);
-					_member.setPassword(null);
-					
-					if(!_member.getOauth2MemberList().isEmpty()) {
-						System.out.println("===연결된 OAuth2가 있습니다===");
-						_member.getOauth2MemberList().clear();
-					}
-					
-					if(_member.getProfile() != null) {
-						Profile _profile = _member.getProfile();
-						_profile.setBrix(0.0d);
-						_profile.setGender(null);
-						_profile.setMbti(null);
-						_profile.setContent(null);
-						_member.setProfile(_profile);
-					}
-					
-					memberService.updateMember(_member);
+					memberService.deleteMember(_member);
 					
 					return "redirect:/member/logout";
 
@@ -304,72 +273,9 @@ public class MemberController {
 		return "redirect:/member/drop";
 	}
 	
-	@GetMapping("get")
-	
+
 	
 	// 아래부터는 테스트용 메소드들입니다!!!!!!!!!!!!!!!!!!!!!!!
-	
-	/*
-	// 로그인 성공 시 이동 페이지(세션 저장용, 테스트)
-	@GetMapping("/loginsuccessful")
-	public String loginSuccessful(MemberCreateForm memberCreateForm, Principal principal,
-			HttpServletRequest request, HttpSession session) {
-		
-		session = request.getSession();
-		Member member = memberService.getMember(principal.getName());
-		
-		session.setAttribute("member", member);
-		return "redirect:/";
-	}
-	*/
 
-	
-	@PostMapping("/friend")
-	public String makeFriends(@RequestParam(value = "friendid") String friendid, Principal principal) {
-		
-		System.out.println("friendController에 진입하였습니다");
-		Member friendMember = memberService.getMember(friendid);
-		memberService.makeFriends(principal.getName(), friendMember);
-		
-		return "member/make_friends";
-	}
-
-
-	@GetMapping("/test")
-	public String test() {
-		
-		System.out.println("불러오기 테스트");
-		
-		return "member/friend_test";
-		
-//		Member member = memberService.getMember(58);
-		
-		
-	}
-	
-	@GetMapping("/mypageTest")
-	public String goToMypageTest(Principal principal) {
-		System.out.println("=================테스트 페이지 진입=================");
-		System.out.println("principal username : " + principal.getName());
-		return "mypage/mypage_test";
-	}
-	/*
-	//친구 목록
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/friend")
-	public String mypage(Principal principal, Model model) {
-		
-		System.out.println("친구목록 컨트롤러 진입");
-		 Member member = this.memberService.getMember(principal.getName());
-		 model.addAttribute("member", member);
-		
-		return "inquiry/mypage";
-	}
-	
-	*/
-	
-	
-	
-	
 	
 }
