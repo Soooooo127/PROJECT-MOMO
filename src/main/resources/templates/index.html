@@ -7,28 +7,28 @@
 		
 	</head>
 	<body>
-		<div layout:fragment="content" >
+		<div layout:fragment="content" class="container">
 					
-			<div class="rest_header" role="banner" >
-			모두 모이다(index.html)
+			<div class="header" role="banner" >
 			
-			</div>
-						<!--검색-->
-						<div class="search ">
-								<div class="input-group">
-								<input type="text" id="search_kw" class="form-control" th:value="${kw}" placeholder="음식이나 식당을 검색해보세요">
-								<button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
-								</div>
+			
+				<!--검색-->
+				<div class="search ">
+						<div class="input-group" >
+						<input type="text" id="search_kw" class="form-control" th:value="${kw}" placeholder="음식이나 식당을 검색해보세요">
+						<button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
 						</div>
-								<form th:action="@{/rest/list/search}" method="get" id="searchForm">
-								<input type="hidden" id="kw" name="kw" th:value="${kw}">	   
-								</form>	
-					
+				</div>
+						<form th:action="@{/rest/list/search}" method="get" id="searchForm">
+						<input type="hidden" id="kw" name="kw" th:value="${kw}">	   
+						</form>	
+				
+			</div>
+								
+			
 
 					<!--룰렛-->
 						
-					
-					
 					<div class="r">
 					  <canvas width="380" height='380'></canvas>  
 					  <button class="r_b" onclick="rotate()">룰렛 돌리기</button>
