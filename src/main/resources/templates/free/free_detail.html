@@ -42,20 +42,15 @@
 												<span th:text="${freePosting.membernick}"></span>
 												<span class="badge bg-dark">프로필</span>
 												<span class="badge salmon">친구 추가</span><br>
-												<i class="fi fi-sr-thumbs-up text-success"></i>
-												<span class="text-success" th:text="|추천(${freePosting.ddabong.size()})|"></span>
-												&nbsp;&nbsp;
-												<i class="fi fi-sr-thumbs-down text-danger"></i>
-												<span class="text-danger" th:text="|비공감(${freePosting.nope.size()})|"></span>
+												<span class="postingRankingInfo" th:text="|조회수 : ${freePosting.cnt}|"></span>
+												<span class="postingRankingInfo" th:text="${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+												<span class="postingRankingInfo" th:if="${freePosting.updateDate != null}" th:text="|(최종 수정일 : ${#temporals.format(freePosting.updateDate, 'yyyy-MM-dd HH:mm')})|"></span>
 										</div>
 									</div>
 								</div>
 								<!--게시물 정보-->
 								<div class="frame-dl half right">
 									<p class="postingRankingInfo">
-										<span th:text="|조회수 : ${freePosting.cnt}|"></span><br>
-										<span th:text="${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}"></span>
-										<span th:if="${freePosting.updateDate != null}" th:text="|(최종 수정일 : ${#temporals.format(freePosting.updateDate, 'yyyy-MM-dd HH:mm')})|"></span>
 									</p>
 								</div>
 							</div>
@@ -72,35 +67,46 @@
 							<div class="ddabongBox">
 								<table style="width:100%;">
 									<tr>
-										<td style="width:50%;border-right:1px solid #e1e1e1;">
-											<i href="javascript:void(0);" class="ddabong fi fi-sr-thumbs-up"
-											th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
-											</i><br>
-											<span th:text="${freePosting.ddabong.size()}" class="ddabongText"></span>
-										</td>
-										<td>
-											<i href="javascript:void(0);" class="nope fi fi-sr-thumbs-down"
-											th:data-uri="@{|/free/nope/${freePosting.no}|}">
-											</i><br>
-											<span th:text="${freePosting.nope.size()}" class="ddabongText"></span>
-										</td>
+										<th:block sec:authorize="isAnonymous()">
+											<td style="width:50%;border-right:1px solid #e1e1e1;">
+												<i class="fi fi-sr-thumbs-up"></i><br>
+												<span th:text="${freePosting.ddabong.size()}" class="ddabongText"></span>
+											</td>
+											<td>
+												<i class="fi fi-sr-thumbs-down"></i><br>
+												<span th:text="${freePosting.nope.size()}" class="ddabongText"></span>
+											</td>
+										</th:block>
+									
+										<th:block sec:authorize="isAuthenticated()">
+											<td style="width:50%;border-right:1px solid #e1e1e1;" th:if="${#sets.contains(freePosting.ddabong, #authentication.getPrincipal.getUsername())}">
+												<i href="javascript:void(0);" class="ddabong fi fi-sr-thumbs-up text-success"
+												th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
+												</i><br>
+												<span th:text="${freePosting.ddabong.size()}" class="ddabongText"></span>
+											</td>
+											<td style="width:50%;border-right:1px solid #e1e1e1;" th:if="${!#sets.contains(freePosting.ddabong, #authentication.getPrincipal.getUsername())}">
+												<i href="javascript:void(0);" class="ddabong fi fi-sr-thumbs-up"
+												th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
+												</i><br>
+												<span th:text="${freePosting.ddabong.size()}" class="ddabongText"></span>
+											</td>
+											<td th:if="${#sets.contains(freePosting.nope, #authentication.getPrincipal.getUsername())}">
+												<i href="javascript:void(0);" class="nope fi fi-sr-thumbs-down text-danger"
+												th:data-uri="@{|/free/nope/${freePosting.no}|}">
+												</i><br>
+												<span th:text="${freePosting.nope.size()}" class="ddabongText"></span>
+											</td>
+											<td th:if="${!#sets.contains(freePosting.nope, #authentication.getPrincipal.getUsername())}">
+												<i href="javascript:void(0);" class="nope fi fi-sr-thumbs-down"
+												th:data-uri="@{|/free/nope/${freePosting.no}|}">
+												</i><br>
+												<span th:text="${freePosting.nope.size()}" class="ddabongText"></span>
+											</td>
+										</th:block>
 									</tr>
 								</table>
 							</div>
-								<!--기존 따봉 버튼2
-									<a href="javascript:void(0);" th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
-										<i class="fi fi-rr-smile-beam lg"></i>
-									</a>
-									<a href="javascript:void(0);" th:data-uri="@{|/free/nope/${freePosting.no}|}">
-										<i class="fi fi-rr-sad lg"></i>
-									</a>
-								<form method="get">
-									<button type="submit" class="dbbutton" th:formaction="@{|/free/ddabong/${freePosting.no}|}"><i class="fi fi-rr-smile-beam lg"></i></button>
-									<button type="submit" class="dbbutton" th:formaction="@{|/free/nope/${freePosting.no}|}"><i class="fi fi-rr-sad lg"></i></button>
-									<button type="button" class="btn btn-info p-3 rounded-circle btn-lg">따봉</button>
-									<button type="button" class="btn btn-danger p-3 rounded-circle btn-lg">비추</button>
-								</form>
-								-->
 						</div>
 
 						<!--댓글 정보 영역(개수 출력)-->
@@ -119,7 +125,7 @@
 												<tr>
 													<td style="width:70px;vertical-align:top;" rowspan="4">
 														<img class="authorImage" th:if="${freeComment.author.image != null}" th:src="@{|/img/${freeComment.author.image.storeFilename}|}" >
-														<img class="authorImage" th:unless="${freeComment.author.image != null}" src="/img/default_profile.png" >
+														<img class="authorImage" th:unless="${freeComment.author.image != null}" src="/img/default_profile.png" ><br>
 													</td>
 													<td style="width:40%;text-align:left;" class="commentNickW">
 														<span th:text="${freeComment.membernick}"></span>
@@ -127,19 +133,29 @@
 														<span class="badge salmon">친구 추가</span>
 													</td>
 													<td style="text-align:right;">
-														<th:block sec:authorize="isAuthenticated()"
-														 th:if="${freeComment.author.memberid != null and #authentication.getPrincipal().getUsername() == freeComment.author.memberid}">
-														 <a th:href="@{|/free/comment/delete/${freePosting.no}/${freeComment.no}|}" onclick="confirm('정말로 삭제하시겠습니까?')">삭제</a>
+														<th:block sec:authorize="isAnonymous()">
+														 <i class="fi fi-sr-thumbs-up ddabong"></i>
+														 <span th:text="|추천(${freeComment.ddabong.size()})|"></span>
+														 <i class="fi fi-sr-thumbs-down nope"></i>
+														 <span th:text="|비추(${freeComment.nope.size()})|"></span>
 														</th:block>
-														<i class="fi fi-sr-thumbs-up text-success"></i>
-														<a href="javascript:void(0);" class="ddabong text-success"
-														th:data-uri="@{|/free/comment/ddabong/${freePosting.no}/${freeComment.no}|}"
-														th:text="|추천(${freeComment.ddabong.size()})|"></a>
-														<i class="fi fi-sr-thumbs-down text-danger"></i>
-														<a href="javascript:void(0);" class="nope text-danger"
-														th:data-uri="@{|/free/comment/nope/${freePosting.no}/${freeComment.no}|}" 
-														th:text="|비공감(${freeComment.nope.size()})|"></a>
-
+														<th:block sec:authorize="isAuthenticated()">
+														 <i class="fi fi-sr-thumbs-up text-success ddabong" href="javascript:void(0);"
+														 th:data-uri="@{|/free/comment/ddabong/${freePosting.no}/${freeComment.no}|}"
+														 th:if="${#sets.contains(freeComment.ddabong, #authentication.getPrincipal.getUsername())}"></i>
+														 <i class="fi fi-sr-thumbs-up ddabong" href="javascript:void(0);"
+														 th:data-uri="@{|/free/comment/ddabong/${freePosting.no}/${freeComment.no}|}"
+														 th:if="${!#sets.contains(freeComment.ddabong, #authentication.getPrincipal.getUsername())}"></i>
+														 <span th:text="|추천(${freeComment.ddabong.size()})|"></span>
+														 <a ></a>
+														 <i class="fi fi-sr-thumbs-down text-danger nope" href="javascript:void(0);"
+														 th:data-uri="@{|/free/comment/nope/${freePosting.no}/${freeComment.no}|}"
+														 th:if="${#sets.contains(freeComment.nope, #authentication.getPrincipal.getUsername())}"></i>
+														 <i class="fi fi-sr-thumbs-down nope" href="javascript:void(0);"
+														 th:data-uri="@{|/free/comment/nope/${freePosting.no}/${freeComment.no}|}"
+														 th:if="${!#sets.contains(freeComment.nope, #authentication.getPrincipal.getUsername())}"></i>
+														 <span th:text="|비추(${freeComment.nope.size()})|"></span>
+														</th:block>
 													</td>
 												</tr>
 												<tr>
@@ -154,8 +170,8 @@
 														th:text="|(최종 수정일 : ${#temporals.format(freeComment.updateDate, 'yyyy-MM-dd HH:mm')})|"></span>
 													</td>
 													<td style="text-align: right;">
-														
-
+														<span class="delete fw-bold" th:if="${freeComment.author.memberid != null and #authentication.getPrincipal().getUsername() == freeComment.author.memberid}"
+														th:data-uri="@{|/free/comment/delete/${freePosting.no}/${freeComment.no}|}" href="javascript:void(0);">댓글 삭제</span>
 													</td>
 												</tr>
 												<!--댓글의 댓글 작성-->
@@ -202,19 +218,29 @@
 																			<span class="badge salmon">친구 추가</span>
 																		</td>
 																		<td style="text-align: right;">
-																			<th:block sec:authorize="isAuthenticated()"
-																			th:if="${freeCommentReply.author.memberid != null and #authentication.getPrincipal().getUsername() == freeCommentReply.author.memberid}">
-																				<a th:href="@{|/free/comment/reply/delete/${freePosting.no}/${freeCommentReply.no}|}" onclick="alert('정말로 삭제하시겠습니까?')">삭제</a>
-																			</th:block>
-																			<i class="fi fi-sr-thumbs-up text-success"></i>
-																			<a href="javascript:void(0);" class="ddabong text-success"
-																			th:data-uri="@{|/free/comment/reply/ddabong/${freePosting.no}/${freeCommentReply.no}|}"
-																			th:text="|추천(${freeCommentReply.ddabong.size()})|"></a>
-																			<i class="fi fi-sr-thumbs-down text-danger"></i>
-																			<a href="javascript:void(0);" class="nope text-danger"
-																			th:data-uri="@{|/free/comment/reply/nope/${freePosting.no}/${freeCommentReply.no}|}" 
-																			th:text="|비공감(${freeCommentReply.nope.size()})|"></a>
-
+																			<th:block sec:authorize="isAnonymous()">
+																				<i class="fi fi-sr-thumbs-up ddabong"></i>
+																				<span th:text="|추천(${freeCommentReply.ddabong.size()})|"></span>
+																				<i class="fi fi-sr-thumbs-down nope"></i>
+																				<span th:text="|비추(${freeCommentReply.nope.size()})|"></span>
+																		  </th:block>
+																		  <th:block sec:authorize="isAuthenticated()">
+																				<i class="fi fi-sr-thumbs-up text-success ddabong" href="javascript:void(0);"
+																				th:data-uri="@{|/free/comment/reply/ddabong/${freePosting.no}/${freeCommentReply.no}|}"
+																				th:if="${#sets.contains(freeCommentReply.ddabong, #authentication.getPrincipal.getUsername())}"></i>
+																				<i class="fi fi-sr-thumbs-up ddabong" href="javascript:void(0);"
+																				th:data-uri="@{|/free/comment/reply/ddabong/${freePosting.no}/${freeCommentReply.no}|}"
+																				th:if="${!#sets.contains(freeComment.ddabong, #authentication.getPrincipal.getUsername())}"></i>
+																				<span th:text="|추천(${freeCommentReply.ddabong.size()})|"></span>
+																				<a ></a>
+																				<i class="fi fi-sr-thumbs-down text-danger nope" href="javascript:void(0);"
+																				th:data-uri="@{|/free/comment/reply/nope/${freePosting.no}/${freeCommentReply.no}|}"
+																				th:if="${#sets.contains(freeCommentReply.nope, #authentication.getPrincipal.getUsername())}"></i>
+																				<i class="fi fi-sr-thumbs-down nope" href="javascript:void(0);"
+																				th:data-uri="@{|/free/comment/reply/nope/${freePosting.no}/${freeCommentReply.no}|}"
+																				th:if="${!#sets.contains(freeComment.nope, #authentication.getPrincipal.getUsername())}"></i>
+																				<span th:text="|비추(${freeCommentReply.nope.size()})|"></span>
+																		  </th:block>
 																		</td>
 																	</tr>
 																	<tr>
@@ -229,7 +255,8 @@
 																			th:text="|최종 수정일 : ${#temporals.format(freeCommentReply.updateDate, 'yyyy-MM-dd HH:mm')}|"></span>
 																		</td>
 																		<td style="text-align: right;">
-
+																			<span class="delete fw-bold" th:if="${freeCommentReply.author.memberid != null and #authentication.getPrincipal().getUsername() == freeCommentReply.author.memberid}"
+																			th:data-uri="@{|/free/comment/reply/delete/${freePosting.no}/${freeCommentReply.no}|}" href="javascript:void(0);">댓글 삭제</span>
 																		</td>
 																	</tr>
 																</table>
@@ -312,18 +339,29 @@
 			const ddabong_elements = document.getElementsByClassName("ddabong");
 			Array.from(ddabong_elements).forEach(function(element) {
 					element.addEventListener('click', function() {
-							if(confirm("정말로 추천하시겠습니까?")) {
-								  ddabong_elements.classList.toggle('.salmon')
+							if(element.classList.contains('text-success')) {
+								if(confirm("정말로 추천을 취소하시겠습니까?")) {
+										location.href = this.dataset.uri;
+								};
+							} else {
+								if(confirm("정말로 추천하시겠습니까?")) {
 									location.href = this.dataset.uri;
-							};
+								};
+							}
+						});
 					});
-			});
-			const nope_elements = document.getElementsByClassName("nope");
-			Array.from(nope_elements).forEach(function(element) {
-					element.addEventListener('click', function() {
-							if(confirm("정말로 비공감하시겠습니까?")) {
-									location.href = this.dataset.uri;
-							};
+					const nope_elements = document.getElementsByClassName("nope");
+					Array.from(nope_elements).forEach(function(element) {
+						element.addEventListener('click', function() {
+							if(element.classList.contains('text-danger')) {
+								if(confirm("정말로 비공감을 취소하시겠습니까?")) {
+										location.href = this.dataset.uri;
+								};
+							} else {
+								if(confirm("정말로 비공감하시겠습니까?")) {
+										location.href = this.dataset.uri;
+								};
+							}
 					});
 			});
 			

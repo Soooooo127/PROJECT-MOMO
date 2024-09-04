@@ -36,8 +36,11 @@ public class FreePostingController {
 		Page<FreePosting> paging = freePostingService.getList(page);
 		model.addAttribute("paging", paging);
 		
-		Member member = memberService.getMember(principal.getName());
-		model.addAttribute("member", member);
+		if(principal != null) {
+			Member member = memberService.getMember(principal.getName());
+			model.addAttribute("member", member);
+		}
+
 		return "free/free_list";
 	}
 	
@@ -106,8 +109,12 @@ public class FreePostingController {
 	public String detail(Model model, @PathVariable("pno") Integer pno, FreeCommentForm freeCommentForm,Principal principal) {
 		FreePosting freePosting = freePostingService.getPosting(pno);
 		model.addAttribute("freePosting", freePosting);
-		Member member = memberService.getMember(principal.getName());
-		model.addAttribute("member", member);
+		
+		if(principal != null) {
+			Member member = memberService.getMember(principal.getName());
+			model.addAttribute("member", member);
+		}
+
 		System.out.println(freePosting.toString());		
 		return "free/free_detail"; 
 	}
@@ -127,8 +134,8 @@ public class FreePostingController {
     @GetMapping("/ddabong/{pno}")
     public String ddabong(Principal principal, @PathVariable("pno") Integer pno) {
         FreePosting freePosting = freePostingService.getPosting(pno);
-        Member member = memberService.getMember(principal.getName());
-        freePostingService.ddabong(freePosting, member);
+        String _memberid = principal.getName();
+        freePostingService.ddabong(freePosting, _memberid);
         return "redirect:/free/detail/{pno}";
     }
     
@@ -136,8 +143,8 @@ public class FreePostingController {
     @GetMapping("/nope/{pno}")
     public String nope(Principal principal, @PathVariable("pno") Integer pno) {
     	FreePosting freePosting = freePostingService.getPosting(pno);
-    	Member member = memberService.getMember(principal.getName());
-    	freePostingService.nope(freePosting, member);
+    	String _memberid = principal.getName();
+    	freePostingService.nope(freePosting, _memberid);
     	return "redirect:/free/detail/{pno}";
     }
     

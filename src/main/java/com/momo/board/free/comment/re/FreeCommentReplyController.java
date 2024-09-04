@@ -80,8 +80,8 @@ public class FreeCommentReplyController {
     @GetMapping("/ddabong/{pno}/{rno}")
     public String ddabong(Principal principal, @PathVariable("pno") Integer pno, @PathVariable("rno") Integer rno) {
         FreeCommentReply freeCommentReply = freeCommentReplyService.getCommentReply(rno);
-        Member member = memberService.getMember(principal.getName());
-        freeCommentReplyService.ddabong(freeCommentReply, member);
+        String _memberid = principal.getName();
+        freeCommentReplyService.ddabong(freeCommentReply, _memberid);
         return "redirect:/free/detail/{pno}";
     }
     
@@ -89,8 +89,8 @@ public class FreeCommentReplyController {
     @GetMapping("/nope/{pno}/{rno}")
     public String nope(Principal principal, @PathVariable("pno") Integer pno, @PathVariable("rno") Integer rno) {
     	FreeCommentReply freeCommentReply = freeCommentReplyService.getCommentReply(rno);
-    	Member member = memberService.getMember(principal.getName());
-    	freeCommentReplyService.nope(freeCommentReply, member);
+    	String _memberid = principal.getName();
+    	freeCommentReplyService.nope(freeCommentReply, _memberid);
     	return "redirect:/free/detail/{pno}";
     }
 	

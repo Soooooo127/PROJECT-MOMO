@@ -139,6 +139,10 @@ i {
   font-weight: bold;
 }
 
+.ddabongOn {
+  color:salmon;
+}
+
 
 .commentBox {
   padding:20px;
@@ -196,3 +200,4 @@ i {
 .f4f4f4 {
   background-color: #f4f4f4;
 }
+

@@ -276,6 +276,10 @@ public class MemberController {
 
 	
 	// 아래부터는 테스트용 메소드들입니다!!!!!!!!!!!!!!!!!!!!!!!
+	@GetMapping("/test")
+	public String goToTestPage() {
+		return "member/mail_test";
+	}
 
 	
 }

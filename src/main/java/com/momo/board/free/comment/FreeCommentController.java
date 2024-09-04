@@ -64,10 +64,7 @@ public class FreeCommentController {
 		return "redirect:/free/detail/{pno}";
 	}
 
-//	https://velog.io/@dhktjr0204/Spring%ED%83%80%EC%9E%84%EB%A6%AC%ED%94%84%EB%8C%93%EA%B8%80-%EC%83%9D%EC%84%B1%EC%88%98%EC%A0%95%EC%82%AD%EC%A0%9C-%ED%9B%84-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC-1
-//	https://joyhong.tistory.com/104
-//	AJAX를 이용한 페이지 부분 교체
-	
+
 	@GetMapping("/update/{pno}/{cno}")
 	public String update(FreeCommentForm freeCommentForm,
 			@PathVariable("pno") Integer pno, @PathVariable("cno") Integer cno) {
@@ -98,8 +95,8 @@ public class FreeCommentController {
     @GetMapping("/ddabong/{pno}/{cno}")
     public String ddabong(Principal principal, @PathVariable("pno") Integer pno, @PathVariable("cno") Integer cno) {
         FreeComment freeComment = freeCommentService.getComment(cno);
-        Member member = memberService.getMember(principal.getName());
-        freeCommentService.ddabong(freeComment, member);
+        String _memberid = principal.getName();
+        freeCommentService.ddabong(freeComment, _memberid);
         return "redirect:/free/detail/{pno}";
     }
     
@@ -107,8 +104,8 @@ public class FreeCommentController {
     @GetMapping("/nope/{pno}/{cno}")
     public String nope(Principal principal, @PathVariable("pno") Integer pno, @PathVariable("cno") Integer cno) {
     	FreeComment freeComment = freeCommentService.getComment(cno);
-    	Member member = memberService.getMember(principal.getName());
-    	freeCommentService.nope(freeComment, member);
+    	String _memberid = principal.getName();
+    	freeCommentService.nope(freeComment, _memberid);
     	return "redirect:/free/detail/{pno}";
     }
 	
