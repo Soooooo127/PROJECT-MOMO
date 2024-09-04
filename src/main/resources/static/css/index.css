@@ -55,10 +55,13 @@ canvas {
   z-index: 22;
 }
 
-.header{
+.indexImage {
 	background-image: url('/css/images/background.jpg');
+  background-size: cover;
 	width: 100%;
-	height: 50%;
+	height: 500px;
+  padding:0;
+  margin:0;
 }
 
 

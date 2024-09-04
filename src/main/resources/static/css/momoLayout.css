@@ -26,11 +26,30 @@
   font-style: normal;
 }
 
+html, body {
+	margin:0;
+	padding: 0;
+	height: 100%;
+}
+
+body{
+	height: 100%;
+	
+}
+
+/*
+body > div{
+	height: calc(100% - 335px);
+}*/
+
+.container{
+	height: calc(100% - 335px);
+}
 
 .navFrame {
   width:100%;
-  height:150px;
-  margin:auto;
+  height:100px;
+  margin:0;
   /* font-family: "Noto Sans KR", sans-serif; */
   font-family: 'HancomMalangMalang-Regular';
   font-optical-sizing: auto;
@@ -128,6 +147,7 @@ a:link, a:visited {
 	min-height: 100%;
 	padding-bottom: 200px;
 }
+
 footer{
 
 	height: 200px;
@@ -135,21 +155,3 @@ footer{
 	background-color:#f4f4f4;
 }
 
-
-
-html, body{
-	margin:0;
-	padding: 0;
-	height: 100%;
-}
-body{
-	height: 100%;
-	
-}
-/*
-body > div{
-	height: calc(100% - 335px);
-}*/
-.container{
-	height: calc(100% - 335px);
-}
