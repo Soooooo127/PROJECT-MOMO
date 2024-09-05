@@ -2,7 +2,7 @@
 <html layout:decorate="~{layout}">
 	<head>
 
-		<link rel="stylesheet" type="text/css" th:href="@{/css/restList.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
 
 	<title>같이먹자</title>
 
@@ -28,41 +28,47 @@
 		</form>
 		
 		
-		<!-- 같이먹기 방 리스트-->	
-		<div class="list">
-			
-			<div class="card border-primary mb-3   c" style="max-width: 25rem;" th:each="et : ${paging}">
-				<a th:href="@{|detail/${et.rest.no}/${et.no}|}">
-					<h5 class="card-header ">
-						<span th:text="${et.ettitle}"></span>
-								
-						<span style="font-size: 13px;" th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">(참여기간 만료)</span>
-					</h5>
-												 
-						<!--사진-->						 
-					<img th:src="${et.rest.img}" class="img">
-											
-						<!--태그-->						 
-												  
-					<div class="card-footer text-muted " >
-						<h5 th:text="${et.rest.name}"></h5>
-							<span  class="tag">
-								<li>
-									<a th:text="|모집하는 인원수 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></a>
-								</li>
-																				
-								<li>
-									<a th:text="|신청일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></a>
-								</li>
-																		
-								<li>
-									<a th:text="|같이먹는날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></a>
-								</li>
-							</span>
-					</div>
-				</a>			  
-			</div>
+		<div class="new_list">
+			<!-- 같이먹기 방 리스트-->	
+			<div class="list">
+				<div class="card border-primary mb-3   c1" th:each="et : ${paging}">
+					<a th:href="@{|detail/${et.rest.no}/${et.no}|}" class="a1">
+													 
+							<!--사진-->	
+					<div class="c2">					 
+				<!--	<img th:src="${et.rest.img}" class="img">-->
+						<img src="	https://flexible.img.hani.co.kr/flexible/normal/640/427/imgdb/original/2023/0306/20230306502777.jpg" class="img">
+						
+					</div>	
+						<div class="card-body" >	
+						<h5 class="card-title">
+							<span th:text="${et.ettitle}"></span>
+									
+							<span style="font-size: 13px;" th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">(참여기간 만료)</span>
+						</h5>				
+							<!--태그-->						 
+													  
+							<div  >
+							<h5 th:text="${et.rest.name}"></h5>
+								<ul  class="tag">
+									<li>
+										<span th:text="|모집하는 인원수 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>
+									</li>
+																					
+									<li>
+										<span th:text="|신청일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></span>
+									</li>
+																			
+									<li>
+										<span th:text="|같이먹는날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</a>			  
+				</div>
 
+			</div>
 		</div>
 		
 	<!--페이징-->

@@ -44,7 +44,7 @@ public class RestService {
 	public Page<Restaurant> getList( int page){	
 		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
 		sorts.add(Sort.Order.asc("name"));
-		Pageable pageable = PageRequest.of(page ,  9 , Sort.by(sorts));
+		Pageable pageable = PageRequest.of(page ,  3 , Sort.by(sorts));
 		return this.restRepository.findAll(pageable);
 	} 
 	

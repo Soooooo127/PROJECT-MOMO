@@ -70,7 +70,56 @@ canvas {
   margin:0;
   
 }
+.new_list{
+	margin-top: 50px;
+	
+}
+
+.new_box{
+	margin:auto;
+	text-align: center;
+	width: 800px;
+	font-size: 50px;
+	border:solid rgb(255, 255, 255);	
+	border-radius: 10px;
+}
 
 
-
-
+.c1{
+	border: none;
+	float: left;
+	width: 380px;
+	height: 500px;
+	margin: 15px;
+	color: black;
+	max-width: 25rem;
+	
+}
+.c2{
+	text-align: center;
+}
+.c{
+	float: left;
+	width: 380px;
+	height: 500px;
+	margin: 15px;
+	
+}
+a.a1{
+	text-decoration: none;
+	color: black;
+}
+.list{
+	overflow: auto;
+	width: 1240px;
+	margin:auto;
+	border:solid rgb(255, 255, 255);	
+	border-radius: 10px;
+}
+.img{
+	width: 350px;
+	height: 300px;
+	border-radius: 10px;	
+	max-width: 25rem;
+	
+}

@@ -2,8 +2,10 @@ package com.momo.member;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,12 +15,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.momo.member.profile.Profile;
 import com.momo.member.profile.ProfileService;
+import com.momo.restaurant.RestService;
+import com.momo.restaurant.Restaurant;
+import com.momo.restaurant.et.EatTogether;
+import com.momo.restaurant.et.EatTogetherService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -32,10 +39,20 @@ public class MemberController {
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
 	private final AuthenticationManager authenticationManager;
+	private final RestService restService;
+	private final EatTogetherService etService;
 	
 	// 첫페이지(인덱스)
 	@GetMapping("/welcome")
-	public String welcome() {
+	public String welcome(Model model
+			, @RequestParam(value="page", defaultValue = "0") int page
+			,@RequestParam(value="kw" , defaultValue = "") String kw) {
+		
+		Page<Restaurant>paging = this.restService.getList(page);
+		model.addAttribute("paging", paging); 
+		Page<EatTogether> etpaging = this.etService.getListAll(page , kw);
+		model.addAttribute("etpaging", etpaging);
+
 		return "index";
 	}
 	
