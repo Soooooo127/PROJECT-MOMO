@@ -189,19 +189,20 @@
 									
 										</table>
 									
-									<!--============================== 채팅 =========================-->
+									<!--============================== 채팅 진입 아이콘 =========================-->
 									<br>
 									<th:block th:each="member : ${et.prtmember}">
 										<div style="text-align: end;">
-										<img th:if="${member.memberid == #authentication.getPrincipal().getUsername()}" 
+										<img th:if="${member.memberid == #authentication.getPrincipal().getUsername()}"   		
 										th:src="@{/css/images/chatting.png}" width="60px" height="60px" alt="채팅 아이콘" class="icon"
 										onclick='openNewChatRoom()'>
 										<input type="hidden" th:value="${et.no}" name="chatRoomNo" id="chatRoomNo">
-										</div>					
+										</div>	
 									</th:block>	
 								</div> 
 					<br>
 					<br>
+				
 					
 					<!--==============================방 참여, 나가기 , 삭제 버튼 =================================================-->
 					<div class="d-flex justify-content-end">
