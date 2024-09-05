@@ -83,7 +83,8 @@ public class RestController {
 		}
 		rest.setEtList(etList);
 		rest.setProgresset(etList.size() - expired);
-		this.restRepository.save(rest);
+		
+	
 		model.addAttribute("rest", rest);
 		
 		
@@ -104,7 +105,7 @@ public class RestController {
 		String starAvg = String.format("%.1f", avg);
 		model.addAttribute("starAvg", starAvg);
 		model.addAttribute("review", review);
-		
+		this.restRepository.save(rest);
 		
 		
 		return "rest/rest_detail";

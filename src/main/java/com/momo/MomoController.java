@@ -11,4 +11,10 @@ public class MomoController {
 		return "redirect:/member/welcome";
 	}
 	
+	
+	@GetMapping("/about")
+	public String about() {
+		return "momo_about";
+	}
+	
 }
