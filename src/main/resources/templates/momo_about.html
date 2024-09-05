@@ -1,1 +1,54 @@
-모모 회사 소개 화면
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class=" my-3">
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/css/about.css}">	
+	
+
+
+<div class="aboutdiv">
+	
+	<div class="about-inner-div">
+		
+			<h1>모두모이자, momo의 홈페이지를 찾아주신 여러분 진심으로 환영합니다~!</h1><br>
+			
+			
+			
+			<div style="display: flex; border: 2px solid seagreen; padding: 40px;">
+				<img class="siz" style="margin:20px;  flex:1; border: 2px solid orange;"   th:src="@{/css/images/about-photo-together.jpg}" >
+				<div style="margin:20px; flex:1; font-weight: bold; font-size: large; border: 2px solid blue; ">
+					모두 모이자, momo의 의미
+					1인가구를 위한 맛집정보와 함께 상호작용 할 수 있는 커뮤니티 서비스를 제공합니다요~</div>
+			</div>
+		
+	</div>
+	<div class="about-inner-div">
+			<div style="display: flex; border: 2px solid seagreen; padding: 10px;">
+			<div style="margin:20px; flex:1; font-weight: bold; font-size: large; border: 2px solid blue;">모모는 왜 만들어진건가</div>
+			<img class="siz" style="margin:20px;  flex:1; border: 2px solid orange;"   th:src="@{/css/images/about-photo-together2.jpg}" >
+		</div>
+	
+	</div>
+	<div class="about-inner-div">같이먹기 기능 소개
+		<div style="display: flex; border: 2px solid seagreen; padding: 10px;">
+			<img class="siz" style="margin:20px;  flex:1; border: 2px solid orange;"   th:src="@{/css/images/about-photo-together3.jpg}" >
+			<div style="margin:20px; flex:1; font-weight: bold; font-size: large; border: 2px solid blue; ">만든사람은 누구인가</div>
+		</div>
+
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div>
+</div>
+</html>	
