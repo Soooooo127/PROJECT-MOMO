@@ -170,9 +170,14 @@ i {
 
 .commentInfoBox {
   width:100%;
-  padding:20px;
+  padding:15px;
   text-align: center;
+}
 
+.commentInfoBox2 {
+  width:100%;
+  padding:25px;
+  text-align: center;
 }
 
 .commentReplyBox {
@@ -201,3 +206,15 @@ i {
   background-color: #f4f4f4;
 }
 
+.profileImage  {
+  /*width:80px;*/
+  
+  border-radius: 50%;
+  width:200px;
+  height: 200px;
+  object-fit: cover;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: middle;
+  
+}
