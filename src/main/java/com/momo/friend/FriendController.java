@@ -62,6 +62,18 @@ public class FriendController {
 			 return "redirect:/friend/list";
 			
 		}
+		
+		//친구 삭제
+		@PreAuthorize("isAuthenticated()")
+		@GetMapping("/delete/{no}")
+		public String deleteFriend(Principal pricipal, @PathVariable("no") Integer no) {
+			
+			Member myid = memberService.getMember(pricipal.getName());  //로그인 한 이이디 검색
+			Member myfriendid = memberService.getMember(no);  //친구 아이디 검색
+			friendService.deleteFriend(myid, myfriendid);
+			return "redirect:/friend/list";
+			
+		}
 	
 	
 	
