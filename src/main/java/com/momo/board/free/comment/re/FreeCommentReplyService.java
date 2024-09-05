@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.momo.board.free.comment.FreeComment;
 import com.momo.board.free.comment.FreeCommentRepository;
+import com.momo.board.free.posting.FreePosting;
+import com.momo.board.free.posting.FreePostingRepository;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
 
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FreeCommentReplyService {
 
+	private final FreePostingRepository freePostingRepository;
 	private final FreeCommentReplyRepository freeCommentReplyRepository;
 	private final FreeCommentRepository freeCommentRepository;
 	private final MemberService memberService;
@@ -28,8 +31,8 @@ public class FreeCommentReplyService {
 		return freeCommentReply;
 	}
 	
-	public void create(Integer no, Member member, String content) {
-		FreeComment freeComment = freeCommentRepository.findById(no).get();
+	public void create(Integer pno, Integer cno, Member member, String content) {
+		FreeComment freeComment = freeCommentRepository.findById(cno).get();
 		
 		FreeCommentReply freeCommentReply = new FreeCommentReply();
 		freeCommentReply.setContent(content);
@@ -39,10 +42,30 @@ public class FreeCommentReplyService {
 		freeCommentReply.setFreeComment(freeComment);
 		
 		freeCommentReplyRepository.save(freeCommentReply);
+		
+		Optional<FreePosting> _free = freePostingRepository.findById(pno);
+		FreePosting freePosting = new FreePosting();
+		
+		if(_free.isPresent()) {
+			freePosting = _free.get();
+			freePosting.setTotalComment(freePosting.getTotalComment()+1);
+			freePostingRepository.save(freePosting);
+		}
 	}
 	
-	public void delete(Integer no) {
-		freeCommentReplyRepository.deleteById(no);
+	public void delete(Integer pno, Integer cno) {
+		
+		freeCommentReplyRepository.deleteById(cno);
+		
+		Optional<FreePosting> _free = freePostingRepository.findById(pno);
+		FreePosting freePosting = new FreePosting();
+		
+		if(_free.isPresent()) {
+			freePosting = _free.get();
+			freePosting.setTotalComment(freePosting.getTotalComment()-1);
+			freePostingRepository.save(freePosting);
+		}
+		
 	}
 	
 	public void update(FreeCommentReply freeCommentReply, String content) {

@@ -44,7 +44,7 @@
 												<span class="badge bg-secondary" 
 												th:if="${freePosting.author.memberid != null and #authentication.getPrincipal().getUsername() == freePosting.author.memberid}">나</span>
 												<a href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ freePosting.author.no}">
-												<span class="badge bg-dark openProfile" 
+												<span class="badge bg-dark" 
 												th:if="${freePosting.author.memberid != null and #authentication.getPrincipal().getUsername() != freePosting.author.memberid}">프로필</span></a>
 												<span class="badge salmon makeFriend" th:if="${!#lists.contains(member.friend, freePosting.author) and 
 													#authentication.getPrincipal().getUsername() != freePosting.author.memberid}"
@@ -54,7 +54,7 @@
 												th:data-uri="@{|/friend/delete/${freePosting.author.no}|}">내친구</span>
 											</th:block>
 											<br>
-											<span class="postingRankingInfo" th:text="|조회수 : ${freePosting.cnt}|"></span>
+											<span class="postingRankingInfo" th:text="|조회수(${freePosting.cnt})|"></span>
 											<span class="postingRankingInfo" th:text="${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}"></span>
 											<span class="postingRankingInfo" th:if="${freePosting.updateDate != null}" th:text="|(최종 수정일 : ${#temporals.format(freePosting.updateDate, 'yyyy-MM-dd HH:mm')})|"></span>
 										</div>
@@ -172,10 +172,10 @@
 
 						<!--댓글 정보 영역(개수 출력)-->
 						<div class="commentInfoBox f4f4f4">
-							<span th:if="${#lists.size(freePosting.freeCommentList) > 0}">
-								댓글이 <strong th:text="${#lists.size(freePosting.freeCommentList)}"></strong>개 작성되었습니다.</a>
+							<span th:if="${freePosting.totalComment > 0}">
+								댓글이 <strong th:text="${freePosting.totalComment}"></strong>개 작성되었습니다.</a>
 							</span>
-							<span th:if="${#lists.size(freePosting.freeCommentList) == 0}">
+							<span th:if="${freePosting.totalComment == 0}">
 								작성된 댓글이 없습니다. 댓글을 작성해주세요.</a>
 							</span>
 						</div>
@@ -277,7 +277,7 @@
 												</tr>
 												<tr>
 													<td colspan="2">
-														<div th:text="${freeComment.content}"></div>
+														<div class="commentContentBox" th:text="${freeComment.content}"></div>
 													</td>
 												</tr>
 												<tr class="commentInfo-s">
@@ -413,7 +413,7 @@
 																	</tr>
 																	<tr>
 																		<td colspan="2">
-																			<div th:text="${freeCommentReply.content}"></div>
+																			<div class="commentContentBox" th:text="${freeCommentReply.content}"></div>
 																		</td>
 																	</tr>
 																	<tr class="commentInfo-s">

@@ -57,6 +57,9 @@ public class FreePosting {
 	private Set<String> ddabong;
 	
 	private Set<String> nope;
+	
+	@ColumnDefault("0")
+	private int totalComment;
 
 	@Override
 	public String toString() {

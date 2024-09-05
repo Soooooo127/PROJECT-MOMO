@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.momo.board.free.comment.FreeComment;
 import com.momo.board.free.comment.FreeCommentForm;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
@@ -63,7 +64,7 @@ public class FreePostingController {
 			System.out.println(freePostingList.get(i).getSubject());
 		}
 		model.addAttribute("freePostingList", freePostingList);
-		return "/free/free_form";
+		return "free/free_form";
 	}
 	
 	@PostMapping("/create")
@@ -148,6 +149,45 @@ public class FreePostingController {
     	return "redirect:/free/detail/{pno}";
     }
     
+    // 댓글 개수 입력을 위한 임시 메소드(추후에는 필요 없음)
+    @GetMapping("/totalComment")
+    public void calTotalComment() {
+    	System.out.println("===========================댓글 수 계산 메소드에 진입하였습니다===========================");
+    	List<FreePosting> _list = freePostingService.getList();
+    	
+    	for(int i = 0 ; i < _list.size() ; i++) {
+    		FreePosting _free = _list.get(i);
+    		List<FreeComment> _commentList = _free.getFreeCommentList();
+    		int totalC = _commentList.size();
+    		
+    		System.out.println(i + "번째 _free 게시물의 총 댓글 수 : " + totalC);
+    		
+    		int totalCR = 0;
+    		
+    		for(int j = 0 ; j < _commentList.size() ; j++) {
+    			FreeComment _comment = _commentList.get(j);
+    			totalCR += _comment.getFreeCommentReplyList().size();
+    			
+    			System.out.println(j + "번째 _comment 게시물의 누적 댓글 수 : " + totalCR);
+    			
+    			if(j == _commentList.size()-1) {
+    				System.out.println("반복 완료! 댓글의 누적 댓글의댓글 수 : " + totalCR);
+    			}
+    		}
+    		
+    		totalC += totalCR;
+    		System.out.println(i + "번째 _free 게시물의 누적 댓글 수 : " + totalC);
+    		_free.setTotalComment(totalC);
+    		freePostingService.update(_free);
+    		
+    		if(i == _list.size()-1) {
+    			System.out.println("모든 연산이 완료되었습니다.");
+    		}
+    		
+    		
+    	}
+    }
+    
     /*
 	@GetMapping("/nope/{pno}")
 	public String nope(Model model, @PathVariable("pno") Integer pno, FreeCommentForm freeCommentForm) {
@@ -178,6 +218,11 @@ public class FreePostingController {
 	public String delete(@PathVariable("pno") Integer pno) {
 		freePostingService.delete(pno);
 		return "redirect:/free/list";
+	}
+	
+	@PostMapping("/search")
+	public List<FreePosting> searchList(@RequestParam(value = "keyword") String keyword) {
+		return null;
 	}
 	
 	//찜 테스트를 위한 임시 메소드

@@ -1,5 +1,7 @@
 package com.momo.board.free.posting;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +17,5 @@ public interface FreePostingRepository extends JpaRepository<FreePosting, Intege
 	@Query("select f from FreePosting f where f.subject like %:subject% and f.author=:author")
 	Page<FreePosting> findByAuthorAndSubject(@Param(value="author")Member author, @Param(value="subject")String subject, Pageable pageable);
 
-	
 	
 }

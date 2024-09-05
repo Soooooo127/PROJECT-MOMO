@@ -59,8 +59,8 @@ public class FreeCommentController {
 	}
 	
 	@GetMapping("/delete/{pno}/{cno}")
-	public String delete(@PathVariable("cno") Integer cno) {
-		freeCommentService.delete(cno);
+	public String delete(@PathVariable("pno") Integer pno, @PathVariable("cno") Integer cno) {
+		freeCommentService.delete(pno, cno);
 		return "redirect:/free/detail/{pno}";
 	}
 

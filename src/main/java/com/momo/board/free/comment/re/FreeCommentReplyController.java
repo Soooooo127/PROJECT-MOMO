@@ -1,6 +1,7 @@
 package com.momo.board.free.comment.re;
 
 import java.security.Principal;
+import java.util.Optional;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.momo.board.free.comment.FreeComment;
 import com.momo.board.free.comment.FreeCommentForm;
+import com.momo.board.free.posting.FreePosting;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
 
@@ -34,10 +35,9 @@ public class FreeCommentReplyController {
 		if(bindingResult.hasErrors()) {
 			return "/free/detail/{pno}";
 		}
-		System.out.println("게시물 번호: " + pno);
 		
 		Member member = memberService.getMember(principal.getName());
-		freeCommentReplyService.create(cno, member, freeCommentReplyForm.getContent());
+		freeCommentReplyService.create(pno, cno, member, freeCommentReplyForm.getContent());
 		return "redirect:/free/detail/{pno}";
 		
 	}
@@ -68,10 +68,9 @@ public class FreeCommentReplyController {
 	
 	
 	@GetMapping("/delete/{pno}/{rno}")
-	public String delete(@PathVariable("rno") Integer rno) {
+	public String delete(@PathVariable("pno") Integer pno, @PathVariable("rno") Integer rno) {
 		
-		System.out.println("진입하였습니다");
-		freeCommentReplyService.delete(rno);
+		freeCommentReplyService.delete(pno, rno);
 		
 		return "redirect:/free/detail/{pno}";
 	}

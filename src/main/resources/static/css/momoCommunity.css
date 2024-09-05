@@ -112,6 +112,7 @@ i {
 .postingContentBox {
   padding:25px;
   margin-bottom: 50px;
+  white-space:pre;
 }
 
 .rotate {
@@ -194,6 +195,10 @@ i {
   padding: 5px 0px;
 }
 
+.commentContentBox {
+  white-space:pre;
+}
+
 .salmon {
   background-color: salmon;
 }
@@ -217,4 +222,15 @@ i {
   margin-right: auto;
   vertical-align: middle;
   
+}
+
+p.titleLength {
+  white-space: nowrap; 
+  width: 430px; 
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
+td {
+  vertical-align: middle;
 }
