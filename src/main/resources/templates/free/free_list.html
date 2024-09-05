@@ -24,10 +24,10 @@
 						<table class="table table-hover">
 							<thead class="table-primary text-center">
 								<tr>
-									<th width="70px">번호</th>
+									<th width="50px">번호</th>
 									<th>제목</th>
 									<th width="200px">작성자</th>
-									<th width="200px">작성일</th>
+									<th width="180px">작성일</th>
 									<th width="100px">조회수</th>
 									<th width="100px">추천</th>
 								</tr>
@@ -35,10 +35,14 @@
 							<tbody>
 								<tr th:each="freePosting, loop : ${paging}" class="text-center">
 									<td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
-									<td class="text-start"><a th:href="@{|/free/detail/${freePosting.no}|}" th:text="${freePosting.subject}"></a>
-										<span th:if="${#lists.size(freePosting.freeCommentList) > 0}" 
-											th:text="${#lists.size(freePosting.freeCommentList)}"
-											class="badge bg-primary rounded-pill"></span>
+									<td class="text-start">
+										<a th:href="@{|/free/detail/${freePosting.no}|}">
+										<span th:href="@{|/free/detail/${freePosting.no}|}" th:text="${freePosting.subject}"></span>
+										</a>
+										<span th:if="${freePosting.totalComment > 0}" 
+											th:text="${freePosting.totalComment}"
+											class="badge bg-primary rounded-pill">
+										</span>
 									</td>
 									<td>
 										<ul class="navbar-nav me-auto">
@@ -47,7 +51,7 @@
 												th:if="${freePosting.membernick != null}" th:text="${freePosting.membernick}"></a>
 												<div sec:authorize="isAuthenticated()">
 													<div class="dropdown-menu" th:if="${#authentication.getPrincipal().getUsername != freePosting.author.memberid}">
-														<a class="dropdown-item" href="#">프로필 보기</a>
+														<a class="dropdown-item" href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ freePosting.author.no}">프로필 보기</a>
 														<a class="dropdown-item" th:if="${!#lists.contains(member.friend, freePosting.author) and #authentication.getPrincipal().getUsername() != freePosting.author.memberid}"
 														th:href="@{|/friend/create/${freePosting.author.no}|}" onclick="alert('친구 추가 완료');">친구 추가</a>
 													</div>
@@ -57,6 +61,47 @@
 									<td th:text="${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}"></td>
 									<td th:text="${freePosting.cnt}"></td>
 									<td th:text="${freePosting.ddabong.size()}"></td>
+
+									<!-- 프로필 보기 Modal -->	
+									<div class="modal" th:attr="id='profile'+${freePosting.author.no}">
+																				
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+												
+													<h1 class="modal-title fs-5" id="exampleModalLabel">
+														<span th:text="|${freePosting.author.membernick}님의 프로필|"></span>	
+													</h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body" >
+
+													<div class="d-flex justify-center" >
+														<img class="profileImage" th:src="@{|/img/${freePosting.author.image.storeFilename}|}" th:if="${freePosting.author.image != null}">
+														<img class="profileImage" th:unless="${freePosting.author.image != null}" src="/img/default_profile.png" >
+													</div>
+													<br>								
+													<ul class="list-group" >
+														<li class="list-group-item d-flex justify-content-between align-items-center">mbti
+															<span th:if="${freePosting.author.profile != null}" th:text="${freePosting.author.profile.mbti}"></span>
+															<span th:if="${freePosting.author.profile == null}" th:text="미입력"></span>	
+														</li>
+														<li class="list-group-item d-flex justify-content-between align-items-center">성별
+															<span th:if="${freePosting.author.profile != null}" th:text="${freePosting.author.profile.gender}"></span>
+															<span th:if="${freePosting.author.profile == null}" th:text="미입력"></span>	
+														</li>
+														<li class="list-group-item d-flex justify-content-between align-items-center">자기소개
+															<span th:if="${freePosting.author.profile != null}" th:text="${freePosting.author.profile.content}"></span>
+															<span th:if="${freePosting.author.profile == null}" th:text="미입력"></span>	
+														</li>
+													</ul>
+												</div>															
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</tr>
 								<!--기존 넘버링 코드-->
 								<!--
@@ -72,17 +117,11 @@
 						</table>
 							
 					</div>
+
+
+
 					<!--버튼 영역-->
-					<div>
-						
-					</div>
-					
-					<!--페이징 영역-->
-					<div>
-						
-					</div>
-					<!--버튼 영역-->
-					<div align="right" sec:authorize="isAuthenticated()">
+					<div align="left" sec:authorize="isAuthenticated()">
 						<form method="get" th:action="@{/free/create}">
 							<button type="submit" class="btn btn-primary">글쓰기</button>
 						</form>
@@ -90,16 +129,18 @@
 					
 					<!--검색 영역-->
 					<div style="width:50%;margin:auto;">
-						<div class="input-group mb-3">
-							<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">선택</button>
-							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#">작성자</a></li>
-								<li><a class="dropdown-item" href="#">제목</a></li>
-								<li><a class="dropdown-item" href="#">제목+내용</a></li>
-							</ul>
-							<input type="text" class="form-control" aria-label="Text input with dropdown button">
-							<button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
-						</div>
+						<form method="post" th:action="@{/free/search}">
+							<div class="input-group mb-3">
+								<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">선택</button>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="#">작성자</a></li>
+									<li><a class="dropdown-item" href="#">제목</a></li>
+									<li><a class="dropdown-item" href="#">제목+내용</a></li>
+								</ul>
+								<input type="text" name="keyword" class="form-control" aria-label="Text input with dropdown button">
+								<button class="btn btn-outline-secondary" type="submit" id="button-addon2">검색</button>
+							</div>
+						</form>
 	
 					</div>
 					<!--페이징 작성-->

@@ -52,21 +52,37 @@ public class FreeCommentService {
 	public void create(Integer pno, Member member, String content) {
 		FreePosting freePosting = new FreePosting();
 		Optional<FreePosting> findPosting = freePostingRepository.findById(pno);
-		freePosting = findPosting.get();
 		
-		FreeComment freeComment = new FreeComment();
-		freeComment.setFreePosting(freePosting);
-		freeComment.setAuthor(member);
-		freeComment.setContent(content);
-		freeComment.setMembernick(member.getMembernick());
-		freeComment.setCreateDate(LocalDateTime.now());
-		
-		freeCommentRepository.save(freeComment);
+		if(findPosting.isPresent()) {
+			freePosting = findPosting.get();
+			
+			FreeComment freeComment = new FreeComment();
+			freeComment.setFreePosting(freePosting);
+			freeComment.setAuthor(member);
+			freeComment.setContent(content);
+			freeComment.setMembernick(member.getMembernick());
+			freeComment.setCreateDate(LocalDateTime.now());
+			
+			freeCommentRepository.save(freeComment);
+			
+			freePosting.setTotalComment(freePosting.getTotalComment()+1);
+			freePostingRepository.save(freePosting);
+		}
 		
 	}
 	
-	public void delete(Integer no) {
-		freeCommentRepository.deleteById(no);
+	public void delete(Integer pno, Integer cno) {
+		Optional<FreePosting> _free = freePostingRepository.findById(pno);
+		FreePosting freePosting = new FreePosting();
+
+		freeCommentRepository.deleteById(cno);
+		
+		if(_free.isPresent()) {
+			freePosting = _free.get();
+			freePosting.setTotalComment(freePosting.getTotalComment()-1);
+			freePostingRepository.save(freePosting);
+		}
+		
 	}
 	
 	public void update(FreeComment freeComment, String content) {
