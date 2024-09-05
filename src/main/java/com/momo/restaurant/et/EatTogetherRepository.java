@@ -19,6 +19,7 @@ public interface EatTogetherRepository extends JpaRepository<EatTogether, Intege
 	List<EatTogether> findByRestOrderByDesc(@Param("rest") Restaurant rest);
 	
 	Page<EatTogether> findAll(Specification<EatTogether> spec , Pageable pageable);
+	Page<EatTogether> findAll(Pageable pageable);
 	
 	@Query("select et from EatTogether et where et.applymember=:applymember and et.ettitle like %:ettitle%")
 	Page<EatTogether> findByAuthorAndEttitle(@Param(value="applymember")Member author, @Param(value="ettitle")String ettitle, Pageable pageable);
