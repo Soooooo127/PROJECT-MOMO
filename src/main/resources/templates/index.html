@@ -2,14 +2,13 @@
 <html layout:decorate="~{layout}">
 	<head>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+
 		<title>모두 모이자, 모모!!!</title>
 	</head>
 	<body>
 		<div layout:fragment="content">
 			<div class="indexImage">
 				<div role="banner">
-				
-				
 					<!--검색-->
 					<div class="search ">
 						<div class="search_btn">
@@ -23,81 +22,106 @@
 							</form>	
 					</div>
 				</div>
-				
 			</div>
 
-								
+			
+		
 			
 
-					<!--룰렛-->
+					<!--룰렛
 						
 					<div class="r">	
 					  <canvas width="380" height='380'></canvas>  
 					  <button class="r_b" onclick="rotate()">룰렛 돌리기</button>
-					</div>
+					</div>-->
+			<div>
+				
+				
+				
+			</div>	
+						
 					
-
+				<div class="new_list">	
 					<!--식당사진 리스트-->
 					<div class="list">
-
-
+						<div class="new_box">
+						<Span>new! 새로 오픈했어요~ 
+						</Span>
+						</div>
 						
-						<div class="card border-primary mb-3   c" style="max-width: 25rem;" th:each="rest : ${paging}">
-							<a th:href="@{|/rest/detail/${rest.no}|}">
-										  <h5 class="card-header ">
-											<span th:text="${rest.name}"></span></h5>
-										 
-										 
-								<!--사진-->	<img th:src="${rest.img}" class="img">
-										  <div class="card-body">
-										    <p class="card-text" th:text="${rest.menu}"></p>
-										  </div>
-										 
-										  
-								<!--태그-->	<div class="card-footer text-muted " >
-											<span  class="tag" th:text="${rest.no}">
-										   태그넣는곳	
-										   </span>
-										  </div>
+						<div class="card border-primary mb-3   c1"  th:each="rest : ${paging}">
+							<a th:href="@{|/rest/detail/${rest.no}|}" class="a1">
+								<!--사진-->
+								<div class="c2">
+							<!--	<img th:src="${rest.img}" class="img">-->	
+									<img src="	https://flexible.img.hani.co.kr/flexible/normal/640/427/imgdb/original/2023/0306/20230306502777.jpg" class="img">
+
+								</div>
+									<div class="card-body" >
+										<h5 class="card-title ">
+										<span th:text="${rest.name}"></span></h5>
+										<p class="card-text" th:text="${rest.menu}"></p>
+											
+										<i class="fi fi-sr-heart" style="color: rgb(255, 0, 0);">					
+										</i>찜(3) &nbsp;|&nbsp;
+										<i class="fi fi-sr-peach" style="color: #eb6864;">
+										</i>평점(4.7)
+									 </div>
+							</a>			  
+						</div>
+					</div>
+				</div>
+
+				<div class="new_list">
+					<!-- 같이먹기 방 리스트-->	
+					<div class="list">
+						<div class="new_box">
+						<Span>new! 같이먹기방이 열렸어요~ 
+						</Span>
+						</div>
+						<div class="card border-primary mb-3   c1" th:each="et : ${etpaging}">
+							<a th:href="@{|detail/${et.rest.no}/${et.no}|}" class="a1">
+															 
+									<!--사진-->	
+							<div class="c2">					 
+						<!--	<img th:src="${et.rest.img}" class="img">-->
+								<img src="	https://flexible.img.hani.co.kr/flexible/normal/640/427/imgdb/original/2023/0306/20230306502777.jpg" class="img">
+								
+							</div>	
+								<div class="card-body" >	
+								<h5 class="card-title">
+									<span th:text="${et.ettitle}"></span>
+											
+									<span style="font-size: 13px;" th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">(참여기간 만료)</span>
+								</h5>				
+									<!--태그-->						 
+															  
+									<div  >
+									<h5 th:text="${et.rest.name}"></h5>
+										<ul  class="tag">
+											<li>
+												<span th:text="|모집하는 인원수 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>
+											</li>
+																							
+											<li>
+												<span th:text="|신청일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></span>
+											</li>
+																					
+											<li>
+												<span th:text="|같이먹는날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></span>
+											</li>
+										</ul>
+									</div>
+								</div>
 							</a>			  
 						</div>
 
 					</div>
-					
-					
-								<div id="carouselExampleIndicators" class="carousel slide">
-								  <div class="carousel-indicators">
-								    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-								    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-								    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-								  </div>
-								  <div class="carousel-inner">
-								    <div class="carousel-item active">
-									<img src="/css/images/img_default.png" class="d-block w-20">
-								    </div>
-									<div class="carousel-item">
-									  <img src="/css/images/chatting.png" class="d-block w-20" alt="...">
-									</div>
-									<div class="carousel-item">
-									  <img src="/css/images/img_default.png" class="d-block w-20" alt="...">
-									</div>
-								  </div>
-								  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-								    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								    <span class="visually-hidden">Previous</span>
-								  </button>
-								  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-								    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-								    <span class="visually-hidden">Next</span>
-								  </button>
-								</div>
-								
-								
-					</div>
-					
 				</div>
+				
 					
-			
+		</div>
+
 			
 				<!--검색 js-->
 						<script layout:fragment="script" type='text/javascript'>
