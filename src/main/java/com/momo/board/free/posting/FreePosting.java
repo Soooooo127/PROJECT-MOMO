@@ -54,11 +54,9 @@ public class FreePosting {
 	@ManyToOne
 	private Member author;
 	
-	@ManyToMany
-	private Set<Member> ddabong;
+	private Set<String> ddabong;
 	
-	@ManyToMany
-	private Set<Member> nope;
+	private Set<String> nope;
 
 	@Override
 	public String toString() {

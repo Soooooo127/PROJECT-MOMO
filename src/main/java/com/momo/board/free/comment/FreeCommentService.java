@@ -2,8 +2,10 @@ package com.momo.board.free.comment;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -73,13 +75,38 @@ public class FreeCommentService {
 		freeCommentRepository.save(freeComment);
 	}
 	
-    public void ddabong(FreeComment freeComment, Member member) {
-        freeComment.getDdabong().add(member);
+    public void ddabong(FreeComment freeComment, String memberid) {
+    	
+    	if(freeComment.getDdabong().isEmpty()) {
+    		Set<String> _ddabong = new HashSet<>();
+    		_ddabong.add(memberid);
+    		freeComment.setDdabong(_ddabong);
+    		
+    	} else {
+    		
+    		if(freeComment.getDdabong().contains(memberid)) {
+    			freeComment.getDdabong().remove(memberid);
+    		} else {
+    			freeComment.getDdabong().add(memberid);
+    		}
+    	}
     	freeCommentRepository.save(freeComment);
     }
     
-    public void nope(FreeComment freeComment, Member member) {
-    	freeComment.getNope().add(member);
+    public void nope(FreeComment freeComment, String memberid) {
+    	
+    	if(freeComment.getNope().isEmpty()) {
+    		Set<String> _nope = new HashSet<>();
+    		_nope.add(memberid);
+    		freeComment.setNope(_nope);
+    		
+    	} else {
+    		if(freeComment.getNope().contains(memberid)) {
+    			freeComment.getNope().remove(memberid);
+    		} else {
+    			freeComment.getNope().add(memberid);
+    		}
+    	}
     	freeCommentRepository.save(freeComment);
     }
 

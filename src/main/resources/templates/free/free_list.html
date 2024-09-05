@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		
-		<div layout:fragment="content" class="container">
+		<div layout:fragment="content">
 			<!--전체 영역(width:1280px)-->
 			<div class="frame-c">
 				<!--로고 영역(?)-->
@@ -41,10 +41,6 @@
 											class="badge bg-primary rounded-pill"></span>
 									</td>
 									<td>
-										<!--
-											<span th:if="${freePosting.membernick != null}" th:text="${freePosting.membernick}"></span>
-										-->
-										
 										<ul class="navbar-nav me-auto">
 											<li class="nav-item dropdown">
 												<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
@@ -58,18 +54,6 @@
 												</div>
 											</li>
 										</ul>
-											
-											<!--
-												<a class="dropdown-item"  
-													th:if="${!#lists.contains(member.friend, freePosting.author) and #authentication.getPrincipal().getUsername() != freePosting.author.memberid}"
-													th:href="@{|/friend/create/${freePosting.author.no}|}" onclick="alert('친구 추가 완료');" >친구 추가</a>
-									
-									-->
-										
-										
-										
-										
-									</td>
 									<td th:text="${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}"></td>
 									<td th:text="${freePosting.cnt}"></td>
 									<td th:text="${freePosting.ddabong.size()}"></td>

@@ -37,11 +37,9 @@ public class FreeCommentReply {
 	
 	private LocalDateTime updateDate;
 	
-	@ManyToMany
-	private Set<Member> ddabong;
+	private Set<String> ddabong;
 	
-	@ManyToMany
-	private Set<Member> nope;
+	private Set<String> nope;
 	
 	@ManyToOne
 	private Member author;

@@ -2,8 +2,10 @@ package com.momo.board.free.posting;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -83,20 +85,44 @@ public class FreePostingService {
 		}
 	}
 	
-    public void ddabong(FreePosting freePosting, Member member) {
-        freePosting.getDdabong().add(member);
+    public void ddabong(FreePosting freePosting, String memberid) {
+    	
+    	if(freePosting.getDdabong().isEmpty()) {
+    		Set<String> _ddabong = new HashSet<>();
+    		_ddabong.add(memberid);
+    		freePosting.setDdabong(_ddabong);
+    		
+    	} else {
+    		
+    		if(freePosting.getDdabong().contains(memberid)) {
+    			freePosting.getDdabong().remove(memberid);
+    		} else {
+    			freePosting.getDdabong().add(memberid);
+    		}
+    	}
+    	
     	freePostingRepository.save(freePosting);
     }
     
-    public void nope(FreePosting freePosting, Member member) {
-    	freePosting.getNope().add(member);
+    public void nope(FreePosting freePosting, String memberid) {
+    	
+    	if(freePosting.getNope().isEmpty()) {
+    		Set<String> _nope = new HashSet<>();
+    		_nope.add(memberid);
+    		freePosting.setNope(_nope);
+    		
+    	} else {
+    		if(freePosting.getNope().contains(memberid)) {
+    			freePosting.getNope().remove(memberid);
+    		} else {
+    			freePosting.getNope().add(memberid);
+    		}
+    	}
+    	
     	freePostingRepository.save(freePosting);
     }
-    
-    // 일괄 삭제 메소드 테스트
-    public void deleteAll(Member member) {
-    	freePostingRepository.deleteAllByI;
-    }
+
+
     
     /*
 	public FreePosting updateDdabong(Integer no) {

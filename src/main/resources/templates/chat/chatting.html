@@ -12,11 +12,29 @@
 		<style>
 				#messages {
 					margin: auto;
+					
+					background-color: #f4f4f4;
 					}
 					.left-align {
-						text-align: left;}
+						position: relative;
+						margin: 0px;
+						width: 200px;
+						height: auto;
+						text-align: left;
+						background-color: #e1e1e1;
+						border-radius: 10px;
+						
+					}
 					.right-align {
-					    text-align: right;}
+						position: relative;
+						left: 130px;
+						margin: 0px;
+						width: 200px;
+						height: auto;
+						text-align: right;
+						background-color: rgb(254, 214, 209);
+						border-radius: 10px;
+					}
 
 		
 						img.siz  {
@@ -34,6 +52,10 @@
 						}
 				
 						
+					
+						
+						
+						
 		</style>
 	
 	<title>모모 채팅</title>
@@ -43,10 +65,10 @@
 <body>
 	
 <!-- 전체 div  -->
-	<div class="container my-3" style="width:640px; margin:10px;">
+	<div class="container my-3" style="width:680px; margin:10px; ">
 				<!-- 채팅 목록 div -->
 			<div class="row justify-content-start">
-				<div class="col-2" style="width: 40%; ">
+				<div class="col-2" style="width: 40%;">
 				
 			<!-- (로그인한 닉네임)의 채팅 -->	
 				
@@ -70,7 +92,7 @@
 	
 <!-- 채팅 -->
 	
-	<div class="col-3" style="width: 60%;" >
+	<div class="col-3" style="width: 60%; " >
 		
 		
 							<br>
@@ -78,10 +100,10 @@
 							<h5 style="text-align: center;"><div id="receiverName" ></div></h5>
 							
 							
-			<div id="messageRoom" class="d-none" style=" border: 1px solid #e1e1e1; border-radius: 10px; padding: 0px 10px 0px 10px;" >
+			<div id="messageRoom" class="d-none" style=" border: 1px solid #e1e1e1; border-radius: 10px; padding: 0px 10px 0px 10px; background-color: #f4f4f4;" >
 						<br>
 							<!--------------------------대화 입력하고 보여줌 -------------------------->
-			                <div id="messages" style="height: 350px; overflow-y: auto" ></div>  
+			                <div id="messages" style=" height: 350px; overflow-y: auto " ></div>  
 							<br>
 							
 							<div class="row justify-content-center my-3" >
@@ -100,6 +122,14 @@
 	
 		</div>
 
+
+		</div>
+		
+		
+		
+		
+		
+		
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
@@ -191,6 +221,12 @@
 						messages.appendChild(sendTime);
 						messages.appendChild(empty);
 				
+						//보낸 채팅 디자인요소
+						messageSender.style.borderBottomLeftRadius="0%";
+						messageSender.style.borderBottomRightRadius="0%";
+						messageElement.style.borderRadius="0px";
+						sendTime.style.borderTopLeftRadius="0%";
+						sendTime.style.borderTopRightRadius="0%";
 
 						scrollToBottom(); //스크롤 메소드
 						
