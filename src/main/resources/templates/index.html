@@ -31,14 +31,40 @@
 
 					<!--룰렛-->
 						
-					<div class="r">
+					<div class="r">	
 					  <canvas width="380" height='380'></canvas>  
 					  <button class="r_b" onclick="rotate()">룰렛 돌리기</button>
 					</div>
 					
-					
 
-								<!--슬라이드로 넘ㄱㅣㅅ기
+					<!--식당사진 리스트-->
+					<div class="list">
+
+
+						
+						<div class="card border-primary mb-3   c" style="max-width: 25rem;" th:each="rest : ${paging}">
+							<a th:href="@{|/rest/detail/${rest.no}|}">
+										  <h5 class="card-header ">
+											<span th:text="${rest.name}"></span></h5>
+										 
+										 
+								<!--사진-->	<img th:src="${rest.img}" class="img">
+										  <div class="card-body">
+										    <p class="card-text" th:text="${rest.menu}"></p>
+										  </div>
+										 
+										  
+								<!--태그-->	<div class="card-footer text-muted " >
+											<span  class="tag" th:text="${rest.no}">
+										   태그넣는곳	
+										   </span>
+										  </div>
+							</a>			  
+						</div>
+
+					</div>
+					
+					
 								<div id="carouselExampleIndicators" class="carousel slide">
 								  <div class="carousel-indicators">
 								    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -47,16 +73,14 @@
 								  </div>
 								  <div class="carousel-inner">
 								    <div class="carousel-item active">
-								      <img src="" 
-									  class="d-block w-100" alt="...">
+									<img src="/css/images/img_default.png" class="d-block w-20">
 								    </div>
-								    <div class="carousel-item">
-								      <img src="" class="d-block w-100" alt="...">
-								    </div>
-								    <div class="carousel-item">
-								      <img src="" 
-									  class="d-block w-100" alt="...">
-								    </div>
+									<div class="carousel-item">
+									  <img src="/css/images/chatting.png" class="d-block w-20" alt="...">
+									</div>
+									<div class="carousel-item">
+									  <img src="/css/images/img_default.png" class="d-block w-20" alt="...">
+									</div>
 								  </div>
 								  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 								    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -67,8 +91,8 @@
 								    <span class="visually-hidden">Next</span>
 								  </button>
 								</div>
-								-->
-					
+								
+								
 					</div>
 					
 				</div>
@@ -83,10 +107,11 @@
 						    document.getElementById('kw').value = document.getElementById('search_kw').value;
 						  
 						    document.getElementById('searchForm').submit();
-						});
-
-
+						});//검색
 						
+
+
+						//룰렛
 						const $c = document.querySelector("canvas");
 						const ctx = $c.getContext(`2d`);
 
@@ -133,7 +158,6 @@
 						      ctx.restore();
 						    }
 						}
-
 						const rotate = () => {
 						  $c.style.transform = `initial`;
 						  $c.style.transition = `initial`;
@@ -151,7 +175,6 @@
 						    setTimeout(() => alert(`오늘의 야식은?! ${product[ran]} 어떠신가요?`), 2000);
 						  }, 1);
 						};
-
 						newMake();
 						
 						</script>
