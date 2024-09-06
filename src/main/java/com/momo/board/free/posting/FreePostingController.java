@@ -59,7 +59,7 @@ public class FreePostingController {
 	@GetMapping("/create")
 	public String create(FreePostingForm freePostingForm, Model model) {
 		List<FreePosting> freePostingList = freePostingService.getList();
-		System.out.println(freePostingList.isEmpty());
+		
 		for(int i=0 ; i < freePostingList.size() ; i++ ) {
 			System.out.println(freePostingList.get(i).getSubject());
 		}
@@ -222,6 +222,7 @@ public class FreePostingController {
 	
 	@PostMapping("/search")
 	public List<FreePosting> searchList(@RequestParam(value = "keyword") String keyword) {
+		
 		return null;
 	}
 	

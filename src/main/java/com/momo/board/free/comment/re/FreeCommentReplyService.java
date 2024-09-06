@@ -33,6 +33,8 @@ public class FreeCommentReplyService {
 	
 	public void create(Integer pno, Integer cno, Member member, String content) {
 		FreeComment freeComment = freeCommentRepository.findById(cno).get();
+		Set<String> ddabong = new HashSet<>();
+		Set<String> nope = new HashSet<>();
 		
 		FreeCommentReply freeCommentReply = new FreeCommentReply();
 		freeCommentReply.setContent(content);
@@ -40,6 +42,8 @@ public class FreeCommentReplyService {
 		freeCommentReply.setMembernick(member.getMembernick());
 		freeCommentReply.setCreateDate(LocalDateTime.now());
 		freeCommentReply.setFreeComment(freeComment);
+		freeCommentReply.setDdabong(ddabong);
+		freeCommentReply.setNope(nope);
 		
 		freeCommentReplyRepository.save(freeCommentReply);
 		
@@ -78,7 +82,7 @@ public class FreeCommentReplyService {
     public void ddabong(FreeCommentReply freeCommentReply, String memberid) {
     	
     	if(freeCommentReply.getDdabong().isEmpty()) {
-    		Set<String> _ddabong = new HashSet<>();
+    		Set<String> _ddabong = freeCommentReply.getDdabong();
     		_ddabong.add(memberid);
     		freeCommentReply.setDdabong(_ddabong);
     		
@@ -97,7 +101,7 @@ public class FreeCommentReplyService {
     public void nope(FreeCommentReply freeCommentReply, String memberid) {
     	
     	if(freeCommentReply.getNope().isEmpty()) {
-    		Set<String> _nope = new HashSet<>();
+    		Set<String> _nope = freeCommentReply.getNope();
     		_nope.add(memberid);
     		freeCommentReply.setNope(_nope);
     		

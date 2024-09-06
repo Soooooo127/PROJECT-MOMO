@@ -52,6 +52,8 @@ public class FreeCommentService {
 	public void create(Integer pno, Member member, String content) {
 		FreePosting freePosting = new FreePosting();
 		Optional<FreePosting> findPosting = freePostingRepository.findById(pno);
+		Set<String> ddabong = new HashSet<>();
+		Set<String> nope = new HashSet<>();
 		
 		if(findPosting.isPresent()) {
 			freePosting = findPosting.get();
@@ -62,6 +64,8 @@ public class FreeCommentService {
 			freeComment.setContent(content);
 			freeComment.setMembernick(member.getMembernick());
 			freeComment.setCreateDate(LocalDateTime.now());
+			freeComment.setDdabong(ddabong);
+			freeComment.setNope(nope);
 			
 			freeCommentRepository.save(freeComment);
 			
@@ -94,7 +98,7 @@ public class FreeCommentService {
     public void ddabong(FreeComment freeComment, String memberid) {
     	
     	if(freeComment.getDdabong().isEmpty()) {
-    		Set<String> _ddabong = new HashSet<>();
+    		Set<String> _ddabong = freeComment.getDdabong();
     		_ddabong.add(memberid);
     		freeComment.setDdabong(_ddabong);
     		
@@ -112,7 +116,7 @@ public class FreeCommentService {
     public void nope(FreeComment freeComment, String memberid) {
     	
     	if(freeComment.getNope().isEmpty()) {
-    		Set<String> _nope = new HashSet<>();
+    		Set<String> _nope = freeComment.getNope();
     		_nope.add(memberid);
     		freeComment.setNope(_nope);
     		

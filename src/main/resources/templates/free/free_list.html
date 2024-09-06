@@ -15,7 +15,6 @@
 				<!--로고 영역(?)-->
 				<div>
 
-
 				</div>
 				<!--게시판 전체 영역(width:1100px)-->
 				<div class="frame-b">
@@ -27,9 +26,9 @@
 									<th width="50px">번호</th>
 									<th>제목</th>
 									<th width="200px">작성자</th>
-									<th width="180px">작성일</th>
-									<th width="100px">조회수</th>
-									<th width="100px">추천</th>
+									<th width="180px" th:onclick="|location.href='@{/free/list(order=createDate , kw=${kw})}'|">작성일</th>
+									<th width="100px" th:onclick="|location.href='@{/free/list(order=cnt , kw=${kw})}'|">조회수</th>
+									<th width="100px" th:onclick="|location.href='@{/free/list(order=ddabong , kw=${kw})}'|">추천</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -60,7 +59,7 @@
 										</ul>
 									<td th:text="${#temporals.format(freePosting.createDate, 'yyyy-MM-dd HH:mm')}"></td>
 									<td th:text="${freePosting.cnt}"></td>
-									<td th:text="${freePosting.ddabong.size()}"></td>
+									<td th:text="(${#sets.isEmpty(freePosting.ddabong)} ? 0 : ${freePosting.ddabong.size()})"></td>
 
 									<!-- 프로필 보기 Modal -->	
 									<div class="modal" th:attr="id='profile'+${freePosting.author.no}">
@@ -129,7 +128,7 @@
 					
 					<!--검색 영역-->
 					<div style="width:50%;margin:auto;">
-						<form method="post" th:action="@{/free/search}">
+						<form method="get" th:action="@{/free/list}" id="searchForm">
 							<div class="input-group mb-3">
 								<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">선택</button>
 								<ul class="dropdown-menu">
@@ -137,12 +136,17 @@
 									<li><a class="dropdown-item" href="#">제목</a></li>
 									<li><a class="dropdown-item" href="#">제목+내용</a></li>
 								</ul>
-								<input type="text" name="keyword" class="form-control" aria-label="Text input with dropdown button">
-								<button class="btn btn-outline-secondary" type="submit" id="button-addon2">검색</button>
+								<input type="hidden" id="kw" name="kw" th:value="${kw}">
+								<input type="hidden" id="page" name="page" th:value="${paging.number}">
+								<input type="hidden" id="order" name="order" th:value="${order}">
+								<input type="text" id="search_kw" class="form-control" aria-label="Text input with dropdown button" th:value="${kw}">
+								<button class="btn btn-outline-secondary" type="button" id="btn_search">검색</button>
 							</div>
 						</form>
+					</div>
 	
 					</div>
+
 					<!--페이징 작성-->
 					<div>
 						<div th:if="${!paging.isEmpty()}">
@@ -177,8 +181,20 @@
 		</div>
 		
 	</body>
-	<script layout:fragment="script" type='text/javascript'>
-
+	<script layout:fragment="script" type="text/javascript">
+		const page_elements = document.getElementsByClassName("page-link");
+		Array.from(page_elements).forEach(function(element){
+			element.addEventListener('click' , function(){
+				document.getElementById('page').value = this.dataset.page;
+				document.getElementById('searchForm').submit();
+			});
+		});
+		const btn_search = document.getElementById("btn_search");
+		btn_search.addEventListener('click' , function(){
+			document.getElementById('kw').value = document.getElementById('search_kw').value;
+			document.getElementById('page').value = 0;
+			document.getElementById('searchForm').submit();
+		});
 	</script>
 
 </html>

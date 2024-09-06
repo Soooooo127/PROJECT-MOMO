@@ -131,38 +131,37 @@
 										<th:block sec:authorize="isAnonymous()">
 											<td style="width:50%;border-right:1px solid #e1e1e1;">
 												<i class="fi fi-sr-thumbs-up"></i><br>
-												<span th:text="${freePosting.ddabong.size()}" class="ddabongText"></span>
+												<span th:text="(${#sets.isEmpty(freePosting.ddabong)} ? 0 : ${freePosting.ddabong.size()})" class="ddabongText"></span>
 											</td>
 											<td>
 												<i class="fi fi-sr-thumbs-down"></i><br>
-												<span th:text="${freePosting.nope.size()}" class="ddabongText"></span>
+												<span th:text="(${#sets.isEmpty(freePosting.nope)} ? 0 : ${freePosting.nope.size()})" class="ddabongText"></span>
 											</td>
 										</th:block>
-									
 										<th:block sec:authorize="isAuthenticated()">
 											<td style="width:50%;border-right:1px solid #e1e1e1;" th:if="${#sets.contains(freePosting.ddabong, #authentication.getPrincipal.getUsername())}">
 												<i href="javascript:void(0);" class="ddabong fi fi-sr-thumbs-up text-success"
 												th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
 												</i><br>
-												<span th:text="${freePosting.ddabong.size()}" class="ddabongText"></span>
+												<span th:text="(${#sets.isEmpty(freePosting.ddabong)} ? 0 : ${freePosting.ddabong.size()})" class="ddabongText"></span>
 											</td>
 											<td style="width:50%;border-right:1px solid #e1e1e1;" th:if="${!#sets.contains(freePosting.ddabong, #authentication.getPrincipal.getUsername())}">
 												<i href="javascript:void(0);" class="ddabong fi fi-sr-thumbs-up"
 												th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
 												</i><br>
-												<span th:text="${freePosting.ddabong.size()}" class="ddabongText"></span>
+												<span th:text="(${#sets.isEmpty(freePosting.ddabong)} ? 0 : ${freePosting.ddabong.size()})" class="ddabongText"></span>
 											</td>
 											<td th:if="${#sets.contains(freePosting.nope, #authentication.getPrincipal.getUsername())}">
 												<i href="javascript:void(0);" class="nope fi fi-sr-thumbs-down text-danger"
 												th:data-uri="@{|/free/nope/${freePosting.no}|}">
 												</i><br>
-												<span th:text="${freePosting.nope.size()}" class="ddabongText"></span>
+												<span th:text="(${#sets.isEmpty(freePosting.nope)} ? 0 : ${freePosting.nope.size()})" class="ddabongText"></span>
 											</td>
 											<td th:if="${!#sets.contains(freePosting.nope, #authentication.getPrincipal.getUsername())}">
 												<i href="javascript:void(0);" class="nope fi fi-sr-thumbs-down"
 												th:data-uri="@{|/free/nope/${freePosting.no}|}">
 												</i><br>
-												<span th:text="${freePosting.nope.size()}" class="ddabongText"></span>
+												<span th:text="(${#sets.isEmpty(freePosting.nope)} ? 0 : ${freePosting.nope.size()})" class="ddabongText"></span>
 											</td>
 										</th:block>
 									</tr>
@@ -250,11 +249,11 @@
 														</th:block>
 													</td>
 													<td style="text-align:right;">
-														<th:block sec:authorize="isAnonymous()" th:if="${#authentication.getPrincipal() == null}">
-														 <i class="fi fi-sr-thumbs-up ddabong"></i>
-														 <span th:text="|추천(${freeComment.ddabong.size()})|"></span>
-														 <i class="fi fi-sr-thumbs-down nope"></i>
-														 <span th:text="|비추(${freeComment.nope.size()})|"></span>
+														<th:block sec:authorize="isAnonymous()">
+														 <i class="fi fi-sr-thumbs-up"></i>
+														 <span th:text="|추천 ${freeComment.ddabong.size()}|"></span>
+														 <i class="fi fi-sr-thumbs-down"></i>
+														 <span th:text="|비추 ${freeComment.nope.size()}|"></span>
 														</th:block>
 														<th:block sec:authorize="isAuthenticated()">
 														 <i class="fi fi-sr-thumbs-up text-success ddabong" href="javascript:void(0);"
@@ -263,7 +262,8 @@
 														 <i class="fi fi-sr-thumbs-up ddabong" href="javascript:void(0);"
 														 th:data-uri="@{|/free/comment/ddabong/${freePosting.no}/${freeComment.no}|}"
 														 th:if="${!#sets.contains(freeComment.ddabong, #authentication.getPrincipal.getUsername())}"></i>
-														 <span th:text="|추천(${freeComment.ddabong.size()})|"></span>
+														 <span>추천 </span>
+														 <span th:text="(${#sets.isEmpty(freeComment.ddabong)} ? 0 : ${freeComment.ddabong.size()})"></span>
 														 <a ></a>
 														 <i class="fi fi-sr-thumbs-down text-danger nope" href="javascript:void(0);"
 														 th:data-uri="@{|/free/comment/nope/${freePosting.no}/${freeComment.no}|}"
@@ -271,7 +271,8 @@
 														 <i class="fi fi-sr-thumbs-down nope" href="javascript:void(0);"
 														 th:data-uri="@{|/free/comment/nope/${freePosting.no}/${freeComment.no}|}"
 														 th:if="${!#sets.contains(freeComment.nope, #authentication.getPrincipal.getUsername())}"></i>
-														 <span th:text="|비추(${freeComment.nope.size()})|"></span>
+														 <span>비추 </span>
+														 <span th:text="(${#sets.isEmpty(freeComment.nope)} ? 0 : ${freeComment.nope.size()})"></span>
 														</th:block>
 													</td>
 												</tr>
@@ -386,11 +387,13 @@
 																			</th:block>
 																		</td>
 																		<td style="text-align: right;">
-																			<th:block sec:authorize="isAnonymous()" th:if="${#authentication.getPrincipal() == null}">
-																				<i class="fi fi-sr-thumbs-up ddabong"></i>
-																				<span th:text="|추천(${freeCommentReply.ddabong.size()})|"></span>
-																				<i class="fi fi-sr-thumbs-down nope"></i>
-																				<span th:text="|비추(${freeCommentReply.nope.size()})|"></span>
+																			<th:block sec:authorize="isAnonymous()">
+																				<i class="fi fi-sr-thumbs-up"></i>
+																				<span>추천 </span>
+																				<span th:text="(${#sets.isEmpty(freeCommentReply.ddabong)} ? 0 : ${freeCommentReply.ddabong.size()})"></span>
+																				<i class="fi fi-sr-thumbs-down"></i>
+																				<span>비추 </span>
+																				<span th:text="(${#sets.isEmpty(freeCommentReply.nope)} ? 0 : ${freeCommentReply.nope.size()})"></span>
 																		  </th:block>
 																		  <th:block sec:authorize="isAuthenticated()">
 																				<i class="fi fi-sr-thumbs-up text-success ddabong" href="javascript:void(0);"
@@ -399,7 +402,8 @@
 																				<i class="fi fi-sr-thumbs-up ddabong" href="javascript:void(0);"
 																				th:data-uri="@{|/free/comment/reply/ddabong/${freePosting.no}/${freeCommentReply.no}|}"
 																				th:if="${!#sets.contains(freeCommentReply.ddabong, #authentication.getPrincipal.getUsername())}"></i>
-																				<span th:text="|추천(${freeCommentReply.ddabong.size()})|"></span>
+																				<span>추천 </span>
+																				<span th:text="(${#sets.isEmpty(freeCommentReply.ddabong)} ? 0 : ${freeCommentReply.ddabong.size()})"></span>
 																				<a ></a>
 																				<i class="fi fi-sr-thumbs-down text-danger nope" href="javascript:void(0);"
 																				th:data-uri="@{|/free/comment/reply/nope/${freePosting.no}/${freeCommentReply.no}|}"
@@ -407,7 +411,8 @@
 																				<i class="fi fi-sr-thumbs-down nope" href="javascript:void(0);"
 																				th:data-uri="@{|/free/comment/reply/nope/${freePosting.no}/${freeCommentReply.no}|}"
 																				th:if="${!#sets.contains(freeCommentReply.nope, #authentication.getPrincipal.getUsername())}"></i>
-																				<span th:text="|비추(${freeCommentReply.nope.size()})|"></span>
+																				<span>비추 </span>
+																				<span th:text="(${#sets.isEmpty(freeCommentReply.nope)} ? 0 : ${freeCommentReply.nope.size()})"></span>
 																		  </th:block>
 																		</td>
 																	</tr>

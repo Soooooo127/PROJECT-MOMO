@@ -10,6 +10,7 @@ import org.hibernate.annotations.DynamicInsert;
 import com.momo.board.free.comment.FreeComment;
 import com.momo.member.Member;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -60,13 +61,11 @@ public class FreePosting {
 	
 	@ColumnDefault("0")
 	private int totalComment;
+	
+	@ColumnDefault("0")
+	private int ddabongCnt;
 
-	@Override
-	public String toString() {
-		return "FreePosting [no=" + no + ", subject=" + subject + ", content=" + content + ", membernick=" + membernick
-				+ ", createDate=" + createDate + ", updateDate=" + updateDate + ", cnt=" + cnt + ", ddabong=" + ddabong
-				+ ", nope=" + nope + ", freeCommentList=" + freeCommentList + ", author=" + author + "]";
-	}
+
 
 
 	

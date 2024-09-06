@@ -11,12 +11,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
+import com.momo.board.ask.comment.AskComment;
+import com.momo.board.ask.posting.AskPosting;
 import com.momo.board.free.comment.FreeCommentRepository;
 import com.momo.member.Member;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,12 +38,16 @@ public class FreePostingService {
 	
 	public void create(String subject, Member member, String membernick, String content) {
 		FreePosting freePosting = new FreePosting();
+		Set<String> ddabong = new HashSet<>();
+		Set<String> nope = new HashSet<>();
 		
 		freePosting.setSubject(subject);
 		freePosting.setContent(content);
 		freePosting.setMembernick(membernick);
 		freePosting.setCreateDate(LocalDateTime.now());
 		freePosting.setAuthor(member);
+		freePosting.setDdabong(ddabong);
+		freePosting.setNope(nope);
 		freePostingRepository.save(freePosting);
 		
 	}
@@ -59,15 +72,51 @@ public class FreePostingService {
 		return freePostingList;
 	}
 	
-	//나의 자유게시판 글 목록 페이지형식 + 검색 기능
+	//마이페이지 나의 자유게시판 글 목록 페이지형식 + 검색 기능
     public Page<FreePosting> getMyList(Member member, String subject, int page) {	
 		List<Sort.Order> sort = new ArrayList<>();
 		sort.add(Sort.Order.desc("createDate"));
 		Pageable pageable = PageRequest.of(page, 5, Sort.by(sort));
 		return freePostingRepository.findByAuthorAndSubject(member, subject, pageable);
     }
+    
+    //자유게시판용 글 목록 페이지형식 + 검색 기능
+//    public Page<FreePosting> getList(Member member, String subject, int page) {	
+//		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
+//		//게시물 정렬 조건(최신순 , 조회순 , 추천순)
+//		if(order.equals("createDate")) {
+//			sorts.add(Sort.Order.desc("createDate"));
+//		}else if(order.equals("cnt")) {
+//			sorts.add(Sort.Order.desc("cnt"));
+//		}else if(order.equals("ddabong")) {
+//			sorts.add(Sort.Order.desc("ddabongCnt"));
+//		}
+//		Pageable pageable = PageRequest.of(page ,  10 , Sort.by(sorts));
+//		Specification<AskPosting> spec = search(kw);
+//		return this.askPostingRepository.findAll(spec , pageable);
+//    }
 	
-
+	//검색키워드 서비스구문
+	private Specification<AskPosting> search(String kw){
+		return new Specification<>(){
+			private static final long serialVersionUID = 1L;
+			@Override
+			public Predicate toPredicate(Root<AskPosting> ap , CriteriaQuery<?> query
+					, CriteriaBuilder cb) {
+				query.distinct(true);
+				Join<AskPosting , Member> m1 = ap.join("author" , JoinType.LEFT);
+				Join<AskPosting , AskComment> ac = ap.join("askCommentList" , JoinType.LEFT);
+				Join<AskComment , Member> m2 = ap.join("author" , JoinType.LEFT);
+				
+				return cb.or(cb.like(ap.get("subject"), "%" + kw + "%"),
+							cb.like(ap.get("content"), "%" + kw + "%"),
+							cb.like(m1.get("membernick"), "%" + kw + "%"),
+							cb.like(ac.get("content"), "%" + kw + "%"),
+							cb.like(m2.get("membernick"), "%" + kw + "%"));
+			}
+		};
+	}
+    
 	public FreePosting getPosting(Integer no) {
 		Optional<FreePosting> freePosting = freePostingRepository.findById(no);
 		
@@ -88,7 +137,7 @@ public class FreePostingService {
     public void ddabong(FreePosting freePosting, String memberid) {
     	
     	if(freePosting.getDdabong().isEmpty()) {
-    		Set<String> _ddabong = new HashSet<>();
+    		Set<String> _ddabong = freePosting.getDdabong();
     		_ddabong.add(memberid);
     		freePosting.setDdabong(_ddabong);
     		
@@ -107,7 +156,7 @@ public class FreePostingService {
     public void nope(FreePosting freePosting, String memberid) {
     	
     	if(freePosting.getNope().isEmpty()) {
-    		Set<String> _nope = new HashSet<>();
+    		Set<String> _nope = freePosting.getNope();
     		_nope.add(memberid);
     		freePosting.setNope(_nope);
     		
