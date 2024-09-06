@@ -130,7 +130,6 @@ public class EatTogetherController {
 		model.addAttribute("rest", rest);
 		model.addAttribute("et", et);
 		model.addAttribute("member", member);
-		
 		return "et/et_detail";
 	}
 	
