@@ -14,7 +14,7 @@ public class FaqPostingForm {
 	private String subject;
 	
 	@NotEmpty(message = "내용은 필수입니다")
-	@Size(max=200)
+	@Size(max=5000)
 	private String content;
 	
 	

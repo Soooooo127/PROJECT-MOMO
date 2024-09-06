@@ -8,18 +8,18 @@
 			<div  th:replace="~{form_errors :: formErrorsFragment}"></div>
 	<!-- 제목 -->
 		<div class="form-floating my-3">
-		  <textarea class="form-control" placeholder="Leave a comment here" th:field="*{subject}"></textarea>
+		  <textarea class="form-control"  th:field="*{subject}"></textarea>
 		  <label for="subject">제목</label>
 		</div>
 		
 	<!-- 내용 -->
 		<div class="form-floating my-3">
-			  <textarea class="form-control" placeholder="Leave a comment here" th:field="*{content}" style="height: 300px"></textarea>
+			  <textarea class="form-control"  th:field="*{content}" style="height: 300px"></textarea>
 			  <label for="scontent">내용</label>
 			  </div>
 	
-	<input type="submit" value="글등록" class="btn btn-primary" my-3>
-	
+	<input type="submit" value="글등록" class="btn btn-primary" >
+	<a th:href="@{/notice/list}" class="btn btn-primary">목록</a>
 	</form>
 	
 	
