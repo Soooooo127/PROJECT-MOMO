@@ -77,14 +77,14 @@ body > div{
   background-color: rgb(255, 255, 255);
   color:rgb(0, 0, 0);
   font-weight:bold;
-  
+  border-bottom: solid 1px #e1e1e1;
 }
 
 .nav2nd {
 
-  width: 100%;
+  width: 1280px;
   height:80px;
-  border-bottom: solid 1px #e1e1e1;
+
   display: flex;
   margin: auto;
 
@@ -96,6 +96,7 @@ body > div{
 
 .navSize1 {
   width:1280px;
+
 }
 
 .navSize2 {
@@ -104,22 +105,33 @@ body > div{
   font-size: 1.3rem;
   font-weight: bold;
   text-align: center;
-  overflow: auto;
+  display: flex;
   padding-top: 30px;
-
   position: relative;
+  border: solid #e1e1e1;
 }
 
 
 .navSize2 a, .navSize2 a:hover, .navSize2 a:visited {
   text-decoration-line: none;
+  color: black;
+
 }
 
-.navLogo {
+.navLogo1 {
   width:50%;
   float: left;
 }
+.navLogo2 {
+  width:100px;
 
+}
+.navLogo3{
+	width:100px;
+}
+.logo{
+	width: 100px;
+}
 .navMember {
   width:50%;
   float:right;
