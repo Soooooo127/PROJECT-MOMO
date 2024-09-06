@@ -38,12 +38,15 @@ public class AskCommentController {
 	public String createAskComment(Model model , @PathVariable("no") Integer no , @Valid AskCommentForm askCommentForm
 			, BindingResult bindingResult , Principal principal) {
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
-		Member momoMember = this.momoMemberService.getMember(principal.getName());
+		Member member = this.momoMemberService.getMember(principal.getName());
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("member", member);
 			model.addAttribute("askPosting", askPosting);
 			return "ask/askPosting_detail";
 		}
-		AskComment askComment = this.askCommentService.create(askPosting, askCommentForm.getContent() , momoMember);
+		model.addAttribute("member", member);
+		model.addAttribute("askPosting", askPosting);
+		AskComment askComment = this.askCommentService.create(askPosting, askCommentForm.getContent() , member);
 		return String.format("redirect:/askPosting/detail/%s#askComment_%s", askComment.getAskPosting().getNo() , askComment.getNo());
 	}
 	

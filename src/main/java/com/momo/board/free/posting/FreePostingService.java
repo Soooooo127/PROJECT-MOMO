@@ -15,8 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
-import com.momo.board.ask.comment.AskComment;
-import com.momo.board.ask.posting.AskPosting;
+import com.momo.board.free.comment.FreeComment;
 import com.momo.board.free.comment.FreeCommentRepository;
 import com.momo.member.Member;
 
@@ -81,37 +80,42 @@ public class FreePostingService {
     }
     
     //자유게시판용 글 목록 페이지형식 + 검색 기능
-//    public Page<FreePosting> getList(Member member, String subject, int page) {	
-//		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
-//		//게시물 정렬 조건(최신순 , 조회순 , 추천순)
-//		if(order.equals("createDate")) {
-//			sorts.add(Sort.Order.desc("createDate"));
-//		}else if(order.equals("cnt")) {
-//			sorts.add(Sort.Order.desc("cnt"));
-//		}else if(order.equals("ddabong")) {
-//			sorts.add(Sort.Order.desc("ddabongCnt"));
-//		}
-//		Pageable pageable = PageRequest.of(page ,  10 , Sort.by(sorts));
-//		Specification<AskPosting> spec = search(kw);
-//		return this.askPostingRepository.findAll(spec , pageable);
-//    }
+    public Page<FreePosting> getList(int page , String order , String kw) {	
+    	System.out.println("===검색 Service 메소드 진입===");
+		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
+		//게시물 정렬 조건(최신순 , 조회순 , 추천순)
+		if(order.equals("createDate")) {
+			sorts.add(Sort.Order.desc("createDate"));
+		}else if(order.equals("cnt")) {
+			sorts.add(Sort.Order.desc("cnt"));
+		}else if(order.equals("ddabong")) {
+			sorts.add(Sort.Order.desc("ddabongCnt"));
+		}
+		Pageable pageable = PageRequest.of(page ,  10 , Sort.by(sorts));
+		Specification<FreePosting> spec = search(kw);
+		return this.freePostingRepository.findAll(spec, pageable);
+    }
 	
-	//검색키워드 서비스구문
-	private Specification<AskPosting> search(String kw){
+	//검색 키워드
+    @SuppressWarnings("unused")
+	private Specification<FreePosting> search(String kw){
+    	System.out.println("===키워드 Service 메소드 진입===");
+    	
 		return new Specification<>(){
 			private static final long serialVersionUID = 1L;
+			
 			@Override
-			public Predicate toPredicate(Root<AskPosting> ap , CriteriaQuery<?> query
+			public Predicate toPredicate(Root<FreePosting> fp , CriteriaQuery<?> query
 					, CriteriaBuilder cb) {
 				query.distinct(true);
-				Join<AskPosting , Member> m1 = ap.join("author" , JoinType.LEFT);
-				Join<AskPosting , AskComment> ac = ap.join("askCommentList" , JoinType.LEFT);
-				Join<AskComment , Member> m2 = ap.join("author" , JoinType.LEFT);
+				Join<FreePosting , Member> m1 = fp.join("author" , JoinType.LEFT);
+				Join<FreePosting , FreeComment> fc = fp.join("freeCommentList" , JoinType.LEFT);
+				Join<FreeComment , Member> m2 = fp.join("author" , JoinType.LEFT);
 				
-				return cb.or(cb.like(ap.get("subject"), "%" + kw + "%"),
-							cb.like(ap.get("content"), "%" + kw + "%"),
+				return cb.or(cb.like(fp.get("subject"), "%" + kw + "%"),
+							cb.like(fp.get("content"), "%" + kw + "%"),
 							cb.like(m1.get("membernick"), "%" + kw + "%"),
-							cb.like(ac.get("content"), "%" + kw + "%"),
+							cb.like(fc.get("content"), "%" + kw + "%"),
 							cb.like(m2.get("membernick"), "%" + kw + "%"));
 			}
 		};
@@ -136,18 +140,12 @@ public class FreePostingService {
 	
     public void ddabong(FreePosting freePosting, String memberid) {
     	
-    	if(freePosting.getDdabong().isEmpty()) {
-    		Set<String> _ddabong = freePosting.getDdabong();
-    		_ddabong.add(memberid);
-    		freePosting.setDdabong(_ddabong);
-    		
+    	if(freePosting.getDdabong().contains(memberid)) {
+    		freePosting.getDdabong().remove(memberid);
+    		freePosting.setDdabongCnt(freePosting.getDdabongCnt()-1);
     	} else {
-    		
-    		if(freePosting.getDdabong().contains(memberid)) {
-    			freePosting.getDdabong().remove(memberid);
-    		} else {
-    			freePosting.getDdabong().add(memberid);
-    		}
+    		freePosting.getDdabong().add(memberid);
+    		freePosting.setDdabongCnt(freePosting.getDdabongCnt()+1);
     	}
     	
     	freePostingRepository.save(freePosting);
@@ -155,17 +153,10 @@ public class FreePostingService {
     
     public void nope(FreePosting freePosting, String memberid) {
     	
-    	if(freePosting.getNope().isEmpty()) {
-    		Set<String> _nope = freePosting.getNope();
-    		_nope.add(memberid);
-    		freePosting.setNope(_nope);
-    		
+    	if(freePosting.getNope().contains(memberid)) {
+    		freePosting.getNope().remove(memberid);
     	} else {
-    		if(freePosting.getNope().contains(memberid)) {
-    			freePosting.getNope().remove(memberid);
-    		} else {
-    			freePosting.getNope().add(memberid);
-    		}
+    		freePosting.getNope().add(memberid);
     	}
     	
     	freePostingRepository.save(freePosting);
