@@ -12,7 +12,7 @@
 		<style>
 				#messages {
 					margin: auto;
-					
+					padding: 5px;
 					background-color: #f4f4f4;
 					}
 					.left-align {
@@ -25,19 +25,20 @@
 						border-radius: 10px;
 						padding: 10px;
 						word-wrap: break-word;
-						
+						font-weight: 400;
 					}
 					.right-align {
 						position: relative;
-						left: 130px;
+						left: 120px;
 						margin: 0px;
-						width: 210px;
+						width: 200px;
 						height: auto;
 						text-align: left;
 						background-color: rgb(254, 214, 209);
 						border-radius: 10px;
 						padding: 10px;
 						word-wrap: break-word;
+						font-weight: 400;
 					}
 
 		
@@ -55,11 +56,7 @@
 							text-decoration-line: none;
 						}
 				
-						
-					
-						
-						
-						
+			
 		</style>
 	
 	<title>모모 채팅</title>
@@ -96,7 +93,7 @@
 	
 <!-- 채팅 -->
 	
-	<div class="col-3" style="width: 60%; " >
+	<div class="col-3" style="width: 60%;" >
 		
 		
 							<br>
@@ -107,18 +104,18 @@
 			<div id="messageRoom" class="d-none" style=" border: 1px solid #e1e1e1; border-radius: 10px; padding: 0px 10px 0px 10px; background-color: #f4f4f4;" >
 						<br>
 							<!--------------------------대화 입력하고 보여줌 -------------------------->
-			                <div id="messages" style=" height: 350px; overflow-y: auto " ></div>  
+			                <div id="messages" style=" height: 350px; overflow-y: auto;" ></div>  
 							<br>
 							
 							<div class="row justify-content-center my-3" >
 								<!------------------------메세지 입력창----------------------------->
 								<div class="col-9">
-			                	<input class="form-control" type="text" id="messageInput" > 
+			                	<input style="margin-left: 5%;" class="form-control" type="text" id="messageInput" > 
 							<!--	<input class="form-control" type="text" id="messageInput" placeholder="메세지를 입력하세요" > -->
 								</div>
 								<!----------------------메세지 전송 버튼----------------------------->
 								<div class="col">
-								<button class="btn btn-primary" style="--bs-btn-padding-y: .60rem; --bs-btn-padding-x: .50rem; --bs-btn-font-size: .75rem; " id="EnterKey" onclick="sendMessage()">전송</button>
+								<button class="btn btn-primary " style="margin-left:5%; --bs-btn-padding-y: .60rem; --bs-btn-padding-x: .90rem; --bs-btn-font-size: .75rem; " id="EnterKey" onclick="sendMessage()">전송</button>
 								</div>
 							</div>
 			            </div>
@@ -127,13 +124,7 @@
 		</div>
 
 
-		</div>
-		
-		
-		
-		
-		
-		
+		</div>	
 		</div>
 		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
