@@ -1,27 +1,17 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">	
 	<head>
-		<style>
-			a.faq {
-				text-decoration: none;
-				font-size: 30px;
-			}
-			a.s{
-				text-decoration: none;			
-			}
-			
-		</style>
 	<title>자주 묻는 질문</title>
 	</head>
 	<body>
-	<div layout:fragment="content" class="container ">
+	<div layout:fragment="content" class="container my-3">
 
-	<div>
-	<a class="faq" th:href="@{/faq/list}">FAQ</a>
+
+	<h2 class="faq" >[FAQ] MOMO 서비스의 자주묻는 질문</h2>
 	<hr>
 	
 	
-	<!--카테고리 넣기-->	
+	<!--카테고리 넣기	
 		<div class="d-grid gap-2 d-md-block mb-3">
 			<a class= "btn btn-primary" type="button" th:href="@{/faq/list}">전체</a>
 		 <span  th:each="category : ${faqCategoryList}">
@@ -30,29 +20,29 @@
 		</span>
 		<a th:href="@{/faq/category}" sec:authorize="hasRole('ROLE_ADMIN')">카테고리목록</a>
 		</div>
+		-->
 		
 		
-		
-		
+<div>		
 		<!--FAQ 목록-->
 	<table class="table table-hover">
 		<thead class="table table-primary">
 		    <tr>
-		      <th scope="col">번호</th>
-			  <th scope="col">카테고리</th>
-		      <th scope="col">글제목</th>
-		      <th scope="col">작성자</th>
-		      <th scope="col">작성일</th>
+		      <th width="100px">번호</th>
+<!--			  <th >카테고리</th>-->
+		      <th >제목</th>
+		      <th width="80px">작성자</th>
+		      <th width="100px">작성일</th>
 		    </tr>
 		</thead>
 		<tbody>
 			<tr class="table" th:each="faq , loop : ${paging}" >
 			      
 <!--번호-->		<td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"> </td>	    
-<!--카테고리-->	<td th:text="${faq.faqCategory.category}"> </td>
+<!--카테고리<td th:text="${faq.faqCategory.category}"> </td>-->	
 <!--글제목-->		<td><a class="s" th:href="@{|/faq/detail/${faq.no} |}" th:text="${faq.subject}"></a> </td>
 <!--작성자-->	    <td th:text="${faq.author.membernick}"></td>
-<!--작성일-->	    <td th:text="${#temporals.format(faq.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+<!--작성일-->	    <td th:text="${#temporals.format(faq.createDate, 'yyyy-MM-dd')}"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -60,12 +50,19 @@
 	<!--질문등록 버튼-->
 			<div class="row my-3">
 			    <div class="col-6">
-			        <a th:href="@{/faq/posting}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">질문 등록하기</a>
+			        <a th:href="@{/faq/posting}" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">FAQ 등록</a>
 				</div> 
 			</div>
 
-	
-	
+			<!--검색-->
+			<div class="d-flex justify-content-center my-3">
+					<div class="col-6">
+					       <div class="input-group">
+					           <input type="text" id="search_kw" class="form-control" th:value="${kw}">
+					           <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+					      </div>
+					</div>	
+			</div>
 	
 	<!--페이징-->
 	<div th:if="${!paging.isEmpty()}">
@@ -87,13 +84,7 @@
 	</div>
 	
 	
-	<!--검색-->
-			<div class="col-6">
-			       <div class="input-group">
-			           <input type="text" id="search_kw" class="form-control" th:value="${kw}">
-			           <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
-			      </div>
-			</div>
+
 				<form th:action="@{/faq/list}" method="get" id="searchForm">
 				     <input type="hidden" id="kw" name="kw" th:value="${kw}">
 				     <input type="hidden" id="page" name="page" th:value="${paging.number}">
@@ -120,8 +111,6 @@ btn_search.addEventListener('click', function() {
     document.getElementById('searchForm').submit();
 });
 </script>
-
-
 
 </body>
 </html>

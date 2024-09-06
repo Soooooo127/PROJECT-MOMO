@@ -4,12 +4,12 @@
 	<h2 class="border-bottom py-3" th:text="${noticePosting.subject}"></h2>
 	<!-- 작성시간, 작성자(닉네임) -->
 		<div class="d-flex justify-content-start">
-		<div class="badge bg-light text-dark p-2 text-start">
-		<span th:text="${#temporals.format(noticePosting.createDate,'yyyy-MM-dd')}"></span>
-		<span th:if="${noticePosting.author != null}" th:text="${noticePosting.author.membernick}"></span>	
-	</div>
+			<div class="badge bg-light text-dark p-2 text-start">
+				<span th:text="${#temporals.format(noticePosting.createDate,'yyyy-MM-dd')}"></span>
+				<span th:if="${noticePosting.author != null}" th:text="${noticePosting.author.membernick}"></span>	
+			</div>
 		</div>
-		<!-- 조회수 -->
+		<!-- 조회수
 		<div class="d-flex justify-content-end">
 					<div class="badge bg-light text-dark p-2 text-start">
 					
@@ -17,7 +17,7 @@
 					<span th:text="${noticePosting.cnt}"></span>
 				
 					</div>
-					</div>
+		</div> -->
 		
 	
 	<!-- 공지사항 글 (카드형식)-->
@@ -28,31 +28,24 @@
 			
 			<!-- 조회수 
 					<div class="d-flex justify-content-end">
-									<div class="badge bg-light text-dark p-2 text-start">
-										<span>조회수 </span>
-										<span th:text="${noticePosting.cnt}"></span>
-									</div>
-									</div>
-			
+						<div class="badge bg-light text-dark p-2 text-start">
+							<span>조회수 </span>
+							<span th:text="${noticePosting.cnt}"></span>
+						</div>
+					</div>
 				
 			<div class="d-flex justify-content-end">
 				<div class="badge bg-light text-dark p-2 text-start">
 					<div th:text="${#temporals.format(noticePosting.createDate,'yyyy-MM-dd')}"></div>
 				</div>
-				
 			</div> 
-			
-		
-		
-			
-		
 		<div class="d-flex justify-content-end">
 		<div class="badge bg-light text-dark p-2 text-start">
 		<span th:if="${noticePosting.author != null}" th:text="${noticePosting.author.membernick}"></span>
 		</div>
 		</div>
-		
 		-->
+		
 		
 		
 		
