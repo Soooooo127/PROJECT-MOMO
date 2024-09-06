@@ -54,6 +54,12 @@ public class AskPostingController {
 	@GetMapping("/detail/{no}")
 	public String detailAskPosting(Model model , @PathVariable("no") Integer no , AskCommentForm askCommentForm 
 			, @RequestParam(value = "page" , defaultValue = "0") int page , Principal principal) {
+		if(principal == null) {
+			AskPosting askPosting = this.askPostingService.getAskPosting(no);
+			Page<AskComment> paging = this.askCommentService.askCommentPage(askPosting, page);
+			model.addAttribute("paging", paging);
+			model.addAttribute("askPosting", askPosting);
+		}
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
 		Member member = this.momoMemberService.getMember(principal.getName());
 		Page<AskComment> paging = this.askCommentService.askCommentPage(askPosting, page);
