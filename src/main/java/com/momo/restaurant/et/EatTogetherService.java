@@ -51,6 +51,15 @@ public class EatTogetherService {
 		System.out.println("같이먹기 등록 데이터입력완료");
 	}
 	
+	public Page<EatTogether> getListAll(int page , String kw){
+		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
+		sorts.add(Sort.Order.desc("regdate"));
+		Pageable pageable = PageRequest.of(page, 3 , Sort.by(sorts));
+		Specification<EatTogether> spec = search(kw);
+		
+		return this.etRepository.findAll(spec , pageable);
+	}
+	
 	//같이먹기 전체 리스트 등록날짜의 내림차순으로 출력하기
 	public Page<EatTogether> getListAll(int page , String option , String kw){
 		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
