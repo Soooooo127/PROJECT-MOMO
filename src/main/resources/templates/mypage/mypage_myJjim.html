@@ -1,6 +1,6 @@
 <html layout:decorate="~{layout_mypage}">
 	<head>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/jjimList.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/myJjimList.css}">
 		<title>맛집검색하자</title>	
 	</head>
 	<body>
@@ -16,30 +16,37 @@
 				<!--콘텐츠 세부 영역-->
 					<div class="frame-dvd">
 						<!--본문 전체-->
-							<h5>내 찜 목록</h5>
-								<div class="list">
-									<div class="card border-primary mb-3   c" style="max-width: 50rem;" th:each="jjim : ${paging}">
-										<a th:href="@{|/rest/detail/${jjim.rest.no}|}">
-										  <h6 class="card-header ">
-											<span th:text="${jjim.rest.name}"></span></h6>
-								            <!--사진-->	
-											<img th:src="${jjim.rest.img}" class="img">
-											<li class="list-group-item ms-3">
-											  <span th:text="|${jjim.rest.category} / |"></span>
-											  <span th:text="|평점 : ${jjim.rest.avgStar}|"></span>
-											</li>			  
-											<!--태그-->	
-										<div class="card-footer text-muted " >
-											<span class="tag" th:if="${jjim.rest.etList != null}" th:text="|같이먹기 방 : ${#lists.size(jjim.rest.etList)}|"></span>
-											<span class="tag" th:unless="${jjim.rest.etList != null}" th:text="같이먹기 방 : 0"></span> 
-										</div>
-										  </a>			  
-									</div>
+							<span style="font-size: 20px; font-weight: bold;">내 찜</span>
+							<!--찜한 가게가 없을 때-->
+							<div th:if="${paging.isEmpty()}" class="card my-4" style="height:200px; background-color: gainsboro;" >
+								<strong style="margin:auto">현재 찜한 가게가 없습니다. 가게를 찜 해주세요.</strong>
+							</div>
+							<!--찜한 가게가 있을 때-->
+							<div th:unless="${paging.isEmpty()}" class="new_list">	
+								<!--식당사진 리스트-->
+								<div class="list mx-3">			
+									<div class="card mb-5  c1"  th:each="rest : ${paging}">
+										<a th:href="@{|/rest/detail/${rest.rest.no}|}" class="a1">
+											<!--사진-->
+											<div class="c2">
+												<img src="	https://flexible.img.hani.co.kr/flexible/normal/640/427/imgdb/original/2023/0306/20230306502777.jpg" class="img">
 
-								</div>						  	
-							
+											</div>
+												<div class="card-body" >								
+													<strong><span th:text="${rest.rest.name}"></span></strong>											
+													<span class="card-text" th:text="${rest.rest.menu}"></span><br>
+													<i class="fi fi-sr-heart" style="color: rgb(255, 0, 0);">					
+													</i>찜(3) &nbsp;|&nbsp;
+													<i class="fi fi-sr-peach" style="color: #eb6864;">
+													</i><span th:text="${rest.rest.avgStar}"></span>
+													<p th:text="| ${rest.rest.category} / 같이 먹기 방 : ${rest.rest.progresset} |"></p>
+												 </div>
+										</a>			  
+									</div>
+								</div>
+							</div>					  								
 							<!-- 페이징처리 시작 -->
-							 <div th:if="${!paging.isEmpty()}">
+							 <div style="margin-right:30px" th:if="${!paging.isEmpty()}">
 							     <ul class="pagination justify-content-center">
 							         <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
 							             <a class="page-link"

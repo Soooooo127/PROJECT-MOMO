@@ -1,5 +1,10 @@
 <html layout:decorate="~{layout_mypage}">
-<div layout:fragment="mypageContent">
+	    <head>
+			<link rel="stylesheet" type="text/css" th:href="@{/css/myEtList.css}">
+			<title>맛집검색하자</title>	
+		</head>
+		<body>
+			<div layout:fragment="mypageContent">
 	
 	<!--전체 영역-->
 		<div>
@@ -12,34 +17,40 @@
 				<!--콘텐츠 세부 영역-->
 					<div class="frame-dvd">
 						<!--본문 전체-->
-						<div>
-							<h5>내 같이 먹기</h5>
+				       <span style="font-size: 20px; font-weight: bold;">내 같이먹기</span>
+						<!--찜한 가게가 없을 때-->
+						<div th:if="${myET.isEmpty()}" class="card my-4" style="height:200px; background-color: gainsboro;" >
+							<strong style="margin:auto">현재 참여중인 방이 없습니다. 같이 먹기를 신청해 보세요.</strong>
+						</div>
+						<!--찜한 가게가 있을 때-->
+						<div th:unless="${myET.isEmpty()}" class="new_list">
 							<form th:action="@{/mypage/myET}" method="get" id="searchForm">
 								<input type="hidden" id="ettitle" name="ettitle" th:value="${ettitle}">
 								<input type="hidden" id="page" name="page" th:value="${myET.number}">
-							</form>
-							<div th:each="et : ${myET}">
-								<div class="card w-75 mb-3">
-					                <div class="card-body">
-						                <a th:href=@{|/et/detail/${et.rest.no}/${et.no}|} th:text="${et.ettitle}"></a>
-						                <p class="card-text" th:text="${et.rest.name}"></p>
-						                <ul>
-					                      <li>
-								            <a th:text="|모집하는 인원수 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></a>
-							              </li>
-							              <li>
-								            <a th:text="|신청일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></a>
-							              </li>
-							              <li>
-								            <a th:text="|같이먹는날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></a>
-							              </li>		
-						                 </ul>
-					              </div>
-			                   </div>
+							</form>	
+							<!--식당사진 리스트-->
+							<div class="list mx-3">			
+								<div class="card mb-2 c1"  th:each="et : ${myET}">
+									<a th:href="@{|/et/detail/${et.rest.no}/${et.no}|}" class="a1">	
+									<div class="c2">					 
+										<img src="https://flexible.img.hani.co.kr/flexible/normal/640/427/imgdb/original/2023/0306/20230306502777.jpg" class="img">								
+									</div>	
+										<div class="card-body" >	
+										<h5 class="card-title">
+											<span th:text="${et.ettitle}"></span>	
+											<span style="font-size: 13px;" th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">(참여기간 만료)</span>
+										</h5>										 
+											<span th:text="${et.rest.name}"></span><br>
+											<span th:text="|모집 인원 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>	<br>										
+											<span th:text="|신청일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></span><br>																						
+											<span th:text="|같이먹는날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></span>			
+										</div>
+									</a> 
+								</div>
+							</div>
 						</div>
-						
 						<!--같이먹기 검색-->
-						<div class="my-3" align="right">
+						<div align="right">
 						   <form th:action="@{/mypage/myET}" method="get">
 							 <input type="text" id="search_ettitle" th:value="${ettitle}">
 							 <button type="button" id="btn_search_ettitle" class="btn btn-outline-secondary">검색</button>
@@ -84,6 +95,6 @@
 	  	  document.getElementById('page').value = 0;
 	  	  document.getElementById('searchForm').submit();
 	  	});
-	  </script>
-</div>	
+	  </script>	
+</body>
 </html>

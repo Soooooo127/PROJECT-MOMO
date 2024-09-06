@@ -16,20 +16,20 @@
 	<button type = "submit">출석하기</button>
 </form>
 
-<h4>댓글 목록</h4>
+<h4 class="my-3">댓글 목록</h4>
 			<hr>
 			<!--댓글 목록-->
 			<div th:each="comment, loop : ${paging}">
 				<span th:text="${comment.content}"></span>
 				<span th:text="${comment.membernick}"></span>
 				<span th:text="${#temporals.format(comment.createDate, 'HH:mm:ss')}"></span>
-				<span th:if="${loop.count == 1}"> 1위 </span>
-				<span th:if="${loop.count == 2}"> 2위 </span>
-				<span th:if="${loop.count == 3}"> 3위 </span>
+				<span th:if="${loop.count == 1}"><img style="width:3%" src="https://cdn-icons-png.flaticon.com/128/11010/11010230.png"></span>
+				<span th:if="${loop.count == 2}"><img style="width:3%" src="https://cdn-icons-png.flaticon.com/128/11010/11010233.png"></span>
+				<span th:if="${loop.count == 3}"><img style="width:3%" src="https://cdn-icons-png.flaticon.com/128/11010/11010236.png"></span>
 				<a sec:authorize="hasRole('ROLE_ADMIN')" th:href = "@{|/attendComment/delete/${comment.attendCommentId}|}">댓글 삭제</a>
-					
-				<hr>
+			    <hr>
 			</div>
+
 
 <div th:if="${!paging.isEmpty()}">
 	<ul class="pagination justify-content-center">
