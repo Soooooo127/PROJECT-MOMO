@@ -59,6 +59,7 @@ public class AskPostingController {
 			Page<AskComment> paging = this.askCommentService.askCommentPage(askPosting, page);
 			model.addAttribute("paging", paging);
 			model.addAttribute("askPosting", askPosting);
+			return "ask/askPosting_detail";
 		}
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
 		Member member = this.momoMemberService.getMember(principal.getName());
