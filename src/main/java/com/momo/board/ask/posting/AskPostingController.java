@@ -53,11 +53,12 @@ public class AskPostingController {
 	//질문게시글 상세보기 + 내부 답변댓글 페이지화
 	@GetMapping("/detail/{no}")
 	public String detailAskPosting(Model model , @PathVariable("no") Integer no , AskCommentForm askCommentForm 
-			, @RequestParam(value = "page" , defaultValue = "0") int page) {
+			, @RequestParam(value = "page" , defaultValue = "0") int page , Principal principal) {
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
+		Member member = this.momoMemberService.getMember(principal.getName());
 		Page<AskComment> paging = this.askCommentService.askCommentPage(askPosting, page);
 		model.addAttribute("paging", paging);
-		
+		model.addAttribute("member", member);
 		model.addAttribute("askPosting", askPosting);
 		return "ask/askPosting_detail";
 	}

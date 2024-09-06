@@ -44,6 +44,8 @@ public class AskCommentController {
 			model.addAttribute("askPosting", askPosting);
 			return "ask/askPosting_detail";
 		}
+		model.addAttribute("member", member);
+		model.addAttribute("askPosting", askPosting);
 		AskComment askComment = this.askCommentService.create(askPosting, askCommentForm.getContent() , member);
 		return String.format("redirect:/askPosting/detail/%s#askComment_%s", askComment.getAskPosting().getNo() , askComment.getNo());
 	}
