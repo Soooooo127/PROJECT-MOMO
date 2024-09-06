@@ -40,11 +40,11 @@ body{
 /*
 body > div{
 	height: calc(100% - 335px);
-}*/
+}
 
 .container{
 	height: calc(100% - 335px);
-}
+}*/
 
 .navFrame {
   width:100%;
@@ -148,17 +148,14 @@ a:link, a:visited {
   text-decoration-line: none;
 }
 
-#wrapper{
-	height: auto;
-	min-height: 100%;
-	padding-bottom: 200px;
+#wrap{
+	min-height: calc(100vh - 15rem); /* footer 높이를 빼준다. */
+	
 }
-
 footer{
-
-	height: 200px;
-	width: 100%;
-	background-color:#f4f4f4;
+	height: 15rem; /* footer 높이 */
+	background: #f4f4f4;
+	
 }
 
 #btn-back-to-top {
@@ -178,4 +175,21 @@ footer{
 
 #btn-back-to-top:hover {
   background-color: #333;
+}
+
+.fa{
+	width: 1280px;
+	margin:auto;
+	display: flex}
+
+.f1{
+	width:280px;
+	text-align: center;
+	background-color:  #e1e1e1;
+}
+
+.f2{
+	width: 1000px;
+	margin-top: 30px;
+	margin-left: 30px;
 }
