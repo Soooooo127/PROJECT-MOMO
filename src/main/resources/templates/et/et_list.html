@@ -16,8 +16,16 @@
 			
 			
 			
-		<div class="col-6 my-3">
-			<div class="input-group justify-content-end">
+		<div style="width:50%;margin: auto;">
+			<div class="input-group my-5">
+				
+				<select class="form-select" id="search_option">
+					<option selected value="">검색조건</option>
+					<option value="ettitle">제목</option>
+					<option value="name">가게이름</option>
+					<option value="prefmbti">성격유형</option>
+					<option value="prefgender">선호성별</option>
+				</select>
 				<input type="text" id="search_kw" class="form-control" th:value="${kw}">
 				<button class="btn btn-outline-secondary" type="button" id="btn_search">검색</button>
 			</div>
@@ -25,6 +33,7 @@
 		<form th:action="@{/et/list}" method="get" id="searchForm">
 			<input type="hidden" id="kw" name="kw" th:value="${kw}">
 			<input type="hidden" id="page" name="page" th:value="${paging.number}">
+			<input type="hidden" id="option" name="option" th:value="${option}">
 		</form>
 		
 		
@@ -113,6 +122,7 @@
 			const btn_search = document.getElementById("btn_search");
 			btn_search.addEventListener('click' , function(){
 				document.getElementById('kw').value = document.getElementById('search_kw').value;
+				document.getElementById('option').value = document.getElementById('search_option').value;
 				document.getElementById('page').value = 0;
 				document.getElementById('searchForm').submit();
 			});

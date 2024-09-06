@@ -44,10 +44,12 @@ public class EatTogetherController {
 	
 	@GetMapping("/list")
 	public String listET(Model model , @RequestParam(value="page" , defaultValue = "0") int page
+			,@RequestParam(value="option" , defaultValue="") String option
 			,@RequestParam(value="kw" , defaultValue = "") String kw) {
 		System.out.println("페이지 : " + page);
-		Page<EatTogether> paging = this.etService.getListAll(page , kw);
+		Page<EatTogether> paging = this.etService.getListAll(page , option , kw);
 		model.addAttribute("paging", paging);
+		model.addAttribute("option", option);
 		model.addAttribute("kw", kw);
 		System.out.println("검색키워드 : " + kw);
 		
@@ -130,7 +132,6 @@ public class EatTogetherController {
 		model.addAttribute("rest", rest);
 		model.addAttribute("et", et);
 		model.addAttribute("member", member);
-		
 		return "et/et_detail";
 	}
 	
