@@ -45,7 +45,6 @@ public class FreeCommentController {
 	public String create(Model model, @PathVariable("pno") Integer pno, @Valid FreeCommentForm freeCommentForm,
 			BindingResult bindingResult, Principal principal) {
 		
-		System.out.println("댓글쓰기 진입");
 		FreePosting freePosting = freePostingService.getPosting(pno);
 		
 		if (bindingResult.hasErrors()) {
