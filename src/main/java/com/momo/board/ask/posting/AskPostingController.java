@@ -20,6 +20,7 @@ import com.momo.board.ask.comment.AskCommentForm;
 import com.momo.board.ask.comment.AskCommentService;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
+import com.momo.member.profile.ProfileService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,8 @@ public class AskPostingController {
 	private final AskPostingService askPostingService;
 	private final MemberService momoMemberService;
 	private final AskCommentService askCommentService;
+	private final ProfileService profileService;
+	
 	//질문게시글 목록 + 검색목록 페이지로 띄우기
 	@GetMapping("/list")
 	public String listAskPosting(Model model , @RequestParam(value = "page" , defaultValue = "0") int page
@@ -141,6 +144,7 @@ public class AskPostingController {
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askPostingService.voteDdabong(askPosting, momoMember);
+		this.profileService.plusBrix(askPosting.getAuthor());
 		return String.format("redirect:/askPosting/detail/%s", no);
 	}
 	
@@ -151,6 +155,7 @@ public class AskPostingController {
 		AskPosting askPosting = this.askPostingService.getAskPosting(no);
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askPostingService.voteNope(askPosting, momoMember);
+		this.profileService.minusBrix(askPosting.getAuthor());
 		return String.format("redirect:/askPosting/detail/%s", no);
 	}
 	

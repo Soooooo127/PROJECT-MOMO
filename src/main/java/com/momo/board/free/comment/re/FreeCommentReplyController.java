@@ -15,6 +15,7 @@ import com.momo.board.free.comment.FreeCommentForm;
 import com.momo.board.free.posting.FreePosting;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
+import com.momo.member.profile.ProfileService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class FreeCommentReplyController {
 
 	private final FreeCommentReplyService freeCommentReplyService;
 	private final MemberService memberService;
+	private final ProfileService profileService;
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{pno}/{cno}")
@@ -81,6 +83,7 @@ public class FreeCommentReplyController {
         FreeCommentReply freeCommentReply = freeCommentReplyService.getCommentReply(rno);
         String _memberid = principal.getName();
         freeCommentReplyService.ddabong(freeCommentReply, _memberid);
+        profileService.plusBrix(freeCommentReply.getAuthor());
         return "redirect:/free/detail/{pno}";
     }
     
@@ -90,6 +93,7 @@ public class FreeCommentReplyController {
     	FreeCommentReply freeCommentReply = freeCommentReplyService.getCommentReply(rno);
     	String _memberid = principal.getName();
     	freeCommentReplyService.nope(freeCommentReply, _memberid);
+    	profileService.minusBrix(freeCommentReply.getAuthor());
     	return "redirect:/free/detail/{pno}";
     }
 	

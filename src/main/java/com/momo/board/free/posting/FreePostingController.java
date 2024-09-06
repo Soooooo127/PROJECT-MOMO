@@ -18,6 +18,7 @@ import com.momo.board.free.comment.FreeComment;
 import com.momo.board.free.comment.FreeCommentForm;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
+import com.momo.member.profile.ProfileService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class FreePostingController {
 	
 	private final FreePostingService freePostingService;
 	private final MemberService memberService;
+	private final ProfileService profileService;
 	
 	@GetMapping("/list")
 	public String getList(Model model, @RequestParam(value = "page", defaultValue = "0") int page
@@ -127,6 +129,7 @@ public class FreePostingController {
         FreePosting freePosting = freePostingService.getPosting(pno);
         String _memberid = principal.getName();
         freePostingService.ddabong(freePosting, _memberid);
+        profileService.plusBrix(freePosting.getAuthor());
         return "redirect:/free/detail/{pno}";
     }
     
@@ -136,6 +139,7 @@ public class FreePostingController {
     	FreePosting freePosting = freePostingService.getPosting(pno);
     	String _memberid = principal.getName();
     	freePostingService.nope(freePosting, _memberid);
+    	profileService.minusBrix(freePosting.getAuthor());
     	return "redirect:/free/detail/{pno}";
     }
     

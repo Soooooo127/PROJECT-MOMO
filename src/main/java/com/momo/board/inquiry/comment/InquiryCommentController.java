@@ -32,14 +32,14 @@ public class InquiryCommentController {
 	@PostMapping("/create/{no}")
 	public String createComment(Model model, @PathVariable("no") Integer no, 
 			     @Valid InquiryCommentForm inquiryCommentForm, BindingResult bindingResult, Principal principal) {
-		InquiryPosting inquiryPosting = this.inquiryPostingService.getInquiryPosting(no);
+		InquiryPosting posting = this.inquiryPostingService.getInquiryPosting(no);
 		Member member = this.memberService.getMember(principal.getName());
 		
 		if(bindingResult.hasErrors()) {
-		   model.addAttribute("inquiryPosting", inquiryPosting);
+		   model.addAttribute("posting", posting);
 		   return "/inquiry/inquiryPosting_detail";	
 		}
-		this.inquiryCommentService.create(inquiryPosting, inquiryCommentForm.getContent(), member.getMembernick(), member);
+		this.inquiryCommentService.create(posting, inquiryCommentForm.getContent(), member.getMembernick(), member);
 		return String.format("redirect:/inquiryPosting/detail/%s", no);
 	}
 	

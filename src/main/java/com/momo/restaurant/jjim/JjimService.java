@@ -80,7 +80,7 @@ public class JjimService {
 	public Page<Jjim> getMyJjimList(Member member, int page) {
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("no"));
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+		Pageable pageable = PageRequest.of(page, 6, Sort.by(sorts));
 		return this.jjimRepository.findByMember(member, pageable);
 		
 	}
