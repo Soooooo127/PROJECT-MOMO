@@ -37,6 +37,12 @@ public class AskPostingController {
 	public String listAskPosting(Model model , @RequestParam(value = "page" , defaultValue = "0") int page
 			,@RequestParam(required = false , value = "order" , defaultValue = "createDate") String order
 			, @RequestParam(value = "kw" , defaultValue = "") String kw, Principal principal) {
+		if(principal == null) {
+			Page<AskPosting> paging = this.askPostingService.getList(page , order , kw);
+			model.addAttribute("paging", paging);
+			model.addAttribute("kw" , kw);
+			return "ask/askPosting_list";
+		}
 		Page<AskPosting> paging = this.askPostingService.getList(page , order , kw);
 		Member member = momoMemberService.getMember(principal.getName());
 		model.addAttribute("paging", paging);
