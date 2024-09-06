@@ -43,7 +43,7 @@ public class RestService {
 	
 	public Page<Restaurant> getList( int page){	
 		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
-		sorts.add(Sort.Order.asc("name"));
+		sorts.add(Sort.Order.desc("no"));
 		Pageable pageable = PageRequest.of(page ,  3 , Sort.by(sorts));
 		return this.restRepository.findAll(pageable);
 	} 
@@ -70,7 +70,7 @@ public class RestService {
 	public List<Restaurant>getList(String kw){
 		Specification<Restaurant> spec = search(kw);
 		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
-		sorts.add(Sort.Order.asc("name"));
+		sorts.add(Sort.Order.desc("no"));
 		return this.restRepository.findAll(spec);
 		
 	}	
