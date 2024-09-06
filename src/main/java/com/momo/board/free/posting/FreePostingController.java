@@ -27,15 +27,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FreePostingController {
 	
-	// 아싸라비야콜롬비야 짝짝짝~~!!! (20240809 16:50 수정)
-
 	private final FreePostingService freePostingService;
 	private final MemberService memberService;
 	
 	@GetMapping("/list")
-	public String getList(Model model, @RequestParam(value = "page", defaultValue = "0") int page, Principal principal) {
-		Page<FreePosting> paging = freePostingService.getList(page);
+	public String getList(Model model, @RequestParam(value = "page", defaultValue = "0") int page
+			, @RequestParam(required = false , value = "order" , defaultValue = "createDate") String order
+			, @RequestParam(value = "kw" , defaultValue = "") String kw, Principal principal) {
+		Page<FreePosting> paging = freePostingService.getList(page, order, kw);
 		model.addAttribute("paging", paging);
+		model.addAttribute("kw", kw);
 		
 		if(principal != null) {
 			Member member = memberService.getMember(principal.getName());
@@ -120,17 +121,6 @@ public class FreePostingController {
 		return "free/free_detail"; 
 	}
 	
-	/*구따봉
-	@GetMapping("/ddabong/{pno}")
-	public String ddabong(Model model, @PathVariable("pno") Integer pno, FreeCommentForm freeCommentForm) {
-		FreePosting freePosting = freePostingService.updateDdabong(pno);
-		
-		model.addAttribute("freePosting", freePosting);
-		System.out.println(freePosting.toString());		
-		return "free/free_detail"; 
-	}
-	*/
-	
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/ddabong/{pno}")
     public String ddabong(Principal principal, @PathVariable("pno") Integer pno) {
@@ -184,73 +174,25 @@ public class FreePostingController {
     			System.out.println("모든 연산이 완료되었습니다.");
     		}
     		
-    		
     	}
     }
     
-    /*
-	@GetMapping("/nope/{pno}")
-	public String nope(Model model, @PathVariable("pno") Integer pno, FreeCommentForm freeCommentForm) {
-		FreePosting freePosting = freePostingService.updateNope(pno);
-		
-		model.addAttribute("freePosting", freePosting);
-		System.out.println(freePosting.toString());		
-		return "free/free_detail"; 
-	}
-	*/
-
-	
-	
-	
-	/*
-	@GetMapping("/update/{pno}")
-	public String update(Model model, @RequestParam(value = "subject") String subject, 
-			@RequestParam(value = "content") String content) {
-		
-		
-		
-		return null;
-		
-	}
-	*/
-	
+    // 따봉 개수 입력을 위한 임시 메소드(추후에는 필요 없음)
+    @GetMapping("/totalDdabong")
+    public void calTotalDdabong() {
+    	List<FreePosting> _list = freePostingService.getList();
+    	
+    	for(int i=0 ; i < _list.size() ; i++) {
+    		FreePosting _freePosting = _list.get(i);
+    		_freePosting.setDdabongCnt(_freePosting.getDdabong().size());
+    		freePostingService.update(_freePosting);
+    	}
+    }
+    
 	@GetMapping("/delete/{pno}")
 	public String delete(@PathVariable("pno") Integer pno) {
 		freePostingService.delete(pno);
 		return "redirect:/free/list";
 	}
 	
-	@PostMapping("/search")
-	public List<FreePosting> searchList(@RequestParam(value = "keyword") String keyword) {
-		
-		return null;
-	}
-	
-	//찜 테스트를 위한 임시 메소드
-	@GetMapping("/nope/1")
-	public String jjimTest() {
-		System.out.println("테스트 메소드에 들어왔습니다.");
-		FreePosting freePosting = freePostingService.getPosting(1);
-		int nope = freePosting.getCnt();
-		nope++;
-		freePosting.setCnt(nope);
-		freePostingService.update(freePosting);
-		
-		return "redirect:/rest/";
-		
-	}
-	
-	//찜 테스트를 위한 임시 메소드2
-	@GetMapping("/nope/2")
-	public String jjimTest2() {
-		System.out.println("테스트 메소드에 들어왔습니다.");
-		FreePosting freePosting = freePostingService.getPosting(1);
-		int nope = freePosting.getCnt();
-		nope--;
-		freePosting.setCnt(nope);
-		freePostingService.update(freePosting);
-		
-		return "redirect:/rest/";
-		
-	}
 }

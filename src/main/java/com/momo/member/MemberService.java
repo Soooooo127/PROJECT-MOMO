@@ -1,14 +1,13 @@
 package com.momo.member;
 
 import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.momo.DataNotFoundException;
-import com.momo.auth.OAuth2Member;
 import com.momo.board.free.posting.FreePostingRepository;
 import com.momo.image.Image;
 import com.momo.member.profile.Profile;
@@ -112,6 +111,7 @@ public class MemberService {
 	
 	// 회원 탈퇴 메소드
 	public void deleteMember(Member member) {
+
 		member.setMemberid(null);
 		member.setMembernick(null);
 		member.setMembername(null);
@@ -131,7 +131,6 @@ public class MemberService {
 			_profile.setContent(null);
 			member.setProfile(_profile);
 		}
-		
 		memberRepository.save(member);
 	}
 	

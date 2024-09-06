@@ -164,11 +164,7 @@ public class MemberController {
 	@PostMapping("/modifyMember")
 	public String modifyMember(@RequestParam(value = "memberid") String memberid, @RequestParam(value = "membernick") String membernick
 			, @RequestParam(value = "email") String email, Member member, Model model) {
-		System.out.println("=================회원정보 수정 메뉴 진입============");
-		System.out.println("memberid : " + memberid);
-		System.out.println("membernick : " + membernick);
-		System.out.println("email : " + email);
-		
+
 		member = memberService.getMember(memberid);
 		member.setMembernick(membernick);
 		member.setEmail(email);
@@ -198,12 +194,6 @@ public class MemberController {
 	public String modifySocial(@RequestParam(value = "memberid") String memberid, @RequestParam(value = "membername") String membername
 			, @RequestParam(value = "membernick") String membernick, @RequestParam(value = "modifyPw3") String password
 			, @RequestParam(value = "mail") String email, Principal principal, Model model) {
-		System.out.println("=========소셜 회원의 회원정보 첫 수정 메소드 진입==========");
-		System.out.println("email : " + email);
-		System.out.println("memberid : " + memberid);
-		System.out.println("nick : " + membernick);
-		System.out.println("name : " + membername);
-		
 		
 		Member member = memberService.getMemberByEmail(email);
 		
@@ -261,31 +251,15 @@ public class MemberController {
 		boolean pwCheckResult = false;
 		
 		if(principal.getName().equals(memberid)) {
-			System.out.println("아이디가 같습니다.");
 			pwCheckResult = memberService.checkPassword(_member, password);
 			
 			if(pwCheckResult) {
-				System.out.println("비밀번호가 같습니다.");
-				
 				if(mail.equals(_member.getEmail())) {
-					System.out.println("========모든 정보가 일치합니다=========");
-					
 					memberService.deleteMember(_member);
-					
 					return "redirect:/member/logout";
-
-				} else {
-					System.out.println("메일주소가 다릅니다");
-					
-				}
-			} else {
-				System.out.println("비밀번호가 같지 않습니다.");
-				
-			}
-		} else {
-			System.out.println("아이디가 같지 않습니다.");
-			
-		}
+				} 
+			} 
+		} 
 		
 		return "redirect:/member/drop";
 	}

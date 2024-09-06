@@ -39,9 +39,9 @@
 											<img class="authorImageB" th:unless="${freePosting.author.image != null}" src="/img/default_profile.png" >
 										</div>
 										<div class="frame-dl postingAuthorInfo">
-											<span th:text="${freePosting.author.membernick}"></span>
-											<th:block sec:authorize="isAuthenticated()">
-												<span class="badge bg-secondary" 
+											<span th:text="${freePosting.membernick}"></span>
+											<th:block sec:authorize="isAuthenticated()" th:if="${freePosting.author.memberid != null}">
+												<span class="badge bg-dark" 
 												th:if="${freePosting.author.memberid != null and #authentication.getPrincipal().getUsername() == freePosting.author.memberid}">나</span>
 												<a href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ freePosting.author.no}">
 												<span class="badge bg-dark" 
@@ -52,6 +52,9 @@
 												</span>
 												<span class="badge bg-success deleteFriend" th:if="${#lists.contains(member.friend, freePosting.author)}"
 												th:data-uri="@{|/friend/delete/${freePosting.author.no}|}">내친구</span>
+											</th:block>
+											<th:block th:if="${freePosting.author.memberid == null}">
+												<span class="badge bg-secondary">탈퇴한 회원</span>
 											</th:block>
 											<br>
 											<span class="postingRankingInfo" th:text="|조회수(${freePosting.cnt})|"></span>
@@ -235,8 +238,8 @@
 													</td>
 													<td style="width:40%;text-align:left;" class="commentNickW">
 														<span th:text="${freeComment.membernick}"></span>
-														<th:block sec:authorize="isAuthenticated()">
-															<span class="badge bg-secondary" 
+														<th:block sec:authorize="isAuthenticated()" th:if="${freeComment.author.memberid != null}">
+															<span class="badge bg-dark" 
 															th:if="${freeComment.author.memberid != null and #authentication.getPrincipal().getUsername() == freeComment.author.memberid}">나</span>
 															<a href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ freeComment.author.no}">
 															<span class="badge bg-dark"
@@ -246,6 +249,9 @@
 															th:data-uri="@{|/friend/create/${freeComment.author.no}|}">친구 추가</span>
 															<span class="badge bg-success deleteFriend" th:if="${#lists.contains(member.friend, freeComment.author)}"
 															th:data-uri="@{|/friend/delete/${freeComment.author.no}|}">내친구</span>
+														</th:block>
+														<th:block th:if="${freeComment.author.memberid == null}">
+															<span class="badge bg-secondary">탈퇴한 회원</span>
 														</th:block>
 													</td>
 													<td style="text-align:right;">
@@ -314,7 +320,7 @@
 																		</div>
 																		<!--댓글 작성 버튼 영역-->
 																		<div class="right">
-																			<button type="submit" class="btn btn-light btn-sm">댓글등록</button>
+																			<button type="submit" class="btn btn-secondary btn-sm">댓글 쓰기</button>
 																		</div>
 																	</form>
 																</div>
@@ -373,8 +379,8 @@
 																		</td>
 																		<td style="width:40%;text-align: left;" class="commentNickW">
 																			<span th:text="${freeCommentReply.membernick}"></span>
-																			<th:block sec:authorize="isAuthenticated()">
-																				<span class="badge bg-secondary" 
+																			<th:block sec:authorize="isAuthenticated()" th:if="${freeCommentReply.author.memberid != null}">
+																				<span class="badge bg-dark" 
 																				th:if="${freeCommentReply.author.memberid != null and #authentication.getPrincipal().getUsername() == freeCommentReply.author.memberid}">나</span>
 																				<a href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ freeCommentReply.author.no}">
 																				<span class="badge bg-dark" 
@@ -384,6 +390,9 @@
 																				th:data-uri="@{|/friend/create/${freeCommentReply.author.no}|}">친구 추가</span>
 																				<span class="badge bg-success deleteFriend" th:if="${#lists.contains(member.friend, freeCommentReply.author)}"
 																				th:data-uri="@{|/friend/delete/${freeCommentReply.author.no}|}">내친구</span>
+																			</th:block>
+																			<th:block th:if="${freeCommentReply.author.memberid == null}">
+																				<span class="badge bg-secondary">탈퇴한 회원</span>
 																			</th:block>
 																		</td>
 																		<td style="text-align: right;">
@@ -460,7 +469,7 @@
 									</div>
 									<!--댓글 작성 버튼 영역-->
 									<div class="right">
-										<button type="submit" class="btn btn-light btn-sm">댓글등록</button>
+										<button type="submit" class="btn btn-secondary btn-sm">댓글 쓰기</button>
 									</div>
 								</form>
 							</div>

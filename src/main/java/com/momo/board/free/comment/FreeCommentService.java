@@ -97,36 +97,23 @@ public class FreeCommentService {
 	
     public void ddabong(FreeComment freeComment, String memberid) {
     	
-    	if(freeComment.getDdabong().isEmpty()) {
-    		Set<String> _ddabong = freeComment.getDdabong();
-    		_ddabong.add(memberid);
-    		freeComment.setDdabong(_ddabong);
-    		
-    	} else {
-    		
-    		if(freeComment.getDdabong().contains(memberid)) {
+  		if(freeComment.getDdabong().contains(memberid)) {
     			freeComment.getDdabong().remove(memberid);
-    		} else {
-    			freeComment.getDdabong().add(memberid);
-    		}
-    	}
+		} else {
+			freeComment.getDdabong().add(memberid);
+		}
+
     	freeCommentRepository.save(freeComment);
     }
     
     public void nope(FreeComment freeComment, String memberid) {
     	
-    	if(freeComment.getNope().isEmpty()) {
-    		Set<String> _nope = freeComment.getNope();
-    		_nope.add(memberid);
-    		freeComment.setNope(_nope);
-    		
-    	} else {
-    		if(freeComment.getNope().contains(memberid)) {
-    			freeComment.getNope().remove(memberid);
-    		} else {
-    			freeComment.getNope().add(memberid);
-    		}
-    	}
+		if(freeComment.getNope().contains(memberid)) {
+			freeComment.getNope().remove(memberid);
+		} else {
+			freeComment.getNope().add(memberid);
+		}
+		
     	freeCommentRepository.save(freeComment);
     }
 

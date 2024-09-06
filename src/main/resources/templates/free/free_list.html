@@ -48,11 +48,16 @@
 											<li class="nav-item dropdown">
 												<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
 												th:if="${freePosting.membernick != null}" th:text="${freePosting.membernick}"></a>
-												<div sec:authorize="isAuthenticated()">
+												<div sec:authorize="isAuthenticated()" th:if="${freePosting.author.memberid != null}">
 													<div class="dropdown-menu" th:if="${#authentication.getPrincipal().getUsername != freePosting.author.memberid}">
 														<a class="dropdown-item" href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ freePosting.author.no}">프로필 보기</a>
 														<a class="dropdown-item" th:if="${!#lists.contains(member.friend, freePosting.author) and #authentication.getPrincipal().getUsername() != freePosting.author.memberid}"
 														th:href="@{|/friend/create/${freePosting.author.no}|}" onclick="alert('친구 추가 완료');">친구 추가</a>
+													</div>
+												</div>
+												<div sec:authorize="isAuthenticated()" th:if="${freePosting.author.memberid == null}">
+													<div class="dropdown-menu">
+														<span class="dropdown-item">탈퇴한 회원입니다</span>
 													</div>
 												</div>
 											</li>
@@ -128,26 +133,35 @@
 					
 					<!--검색 영역-->
 					<div style="width:50%;margin:auto;">
-						<form method="get" th:action="@{/free/list}" id="searchForm">
-							<div class="input-group mb-3">
-								<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">선택</button>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">작성자</a></li>
-									<li><a class="dropdown-item" href="#">제목</a></li>
-									<li><a class="dropdown-item" href="#">제목+내용</a></li>
-								</ul>
-								<input type="hidden" id="kw" name="kw" th:value="${kw}">
-								<input type="hidden" id="page" name="page" th:value="${paging.number}">
-								<input type="hidden" id="order" name="order" th:value="${order}">
-								<input type="text" id="search_kw" class="form-control" aria-label="Text input with dropdown button" th:value="${kw}">
-								<button class="btn btn-outline-secondary" type="button" id="btn_search">검색</button>
-							</div>
-						</form>
+						<div class="input-group mb-3">
+							<input type="text" id="search_kw" class="form-control" th:value="${kw}">
+							<button class="btn btn-outline-secondary" type="button" id="btn_search">검색</button>
+						</div>
 					</div>
 	
-					</div>
 
 					<!--페이징 작성-->
+					<div th:if="${!paging.isEmpty()}">
+						<ul class="pagination justify-content-center">
+							<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+								<a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">
+									<span>&laquo;</span>
+								</a>
+							</li>
+							<li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+								th:if="${page >= paging.number-5 and page <= paging.number+5}"
+								th:classappend="${page == paging.number} ? 'active'" class="page-item">
+								<a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
+							</li>
+							<li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+								<a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">
+									<span>&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<!--이전 페이징 코드
 					<div>
 						<div th:if="${!paging.isEmpty()}">
 							<ul class="pagination justify-content-center">
@@ -165,16 +179,16 @@
 							</ul>
 						</div>
 					</div>
-
-
-
-
+				-->
 				</div>
 
-			</div>
+				<!--검색용 폼 영역-->
+				<form th:action="@{/free/list}" method="get" id="searchForm">
+					<input type="hidden" id="kw" name="kw" th:value="${kw}">
+					<input type="hidden" id="page" name="page" th:value="${paging.number}">
+					<input type="hidden" id="order" name="order" th:value="${order}">
+				</form>
 
-
-			<div>
 			</div>
 
 		<!--전체 영역 종료-->		
