@@ -36,6 +36,7 @@
 			<!--콘텐츠 세부 영역-->
 				<div class="frame-dvd">
 					<!--본문 전체-->
+					<span style="font-size: 20px; font-weight: bold;">내 자유게시판</span>
 					<div>
 						<form th:action="@{/mypage/myPosting}" method="get" id="searchForm">
 							<input type="hidden" id="freeSubject" name="freeSubject" th:value="${freeSubject}">
@@ -43,9 +44,13 @@
 							<input type="hidden" id="askSubject" name="askSubject" th:value="${askSubject}">
 						    <input type="hidden" id="pg" name="pg" th:value="${myAskPosting.number}">
 					 	</form>
+						<!--글 목록(자유게시판)이 없을시-->
+						<div th:if="${myFreePosting.isEmpty()}" class="card my-4" style="height:200px; background-color: gainsboro;" >
+							<strong style="margin:auto">현재 자유게시판에 작성된 글이 없습니다. 글을 작성해 보세요.</strong>
+						</div>
 						<!--글 목록(자유게시판)-->
+						<div th:unless="${myFreePosting.isEmpty()}">
 						 <table class="table table-hover">
-							<h5>내 자유게시판</h5>
 								<thead>
 									<tr class="table-primary">
 									  <th>제목</th>
@@ -100,10 +105,16 @@
 									  </li>
 								    </ul>
 								 </div>
-								 <hr>
-				    <!--글 목록(질문%답변)-->
+							 </div>
+						 <hr>
+				    
+					<span style="font-size: 20px; font-weight: bold;">내 질문&답변</span>
+					<div th:if="${myAskPosting.isEmpty()}" class="card my-2" style="height:200px; background-color: gainsboro;" >
+						<strong style="margin:auto">현재 질문&답변에 작성된 글이 없습니다. 글을 작성해 보세요.</strong>
+					</div>
+					<!--글 목록(질문%답변)-->
+					<div th:unless="${myAskPosting.isEmpty()}">
 					<table class="table table-hover">
-						<h5>내 질문&답변</h5>
 						<thead>
 							<tr class="table-primary">
 								<th>제목</th>
@@ -162,7 +173,7 @@
 					 </div>
 				  </div>
 			    </div> 
-		    
+		    </div>
 	  <script layout:fragment="script" type="text/javascript">
 	  	const page_elements = document.getElementsByName("y");
 	  	Array.from(page_elements).forEach(function(element){

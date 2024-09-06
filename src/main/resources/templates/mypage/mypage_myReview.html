@@ -1,29 +1,11 @@
 <html layout:decorate="~{layout_mypage}">
-<div layout:fragment="mypageContent">
-		
-	<style>
-		th.bg{ 
-			background-color: #fbe1e0;
-			width:20%;
-		}
-		    
-		.noline {
-			text-decoration-line: none;
-			color: black;
-		}
-		
-		td {
-				max-width: 0;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-			   }
-			   td.column_a {width: 60%;}
-			   td.column_b {width: 20%;}
-			   td.column_c {width: 10%;}
-			   td.column_d {width: 10%;}
-
-	</style>
+	<head>
+			<link rel="stylesheet" type="text/css" th:href="@{/css/myReview.css}">
+		<title>맛집검색하자</title>
+		<meta charset="UTF-8">
+	</head>
+   <body>
+   <div layout:fragment="mypageContent">
 	<!--전체 영역-->
 	<div>
 		<!--콘텐츠 영역-->
@@ -35,38 +17,51 @@
 			<!--콘텐츠 세부 영역-->
 				<div class="frame-dvd">
 					<!--본문 전체-->
-					<div>
+					<span style="font-size: 20px; font-weight: bold;">내 리뷰</span>
+					<div th:if="${myReview.isEmpty()}" class="card my-4" style="height:200px; background-color: gainsboro;" >
+						<strong style="margin:auto">현재 작성된 리뷰가 없습니다. 리뷰를 작성해주세요.</strong>
+					</div>
+					<div th:unless="${myReview.isEmpty()}">
 						<form th:action="@{/mypage/myReview}" method="get" id="searchForm">
 							<input type="hidden" id="content" name="content" th:value="${content}">
 							<input type="hidden" id="page" name="page" th:value="${myReview.number}">
 					 	</form>
-				    <!--리뷰 목록-->
-					<table class="table table-hover">
-						<h5>내 리뷰</h5>
-						<thead>
-							<tr class="table-primary">
-								<th>내용</th>
-								<th>작성일</th>
-								<th>추천</th>
-								<th>비추천</th>
-							</tr>
-						</thead>
-						<tbody>
-							<div>
-							   <tr class="table" th:each="review :${myReview}">
-									<td class="column_a">
-								    <a class="noline" th:href="@{|/rest/detail/${review.rest.no}|}" th:text="${review.content}"></a>
-									</td>
-								    <td class="column_b" th:if="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(review.createDate, 'yyyy.MM.dd')}" 
-								     th:text="${#temporals.format(review.createDate, 'HH:mm')}"></td>
-									<td class="column_b" th:unless="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(review.createDate, 'yyyy.MM.dd')}" 
-								     th:text="${#temporals.format(review.createDate, 'yyyy.MM.dd')}"></td>	
-									 <td class="column_c" th:text="${#lists.size(review.ddabong)}"></td>
-									 <td class="column_d" th:text="${#lists.size(review.nope)}"></td>
-								</tr>
-							</div>
-						</tbody>
-					</table>			
+						<div class="review card my-3" style="height:180px" th:each="review : ${myReview}">
+							<th:block th:field="${review}">
+							<div class="re_list ">
+								<table class="table re_table" >
+								  <thead>
+									<tr>
+										<th>
+											<a th:href=@{|/et/detail/${review.rest.no}/${review.no}|} th:text="${review.rest.name}"></a>
+										</th>
+									</tr>
+								    <tr>
+										<th><span th:text="${review.membernick}" ></span> &nbsp;&nbsp; 
+											<i class="fi fi-sr-peach"></i>
+											<span th:text="| ${review.star} 점|" style="color:primary; font-size: small;"> </span></th>
+								     	<th></th>
+								    </tr>
+								  </thead>
+								  <tbody >
+									<tr>
+										<td><span style="overflow-wrap:anywhere;" th:text=" ${review.content}" ></span></td>
+								      	<td style="width: 150px;"> <span th:text="|${#temporals.format(review.createDate, 'yyyy-MM-dd')}|" ></span></td>
+									</tr>
+									<tr >   
+										<!--따봉-->
+									   	<td class="re_ddabong" style="font-size: 10px; text-decoration-color: none; ">	
+                                             <i class="fi fi-sr-thumbs-up"></i>
+											   좋아요
+											<span  th:text="${#lists.size(review.ddabong)}">
+											</span>
+										</td>
+									</tr>
+									</tbody>
+									</table>
+							</div><!--re_dvd-->
+							</th:block><!--리뷰리스트-->	
+						</div>						    		
 					<!--리뷰 검색-->
 					<div class="my-3" align="right">
 						<form th:action="@{/mypage/myReview}" method="get">
@@ -115,4 +110,5 @@
 	  	});
 	  </script>
 </div>	
+</body>
 </html>

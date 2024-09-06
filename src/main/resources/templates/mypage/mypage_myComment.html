@@ -42,9 +42,14 @@
 							<input type="hidden" id="askContent" name="askContent" th:value="${askContent}">
 						    <input type="hidden" id="pg" name="pg" th:value="${myAskComment.number}">
 					 	</form>
+						<!--댓글 미작성시-->
+						<span style="font-size: 20px; font-weight: bold;">내 자유게시판 댓글</span>
+						<div th:if="${myFreeComment.isEmpty()}" class="card my-2" style="height:200px; background-color: gainsboro;" >
+							<strong style="margin:auto">현재 자유게시판에 작성된 댓글이 없습니다. 댓글을 작성해 보세요.</strong>
+						</div>
 						<!--댓글 목록(자유게시판)-->
-						 <table class="table table-hover">
-							<h5>내 자유게시판 댓글</h5>
+						<div th:unless="${myFreeComment.isEmpty()}">
+						 <table  class="table table-hover">
 								<thead>
 									<tr class="table-primary">
 									  <th>내용</th>
@@ -69,14 +74,14 @@
 								 </div>
 								</tbody>
 								</table>			
-							    <!--자유게시판 댓글 검색-->
+							    <!--자유게시판 검색-->
 								  <div class="my-3" align="right">
 									 <form th:action="@{/mypage/myComment}" method="get">
 										<input type="text" id="search_freeContent" th:value="${freeContent}">
 										<button type="button" id="btn_search_freeContent" class="btn btn-outline-secondary">검색</button>
 									 </form>	
 								  </div>
-								<!--자유게시판 댓글 페이징-->
+								<!--자유게시판 페이징-->
 								  <div th:if="${!myFreeComment.isEmpty()}" >
 									<ul class="pagination pagination-sm justify-content-center">
 									  <li class="page-item" th:classappend="${!myFreeComment.hasPrevious} ? 'disabled'">
@@ -96,10 +101,18 @@
 									  </li>
 								    </ul>
 								 </div>
-								 <hr>
-				    <!--댓글 목록(질문%답변)-->
-					<table class="table table-hover">
-						<h5>내 질문&답변 댓글</h5>
+								 
+						</div>
+				   <hr>
+					
+					<span style="font-size: 20px; font-weight: bold;">내 질문&답변 댓글</span>
+					<!--댓글 미작성시-->
+					<div th:if="${myAskComment.isEmpty()}" class="card my-2" style="height:200px; background-color: gainsboro;" >
+						<strong style="margin:auto">현재 질문&답변에 작성된 댓글이 없습니다. 댓글을 작성해 보세요.</strong>
+					</div>
+					 <!--글 목록(질문%답변)-->
+					 <div th:unless="${myAskComment.isEmpty()}">
+					<table  class="table table-hover">					
 						<thead>
 							<tr class="table-primary">
 								<th>내용</th>
@@ -124,14 +137,14 @@
 							</div>
 						</tbody>
 					</table>			
-					<!--질문%답변 댓글 검색-->
+					<!--질문%답변 검색-->
 					<div class="my-3" align="right">
 						<form th:action="@{/mypage/myComment}" method="get">
 							<input type="text" id="search_askContent" th:value="${askContent}">
 							<button type="button" id="btn_search_askContent" class="btn btn-outline-secondary">검색</button>
 						</form>	
 					</div>
-					<!--질문%답변 댓글  페이징-->
+					<!--질문%답변  페이징-->
 					 <div th:if="${!myAskComment.isEmpty()}">
 						<ul class="pagination pagination-sm justify-content-center">
 							<li class="page-item" th:classappend="${!myAskComment.hasPrevious} ? 'disabled'">
@@ -155,7 +168,7 @@
 					 </div>
 				  </div>
 			    </div> 
-		    
+		    </div>
 	  <script layout:fragment="script" type="text/javascript">
 	  	const page_elements = document.getElementsByName("y");
 	  	Array.from(page_elements).forEach(function(element){
