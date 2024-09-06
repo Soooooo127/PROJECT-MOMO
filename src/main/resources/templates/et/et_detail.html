@@ -18,27 +18,26 @@
 					
 				}
 				
-
-			
 				.etd{
 					
 					/*border: 1px solid black;*/
 					width: 600px;
-					height: 500px;
+					height: 500px;					
 					justify-content: center;
-								
-					
+					padding: 5px;
 				}
 				
 				.pic { /*사진*/
 						width: 400px;
 						padding: 5px;
-						
-
 					}
 					.img{
 						width: 380px;
 
+				}
+				.etfont{
+					color: rgb(47,52,56);
+					font-weight: 500;
 				}
 				
 				
@@ -52,25 +51,44 @@
 	
 		
 		
-		<div class="card" style="width: 1100px; height: 600px; margin: auto;" >
-		  <div class="card-body" style="display: flex; border: 1px solid #e1e1e1;justify-content: center;" >
+		<div class="card" style="width: 1100px; height: 650px; margin: auto; background-color: #f4f4f4; border: none;" >
+		  <div class="card-body" style="display: flex; justify-content: center;" >
 			<div class="etd">
 				
-				<div style="margin-bottom: 20px;">
-					<span style="font-size: 40px;"   th:text="|${et.ettitle}|"></span><br>
-					<span style="font-size: 20px;"  th:text="|방장 : ${et.applymember.membernick}|" ></span>
+				<div style="margin-bottom: 5px; padding: 20px; ">
+					<span style="font-size: 40px; font-weight: bold;"   th:text="|${et.ettitle}|"></span><br>
+					<span style="font-size: 20px; font-weight: bold;"  th:text="|방장 : ${et.applymember.membernick}|" ></span>
 						</div>
 
-				<div style="margin-bottom: 20px;">
-					<span th:text="|가게명 : ${rest.name}|"></span><br>
-					<span th:text="|등록일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></span><br>
-					<span th:text="|모두 모이는 날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></span><br>
-					<span th:text="|모집하는 인원 수 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>
+				<div style="margin-bottom: 5px; padding: 20px;">
+					<ul  class="tag" style="font-weight: 600;">
+							<li>
+									<span th:text="|가게명 : ${rest.name}|"></span>
+							</li>
+																			
+							<li>
+									<span th:text="|등록일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></span>
+							</li>
+																	
+							<li>
+									<span th:text="|모두 모이는 날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></span>
+							</li>
+							<li>
+									<span th:text="|모집하는 인원 수 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>
+							</li>
+					</ul>
+					
+					
+					
+					
+					
+					
+					
 				</div>
 				
 				<!-- 가게사진 테스트 (효정언니 수정해주세용 S2) -->
 					
-					<div class="pic" style="border: 1px solid violet;">
+					<div class="pic" >
 						<img src="	https://flexible.img.hani.co.kr/flexible/normal/640/427/imgdb/original/2023/0306/20230306502777.jpg" class="img">
 					</div>
 				
@@ -83,7 +101,7 @@
 				<div>
 				<p style="font-size: 20px; font-weight: bold;" th:text="|함께 모모하는 사람들|"></p>
 								
-								<div class="card mb-2"  style="border: 2px solid #e1e1e1;">
+								<div class="card mb-2"  style="border: 2px solid #e1e1e1; padding: 20px;">
 									<!--<th:block th:each="member : ${et.prtmember}">
 										<div  th:text="${member.membernick}"></div>
 										
@@ -242,7 +260,7 @@
 		
 		  <br>
 	  		<!-- 이 가게의 다른 같이 먹기 목록 -->
-			<div class="justify-content-center" style="width: 1100px; margin: auto; ">
+			<div class="justify-content-center" style="width: 1100px; margin: auto;">
 			
 				
 			<div style="padding-bottom: 10px;"  th:each="etother : ${rest.etList}" th:if="${etother.no != et.no}">
@@ -250,7 +268,7 @@
 					<div class="card-body" >			
 							<div >
 								<a style="font-weight: bolder; font-size: large;"  th:href="@{|${etother.no}|}" th:text="${etother.ettitle}"></a>
-								<div th:text="|등록일 : ${#temporals.format(etother.regdate , 'yyyy-MM-dd')}|"></div>
+								<div class="etfont" th:text="|등록일 : ${#temporals.format(etother.regdate , 'yyyy-MM-dd')}|"></div>
 								<div th:text="|모두 모이는 날 : ${#temporals.format(etother.etdate, 'yyyy-MM-dd HH:mm')}|"></div>
 								<div th:text="|모집하는 인원 수 : ${#lists.size(etother.prtmember)}/${etother.prtnumber}|"></div>
 							</div>										
