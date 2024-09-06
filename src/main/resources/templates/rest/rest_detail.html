@@ -35,9 +35,8 @@
 					
 					<!--가게사진-->
 					<div class="pic" >
-						<img src="	https://flexible.img.hani.co.kr/flexible/normal/640/427/imgdb/original/2023/0306/20230306502777.jpg" class="img">
-
-					<!--<img th:src="${rest.img}" class="img" >-->
+					
+					<img th:src="${rest.img}" class="img" >
 					</div>
 					
 					<!--가게정보-->
@@ -82,7 +81,7 @@
 							<div class="etc">
 								<div class="etc_total">
 									<div class="jjim" >
-											<!--찜하기<i class="fi fi-br-circle-heart"></i>-->
+											<!--찜하기-->
 											<form method="post" th:action="@{|/rest/jjim/${no}|}">
 											<button th:if="${jjim == null }" type="submit" class="btn " 
 											style="font-size:20px; color:#eb6864; --bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .87rem;"  
@@ -92,7 +91,7 @@
 											<span  th:text="${#lists.size(j)}"></span>	
 											</button>									  									
 											</form>
-											<!--찜취소 <i class="fi fi-sr-circle-heart"></i>-->							
+											<!--찜취소-->							
 											<form method="post" th:action="@{|/rest/nojjim/${no}|}">
 											<button th:unless="${jjim == null }" type="submit" class="btn "  
 											style="font-size:20px; color:#eb6864; --bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .87rem;" 

@@ -107,6 +107,20 @@ border: none;
 	margin: 15px;
 	
 }
+
+.c_name{
+	font-weight: bold;
+	font-size: 20px;
+	
+}
+
+.restbtn{
+	text-align: center;
+	border:solid #eb6864;	
+	border-radius: 10px;
+	width: 350px;
+}
+
 a.a1{
 	text-decoration: none;
 	color: black;
@@ -126,3 +140,5 @@ a.a1{
 	border-top-right-radius: 10px;
 	border-top-left-radius: 10px;
 }
+
+

@@ -41,9 +41,8 @@
 						<a th:href="@{|/rest/detail/${rest.no}|}" class="a1">
 							<!--사진-->
 							<div class="c2">
-						<!--	<img th:src="${rest.img}" class="img">-->	
-								<img src="	https://flexible.img.hani.co.kr/flexible/normal/640/427/imgdb/original/2023/0306/20230306502777.jpg" class="img">
-
+							<img th:src="${rest.img}" class="img">	
+								
 							</div>
 								<div class="card-body" >
 									<h5 class="card-title ">
@@ -51,7 +50,7 @@
 									<p class="card-text" th:text="${rest.menu}"></p>
 										
 									<i class="fi fi-sr-heart" style="color: rgb(255, 0, 0);">					
-									</i>찜(3) &nbsp;|&nbsp;
+									</i>찜(3)	&nbsp;|&nbsp;
 									<i class="fi fi-sr-peach" style="color: #eb6864;">
 									</i>평점(4.7)
 								 </div>
@@ -87,7 +86,24 @@
 		</div>
 		
 		
+		<div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+		  <div class="d-flex">
+		    <div class="toast-body">
+		      Hello, world! This is a toast message.
+		    </div>
+		    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+		  </div>
 		</div>
+
+		<!--룰렛
+			
+		<div class="r">	
+		  <canvas width="380" height='380'></canvas>  
+		  <button class="r_b" onclick="rotate()">룰렛 돌리기</button>
+		</div>-->
+		
+		
+	</div>
 		
 		<!--검색 js-->
 		<script layout:fragment="script" type='text/javascript'>

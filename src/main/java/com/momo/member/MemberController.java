@@ -52,6 +52,8 @@ public class MemberController {
 		model.addAttribute("paging", paging); 
 		Page<EatTogether> etpaging = this.etService.getListAll(page , kw);
 		model.addAttribute("etpaging", etpaging);
+		
+		
 
 		return "index";
 	}
