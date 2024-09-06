@@ -69,29 +69,25 @@ public class RestController {
 		
 		
 		Restaurant rest = this.restService.getRestaurant(no);
-		
-		
+		//같이먹기
 		List<EatTogether> etList = this.etService.getList(rest);
-		
 		LocalDate today = LocalDate.now();
 		Integer expired = 0;
 		for(EatTogether et : etList) {
 			if(today.isAfter(et.getEtdate().toLocalDate())) {
 				expired += 1;
-				
 			}
 		}
 		rest.setEtList(etList);
 		rest.setProgresset(etList.size() - expired);
-		
-	
 		model.addAttribute("rest", rest);
 		
 		
 		Member member = this.memberService.getMember(principal.getName());
+		//찜
 		Jjim jjim = this.jjimService.get(member, rest);
 		model.addAttribute("jjim", jjim);
-
+		
 		List<Jjim> j = this.jjimService.getList(rest);
 		model.addAttribute("j", j);
 		
@@ -119,6 +115,9 @@ public class RestController {
 		Page<Restaurant>paging = this.restService.getList(category, page);
 		model.addAttribute("paging", paging);
 
+		List<Jjim> j = this.jjimService.getList(null);
+		model.addAttribute("j", j);
+		
 		return "rest/rest_list";
 	}
 	

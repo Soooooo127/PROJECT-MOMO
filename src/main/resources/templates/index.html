@@ -23,29 +23,22 @@
 					</div>
 				</div>
 			</div>
-
+	
 			
-		
+			<!--룰렛
+				
+			<div class="r">	
+			  <canvas width="380" height='380'></canvas>  
+			  <button class="r_b" onclick="rotate()">룰렛 돌리기</button>
+			</div>		-->	
 			
 
-					<!--룰렛
-						
-					<div class="r">	
-					  <canvas width="380" height='380'></canvas>  
-					  <button class="r_b" onclick="rotate()">룰렛 돌리기</button>
-					</div>-->
-			<div>
-				
-				
-				
-			</div>	
-						
-					
+				<!--식당사진 리스트-->
 				<div class="new_list">	
-					<!--식당사진 리스트-->
 					<div class="list">
 						<div class="new_box">
-						<Span>new! 새로 오픈했어요~ 
+							
+						<Span>모모 신규 레스토랑
 						</Span>
 						</div>
 						
@@ -53,27 +46,31 @@
 							<a th:href="@{|/rest/detail/${rest.no}|}" class="a1">
 								<!--사진-->
 								<div class="c2">
-							<!--	<img th:src="${rest.img}" class="img">-->	
-									<img src="	https://flexible.img.hani.co.kr/flexible/normal/640/427/imgdb/original/2023/0306/20230306502777.jpg" class="img">
+								<img th:src="${rest.img}" class="img">
+					
 
 								</div>
 									<div class="card-body" >
-										<h5 class="card-title ">
-										<span th:text="${rest.name}"></span></h5>
-										<p class="card-text" th:text="${rest.menu}"></p>
-											
-										<i class="fi fi-sr-heart" style="color: rgb(255, 0, 0);">					
-										</i>찜(3) &nbsp;|&nbsp;
-										<i class="fi fi-sr-peach" style="color: #eb6864;">
-										</i>평점(4.7)
+										<div class="card-title">
+											<span class="c_name" th:text="${rest.name}"></span>
+											<span class="badge text-bg-primary" style="font-size: 10px;">New</span>
+										</div>
+										<span class="card-text" th:text="${rest.menu}"></span>
+										<p th:text="${rest.addr}"></p>
+										<p></p>
 									 </div>
 							</a>			  
 						</div>
 					</div>
-				</div>
-
+					<div class="restbtn">
+						
+						모든 레스토랑
+						
+					</div>
+				</div><!--식당 리스트-->
+				
+				<!-- 같이먹기 방 리스트-->	
 				<div class="new_list">
-					<!-- 같이먹기 방 리스트-->	
 					<div class="list">
 						<div class="new_box">
 						<Span>new! 같이먹기방이 열렸어요~ 
@@ -84,8 +81,7 @@
 															 
 									<!--사진-->	
 							<div class="c2">					 
-						<!--	<img th:src="${et.rest.img}" class="img">-->
-								<img src="	https://flexible.img.hani.co.kr/flexible/normal/640/427/imgdb/original/2023/0306/20230306502777.jpg" class="img">
+							<img th:src="${et.rest.img}" class="img">
 								
 							</div>	
 								<div class="card-body" >	
@@ -117,9 +113,8 @@
 						</div>
 
 					</div>
-				</div>
+				</div><!--같이먹기 리스트-->
 				
-					
 		</div>
 
 			
