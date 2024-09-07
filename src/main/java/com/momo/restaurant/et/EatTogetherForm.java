@@ -14,7 +14,7 @@ import lombok.Setter;
 public class EatTogetherForm {
 
 	@NotEmpty(message = "제목을 작성해주세요")
-	@Size(max = 100)
+	@Size(max = 18)
 	private String ettitle;
 	
 	@NotNull(message = "날짜를 선택해주세요")
