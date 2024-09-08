@@ -10,15 +10,11 @@
 	<div>
 		<!--콘텐츠 영역-->
 		<div>	
-			<!--로고 영역-->	
-			<div>
-				로고
-			</div>
 			<!--콘텐츠 세부 영역-->
-				<div class="frame-dvd">
+				<div class="frame-dvd my-5">
 					<!--본문 전체-->
 					<span style="font-size: 20px; font-weight: bold;">내 리뷰</span>
-					<div th:if="${myReview.isEmpty()}" class="card my-4" style="height:200px; background-color: gainsboro;" >
+					<div th:if="${myReview.isEmpty()}" class="card my-2" style="height:200px; background-color: gainsboro;" >
 						<strong style="margin:auto">현재 작성된 리뷰가 없습니다. 리뷰를 작성해주세요.</strong>
 					</div>
 					<div th:unless="${myReview.isEmpty()}">
@@ -26,7 +22,7 @@
 							<input type="hidden" id="content" name="content" th:value="${content}">
 							<input type="hidden" id="page" name="page" th:value="${myReview.number}">
 					 	</form>
-						<div class="review card my-3" style="height:180px" th:each="review : ${myReview}">
+						<div class="review card my-3" th:each="review : ${myReview}">
 							<th:block th:field="${review}">
 							<div class="re_list ">
 								<table class="table re_table" >
@@ -63,28 +59,28 @@
 							</th:block><!--리뷰리스트-->	
 						</div>						    		
 					<!--리뷰 검색-->
-					<div class="my-3" align="right">
-						<form th:action="@{/mypage/myReview}" method="get">
-							<input type="text" id="search_content" th:value="${content}">
-							<button type="button" id="btn_search_content" class="btn btn-outline-secondary">검색</button>
-						</form>	
+					<div style="width:50%;margin:auto;">
+						<div class="input-group mb-3">
+							<input type="text" id="search_content" class="form-control" th:value="${content}">
+							<button type="button" id="btn_search_content" class="btn btn-outline-secondary">검색</button>	
+						</div>
 					</div>
 					<!--리뷰  페이징-->
 					 <div th:if="${!myReview.isEmpty()}">
 						<ul class="pagination pagination-sm justify-content-center">
-							<li class="page-item" th:classappend="${!myReview.hasPrevious} ? 'disabled'">
+							<li class="page-item" style="padding:0" th:classappend="${!myReview.hasPrevious} ? 'disabled'">
 						      <a class="page-link" href="javascript:void(0)" th:data-page="${myReview.number-1}">
-								 <span>이전</span>
+								 <span>&laquo;</span>
 							  </a>
 							</li>
-							<li th:each="page : ${#numbers.sequence(0, myReview.totalPages-1) }"
+							<li style="padding:0"  th:each="page : ${#numbers.sequence(0, myReview.totalPages-1) }"
 							   th:if="${page >= myReview.number -3 and page <= myReview.number + 3}"
 							   th:classappend="${page==myReview.number} ? 'active'" class="page-item">
 							   <a th:text="${page+1}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
 							</li>
-							<li class="page-item" th:classappend="${!myReview.hasNext} ? 'disabled'">
+							<li style="padding:0" class="page-item" th:classappend="${!myReview.hasNext} ? 'disabled'">
 							   <a class="page-link" href="javascript:void(0)" th:data-page="${myReview.number+1}">
-								 <span>다음</span>
+								 <span>&raquo;</span>
 							   </a>
 							</li>
 						</ul>
