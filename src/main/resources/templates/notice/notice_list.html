@@ -24,7 +24,7 @@
 	
 	<tbody>
 		
-		<a th:each="noticePosting,loop : ${paging}">
+		<tr th:each="noticePosting,loop : ${paging}">
 			<!-- 게시물 번호 = 전체 게시물 개수 - (현재 페이지 *페이지당 게시물 개수) - 나열 인덱스 -->
 			<th th:text="${paging.getTotalElements - (paging.number * paging.size)-loop.index}"></th>
 			<td> 
