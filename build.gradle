@@ -24,7 +24,10 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+<<<<<<< HEAD
 
+=======
+>>>>>>> e74c9fd2e288aadfe4bb0a08dd49ac6f20c43b98
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	testImplementation 'org.junit.jupiter:junit-jupiter'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
@@ -36,7 +39,9 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	  implementation 'org.springframework.boot:spring-boot-starter-websocket' // WebSocket
+	implementation 'org.springframework.boot:spring-boot-starter-websocket' // WebSocket
+	runtimeOnly 'com.mysql:mysql-connector-java:8.0.31'// mysql
+
 }
 
 tasks.named('test') {

@@ -32,6 +32,11 @@
 								</tr>
 							</thead>
 							<tbody>
+								<tr>
+									<td th:if="${paging.isEmpty}" colspan="6" style="text-align: center;">
+										작성된 게시물이 없습니다. 새로운 게시물을 작성해주세요.
+									</td>
+								</tr>
 								<tr th:each="freePosting, loop : ${paging}" class="text-center">
 									<td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
 									<td class="text-start">
