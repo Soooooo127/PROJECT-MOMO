@@ -111,6 +111,7 @@ public class RestController {
 	@GetMapping("/list/{category}")
 	public String restList(Model model, @PathVariable("category") String category
 			, @RequestParam(value="page", defaultValue = "0") int page
+			
 			) {
 		Page<Restaurant>paging = this.restService.getList(category, page);
 		model.addAttribute("paging", paging);
@@ -135,7 +136,7 @@ public class RestController {
 		List<Restaurant> restList = this.restService.getList(kw);
 		model.addAttribute("restList", restList);
 		
-		return "rest/rest_search";
+		return "rest/rest_list";
 	}
 	
 	@PreAuthorize("isAuthenticated()")

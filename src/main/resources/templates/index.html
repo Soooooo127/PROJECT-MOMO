@@ -29,18 +29,18 @@
 			
 
 				<!--식당사진 리스트-->
-				<div class="new_list1">	
+				<div class="new_list">	
 					<div class="list">
 						<div class="new_box">
 							
-						<span class="n1">모모 <span style="color:brown"> |  </span>신규 레스토랑
+						<span class="n">모모 <span style="color:brown"> |  </span>신규 레스토랑
 						</span>
 						</div>
-						<div class="b1">
-							<div class="card border-primary    c1"  th:each="rest : ${paging}">
+						<div class="b">
+							<div class="card border-primary    c"  th:each="rest : ${paging}">
 								<a th:href="@{|/rest/detail/${rest.no}|}" class="a1">
 									<!--사진-->
-									<div class="c2">
+									<div class="p">
 									<img th:src="${rest.img}" class="img">
 
 									</div>
@@ -58,26 +58,26 @@
 						</div>
 					</div>
 					
-					<div class="t1">
-						<a class="tt1"  th:href="@{/rest/}">
+					<div class="t">
+						<a class="tt"  th:href="@{/rest/}">
 						모든 레스토랑 확인하기
 						</a>
 					</div>
 				</div><!--식당 리스트-->
 				
 				<!-- 같이먹기 방 리스트-->	
-				<div class="new_list2">
+				<div class="new_list">
 					<div class="list">
 						<div class="new_box">
-						<Span class="n1">모모 <span style="color:brown"> |  </span> 신규 같이먹기
+						<Span class="n">모모 <span style="color:brown"> |  </span> 신규 같이먹기
 						</Span>
 						</div>
-						<div class="b2">
-							<div class="card border-primary    et1" th:each="et : ${etpaging}">
+						<div class="b">
+							<div class="card border-primary    c" th:each="et : ${etpaging}">
 								<a th:href="@{|/et/detail/${et.rest.no}/${et.no}|}" class="a1">
 																 
 										<!--사진-->	
-								<div class="c2">					 
+								<div class="p">					 
 								<img th:src="${et.rest.img}" class="img">
 									
 								</div>	
@@ -111,8 +111,8 @@
 						</div>
 					</div>
 					
-					<div class="t2">
-						<a class="tt1"  th:href="@{/et/list}">
+					<div class="t">
+						<a class="tt"  th:href="@{/et/list}">
 						모든 같이먹기 확인하기
 						</a>
 					</div>

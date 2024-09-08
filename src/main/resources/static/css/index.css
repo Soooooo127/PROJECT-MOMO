@@ -15,8 +15,6 @@
 
 }
 
-
-
 canvas {
   transition: 2s;
   pointer-events: none;
@@ -31,17 +29,14 @@ canvas {
   margin:0;
   
 }
-.new_list1{
+
+.new_list{
 	margin-top: 50px;
 	margin-bottom: 70px;
 	
 }
 
-.new_list2{
-	margin-top: 50px;
-	margin-bottom: 70px;
-	height: 800px;
-}
+
 .list{
 
 	width: 1140px;
@@ -56,23 +51,19 @@ canvas {
 }
 
 
-.b1{
-	width: 1140px;
-	display: flex;
-
-
-}
-.b2{
+.b{
 	width: 1140px;
 	height: auto;
-
 	display: flex;
+
+
 }
-.c1{
-border: none;
-margin:auto;
-	width: 360px;
-	height: 450px;
+
+.c{
+	border: none;
+	margin:auto;
+	width: 350px;
+
 	margin: 15px;
 	color: black;
 	max-width: 25rem;
@@ -80,7 +71,7 @@ margin:auto;
 	border-radius: 10px;
 	
 }
-.c2{
+.p{
 	text-align: center;
 }
 
@@ -91,34 +82,25 @@ margin:auto;
 	
 }
 
-.t1{
+.t{
 	margin:auto;
 	position: relative;
 	border:solid #eb6864;	
 	border-radius: 10px;
-	width: 350px;
+	width: 360px;
 	height: 50px;
-	
+	margin-top:30px;
 }
 
-.t2{
-	margin:auto;
-	margin-top:auto;
-	position: relative;
-	border:solid #eb6864;	
-	border-radius: 10px;
-	width: 350px;
-	height: 50px;
 
-}
-.tt1{
+.tt{
 	display: block;
 
 	text-align: center;
 	font-size: 30px;
 	
 }
-a.a1, a.t1{
+a.a1, a.t{
 	text-decoration: none;
 	color: black;
 }
@@ -131,13 +113,4 @@ a.a1, a.t1{
 	border-top-left-radius: 10px;
 }
 
-.et1{
-	border: none;
-	width: 360px;
-	height: auto;
-	margin: 15px;
-	color: black;
-	max-width: 25rem;
-	background-color: #f4f4f4;
-	border-radius: 10px;
-}
+
