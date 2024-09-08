@@ -31,9 +31,9 @@ public class FaqPostingService {
 	private final FaqPostingRepository faqPostingRepository;
 
 	
-	public void createFaq( FaqCategory category, String subject, String content, Member author) {
+	public void createFaq( String subject, String content, Member author) {
 		FaqPosting faq = new FaqPosting();
-		faq.setFaqCategory(category);
+
 		faq.setSubject(subject);
 		faq.setContent(content);
 		faq.setCreateDate(LocalDateTime.now());
