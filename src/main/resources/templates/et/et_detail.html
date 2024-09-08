@@ -216,16 +216,21 @@
 								<!--==============================방 참여, 나가기 , 삭제 버튼 =================================================-->
 								<div class="d-flex justify-content-end">
 									<div class="mx-2">
-										<a th:if="${isMemberIn} and ${et.applymember.memberid != #authentication.getPrincipal().getUsername()}"
-										th:href="@{|/et/leave/${rest.no}/${et.no}|}" class="btn btn-primary">방 나가기</a>
+										<div th:if="${isMemberIn} and ${et.applymember.memberid != #authentication.getPrincipal().getUsername()}">
+											<a th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') > #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}"
+											th:href="@{|/et/leave/${rest.no}/${et.no}|}" class="btn btn-primary">방 나가기</a>
+											<span th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}"
+											class="btn btn-primary">모집 종료</span>
+										</div>
 															
 										<div th:if="${!isMemberIn}">
 											<div th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') > #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">
-												<a th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
-																	
+												<a th:if="${#lists.size(et.prtmember) < prtnumber}" th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
+												<span th:if="${#lists.size(et.prtmember) >= prtnumber}" class="btn btn-primary">참여 인원 초과</span>					
 											</div>
-																
-											<a th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}" class="btn btn-primary">참여기간 만료</a>
+											
+															
+											<span th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}" class="btn btn-primary">참여기간 만료</span>
 															
 										</div>
 															
