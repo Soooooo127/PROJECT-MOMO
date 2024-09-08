@@ -65,7 +65,7 @@ public class EatTogetherService {
 	public Page<EatTogether> getListAll(int page , String option , String kw){
 		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
 		sorts.add(Sort.Order.desc("regdate"));
-		Pageable pageable = PageRequest.of(page, 3 , Sort.by(sorts));
+		Pageable pageable = PageRequest.of(page, 6 , Sort.by(sorts));
 		
 		if(option.equals("ettitle")) {
 			return this.etRepository.findEttitleByKeyword(kw, pageable);
