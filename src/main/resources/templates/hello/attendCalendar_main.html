@@ -1,5 +1,5 @@
 <html layout:decorate="~{layout}">
-<div layout:fragment="content">
+<div layout:fragment="content" id='wrapper'>
 <div class = "container">
 	
 <h1><span th:text="${#calendars.format(#calendars.createNow(), 'yyyy년 MM월 dd일 출석체크')}"> </span></h1>
