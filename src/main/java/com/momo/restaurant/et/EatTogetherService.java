@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -89,12 +90,22 @@ public class EatTogetherService {
 	}
 	
 	//마이페이지 내 같이 먹기 + 페이징 + 검색
-		public Page<EatTogether> getMyET(Member momoMember, String ettitle, int page) {
-			List<Sort.Order> sorts = new ArrayList<>();
-			sorts.add(Sort.Order.asc("etdate"));
-			Pageable pageable = PageRequest.of(page,  3, Sort.by(sorts));
-			return this.etRepository.findByAuthorAndEttitle(momoMember, ettitle, pageable);
+	public Page<EatTogether> getMyET(String memberid, int page, String ettitle) {
+		List<EatTogether> _etList = this.etRepository.findAll(ettitle);
+		List<EatTogether> _myEtList = new ArrayList<>();
+		for(int i=0; i<_etList.size(); i++) {
+			for(int j=0; j<_etList.get(i).getPrtmember().size(); j++) {
+				if(_etList.get(i).getPrtmember().get(j).getMemberid().equals(memberid)) {
+					_myEtList.add(_etList.get(i));
+				}
+			}
 		}
+		PageRequest pageRequest = PageRequest.of(page, 6);
+		int start = (int) pageRequest.getOffset();
+		int end = Math.min((start + pageRequest.getPageSize()), _myEtList.size());
+		Page<EatTogether> myEtPage = new PageImpl<>(_myEtList.subList(start, end), pageRequest, _myEtList.size());
+	    return myEtPage;
+	}
 	
 	//같이먹기 참여 서비스구문
 	public void participate(EatTogether et , Member momoMember) {

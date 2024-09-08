@@ -18,6 +18,8 @@ public interface InquiryPostingRepository extends JpaRepository<InquiryPosting, 
 	
 	Page<InquiryPosting> findAll (Pageable pageable);
 	
+	@Query("select i from InquiryPosting i where i.subject like %:subject% order by i.createDate desc")
+	List<InquiryPosting> findAllOrderByDesc(@Param(value="subject")String subject);
 		          
 
     Page<InquiryPosting> findByCommentList(List<InquiryComment> commentList,Pageable pageable);

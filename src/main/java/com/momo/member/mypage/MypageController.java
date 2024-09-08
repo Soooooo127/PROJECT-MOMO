@@ -111,7 +111,7 @@ public class MypageController {
 			                       @RequestParam(value="page", defaultValue="0")int page, Principal principal) {
 		
 		Member member = this.memberService.getMember(principal.getName());
-		Page<EatTogether> myET = this.eatTogetherService.getMyET(member, ettitle, page);
+		Page<EatTogether> myET = this.eatTogetherService.getMyET(principal.getName(), page, ettitle);
 		model.addAttribute("myET", myET );
 		model.addAttribute("ettitle", ettitle);
 		return "/mypage/mypage_myET";

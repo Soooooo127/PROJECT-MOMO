@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -43,14 +44,20 @@ public class InquiryPostingService {
 		return this.inquiryPostingRepository.findAll(spec, pageable);
 	}
 	
-	public Page<InquiryPosting> getNoCommentList(int page, List<InquiryComment> commentList){
-		List<Sort.Order> sorts = new ArrayList<>();
-		sorts.add(Sort.Order.desc("createDate"));
-		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-		return this.inquiryPostingRepository.findByCommentList(null, pageable);
-
-	} 
-	
+	public Page<InquiryPosting> getNoCommenList(String subject, int page) {
+		List<InquiryPosting> postingList = this.inquiryPostingRepository.findAllOrderByDesc(subject);
+		List<InquiryPosting> noCommentList = new ArrayList<>();
+		for(int i=0; i<postingList.size(); i++) {
+			if(postingList.get(i).getCommentList().isEmpty()) {
+				noCommentList.add(postingList.get(i));
+			}
+		}
+		PageRequest pageRequest = PageRequest.of(page, 10);
+		int start = (int) pageRequest.getOffset();
+		int end = Math.min((start + pageRequest.getPageSize()), noCommentList.size());
+		Page<InquiryPosting> noCommentPage = new PageImpl<>(noCommentList.subList(start, end), pageRequest, noCommentList.size());
+	    return noCommentPage;
+	}
 	
 	public InquiryPosting getInquiryPosting(Integer no) {
 		Optional<InquiryPosting> posting = this.inquiryPostingRepository.findById(no);

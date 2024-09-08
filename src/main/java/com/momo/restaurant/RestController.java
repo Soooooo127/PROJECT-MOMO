@@ -166,13 +166,6 @@ public class RestController {
 	
 	
 	
-	
-	@GetMapping("/et")
-	public String eat() {
-		
-		return "rest/eat";
-	}
 
-	
 	
 }

@@ -51,7 +51,7 @@ public class ReviewService {
 	public Page<Review> getMyReview(Member member, String content, int page) {
 			List<Sort.Order> sorts = new ArrayList<>();
 			sorts.add(Sort.Order.desc("createDate"));
-			Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+			Pageable pageable = PageRequest.of(page, 3, Sort.by(sorts));
 			return this.reviewRepository.findByAuthorAndContent(member, content, pageable);
 	}
 	

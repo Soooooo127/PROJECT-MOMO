@@ -84,7 +84,6 @@ body > div{
 
   width: 1280px;
   height:80px;
-
   display: flex;
   margin: auto;
 
@@ -107,8 +106,8 @@ body > div{
   text-align: center;
   display: flex;
   padding-top: 30px;
-  position: relative;
-  border: solid #e1e1e1;
+
+
 }
 
 
@@ -128,9 +127,10 @@ body > div{
 }
 .navLogo3{
 	width:100px;
+
 }
 .logo{
-	width: 100px;
+	width: 80px;
 }
 .navMember {
   width:50%;
@@ -192,12 +192,14 @@ footer{
 .fa{
 	width: 1280px;
 	margin:auto;
-	display: flex}
-
+	display: flex
+	
+}
 .f1{
 	width:280px;
 	text-align: center;
 	background-color:  #e1e1e1;
+	margin-bottom: 0;;
 }
 
 .f2{

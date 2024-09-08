@@ -1,16 +1,25 @@
 package com.momo.member.profile;
 
-import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.momo.DataNotFoundException;
-import com.momo.image.ImageService;
+import com.momo.board.ask.comment.AskCommentService;
+import com.momo.board.ask.posting.AskPostingService;
+import com.momo.board.free.comment.FreeCommentService;
+import com.momo.board.free.comment.re.FreeCommentReplyService;
+import com.momo.board.free.posting.FreePostingService;
 import com.momo.member.Member;
 import com.momo.member.MemberRepository;
+import com.momo.restaurant.et.EatTogether;
+import com.momo.restaurant.et.EatTogetherRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,8 +27,19 @@ import lombok.RequiredArgsConstructor;
 public class ProfileService {
 
 	
-	private final ProfileRepository profileRepository;
-	private final MemberRepository memberRepository;
+
+	    //Repository
+		private final EatTogetherRepository etRepository;
+		private final ProfileRepository profileRepository;
+		private final MemberRepository memberRepository;
+		
+		//Service
+		private final ProfileService profileService;
+		private final FreeCommentReplyService freeCommentReplyService;
+		private final FreeCommentService freeCommentService;
+		private final FreePostingService freePostingService;
+		private final AskCommentService askCommentService;
+		private final AskPostingService askPostingService;
 	
 	
 	public void modifyProfile(String memberid, String gender, String content, String mbti){
@@ -63,5 +83,70 @@ public class ProfileService {
 		}
 	}
 	
+	public Profile getProfile(Integer no) {
+		Optional<Profile> profile = this.profileRepository.findById(no);
+		if(profile.isPresent()) {
+			return profile.get();
+		} else {
+			throw new DataNotFoundException("해당 회원이 없습니다");
+		}
+ 	}
+	
+	public void plusBrix(Member member) {
+		Optional<Profile> _profile = this.profileRepository.findByAuthor(member);
+		Profile profile = new Profile();
+		if(_profile.isPresent()) {
+			profile = _profile.get();
+			profile.setBrix(profile.getBrix()+0.1);
+			this.profileRepository.save(profile);
+		} else {
+			throw new DataNotFoundException("해당 회원이 없습니다");
+		}
+	}
+	
+	public void minusBrix(Member member) {
+		Optional<Profile> _profile = this.profileRepository.findByAuthor(member);
+		Profile profile = new Profile();
+		if(_profile.isPresent()) {
+			profile = _profile.get();
+			profile.setBrix(profile.getBrix()-0.1);
+			this.profileRepository.save(profile);
+		} else {
+			throw new DataNotFoundException("해당 회원이 없습니다");
+		}
+	}
+	
 
+	
+	@Transactional
+	@Scheduled(cron = "30 59 23 * * *")
+	public void upBrix() {
+				
+		List<EatTogether> etList = this.etRepository.findAll();
+		List<EatTogether> todayEtList = new ArrayList<>(); 
+		
+		LocalDate now = LocalDate.now();
+		for(int i=0; i<etList.size(); i++) {
+			if(etList.get(i).getEtdate().toLocalDate().equals(now)) {;
+               Profile profile = this.profileService.getProfile(etList.get(i).getApplymember());
+               profile.setBrix(profile.getBrix()+0.2);
+               this.profileRepository.save(profile);
+			   todayEtList.add(etList.get(i));
+			} else {
+				continue;
+			}
+		}
+		for(int i=0; i<todayEtList.size(); i++) {
+			for(int j=0; j<todayEtList.get(i).getPrtmember().size(); j++) {
+				Profile profile = this.profileService.getProfile(todayEtList.get(i).getPrtmember().get(j));
+				profile.setBrix(profile.getBrix()+0.1);
+				this.profileRepository.save(profile);
+				Profile prof = this.profileService.getProfile(todayEtList.get(i).getPrtmember().get(j));
+				double p = Math.round(prof.getBrix()*10)/10.0;
+				prof.setBrix(p);
+				this.profileRepository.save(prof);
+			}
+		}
+	
+	}
 }

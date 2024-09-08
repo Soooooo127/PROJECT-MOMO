@@ -19,7 +19,7 @@ import com.momo.board.ask.posting.AskPosting;
 import com.momo.board.ask.posting.AskPostingService;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
-
+import com.momo.member.profile.ProfileService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +32,7 @@ public class AskCommentController {
 	private final AskCommentService askCommentService;
 	private final AskPostingService askPostingService;
 	private final MemberService momoMemberService;
+	private final ProfileService profileService;
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{no}")
@@ -93,6 +94,7 @@ public class AskCommentController {
 		AskComment askComment = this.askCommentService.getAskComment(no);
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askCommentService.voteDdabong(askComment, momoMember);
+		this.profileService.plusBrix(askComment.getAuthor());
 		return String.format("redirect:/askPosting/detail/%s#askComment_%s", askComment.getAskPosting().getNo() , askComment.getNo());
 	}
 	
@@ -102,6 +104,7 @@ public class AskCommentController {
 		AskComment askComment = this.askCommentService.getAskComment(no);
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		this.askCommentService.voteNope(askComment, momoMember);
+		this.profileService.minusBrix(askComment.getAuthor());
 		return String.format("redirect:/askPosting/detail/%s#askComment_%s", askComment.getAskPosting().getNo() , askComment.getNo());
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.momo.member.Member;
 import com.momo.member.MemberService;
+import com.momo.member.profile.ProfileService;
 import com.momo.restaurant.RestService;
 import com.momo.restaurant.Restaurant;
 import com.momo.restaurant.et.EatTogether;
@@ -34,6 +35,7 @@ public class ReviewController {
 	private final RestService restService;
 	private final MemberService memberService;
 	private final JjimService jjimService;
+	private final ProfileService profileService;
 	
 	@GetMapping("/list/{no}")
 	private String getList(@PathVariable("no")Integer no) {
@@ -89,6 +91,7 @@ public class ReviewController {
 		Review review = this.reviewService.getReview(rno);
 		Member member = this.memberService.getMember(principal.getName());
 		reviewService.ddabong(review, member);
+		profileService.plusBrix(review.getAuthor());
 		
 		return "redirect:/rest/detail/{no}";
 	}

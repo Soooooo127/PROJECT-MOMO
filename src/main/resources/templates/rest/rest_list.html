@@ -8,9 +8,9 @@
 	<body >
 		<div layout:fragment="content" id='wrapper'>
 		<div class="mid">
+			
 			<div class="search_header">
 				
-
 					<!--검색-->
 					<div class="search">
 							<div class="input-group">
@@ -22,41 +22,35 @@
 							<form th:action="@{/rest/list/search}" method="get" id="searchForm">
 							<input type="hidden" id="kw" name="kw" th:value="${kw}">
 									   
-							</form>
-					
-				
-					
+							</form>		
 			</div>
 			
-	
-			
-			
-			
-			<div class="new_list">	
+		
+			<div class="rest_list">	
 				<!--식당사진 리스트-->
 				<div class="list">
 
 					
-					<div class="b1">
-						<div class="card border-primary mb-3   c1"  th:each="rest : ${paging}">
-							<a th:href="@{|/rest/detail/${rest.no}|}" class="a1">
-								<!--사진-->
-								<div class="c2">
-								<img th:src="${rest.img}" class="img">
 
-								</div>
-									<div class="card-body" >
-										<div class="card-title">
-											<span class="c_name" th:text="${rest.name}"></span>
-											
-										</div>
-										<span class="card-text" th:text="${rest.menu}"></span>
-										<p th:text="${rest.addr}"></p>
-										<p></p>
-									 </div>
-							</a>			  
-						</div>
-					</div>
+							<div class="card border-primary c1"  th:each="rest : ${paging}">
+								<a th:href="@{|/rest/detail/${rest.no}|}" class="a1">
+									<!--사진-->
+									<div class="c2">
+									<img th:src="${rest.img}" class="img">
+	
+									</div>
+										<div class="card-body" >
+											<div class="card-title">
+												<span class="c_name" th:text="${rest.name}"></span>
+												
+											</div>
+											<span class="card-text" th:text="${rest.menu}"></span>
+											<p th:text="${rest.addr}"></p>
+											<p></p>
+										 </div>
+								</a>			  
+							</div>
+
 				</div>
 			</div>
 			

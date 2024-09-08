@@ -42,10 +42,11 @@ public class InquiryPostingController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/noCommentList")
-	public String getNoCommentList(Model model, @RequestParam(value="page", defaultValue = "0")int page) {
-		Page<InquiryPosting> paging = this.inquiryPostingService.getNoCommentList(page, null);
-		
+	public String getNoCommentList(Model model, @RequestParam(value="page", defaultValue = "0")int page,
+			                       @RequestParam(value="subject", defaultValue="")String subject) {
+		Page<InquiryPosting> paging = this.inquiryPostingService.getNoCommenList(subject, page);
 		model.addAttribute("paging", paging); 
+		model.addAttribute("subject",subject);
 		return "/inquiry/inquiryPosting_admin(noCommentList)";
 	} 
 	
