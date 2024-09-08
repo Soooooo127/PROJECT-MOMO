@@ -38,6 +38,7 @@ public class MemberService {
 		profile.setGender(memberCreateForm.getGender());
 		profile.setMbti(memberCreateForm.getMbti());
 		profile.setContent(memberCreateForm.getContent());
+		profile.setAuthor(member);
 		this.profileRepository.save(profile);
 		
 		member.setProfile(profile);
