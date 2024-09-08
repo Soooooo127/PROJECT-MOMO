@@ -104,7 +104,8 @@
 											</form>	  
 									</div>
 									<div class="star"><i class="fi fi-sr-peach"></i>
-										<span th:text="| ${rest.avgStar} |" ></span>	
+										<span th:text="| ${rest.avgStar} |" >  </span>	
+										 <span  th:text="|(${#lists.size(rest.reviewList)})|"></span>	
 									</div>
 								</div>
 							</div>	<!--찜, 평점 끝-->
@@ -128,7 +129,7 @@
 						    <meta charset="UTF-8">
 						    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 						    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">		    
-						    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=/zcynsyz8ui"></script>
+						    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=zcynsyz8ui"></script>
 						</head>
 						<body>
 						<div id="map" style="width: 280px;height:280px;"></div>
