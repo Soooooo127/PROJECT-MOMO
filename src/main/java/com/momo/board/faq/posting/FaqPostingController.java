@@ -43,17 +43,17 @@ public class FaqPostingController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/posting")
-	public String createFaq( @RequestParam(value="no") Integer no, 
+	public String createFaq( 
 			@Valid FaqPostingForm faqPostingForm, BindingResult bindingResult
 			, Principal principal) {
 		
-		FaqCategory category = this.faqCategoryService.getFaqCategory(no);
+		/*FaqCategory category = this.faqCategoryService.getFaqCategory(no);
 		if(bindingResult.hasErrors()) {
 			return "faq/faqPosting";
-		}
+		}*/
 		
 		Member member = this.memberService.getMember(principal.getName());
-		this.faqPostingService.createFaq( category, faqPostingForm.getSubject(), faqPostingForm.getContent(), member);
+		this.faqPostingService.createFaq( faqPostingForm.getSubject(), faqPostingForm.getContent(), member);
 		return "redirect:/faq/list";
 	}
 	

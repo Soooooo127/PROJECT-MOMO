@@ -23,7 +23,7 @@
 <div>		
 		<!--FAQ 목록-->
 	<table class="table table-hover">
-		<thead class="table table-primary">
+		<thead class="table-primary">
 		    <tr>
 		      <th width="100px">번호</th>
 <!--			  <th >카테고리</th>-->
@@ -35,7 +35,7 @@
 		<tbody>
 			<tr class="table" th:each="faq , loop : ${paging}" >
 			      
-<!--번호-->		<td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"> </td>	    
+<!--번호-->		<th th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"> </th>	    
 <!--카테고리<td th:text="${faq.faqCategory.category}"> </td>-->	
 <!--글제목-->		<td><a class="s" th:href="@{|/faq/detail/${faq.no} |}" th:text="${faq.subject}"></a> </td>
 <!--작성자-->	    <td th:text="${faq.author.membernick}"></td>
