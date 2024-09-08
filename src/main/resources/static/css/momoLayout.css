@@ -32,9 +32,60 @@ html, body {
 	height: 100%;
 }
 
-body{
-	height: 100%;
-	
+.frameNav {
+  width :100%;
+  height :80px;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.frameNav a {
+  color:#333333;
+  text-decoration: none;
+}
+
+.frameNavMenu {
+  width: 1280px;
+  margin: auto;
+  display: overflow;
+  font-family: 'HancomMalangMalang-Regular';
+}
+
+.frameNavLogo {
+  width: 160px;
+  float: left;
+}
+
+.frameNavTable {
+  vertical-align: middle;
+  width: 100%;
+}
+
+.frameNavTableMenu {
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: left;
+  color: #333;
+}
+
+.frameNavTable tr td p {
+  width:50px;
+  text-align: center;
+  line-height: 1.2rem;
+  float:left;
+}
+
+.frameNavTable tr td p i {
+  font-size: x-large;
+  color:#b6b5b5;
+}
+
+.frameNavTable tr td p span {
+  font-size: 0.8rem;
+  font-weight: bold;
+  float:left;
+  color:#777777;
 }
 
 /*
@@ -46,118 +97,11 @@ body > div{
 	height: calc(100% - 335px);
 }*/
 
-.navFrame {
-  width:100%;
-  height:100px;
-  margin:0;
-  /* font-family: "Noto Sans KR", sans-serif; */
-  font-family: 'HancomMalangMalang-Regular';
-  font-optical-sizing: auto;
-  font-size: small;
-  font-weight: 150;
-  font-style: normal;
-}
 
-.layoutFrame {
-  width:1400px;
-  margin: auto;
-}
-
-.nav1st, .nav2nd {
-  width:100%;
-  overflow: hidden;
-}
-
-.navMember a, .navMember a:hover {
-  color: rgb(0, 0, 0);
-}
-
-.nav1st {
-  height:20px;
-  background-color: rgb(255, 255, 255);
-  color:rgb(0, 0, 0);
-  font-weight:bold;
-  border-bottom: solid 1px #e1e1e1;
-}
-
-.nav2nd {
-
-  width: 1280px;
-  height:80px;
-  display: flex;
-  margin: auto;
-
-}
-
-.navSize1, .navSize2, .navSize3{
-  margin: auto;
-}
-
-.navSize1 {
-  width:1280px;
-
-}
-
-.navSize2 {
-  width:620px;
-  color:black;
-  font-size: 1.3rem;
-  font-weight: bold;
-  text-align: center;
-  display: flex;
-  padding-top: 30px;
- 
-}
-
-
-.navSize2 a, .navSize2 a:hover, .navSize2 a:visited {
-  text-decoration-line: none;
-  color: black;
-
-}
-
-.navLogo1 {
-  width:50%;
-  float: left;
-}
-.navLogo2 {
-  width:100px;
-  
-}
-.navLogo3{
-	width:100px;
-
-}
-.logo{
-	width: 80px;
-}
-.navMember {
-  width:50%;
-  float:right;
-  text-align: right;
-}
-
-.navMember + table {
-  width:100%;
-  border:none;
-}
-
-.mypageLayout {
-  overflow: auto;
-}
-
-.mypageLayout-l, .mypageLayout-r {
-  float: left;
-}
-
-.mypageLayout-l {
-  width:300px;
-  padding:20px;
-}
 
 a:link, a:visited {
   text-decoration-line: none;
-}
+} 
 
 #wrapper{
 	min-height: calc(100vh - 15rem); /* footer 높이를 빼준다. */
