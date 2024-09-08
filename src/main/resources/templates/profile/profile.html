@@ -20,35 +20,64 @@
 				<img class="profile" th:unless="${memberProfile.image != null}" src="/img/default_profile.png" >
 				</div>
 				
-			
-				<div class="border border-secondary-subtle rounded" style="width:50%">
-											<div>
-												<table style="width:100%">
-													<tr>
-														<td style="width:29%"><i class="fi fi-sr-grin-beam"></i> 닉네임</td>
-														<td style="width:71%" th:text="${memberProfile.membernick}"></td>
-													</tr>
-													<tr>
-														<td style="width:29%"><i class="fi fi-sr-peach"></i> 당도</td>
-														<td style="width:71%" th:text="${memberProfile.profile.brix}"></td>
-													</tr>
-													<tr>
-														<td style="width:29%"><i class="fi fi-sr-venus-mars"></i> 성별</td>
-														<td style="width:71%" th:text="${memberProfile.profile.gender}"></td>
-													</tr>
-													<tr>
-														<td style="width:29%"><i class="fi fi-sr-circle-m"></i> MBTI</td>
-														<td style="width:71%" th:text="${memberProfile.profile.mbti}"></td>
-													</tr>
-													<tr>
-														<td style="width:29%"><i class="fi fi-sr-megaphone-announcement-leader"></i> 자기소개</td>
-														<td style="overflow-wrap:anywhere;" th:text="${memberProfile.profile.content}"></td>
-													</tr>
-												</table>
-											</div>
-											
-										
-										<div>
+			<!--프로필 이미지 수정 modal-->
+				<center class="my-3">
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+							  프로필 이미지 수정
+							</button>
+							</center><br>
+
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h1 class="modal-title fs-5" id="exampleModalLabel">프로필 이미지 수정</h1>
+							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							      </div>
+							      <div class="modal-body">
+									<form th:action="@{/image/upload}" method="post" enctype="multipart/form-data">
+							        <input type="file" name="files" accept="image/png, image/jpg, image/jpeg" >
+									<span>(jpg, jpeg, png)</span>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+							        <button type="submit" class="btn btn-primary">저장하기</button>
+							      </div>
+								  </form>
+							    </div>
+							  </div>
+							 </div>		
+			       <div class="border border-secondary-subtle rounded" style="width:50%">
+								<div>
+									<table style="width:100%">
+										<tr>
+											<td style="width:29%"><i class="fi fi-sr-grin-beam"></i> 닉네임</td>
+											<td th:if="${memberProfile.profile !=null}" style="width:71%" th:text="${memberProfile.membernick}"></td>
+											<td th:unless="${memberProfile.profile !=null}" style="width:71%">미입력</td>
+										</tr>
+										<tr>
+											<td style="width:29%"><i class="fi fi-sr-peach"></i> 당도</td>
+											<td th:if="${memberProfile.profile !=null}" style="width:71%" th:text="${memberProfile.profile.brix}"></td>
+											<td th:unless="${memberProfile.profile !=null}" style="width:71%">4.5</td>
+										</tr>
+										<tr>
+											<td style="width:29%"><i class="fi fi-sr-venus-mars"></i> 성별</td>
+											<td th:if="${memberProfile.profile !=null}" style="width:71%" th:text="${memberProfile.profile.gender}"></td>
+											<td th:unless="${memberProfile.profile !=null}" style="width:71%">미입력</td>
+										</tr>
+										<tr>
+											<td style="width:29%"><i class="fi fi-sr-circle-m"></i> MBTI</td>
+											<td th:if="${memberProfile.profile !=null}" style="width:71%" th:text="${memberProfile.profile.mbti}"></td>
+											<td th:unless="${memberProfile.profile !=null}" style="width:71%">미입력</td>
+										</tr>
+										<tr>
+											<td style="width:29%"><i class="fi fi-sr-megaphone-announcement-leader"></i> 자기소개</td>
+											<td th:if="${memberProfile.profile !=null}" style="overflow-wrap:anywhere;" th:text="${memberProfile.profile.content}"></td>
+											<td th:unless="${memberProfile.profile !=null}" style="overflow-wrap:anywhere;">미입력</td>
+										</tr>
+									</table>
+								</div>
 						<div class="d-grid gap-2">
 							<a th:href="@{/mypage/modifyProfile}" class="btn btn-lg btn-primary">프로필 수정</a>
 						</div>

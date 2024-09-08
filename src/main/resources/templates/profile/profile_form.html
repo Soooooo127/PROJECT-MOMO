@@ -23,67 +23,94 @@
 			
 			<form th:action="@{/mypage/modifyProfile}" method="post">
 				<div class="border border-secondary-subtle rounded" style="width:50%">
-											<div>
-												<table>
-													<tr>
-														<td><i class="fi fi-sr-grin-beam"></i> 닉네임</td>
-														<td th:text="${memberProfile.membernick}"></td>
-													</tr>
-													<tr>
-														<td><i class="fi fi-sr-peach"></i> 당도</td>
-														<td th:text="${memberProfile.profile.brix}"></td>
-													</tr>
-													<tr>
-														<td><i class="fi fi-sr-venus-mars"></i> 성별</td>
-														<td>
-															<input class="form-check-input" type="radio" id="gender" name="gender" th:value="남자" checked="">
-															<label class="form-check-label" for="genderm">
-																남자
-															</label>
-															<input class="form-check-input" type="radio" id="gender" name="gender" th:value="여자">
-															<label class="form-check-label" for="genderf">
-																여자
-															</label>
-														</td>
-													</tr>
-													<tr>
-														<td><i class="fi fi-sr-circle-m"></i> MBTI</td>
-														<td>
-															<div class="pe-3">
-																<select class="form-select" name="mbti">
-																	<option selected th:value=null>선택하세요</option>
-																	<option th:value="ISTJ">ISTJ</option>
-																	<option th:value="ISFJ">ISFJ</option>
-																	<option th:value="INFJ">INFJ</option>
-																	<option th:value="INTJ">INTJ</option>
-																	<option th:value="ISTP">ISTP</option>
-																	<option th:value="ISFP">ISFP</option>
-																	<option th:value="INFP">INFP</option>
-																	<option th:value="INTP">INTP</option>
-																	<option th:value="ESTP">ESTP</option>
-																	<option th:value="ESFP">ESFP</option>
-																	<option th:value="ENFP">ENFP</option>
-																	<option th:value="ENTP">ENTP</option>
-																	<option th:value="ESTJ">ESTJ</option>
-																	<option th:value="ESFJ">ESFJ</option>
-																	<option th:value="ENFJ">ENFJ</option>
-																	<option th:value="ENTJ">ENTJ</option>
-																</select>
-															</div>
-														</td>
-													</tr>
-													<tr>
-														<td><i class="fi fi-sr-megaphone-announcement-leader"></i> 자기소개</td>
-														<td>
-															<div class="pe-3">
-																<textarea class="form-control" name="content" rows="3"></textarea>
-															</div>
-														</td>
-													</tr>
-												</table>
-											</div>
-											
-										
+					<div>
+						<table>
+							<tr>
+								<td><i class="fi fi-sr-grin-beam"></i> 닉네임</td>
+								<td th:text="${memberProfile.membernick}"></td>
+							</tr>
+							<tr>
+								<td><i class="fi fi-sr-peach"></i> 당도</td>
+								<td th:if="${memberProfile.profile !=null}" th:text="${memberProfile.profile.brix}"></td>
+								<td th:unless="${memberProfile.profile !=null}" >4.5</td>
+							</tr>
+							<tr>
+								<td><i class="fi fi-sr-venus-mars"></i> 성별</td>
+								<td>
+									<input class="form-check-input" type="radio" id="gender" name="gender" th:value="남자" checked="">
+									<label class="form-check-label" for="genderm">
+										남자
+									</label>
+									<input class="form-check-input" type="radio" id="gender" name="gender" th:value="여자">
+									<label class="form-check-label" for="genderf">
+										여자
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td><i class="fi fi-sr-circle-m"></i> MBTI</td>
+								<td th:if="${memberProfile.profile ==null}">
+									<div class="pe-3">
+										<select class="form-select" name="mbti">
+											<option selected th:value=null>선택하세요</option>
+											<option th:value="ISTJ">ISTJ</option>
+											<option th:value="ISFJ">ISFJ</option>
+											<option th:value="INFJ">INFJ</option>
+											<option th:value="INTJ">INTJ</option>
+											<option th:value="ISTP">ISTP</option>
+											<option th:value="ISFP">ISFP</option>
+											<option th:value="INFP">INFP</option>
+											<option th:value="INTP">INTP</option>
+											<option th:value="ESTP">ESTP</option>
+											<option th:value="ESFP">ESFP</option>
+											<option th:value="ENFP">ENFP</option>
+											<option th:value="ENTP">ENTP</option>
+											<option th:value="ESTJ">ESTJ</option>
+											<option th:value="ESFJ">ESFJ</option>
+											<option th:value="ENFJ">ENFJ</option>
+											<option th:value="ENTJ">ENTJ</option>
+										</select>
+									</div>
+								</td>
+								<td th:unless="${memberProfile.profile ==null}">
+									<div class="pe-3">
+										<select class="form-select" name="mbti">
+											<option th:if="${memberProfile.profile.mbti !=''}" th:text="${memberProfile.profile.mbti}" th:value="${memberProfile.profile.mbti}" selected></option>
+											<option th:unless="${memberProfile.profile.mbti !=''}" th:value=null selected>선택하세요</option>
+										    <option th:if="${memberProfile.profile.mbti != 'ISTJ'}" th:value="ISTJ">ISTJ</option>
+										    <option th:if="${memberProfile.profile.mbti != 'ISFJ'}" th:value="ISFJ">ISFJ</option>
+										    <option th:if="${memberProfile.profile.mbti != 'INFJ'}" th:value="INFJ">INFJ</option>
+											<option th:if="${memberProfile.profile.mbti != 'INTJ'}" th:value="INTJ">INTJ</option>
+											<option th:if="${memberProfile.profile.mbti != 'ISTP'}" th:value="ISTP">ISTP</option>
+											<option th:if="${memberProfile.profile.mbti != 'ISFP'}" th:value="ISFP">ISFP</option>
+										    <option th:if="${memberProfile.profile.mbti != 'INFP'}" th:value="INFP">INFP</option>
+										    <option th:if="${memberProfile.profile.mbti != 'INTP'}" th:value="INTP">INTP</option>
+											<option th:if="${memberProfile.profile.mbti != 'ESTP'}" th:value="ESTP">ESTP</option>
+											<option th:if="${memberProfile.profile.mbti != 'ESFP'}" th:value="ESFP">ESFP</option>
+											<option th:if="${memberProfile.profile.mbti != 'ENFP'}" th:value="ENFP">ENFP</option>
+											<option th:if="${memberProfile.profile.mbti != 'ENTP'}" th:value="ENTP">ENTP</option>
+											<option th:if="${memberProfile.profile.mbti != 'ESTJ'}" th:value="ESTJ">ESTJ</option>
+										    <option th:if="${memberProfile.profile.mbti != 'ESFJ'}" th:value="ESFJ">ESFJ</option>
+											<option th:if="${memberProfile.profile.mbti != 'ENFJ'}" th:value="ENFJ">ENFJ</option>
+											<option th:if="${memberProfile.profile.mbti != 'ENTJ'}" th:value="ENTJ">ENTJ</option>
+										</select>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td><i class="fi fi-sr-megaphone-announcement-leader"></i> 자기소개</td>
+								<td th:if="${memberProfile.profile ==null}">
+							  	<textarea class="form-control" style="width:95%" name="content" id="content" rows="3" placeholder="자신을 소개해주세요"></textarea>
+							    </td>
+							    <td th:unless="${memberProfile.profile ==null}" >
+								<textarea th:if="${memberProfile.profile.content !=''}" class="form-control" style="width:95%" name="content" id="content" rows="3" th:text="${memberProfile.profile.content}"></textarea>
+								<textarea th:unless="${memberProfile.profile.content !=''}" class="form-control" style="width:95%" name="content" id="content" rows="3" placeholder="자신을 소개해주세요"></textarea>
+							    </td>
+							</tr>
+						</table>
+					</div>
+																
+															
 										<div>
 						<div class="d-grid gap-2">
 							<button type="submit" class="btn btn-lg btn-primary">프로필 수정</button>
