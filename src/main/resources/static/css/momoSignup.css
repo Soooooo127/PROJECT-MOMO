@@ -258,6 +258,8 @@ input:focus {
 
 .dropMember-f {
 	padding-right: 20px;
+}
 
-
+.contentBox {
+  white-space:pre;
 }

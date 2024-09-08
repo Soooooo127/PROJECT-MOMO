@@ -1,5 +1,5 @@
-<html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container my-3">
+<html layout:decorate="~{layout_mypage}">
+<div  layout:fragment="mypageContent">
 	
 	
 	<style>
@@ -22,7 +22,7 @@
 	
 	
 	
-	<div width="500px;">
+	<div style="width:500px;">
 	
 	<h2 class="border-bottom py-2">친구</h2>
 	
@@ -38,25 +38,30 @@
 		
 			<tbody>
 				
-								
-				<tr th:each="friends : ${member.friend}">
-				<td>
-				<img class="siz" th:src="@{|/img/${friends.image.storeFilename}|}" th:if="${friends.image != null}">
-				<img class="siz" th:unless="${friends.image != null}" src="/img/default_profile.png" >&nbsp; &nbsp; &nbsp;
-									
-				<span><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="${friends.membernick}"></a></span>
-				</td>					 
-				
-				<td style="vertical-align: middle;">
-											
-				<div class="d-flex justify-content-end"> 
-				<form th:action="@{/friend/delete}" method="post">
-				<input type="hidden" name="friendid" th:value="${friends.memberid}">
-			    <button class="btn btn-primary" onclick="alert('친구 삭제 완료')"  type="submit" >친구 삭제</button> 					
-				</form>
-				</div>
-				</td>			  	
-				</tr>
+				<th:block th:each="friends : ${member.friend}">
+
+					<tr th:if="${friends.memberid != null}">
+					<td>
+					<img class="siz" th:src="@{|/img/${friends.image.storeFilename}|}" th:if="${friends.image != null}">
+					<img class="siz" th:unless="${friends.image != null}" src="/img/default_profile.png" >&nbsp; &nbsp; &nbsp;
+										
+					<span><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="${friends.membernick}"></a></span>
+					</td>					 
+					
+					<td style="vertical-align: middle;">
+												
+					<div class="d-flex justify-content-end"> 
+					<form th:action="@{/friend/delete}" method="post">
+					<input type="hidden" name="friendid" th:value="${friends.memberid}">
+						<button class="btn btn-primary" onclick="alert('친구 삭제 완료')"  type="submit" >친구 삭제</button> 					
+					</form>
+					</div>
+					</td>			  	
+					</tr>
+
+
+
+				</th:block>				
 				
 									
 								
