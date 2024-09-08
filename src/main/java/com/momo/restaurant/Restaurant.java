@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.momo.restaurant.et.EatTogether;
+import com.momo.restaurant.jjim.Jjim;
 import com.momo.restaurant.review.Review;
 import com.momo.restaurant.time.RestTime;
 
@@ -59,4 +60,7 @@ public class Restaurant {
 	
 	@OneToMany(mappedBy = "rest", cascade = CascadeType.REMOVE )
 	private List<RestTime> timeList;
+	
+	@OneToMany(mappedBy = "rest", cascade = CascadeType.REMOVE)
+	private List<Jjim> jjimList;
 }
