@@ -32,14 +32,6 @@ public class ProfileService {
 		private final EatTogetherRepository etRepository;
 		private final ProfileRepository profileRepository;
 		private final MemberRepository memberRepository;
-		
-		//Service
-		private final ProfileService profileService;
-		private final FreeCommentReplyService freeCommentReplyService;
-		private final FreeCommentService freeCommentService;
-		private final FreePostingService freePostingService;
-		private final AskCommentService askCommentService;
-		private final AskPostingService askPostingService;
 	
 	
 	public void modifyProfile(String memberid, String gender, String content, String mbti){
@@ -128,7 +120,7 @@ public class ProfileService {
 		LocalDate now = LocalDate.now();
 		for(int i=0; i<etList.size(); i++) {
 			if(etList.get(i).getEtdate().toLocalDate().equals(now)) {;
-               Profile profile = this.profileService.getProfile(etList.get(i).getApplymember());
+               Profile profile = getProfile(etList.get(i).getApplymember());
                profile.setBrix(profile.getBrix()+0.2);
                this.profileRepository.save(profile);
 			   todayEtList.add(etList.get(i));
@@ -138,10 +130,10 @@ public class ProfileService {
 		}
 		for(int i=0; i<todayEtList.size(); i++) {
 			for(int j=0; j<todayEtList.get(i).getPrtmember().size(); j++) {
-				Profile profile = this.profileService.getProfile(todayEtList.get(i).getPrtmember().get(j));
+				Profile profile = getProfile(todayEtList.get(i).getPrtmember().get(j));
 				profile.setBrix(profile.getBrix()+0.1);
 				this.profileRepository.save(profile);
-				Profile prof = this.profileService.getProfile(todayEtList.get(i).getPrtmember().get(j));
+				Profile prof = getProfile(todayEtList.get(i).getPrtmember().get(j));
 				double p = Math.round(prof.getBrix()*10)/10.0;
 				prof.setBrix(p);
 				this.profileRepository.save(prof);
