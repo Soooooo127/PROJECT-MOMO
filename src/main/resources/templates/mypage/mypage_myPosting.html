@@ -29,12 +29,8 @@
 	<div>
 		<!--콘텐츠 영역-->
 		<div>	
-			<!--로고 영역-->	
-			<div>
-				로고
-			</div>
 			<!--콘텐츠 세부 영역-->
-				<div class="frame-dvd">
+				<div class="frame-dvd my-5">
 					<!--본문 전체-->
 					<span style="font-size: 20px; font-weight: bold;">내 자유게시판</span>
 					<div>
@@ -45,7 +41,7 @@
 						    <input type="hidden" id="pg" name="pg" th:value="${myAskPosting.number}">
 					 	</form>
 						<!--글 목록(자유게시판)이 없을시-->
-						<div th:if="${myFreePosting.isEmpty()}" class="card my-4" style="height:200px; background-color: gainsboro;" >
+						<div th:if="${myFreePosting.isEmpty()}" class="card my-2" style="height:200px; background-color: gainsboro;" >
 							<strong style="margin:auto">현재 자유게시판에 작성된 글이 없습니다. 글을 작성해 보세요.</strong>
 						</div>
 						<!--글 목록(자유게시판)-->
@@ -79,28 +75,28 @@
 								</tbody>
 								</table>			
 							    <!--자유게시판 검색-->
-								  <div class="my-3" align="right">
-									 <form th:action="@{/mypage/myPosting}" method="get">
-										<input type="text" id="search_freeSubject" th:value="${freeSubject}">
-										<button type="button" id="btn_search_freeSubject" class="btn btn-outline-secondary">검색</button>
-									 </form>	
+								  <div style="width:50%;margin:auto;">
+                                      <div class="input-group mb-3">
+										<input type="text" id="search_freeSubject" class="form-control" th:value="${freeSubject}">
+										<button type="button" id="btn_search_freeSubject" class="btn btn-outline-secondary">검색</button>	
+									  </div>
 								  </div>
 								<!--자유게시판 페이징-->
 								  <div th:if="${!myFreePosting.isEmpty()}" >
 									<ul class="pagination pagination-sm justify-content-center">
-									  <li class="page-item" th:classappend="${!myFreePosting.hasPrevious} ? 'disabled'">
+									  <li style="padding:0"  class="page-item" th:classappend="${!myFreePosting.hasPrevious} ? 'disabled'">
 										 <a name="z" class="page-link" href="javascript:void(0)" th:data-page="${myFreePosting.number-1}">
-											<span>이전</span>
+											<span>&laquo;</span>
 										 </a>
 									  </li>
-									  <li th:each="page : ${#numbers.sequence(0, myFreePosting.totalPages-1) }"
+									  <li style="padding:0"  th:each="page : ${#numbers.sequence(0, myFreePosting.totalPages-1) }"
 							           th:if="${page >= myFreePosting.number -3 and page <= myFreePosting.number + 3}"
 									   th:classappend="${page==myFreePosting.number} ? 'active'" class="page-item">
 									     <a name="z" th:text="${page+1}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
 									  </li>
-									  <li class="page-item" th:classappend="${!myFreePosting.hasNext} ? 'disabled'">
+									  <li style="padding:0"  class="page-item" th:classappend="${!myFreePosting.hasNext} ? 'disabled'">
 										  <a name="z" class="page-link" href="javascript:void(0)" th:data-page="${myFreePosting.number+1}">
-											  <span>다음</span>
+											  <span>&raquo;</span>
 										  </a>
 									  </li>
 								    </ul>
@@ -143,28 +139,28 @@
 						</tbody>
 					</table>			
 					<!--질문%답변 검색-->
-					<div class="my-3" align="right">
-						<form th:action="@{/mypage/myPosting}" method="get">
-							<input type="text" id="search_askSubject" th:value="${askSubject}">
+					<div style="width:50%;margin:auto;">
+                         <div class="input-group mb-3">
+							<input type="text" id="search_askSubject" class="form-control" th:value="${askSubject}">
 							<button type="button" id="btn_search_askSubject" class="btn btn-outline-secondary">검색</button>
-						</form>	
+                         </div>
 					</div>
 					<!--질문%답변  페이징-->
 					 <div th:if="${!myAskPosting.isEmpty()}">
 						<ul class="pagination pagination-sm justify-content-center">
-							<li class="page-item" th:classappend="${!myAskPosting.hasPrevious} ? 'disabled'">
+							<li style="padding:0"  class="page-item" th:classappend="${!myAskPosting.hasPrevious} ? 'disabled'">
 						      <a name="y"  class="page-link" href="javascript:void(0)" th:data-page="${myAskPosting.number-1}">
-								 <span>이전</span>
+								 <span>&laquo;</span>
 							  </a>
 							</li>
-							<li th:each="pg : ${#numbers.sequence(0, myAskPosting.totalPages-1) }"
+							<li style="padding:0"  th:each="pg : ${#numbers.sequence(0, myAskPosting.totalPages-1) }"
 							   th:if="${pg >= myAskPosting.number -3 and pg <= myAskPosting.number + 3}"
 							   th:classappend="${pg==myAskPosting.number} ? 'active'" class="page-item">
 							   <a name="y" th:text="${pg+1}" class="page-link" href="javascript:void(0)" th:data-page="${pg}"></a>
 							</li>
-							<li class="page-item" th:classappend="${!myAskPosting.hasNext} ? 'disabled'">
+							<li style="padding:0"  class="page-item" th:classappend="${!myAskPosting.hasNext} ? 'disabled'">
 							   <a name="y"  class="page-link" href="javascript:void(0)" th:data-page="${myAskPosting.number+1}">
-								 <span>다음</span>
+								 <span>&raquo;</span>
 							   </a>
 							</li>
 						</ul>
