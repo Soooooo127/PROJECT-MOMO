@@ -17,29 +17,31 @@
 					vertical-align: middle;
 					
 				}
-				
-				.etd{
-					
-					/*border: 1px solid black;*/
-					width: 600px;
+				.etd{  
+					width: 500px;
 					height: 600px;					
 					justify-content: center;
 					padding: 5px;
-					
 				}
+				.img{
+					width: 410px;
+					height: 300px;
+					max-width: 25rem;
+					border-radius: 10%;
 				
-				.pic { /*사진*/
-				
-						margin-left: 7%;
-						width: 400px;
+				}
+				.pic {
+						width: 430px;
 						padding: 10px;
 					
-					}
+					} /*
 					.img{
-						width: 380px;
+						width: 400px;
+						height: 300px;
 						border-radius: 10%;
+						
 
-				}
+				}*/
 				.etfont{
 					color: rgb(47,52,56);
 					font-weight: 500;
@@ -51,17 +53,18 @@
 
 	</head>
 <body>		
-	<div layout:fragment="content" class="container my-5" >	
-		<div class="card" style="width: 1100px; height: 650px; margin: auto; border: 2px solid #e1e1e1;" >
-		  <div class="card-body" style="display: flex; justify-content: center;" >
-			<div class="etd">
+	<div layout:fragment="content" id="wrapper" >	
+		<div class="card" style="width: 1100px; height: 700px; margin: auto; border: 2px solid #e1e1e1;" >
+		  <div class="card-body" style="justify-content: center; margin-top: 10px;" >
 				
-				<div style="margin-bottom: 5px; padding: 20px; ">
+				<div style="margin-bottom: 5px; padding-left: 50px;">
 					<span style="font-size: 40px; font-weight: bold;"   th:text="|${et.ettitle}|"></span><br>
 					<span style="font-size: 20px; font-weight: bold;"  th:text="|방장 : ${et.applymember.membernick}|" ></span>
 				</div>
+				<div style="display: flex; padding-left: 30px;">
+					<div class="etd">
 		
-						<div style="margin-bottom: 5px; padding: 20px;  color: #646464;">
+						<div style=" margin-bottom: 5px; padding: 10px;  color: #646464;">
 								<ul  class="tag" style="font-weight: 600;">
 												<li>
 														<span th:text="|가게명 : ${rest.name}|"></span>
@@ -80,170 +83,183 @@
 								</ul>
 						</div>
 					
-				<!-- 가게사진 테스트 (효정언니 수정해주세용 S2) -->
+				<!-- 가게사진 테스트 -->
 					
 					<div class="pic" >
-						<img src="https://cdn.pixabay.com/photo/2016/12/31/09/17/food-1942403_1280.jpg" class="img">
+					<img th:src="${rest.img}" class="img" >
 					</div>
 				
 	
-			</div>
+			</div> <!-- 왼쪽 플렉스 -->
 			
-			<div class="etd" style="text-align: center;"  >
-				<br>
-				<br>
-				<div style=" margin-top: 10%;">
-				<p style="font-size: 20px; font-weight: bold;" th:text="|함께 모모하는 사람들|"></p>
-								
-								<div class="card mb-2"  style="border: 1px solid #e1e1e1; padding: 20px;">
-									<!--<th:block th:each="member : ${et.prtmember}">
-										<div  th:text="${member.membernick}"></div>
-										
-									</th:block>-->
-									
-
-									
-									<table class="table table-hover" style="border: none;">
-										<thead class="table">
-										<tr>
-											<th width="100px">닉네임</th>
-											<th width="100px">MBTI</th>
-											<th width="100px">성별</th>
-											
-										</tr>
-										</thead>
-										
-										<tbody>
-											<th:block th:each="etmember : ${et.prtmember}">
-										<tr  style="border: none;">
-														<td style="border: none;">								
-															<ul class="navbar-nav me-auto" >
-														  <li class="nav-item dropdown">
-														<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-															th:if="${etmember.membernick != null}" th:text="${etmember.membernick}"></a>
-														<div sec:authorize="isAuthenticated()">
-														<div class="dropdown-menu" th:if="${#authentication.getPrincipal().getUsername != etmember.memberid}">																			
-														<a class="dropdown-item"  href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ etmember.no}">프로필 보기</a>
-														<a class="dropdown-item" th:if="${!#lists.contains(member.friend,etmember)}"
-														th:href="@{|/friend/create/${etmember.no}|}" onclick="alert('친구 추가 완료');">친구 추가</a>
-													</div>
-														</div>
-															</li>
-															</ul>
-																						
-																					<!--	#authentication.getPrincipal().getUsername() != etmember.memberid -->
-																						
-																						
-														</td >
-														<td style="border: none;">
-															<span th:if="${etmember.profile != null}" th:text="${etmember.profile.mbti}"></span>
-															<span  th:if="${etmember.profile == null}" th:text="미입력"></span>
-														</td>
-														<td style="border: none;">
-															<span th:if="${etmember.profile != null}" th:text="${etmember.profile.gender}"></span>
-															<span  th:if="${etmember.profile == null}" th:text="미입력"></span>
-														</td>
-														
-												
-											</tr>
-											
-														<!-- Modal -->	
-													<div class="modal"  th:attr="id='profile' +${etmember.no}"   tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-														
-													  <div class="modal-dialog">
-													   <div class="modal-content">
-													     <div class="modal-header">
-															   <h1 class="modal-title fs-5" id="exampleModalLabel">
-																<span th:text="|${etmember.membernick}님의 프로필|"></span></h1>
-															    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-													  	 </div>
-														     <div class="modal-body" >	
-																<!-- 프로필 사진 -->
-																<div class="d-flex justify-center" >
-																	<img class="siz" th:src="@{|/img/${etmember.image.storeFilename}|}" th:if="${etmember.image != null}">
-																	<img class="siz" th:unless="${etmember.image != null}" src="/img/default_profile.png" >
-																</div>
 			
-																<br>
-																<ul class="list-group" >
-																  <li class="list-group-item d-flex justify-content-between align-items-center">
-																   mbti
-																   <span th:if="${etmember.profile != null}" th:text="${etmember.profile.mbti}"></span>
-																 	<span  th:if="${etmember.profile == null}" th:text="미입력"></span>	
-																  </li>
-																  <li class="list-group-item d-flex justify-content-between align-items-center">
-																   성별
-																   <div th:if="${etmember.profile != null}" th:text="${etmember.profile.gender}"></span>
-																 	<div  th:if="${etmember.profile == null}" th:text="미입력"></div>	
-																  </li>
-																  <li class="list-group-item d-flex justify-content-between align-items-center">
-																    자기소개
-																	<div th:if="${etmember.profile != null}" th:text="${etmember.profile.content}"></span>
-																	<div  th:if="${etmember.profile == null}" th:text="미입력"></div>	
-																    
-																  </li>
-																</ul>
-														  </div>															
-													     <div class="modal-footer">
-													    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>															      
-												  		 </div>
-													     </div>
-													 	</div>
-												 	</div>
-												</th:block>
-											</tbody>								
-										</table>
-									
-									<!--============================== 채팅 진입 아이콘 =========================-->
-								<br>
-										<th:block th:each="member : ${et.prtmember}">
-											<div style="text-align: end;">
-											<img th:if="${member.memberid == #authentication.getPrincipal().getUsername()}"   		
-											th:src="@{/css/images/chatting.png}" width="60px" height="60px" alt="채팅 아이콘" class="icon"
-											onclick='openNewChatRoom()'>
-											<input type="hidden" th:value="${et.no}" name="chatRoomNo" id="chatRoomNo">
-											</div>	
-										</th:block>	
-								</div> 
-								<br>
-								<br>
-				
-					
-					<!--==============================방 참여, 나가기 , 삭제 버튼 =================================================-->
-					<div class="d-flex justify-content-end">
-						<div class="mx-2">
-							<a th:if="${isMemberIn} and ${et.applymember.memberid != #authentication.getPrincipal().getUsername()}"
-							th:href="@{|/et/leave/${rest.no}/${et.no}|}" class="btn btn-primary">방 나가기</a>
-												
-							<div th:if="${!isMemberIn}">
-								<div th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') > #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">
-									<a th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
-														
-								</div>
-													
-								<a th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}" class="btn btn-primary">참여기간 만료</a>
-												
-							</div>
-												
-												
-											
-							<a th:if="${et.applymember.memberid == #authentication.getPrincipal().getUsername() and #lists.size(et.prtmember) == 1}"
-							href="javascript:void(0)" th:data-uri="@{|/et/delete/${rest.no}/${et.no}|}" class="delete btn btn-primary">모모방 삭제</a>
-						</div>
-						
-						
-
-					</div>
-				</div>
-			</div><!--같이먹기 테이블 끝-->
-	  </div>
-  </div> <!-- 같이먹기 상세화면 끝-->
+			
+			
 		
+			<!-- 오른쪽 플렉스-->
+			<div class="etd" style="text-align: center;"  >
+							<div style="margin-top: 10px;">
+							<p style="font-size: 20px; font-weight: bold;" th:text="|함께 모모하는 사람들|"></p>
+											
+											<div class="card mb-2"  style="border: 1px solid #e1e1e1; padding: 20px;">
+												<!--<th:block th:each="member : ${et.prtmember}">
+													<div  th:text="${member.membernick}"></div>
+													
+												</th:block>-->
+												
+
+												
+												<table class="table table-hover" style="border: none;">
+													<thead class="table">
+													<tr>
+														<th width="100px">닉네임</th>
+														<th width="100px">MBTI</th>
+														<th width="100px">성별</th>
+														
+													</tr>
+													</thead>
+													
+													<tbody>
+														<th:block th:each="etmember : ${et.prtmember}">
+													<tr  style="border: none;">
+																	<td style="border: none;">								
+																		<ul class="navbar-nav me-auto" >
+																	  <li class="nav-item dropdown">
+																	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+																		th:if="${etmember.membernick != null}" th:text="${etmember.membernick}"></a>
+																	<div sec:authorize="isAuthenticated()">
+																	<div class="dropdown-menu" th:if="${#authentication.getPrincipal().getUsername != etmember.memberid}">																			
+																	<a class="dropdown-item"  href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ etmember.no}">프로필 보기</a>
+																	<a class="dropdown-item" th:if="${!#lists.contains(member.friend,etmember)}"
+																	th:href="@{|/friend/create/${etmember.no}|}" onclick="alert('친구 추가 완료');">친구 추가</a>
+																</div>
+																	</div>
+																		</li>
+																		</ul>
+																									
+																								<!--	#authentication.getPrincipal().getUsername() != etmember.memberid -->
+																									
+																									
+																	</td >
+																	<td style="border: none;">
+																		<span th:if="${etmember.profile != null}" th:text="${etmember.profile.mbti}"></span>
+																		<span  th:if="${etmember.profile == null}" th:text="미입력"></span>
+																	</td>
+																	<td style="border: none;">
+																		<span th:if="${etmember.profile != null}" th:text="${etmember.profile.gender}"></span>
+																		<span  th:if="${etmember.profile == null}" th:text="미입력"></span>
+																	</td>
+																	
+															
+														</tr>
+														
+																	<!-- Modal -->	
+																<div class="modal"  th:attr="id='profile' +${etmember.no}"   tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																	
+																  <div class="modal-dialog">
+																   <div class="modal-content">
+																     <div class="modal-header">
+																		   <h1 class="modal-title fs-5" id="exampleModalLabel">
+																			<span th:text="|${etmember.membernick}님의 프로필|"></span></h1>
+																		    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																  	 </div>
+																	     <div class="modal-body" >	
+																			<!-- 프로필 사진 -->
+																			<div class="d-flex justify-center" >
+																				<img class="siz" th:src="@{|/img/${etmember.image.storeFilename}|}" th:if="${etmember.image != null}">
+																				<img class="siz" th:unless="${etmember.image != null}" src="/img/default_profile.png" >
+																			</div>
+						
+																			<br>
+																			<ul class="list-group" >
+																			  <li class="list-group-item d-flex justify-content-between align-items-center">
+																			   mbti
+																			   <span th:if="${etmember.profile != null}" th:text="${etmember.profile.mbti}"></span>
+																			 	<span  th:if="${etmember.profile == null}" th:text="미입력"></span>	
+																			  </li>
+																			  <li class="list-group-item d-flex justify-content-between align-items-center">
+																			   성별
+																			   <div th:if="${etmember.profile != null}" th:text="${etmember.profile.gender}"></span>
+																			 	<div  th:if="${etmember.profile == null}" th:text="미입력"></div>	
+																			  </li>
+																			  <li class="list-group-item d-flex justify-content-between align-items-center">
+																			    자기소개
+																				<div th:if="${etmember.profile != null}" th:text="${etmember.profile.content}"></span>
+																				<div  th:if="${etmember.profile == null}" th:text="미입력"></div>	
+																			    
+																			  </li>
+																			</ul>
+																	  </div>															
+																     <div class="modal-footer">
+																    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>															      
+															  		 </div>
+																     </div>
+																 	</div>
+															 	</div>
+															</th:block>
+														</tbody>								
+													</table>
+												
+												<!--============================== 채팅 진입 아이콘 =========================-->
+											<br>
+													<th:block th:each="member : ${et.prtmember}">
+														<div style="text-align: end;">
+														<img th:if="${member.memberid == #authentication.getPrincipal().getUsername()}"   		
+														th:src="@{/css/images/chatting.png}" width="60px" height="60px" alt="채팅 아이콘" class="icon"
+														onclick='openNewChatRoom()'>
+														<input type="hidden" th:value="${et.no}" name="chatRoomNo" id="chatRoomNo">
+														</div>	
+													</th:block>	
+											</div> 
+											<br>
+			
+								<!--==============================방 참여, 나가기 , 삭제 버튼 =================================================-->
+								<div class="d-flex justify-content-end">
+									<div class="mx-2">
+										<a th:if="${isMemberIn} and ${et.applymember.memberid != #authentication.getPrincipal().getUsername()}"
+										th:href="@{|/et/leave/${rest.no}/${et.no}|}" class="btn btn-primary">방 나가기</a>
+															
+										<div th:if="${!isMemberIn}">
+											<div th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') > #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">
+												<a th:href="@{|/et/participate/${rest.no}/${et.no}|}" class="btn btn-primary">모모에 참여하기</a>
+																	
+											</div>
+																
+											<a th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}" class="btn btn-primary">참여기간 만료</a>
+															
+										</div>
+															
+															
+														
+										<a th:if="${et.applymember.memberid == #authentication.getPrincipal().getUsername() and #lists.size(et.prtmember) == 1}"
+										href="javascript:void(0)" th:data-uri="@{|/et/delete/${rest.no}/${et.no}|}" class="delete btn btn-primary">모모방 삭제</a>
+									</div>
+									
+									
+
+								</div>
+							</div>
+						</div><!--같이먹기 테이블 끝-->
+			</div> 
+			
+				  </div>
+			
+			
+			
+			
+			
+			
+	  </div>
+	  
+	  
+	  
+	  
+	  
 		  <br>
 	  		<!-- 이 가게의 다른 같이 먹기 목록 -->
 			<div>
 				<p th:if="${#lists.size(rest.etList) > 1}" style="font-size: 25px; font-weight: 600; text-align: center; color: #646464;">해당 가게의 다른 같이먹기도 확인해보세요</p>		
-				<p th:if="${#lists.size(rest.etList) == 1}" style="font-size: 25px; font-weight: 600; text-align: center; color: #646464;">아직 해당 가게의 같이먹기가 없어요</p>					
+				<p th:if="${#lists.size(rest.etList) == 1}" style="font-size: 25px; font-weight: 600; text-align: center; color: #646464;">아직 해당 가게의 다른 같이먹기가 없어요 :(</p>					
 			</div>
 			
 			<div class="justify-content-center my-4" style="width: 1100px; margin: auto;">
@@ -263,6 +279,8 @@
 				</div><!-- body 밑의 div 끝 -->
 					
 			</div> <!-- th:each문 끝 -->
+  </div> <!-- 같이먹기 상세화면 끝-->
+		
 			<!--${et.applymember.memberid != #authentication.getPrincipal().getUsername()}-->
 			
 	
