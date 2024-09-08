@@ -33,7 +33,7 @@ public class MemberService {
 		member.setEmail(memberCreateForm.getEmail());
 		member.setCreateDate(LocalDateTime.now());
 		member.setPassword(passwordEncoder.encode(memberCreateForm.getPassword1()));
-		
+		memberRepository.save(member);
 		Profile profile = new Profile();
 		profile.setGender(memberCreateForm.getGender());
 		profile.setMbti(memberCreateForm.getMbti());
