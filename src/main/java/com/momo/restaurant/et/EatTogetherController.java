@@ -120,7 +120,8 @@ public class EatTogetherController {
 	public String detailET(Model model , @PathVariable("rno") Integer rno
 			, @PathVariable("etno") Integer etno , Principal principal) {
 		Restaurant rest = this.restService.getRestaurant(rno);
-		EatTogether et = this.etService.getET(etno);	
+		EatTogether et = this.etService.getET(etno);
+		int prtnumber = Integer.parseInt(et.getPrtnumber());
 		List<Member> temp = et.getPrtmember();
 		for(int i=0 ; i < temp.size() ; i++) {
 			System.out.println(temp.get(i).getMembernick());
@@ -129,6 +130,7 @@ public class EatTogetherController {
 		boolean isMemberIn = temp.contains(member);	
 		System.out.println(isMemberIn);
 		model.addAttribute("isMemberIn" , isMemberIn);
+		model.addAttribute("prtnumber" , prtnumber);
 		model.addAttribute("rest", rest);
 		model.addAttribute("et", et);
 		model.addAttribute("member", member);
