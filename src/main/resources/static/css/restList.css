@@ -1,11 +1,14 @@
 .mid{
-width: 100%;	
+width: 1280px;	
 height: 100%;
-
+display: flex;
+margin:auto	;
 
 }
 .h{
-	display: flex;
+	width: 200px;
+	text-align: center;
+	font-size: 50px;
 }
 	.header{
 		
@@ -25,15 +28,14 @@ height: 100%;
 	padding: 5px;
 	margin-right: 400px;
 	margin-top:50px;
-	border: 2px solid rgb(0, 128, 0);
 }
 
 .cate{
 	width: 200px;
-	border: 2px solid rgb(255, 128, 64);
-	padding: 5px;
-
-	margin-left: 400px;
+	margin-left:100px;
+margin-top:20px;
+border: 2px solid #f4f4f4;
+	border-radius: 20%;
 }
 
 a:link, a:visited{
@@ -78,7 +80,7 @@ float: left;
 
 .c_name{
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 18px;
 	
 }
 

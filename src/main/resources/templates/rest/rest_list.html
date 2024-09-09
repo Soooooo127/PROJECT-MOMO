@@ -7,18 +7,15 @@
 	</head>
 	<body >
 		<div layout:fragment="content" id='wrapper'>
-		<div class="mid">
-			<div class="h" th:each="rest : ${paging}">
+			<div class="mid">
 				<div class="cate">
-					
-					<span th:text="${rest.category}"></span>
-					</div>
-					
-				
-				
+				<div class="h" th:each="rest, loop : ${paging}">
+					<span th:if="${loop.count==1}" th:text="${rest.category}"></span>
+					<span th:unless="${loop.count==1}"  ></span>
+				</div>
+				</div>
 				
 				<div class="search_header">
-					
 						<!--검색-->
 						<div class="search">
 								<div class="input-group">
@@ -26,12 +23,10 @@
 								<button class="btn btn-outline-primary" type="button" id="btn_search">찾기</button>
 								</div>
 						</div>
-							
 								<form th:action="@{/rest/list/search}" method="get" id="searchForm">
-								<input type="hidden" id="kw" name="kw" th:value="${kw}">
-										   
+								<input type="hidden" id="kw" name="kw" th:value="${kw}">   
 								</form>		
-				</div></div>
+				</div>
 			</div>
 		
 			<div class="rest_list">	
