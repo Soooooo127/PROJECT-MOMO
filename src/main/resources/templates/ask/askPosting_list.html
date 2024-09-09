@@ -13,10 +13,10 @@
 		<p style="font-size: 30px; font-weight: bold;">[질문과 답변] MOMO의 궁금한것을 서로 물어보아요</p>
 		
 		
-		<div>
-			<button th:onclick="|location.href='@{/askPosting/list(order=createDate , kw=${kw})}'|">최신순</button>
-			<button th:onclick="|location.href='@{/askPosting/list(order=cnt , kw=${kw})}'|">조회순</button>
-			<button th:onclick="|location.href='@{/askPosting/list(order=ddabong , kw=${kw})}'|">추천순</button>
+		<div style="margin-bottom: 10px;">
+			<button th:onclick="|location.href='@{/askPosting/list(order=createDate , kw=${kw})}'|" class="btn btn-secondary btn-sm">최신순</button>
+			<button th:onclick="|location.href='@{/askPosting/list(order=cnt , kw=${kw})}'|" class="btn btn-secondary btn-sm"> 조회순</button>
+			<button th:onclick="|location.href='@{/askPosting/list(order=ddabong , kw=${kw})}'|" class="btn btn-secondary btn-sm">추천순</button>
 		</div>
 		<div>
 		<table class="table" >
