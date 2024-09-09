@@ -26,10 +26,16 @@ a.a1, a.t1{
 }
 .c_name{
 	font-weight: bold;
-	font-size: 16px;
-	
+	font-size: 17px;
+
 }
 .c_name2{
+	font-size: 13px;
+}
+c_name3{
+	font-size: 15px;
+}
+.tag{
 	font-size: 13px;
 }
 .img{
