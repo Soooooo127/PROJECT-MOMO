@@ -50,6 +50,17 @@ public class RestController {
 			, Principal principal, ReviewForm reviewForm , EatTogetherForm eatTogetherForm) {
 		if(principal==null) {
 			Restaurant rest = this.restService.getRestaurant(no);
+			//같이먹기
+			List<EatTogether> etList = this.etService.getList(rest);
+			LocalDate today = LocalDate.now();
+			Integer expired = 0;
+			for(EatTogether et : etList) {
+				if(today.isAfter(et.getEtdate().toLocalDate())) {
+					expired += 1;
+				}
+			}
+			rest.setEtList(etList);
+			rest.setProgresset(etList.size() - expired);
 			model.addAttribute("rest", rest);
 			List<Review> review=this.reviewService.getList(rest);
 			model.addAttribute("review", review);
