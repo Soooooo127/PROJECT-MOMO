@@ -72,24 +72,46 @@
 			
 
 		<!-- Modal -->
-		<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h1 class="modal-title fs-5" id="exampleModalLabel">친구의 프로필 </h1>
-		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-		      </div>
-		      <div class="modal-body">
-		        친구의 프로필 들어갈 예정
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-		      
-		      </div>
-		    </div>
-		  </div>
-		</div>
-		
+		<!-- 프로필 보기 Modal -->	
+												<div class="modal"  th:attr="id='profile' +${freeComment.author.no}"   tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																						
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+														
+																<h1 class="modal-title fs-5" id="exampleModalLabel">
+																	<span th:text="|${freeComment.author.membernick}님의 프로필|"></span>	
+																</h1>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body" >
+																<!-- 프로필 사진 -->
+																<div class="d-flex justify-center" >
+																	<img class="profileImage" th:src="@{|/img/${freeComment.author.image.storeFilename}|}" th:if="${freeComment.author.image != null}">
+																	<img class="profileImage" th:unless="${freeComment.author.image != null}" src="/img/default_profile.png" >
+																</div>
+																<br>								
+																<ul class="list-group" >
+																	<li class="list-group-item d-flex justify-content-between align-items-center">mbti
+																		<span th:if="${freeComment.author.profile != null}" th:text="${freeComment.author.profile.mbti}"></span>
+																		<span th:if="${freeComment.author.profile == null}" th:text="미입력"></span>	
+																	</li>
+																	<li class="list-group-item d-flex justify-content-between align-items-center">성별
+																		<span th:if="${freeComment.author.profile != null}" th:text="${freeComment.author.profile.gender}"></span>
+																		<span th:if="${freeComment.author.profile == null}" th:text="미입력"></span>	
+																	</li>
+																	<li class="list-group-item d-flex justify-content-between align-items-center">자기소개
+																		<span th:if="${freeComment.author.profile != null}" th:text="${freeComment.author.profile.content}"></span>
+																		<span th:if="${freeComment.author.profile == null}" th:text="미입력"></span>	
+																	</li>
+																</ul>
+															</div>															
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+															</div>
+														</div>
+													</div>
+												</div>
 		
 		
 		
