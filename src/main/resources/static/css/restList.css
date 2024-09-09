@@ -4,7 +4,9 @@ height: 100%;
 
 
 }
-
+.h{
+	display: flex;
+}
 	.header{
 		
 		height: 250px;
@@ -21,16 +23,17 @@ height: 100%;
 	width: 800px;
 	border: 2px solid rgb(255, 255, 255);
 	padding: 5px;
-	margin:auto;
+	margin-right: 400px;
 	margin-top:50px;
+	border: 2px solid rgb(0, 128, 0);
 }
 
-.category{
-	width: 20%;
+.cate{
+	width: 200px;
 	border: 2px solid rgb(255, 128, 64);
 	padding: 5px;
-	float:inline-start;
-	margin-right: 20px; 
+
+	margin-left: 400px;
 }
 
 a:link, a:visited{
