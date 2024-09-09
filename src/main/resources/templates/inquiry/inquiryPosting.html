@@ -1,5 +1,5 @@
 <html layout:decorate="~{layout}">
-	<div layout:fragment="content">
+	<head>
 		<style>
 		
 			th.cen {
@@ -30,13 +30,15 @@
 		   
 		</style>
     <!--전체-->   
-
+	</head>
+	<body>
+	<div layout:fragment="content" id='wrapper'>
 	<form th:action="@{/inquiryPosting/myList}" method="get" id="searchForm">
 		<input type="hidden" id="subject" name="subject" th:value="${subject}">
 		<input type="hidden" id="page" name="page" th:value="${paging.number}">
 	</form>  
 	
-	<div class="container my-3">
+	<div class="container my-3" >
 		<span style="font-size:30px; font-weight:bold;" >나의 문의글</span>
 		<!--글 작성이 되어있지 않을 때-->
 		<div th:if="${paging.isEmpty()}" class="card my-2" style="height:200px; background-color: gainsboro;" >
@@ -103,7 +105,8 @@
 					</li>
 			    </ul>
 			</div>	     				
-		</div>		
+		</div>	
+			
 		<script layout:fragment="script" type="text/javascript">
 			const page_elements = document.getElementsByClassName("page-link");
 			Array.from(page_elements).forEach(function(element){
