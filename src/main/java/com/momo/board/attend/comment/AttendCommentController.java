@@ -32,12 +32,12 @@ public class AttendCommentController
 	@GetMapping("/list")
 	public String getCommentList(Model model, @RequestParam(value="page", defaultValue = "0")int page, AttendCommentForm attendCommentForm, Principal principal) 
 	{   	
-		AttendComment attend = this.attendCommentService.getAttend(principal.getName());
+		LocalDate today = LocalDate.now();
+		
+		AttendComment attend = this.attendCommentService.getAttend(principal.getName(), today);
 		model.addAttribute("attend", attend);
 		
-		LocalDate now = LocalDate.now();
-		
-		Page<AttendComment> paging = this.attendCommentService.getList(page, now);
+		Page<AttendComment> paging = this.attendCommentService.getList(page, today);
 		model.addAttribute("paging", paging);
 		return "hello/attendCalendar_main";
 	}
