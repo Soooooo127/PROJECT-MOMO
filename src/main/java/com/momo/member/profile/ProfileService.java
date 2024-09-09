@@ -89,7 +89,8 @@ public class ProfileService {
 		Profile profile = new Profile();
 		if(_profile.isPresent()) {
 			profile = _profile.get();
-			profile.setBrix(profile.getBrix()+0.1);
+			double brix = Math.round((profile.getBrix()+0.1)*10.0)/10.0;
+			profile.setBrix(brix);
 			this.profileRepository.save(profile);
 		} else {
 			throw new DataNotFoundException("해당 회원이 없습니다");
@@ -101,7 +102,8 @@ public class ProfileService {
 		Profile profile = new Profile();
 		if(_profile.isPresent()) {
 			profile = _profile.get();
-			profile.setBrix(profile.getBrix()-0.1);
+			double brix = Math.round((profile.getBrix()+0.1)*10.0)/10.0;
+			profile.setBrix(brix);
 			this.profileRepository.save(profile);
 		} else {
 			throw new DataNotFoundException("해당 회원이 없습니다");
