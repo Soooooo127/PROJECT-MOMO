@@ -7,14 +7,13 @@
 .et_list{
 	margin-top: 50px;
 	margin-bottom: 70px;
-	height: 800px;
-	
+
 }
 .list{
 	width: 1140px;
 	margin:auto;
 	overflow: auto;
-
+	height: auto;
 }
 
 a.a1, a.t1{
@@ -27,8 +26,11 @@ a.a1, a.t1{
 }
 .c_name{
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 16px;
 	
+}
+.c_name2{
+	font-size: 13px;
 }
 .img{
 	width: 350px;
