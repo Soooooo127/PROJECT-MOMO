@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AttendCommentRepository extends JpaRepository<AttendComment, Integer>
 {
 	Page<AttendComment> findByLocalDate (Pageable pageable, LocalDate today);
-	Optional<AttendComment> findByMemberid(String memberid);
+	Optional<AttendComment> findByMemberidAndLocalDate(String memberid, LocalDate today);
 }

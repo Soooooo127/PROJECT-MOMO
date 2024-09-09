@@ -36,9 +36,9 @@ public class AttendCommentService
 		this.attendCommentRepository.save(attendComment);
 	}
 	
-	public AttendComment getAttend(String memberid)
+	public AttendComment getAttend(String memberid, LocalDate today)
 	{
-		Optional<AttendComment> attend = this.attendCommentRepository.findByMemberid(memberid);
+		Optional<AttendComment> attend = this.attendCommentRepository.findByMemberidAndLocalDate(memberid, today);
 		if(attend.isPresent()) {
 			return attend.get();
 		} else if(attend.isEmpty()) {
