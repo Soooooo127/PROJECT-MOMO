@@ -41,10 +41,19 @@
 										</div>
 										<div class="frame-dl">
 											<p class="postingAuthorInfo">
-												<span th:text="${posting.membernick}"></span>
-												<span class="badge bg-dark">프로필</span><br>
-												<span th:text="${#temporals.format(posting.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+												<th:block sec:authorize="isAuthenticated()" th:if="${posting.author.memberid != null}">
+												  <span class="badge bg-dark" 
+												  th:if="${posting.author.memberid != null and #authentication.getPrincipal().getUsername() == posting.author.memberid}">나</span>
+												  <span th:text="${posting.membernick}"></span>
+												  <a href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ posting.author.no}">
+												  <span class="badge bg-dark" 
+												  th:if="${posting.author.memberid != null and #authentication.getPrincipal().getUsername() != posting.author.memberid}">프로필</span></a>
+												  <span th:if="${posting.updateDate == null}" th:text="${#temporals.format(posting.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+												</th:block>
 												<span th:if="${posting.updateDate != null}" th:text="|(최종 수정일 : ${#temporals.format(posting.updateDate, 'yyyy-MM-dd HH:mm')})|"></span>
+												<th:block th:if="${posting.author.memberid == null}">
+													<span class="badge bg-secondary">탈퇴한 회원</span>
+												</th:block>
 											</p>
 										</div>
 									</div>
@@ -64,7 +73,44 @@
 								</div>
 							</div>
 						</div>
+						<!-- 프로필 보기 Modal -->	
+						<div class="modal" th:attr="id='profile'+${posting.author.no}">													
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">								
+										<h1 class="modal-title fs-5" id="exampleModalLabel">
+											<span th:text="|${posting.author.membernick}님의 프로필|"></span>	
+										</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body" >
 
+										<div class="d-flex justify-center" >
+											<img class="profileImage" th:src="@{|/img/${posting.author.image.storeFilename}|}" th:if="${posting.author.image != null}">
+											<img class="profileImage" th:unless="${posting.author.image != null}" src="/img/default_profile.png" >
+										</div>
+										<br>								
+										<ul class="list-group" >
+											<li class="list-group-item d-flex justify-content-between align-items-center">mbti
+												<span th:if="${posting.author.profile != null}" th:text="${posting.author.profile.mbti}"></span>
+												<span th:if="${posting.author.profile == null}" th:text="미입력"></span>	
+											</li>
+											<li class="list-group-item d-flex justify-content-between align-items-center">성별
+												<span th:if="${posting.author.profile != null}" th:text="${posting.author.profile.gender}"></span>
+												<span th:if="${posting.author.profile == null}" th:text="미입력"></span>	
+											</li>
+											<li class="list-group-item d-flex justify-content-between align-items-center">자기소개
+												<span th:if="${posting.author.profile != null}" th:text="${posting.author.profile.content}"></span>
+												<span th:if="${posting.author.profile == null}" th:text="미입력"></span>	
+											</li>
+										</ul>
+									</div>															
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+									</div>
+								</div>
+							</div>
+						</div>
 						<!--게시물 본문 출력-->
 						<div class="underline">
 							<!--본문-->

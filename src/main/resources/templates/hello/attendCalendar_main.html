@@ -1,6 +1,6 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" id='wrapper'>
-<div class = "container">
+<div class = "container my-4">
 	
 <h1><span th:text="${#calendars.format(#calendars.createNow(), 'yyyy년 MM월 dd일 출석체크')}"> </span></h1>
 
@@ -9,11 +9,12 @@
 	<div th:replace="~{form_errors :: formErrorsFragment}"></div>
 	
 	<div> 
-	     <textarea  type="text" th:field="*{content}" rows="2" placeholder="내용을 입력해주세요."></textarea>
+	     <textarea class="form-control" style="width:100%" type="text" th:field="*{content}" rows="2" placeholder="내용을 입력해주세요."></textarea>
 	     <small class="form-text text-muted">주의사항 : 한 번 적은 댓글은 수정할 수 없습니다.</small>
 	   </div>
-	
-	<button type = "submit">출석하기</button>
+	<div align="right">
+	<button class="btn btn-primary btn btn-sm" type = "submit">출석하기</button>
+	</div>
 </form>
 
 <h4 class="my-3">댓글 목록</h4>
