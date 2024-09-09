@@ -114,6 +114,7 @@
 													
 													<tbody>
 														<th:block th:each="etmember : ${et.prtmember}">
+
 													<tr  style="border: none;">
 																	<td style="border: none;">								
 																		<ul class="navbar-nav me-auto" >
@@ -140,6 +141,46 @@
 																		<span  th:if="${etmember.profile == null}" th:text="미입력"></span>
 																	</td>
 														</tr>
+
+															<tr  style="border: none;">
+																			<td style="border: none;">								
+																				<ul class="navbar-nav me-auto" >
+																			  <li class="nav-item dropdown">
+																			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+																				th:if="${etmember.membernick != null}" th:text="${etmember.membernick}"></a>
+																			<div sec:authorize="isAuthenticated()">
+																			<div class="dropdown-menu" th:if="${#authentication.getPrincipal().getUsername != etmember.memberid}">																			
+																			<a class="dropdown-item"  href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ etmember.no}">프로필 보기</a>
+																			<a class="dropdown-item" th:if="${!#lists.contains(member.friend,etmember)}"
+																			th:href="@{|/friend/create/${etmember.no}|}" onclick="alert('친구 추가 완료');">친구 추가</a>
+																		</div>
+																			</div>
+																				</li>
+																				</ul>
+																											
+																										<!--	#authentication.getPrincipal().getUsername() != etmember.memberid -->
+																											
+																											
+																			</td >
+																			<td style="border: none;" th:if="${etmember.profile != null}" >
+																				<span th:if="${etmember.profile.mbti != ''}" th:text="${etmember.profile.mbti}"></span>
+																				<span  th:unless="${etmember.profile.mbti != ''}">미입력</span>
+																			</td>
+																			<td style="border: none;" th:if="${etmember.profile == null}" >
+																				<span>미입력</span>
+																			</td>
+																			<td style="border: none;" th:if="${etmember.profile != null}">
+																				<span th:text="${etmember.profile.gender}"></span>
+																				<span th:if="${etmember.profile.gender == null}">미입력</span>
+																			</td>
+																			<td style="border: none;" th:if="${etmember.profile == null}">
+																				<span>미입력</span>
+																			</td>
+																			
+																	
+																</tr>
+														
+
 																	<!-- Modal -->	
 																<div class="modal"  th:attr="id='profile' +${etmember.no}"   tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 																	
@@ -158,24 +199,25 @@
 																			</div>
 						
 																			<br>
-																			<ul class="list-group" >
+																			<ul class="list-group" th:if="${etmember.profile != null}" >
 																			  <li class="list-group-item d-flex justify-content-between align-items-center">
 																			   mbti
-																			   <span th:if="${etmember.profile != null}" th:text="${etmember.profile.mbti}"></span>
-																			 	<span  th:if="${etmember.profile == null}" th:text="미입력"></span>	
+																			   <span th:if="${etmember.profile.mbti != ''}" th:text="${etmember.profile.mbti}"></span>
+																			 	<span  th:unless="${etmember.profile.mbti != ''}" th:text="미입력"></span>	
 																			  </li>
 																			  <li class="list-group-item d-flex justify-content-between align-items-center">
 																			   성별
-																			   <div th:if="${etmember.profile != null}" th:text="${etmember.profile.gender}"></span>
-																			 	<div  th:if="${etmember.profile == null}" th:text="미입력"></div>	
+																			   <span th:if="${etmember.profile.gender != null}" th:text="${etmember.profile.gender}"></span>
+																			 	<span  th:unless="${etmember.profile.gender != null}" th:text="미입력"></span>	
 																			  </li>
 																			  <li class="list-group-item d-flex justify-content-between align-items-center">
 																			    자기소개
-																				<div th:if="${etmember.profile != null}" th:text="${etmember.profile.content}"></span>
-																				<div  th:if="${etmember.profile == null}" th:text="미입력"></div>	
+																				<span th:if="${etmember.profile.content != ''}" th:text="${etmember.profile.content}"></span>
+																				<span  th:unless="${etmember.profile.content != ''}" th:text="미입력"></span>	
 																			    
 																			  </li>
 																			</ul>
+																		
 																	  </div>															
 																     <div class="modal-footer">
 																    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>															      
