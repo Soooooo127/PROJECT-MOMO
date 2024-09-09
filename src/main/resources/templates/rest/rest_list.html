@@ -6,7 +6,7 @@
 	<title>맛집검색하자</title>
 	</head>
 	<body >
-		<div layout:fragment="content" id='wrapper'>
+		<div layout:fragment="content" id="wrapper" class="container">
 			<div class="mid">
 				<div class="cate">
 				<div class="h" th:each="rest, loop : ${paging}">
@@ -35,7 +35,7 @@
 
 					
 
-							<div class="card border-primary c1"  th:each="rest : ${paging}">
+							<div class="card  c1"  th:each="rest : ${paging}">
 								<a th:href="@{|/rest/detail/${rest.no}|}" class="a1">
 									<!--사진-->
 									<div class="c2">

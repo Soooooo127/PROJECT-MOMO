@@ -29,7 +29,7 @@
 								<div class="card mb-2 c1"  th:each="et : ${myET}">
 									<a th:href="@{|/et/detail/${et.rest.no}/${et.no}|}" class="a1">	
 									<div class="c2">					 
-										<img th:src=@{|/img/${et.rest.img}|} class="img">								
+										<img th:src="${et.rest.img}" class="img">							
 									</div>	
 										<div class="card-body" >	
 										<h5 class="card-title">
