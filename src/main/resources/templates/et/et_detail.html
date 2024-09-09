@@ -115,33 +115,6 @@
 													<tbody>
 														<th:block th:each="etmember : ${et.prtmember}">
 
-													<tr  style="border: none;">
-																	<td style="border: none;">								
-																		<ul class="navbar-nav me-auto" >
-																	  <li class="nav-item dropdown">
-																	<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-																		th:if="${etmember.membernick != null}" th:text="${etmember.membernick}"></a>
-																	<div sec:authorize="isAuthenticated()">
-																	<div class="dropdown-menu" th:if="${#authentication.getPrincipal().getUsername != etmember.memberid}">																			
-																	<a class="dropdown-item"  href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ etmember.no}">프로필 보기</a>
-																	<a class="dropdown-item" th:if="${!#lists.contains(member.friend,etmember)}"
-																	th:href="@{|/friend/create/${etmember.no}|}" onclick="alert('친구 추가 완료');">친구 추가</a>
-																</div>
-																	</div>
-																		</li>
-																		</ul>			
-																								<!--	#authentication.getPrincipal().getUsername() != etmember.memberid -->							
-																	</td >
-																	<td style="border: none;">
-																		<span th:if="${etmember.profile != null}" th:text="${etmember.profile.mbti}"></span>
-																		<span  th:if="${etmember.profile == null}" th:text="미입력"></span>
-																	</td>
-																	<td style="border: none;">
-																		<span th:if="${etmember.profile != null}" th:text="${etmember.profile.gender}"></span>
-																		<span  th:if="${etmember.profile == null}" th:text="미입력"></span>
-																	</td>
-														</tr>
-
 															<tr  style="border: none;">
 																			<td style="border: none;">								
 																				<ul class="navbar-nav me-auto" >
