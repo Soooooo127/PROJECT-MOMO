@@ -115,7 +115,7 @@
 						<div class="underline">
 							<!--본문-->
 							<div class="postingContentBox">
-								<pre th:text="${posting.content}"></pre>
+								<div th:text="${posting.content}"></div>
 							</div>
 						</div>
 
@@ -151,7 +151,7 @@
 												</tr>
 												<tr>
 													<td colspan="2">
-														<pre th:text="${comment.content}"></pre>
+														<div class="commentContentBox" th:text="${comment.content}"></div>
 													</td>
 												</tr>
 												<tr class="commentInfo-s">

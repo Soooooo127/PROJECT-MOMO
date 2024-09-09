@@ -8,14 +8,21 @@ margin:auto	;
 .h{
 	width: 200px;
 	text-align: center;
-	font-size: 50px;
+	font-size: 30px;
+margin:auto;
+
 }
-	.header{
-		
-		height: 250px;
-		background-color: peachpuff;
-		
-	}
+
+.cate{
+	width: 200px;
+	margin-left:100px;
+margin-top:20px;
+border: 2px solid #f4f4f4;
+	border-radius: 5%;
+	height: 50px;
+	margin-top:50px;
+}
+
 	.search{
 		margin: auto;
 		width: 630px;
@@ -30,13 +37,6 @@ margin:auto	;
 	margin-top:50px;
 }
 
-.cate{
-	width: 200px;
-	margin-left:100px;
-margin-top:20px;
-border: 2px solid #f4f4f4;
-	border-radius: 20%;
-}
 
 a:link, a:visited{
 	text-decoration-line: none;
