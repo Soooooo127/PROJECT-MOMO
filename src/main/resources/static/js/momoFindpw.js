@@ -69,31 +69,38 @@ function resetPw() {
     var password1 = $("#password1").val();
     var password2 = $("#password2").val();
 
-    if(password1 == password2) {
+    if(password1 != "") {
       
-      $.ajax({
-        url:"/mail/resetPw",
-        type:"post",
-        crossDomain:true,
-        data:{
-          "memberid" : $("#memberid").val(),
-          "password" : password1
-        },
+      if(password1 == password2) {
         
-        error:function(request, status, error){
-          alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        },
-        
-        success : function() {
-          alert("성공");
-          window.location.href = "/";
-        }
+        $.ajax({
+          url:"/mail/resetPw",
+          type:"post",
+          crossDomain:true,
+          data:{
+            "memberid" : $("#memberid").val(),
+            "password" : password1
+          },
+          
+          error:function(request, status, error){
+            alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          },
+          
+          success : function() {
+            alert("성공");
+            window.location.href = "/";
+          }
+    
+        });
   
-      });
-
+      } else {
+        alert("비밀번호를 다르게 입력하였습니다. 다시 입력해주세요");
+      }
+    
     } else {
-      alert("비밀번호를 다르게 입력하였습니다. 다시 입력해주세요");
+      alert("비밀번호를 정확히 입력해주시기 바랍니다");
     }
+
 
 
 }

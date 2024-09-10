@@ -9,100 +9,51 @@
       <!--메뉴 프레임(1280px)-->
       <div class="frameNavMenu">
 
-        <!--상단 메뉴 테이블-->
-        <table class="frameNavTable">
-          <tr>
-            <td>
-              <img th:src="@{/css/images/momoLogo2.png}" style="height:70px;">
-            </td>
-            <td class="frameNavTableMenu">
-              <a th:href="@{/about}">모모는?</a>&nbsp;&nbsp;&nbsp;
-              <a th:href="@{/rest/}">식당 검색</a>&nbsp;&nbsp;&nbsp;
-              <a th:href="@{/et/list}">같이 먹기</a>&nbsp;&nbsp;&nbsp;
-              <a th:href="@{/free/list}">자유게시판</a>&nbsp;&nbsp;&nbsp;
-              <a th:href="@{/askPosting/list}">질문과 답변</a>&nbsp;&nbsp;&nbsp;
-              <a th:href="@{/attendComment/list}">출석체크</a>&nbsp;&nbsp;&nbsp;
-              
-            </td>
-            <td style="width:150px;">
-              <th:block sec:authorize="isAnonymous()">
-                <p>
-                  <a th:href="@{/member/login}"><i class="fi fi-br-sign-in-alt"></i><br>
-                  <span>로그인</span></a>
-                </p>
-                <p>
-                  <a th:href="@{/member/signup}"><i class="fi fi-br-member-list"></i><br>
-                  <span>회원가입</span></a>
-                </p>
-              </th:block>
-              <th:block  sec:authorize="isAuthenticated()">
-                <p>
-                  <a th:text="|Welcome, ${#authentication.getPrincipal().getMembernick()}!|" th:href="@{/mypage/profile}"></a>
-                </p>
-                <p>
-                  <i class="fi fi-br-sign-in-alt"></i><br>
-                  <span><a th:href="@{/member/logout}">로그아웃</a></span>
-                </p>
-              </th:block>
-            </td>
-          </tr>
-
-
-        </table>
-
-			
-		  </div>
-  
-          
-      
-      
-      
-      <!--회원 메뉴
-          <div class="navMember">
-     
-		  <p><a th:href="@{/about}">About Us</a>&nbsp;&nbsp;&nbsp;</p>
+        <!--로고(180px)-->
+        <div class="frameNavLogo">
+          <img th:href="@{/}" th:src="@{/css/images/momoLogo3.png}">
         </div>
-		  <div class="navLogo3">
-      -->
-			
 
+        <!--메인 메뉴(800px)-->
+        <div class="frameNavMain">
+          &nbsp;&nbsp;&nbsp;
+          <a th:href="@{/about}">모모는?</a>&nbsp;&nbsp;&nbsp;
+          <a th:href="@{/rest/}">식당 검색</a>&nbsp;&nbsp;&nbsp;
+          <a th:href="@{/et/list}">같이 먹기</a>&nbsp;&nbsp;&nbsp;
+          <a th:href="@{/free/list}">자유게시판</a>&nbsp;&nbsp;&nbsp;
+          <a th:href="@{/askPosting/list}">질문과 답변</a>&nbsp;&nbsp;&nbsp;
+          <a th:href="@{/attendComment/list}">출석체크</a>&nbsp;&nbsp;&nbsp;
+          <a th:href="@{/ranking/rank}">랭킹</a>
+        </div>
+        
+        <!--로그인 관련 메뉴(300px)-->
+        <div class="frameNavLogin">
+          <span sec:authorize="isAnonymous()">
+            <a th:href="@{/member/login}">
+              로그인
+            </a>
+          </span>
+          <span sec:authorize="isAuthenticated()">
+              <a th:href="@{/mypage/profile}">
+                Welcome, <span th:text="${#authentication.getPrincipal().getMembernick()}"></span>
+              </a>  
+          </span>
+          <span sec:authorize="isAuthenticated()">
+            <a th:href="@{/member/logout}">
+             | 로그아웃
+            </a>
+          </span>
+          <span sec:authorize="isAnonymous()">
+            <a th:href="@{/member/signup}">
+             | 회원가입  
+            </a>
+          </span>
+        </div>
+		  </div>
     </div>
   </div>
 </nav>
 
-<!--
-<a sec:authorize="isAuthenticated()" th:text="|Welcome, ${#authentication.getPrincipal().getMembernick()}!|" th:href="@{/member/friend}"></a>
-<span><a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">login</a></span>
-<span sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/member/logout}">logout</a></span>
-<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/signup}">signup</a>
-          <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav me-auto">
-              <li>
-                <a class="navbar-brand" th:href="@{/}">MOMOeeee</a> 
-              </li>
-              <li>
-                <a class="nav-link" href="#">About</a>
-              </li>
-              <li class="dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Community</a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" th:href="@{/free/list}">Free</a>
-                  <a class="dropdown-item" th:href="@{/askPosting/list}">Q&A</a>
-                  <a class="dropdown-item" th:href="@{/attendComment/list}">Attend</a>
-                </div>
-              </li>
-              <li class="dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">C/S</a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" th:href="@{/notice/list}">Notice</a>
-                  <a class="dropdown-item" th:href="@{/faq/list}">FAQ</a>
-                  <a sec:authorize="hasRole('ROLE_MEMBER')" class="dropdown-item" th:href="@{/mypage/inquiryPosting}">Inquiry(유저)</a>
-                  <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" th:href="@{/mypage/inquiryPosting/list}">Inquiry(관리자)</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        -->
 
 
 

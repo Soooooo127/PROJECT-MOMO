@@ -296,6 +296,9 @@
 													<td style="text-align: right;">
 														<span class="delete fw-bold" sec:authorize="isAuthenticated()" th:if="${freeComment.author.memberid != null and #authentication.getPrincipal().getUsername() == freeComment.author.memberid}"
 														th:data-uri="@{|/free/comment/delete/${freePosting.no}/${freeComment.no}|}" href="javascript:void(0);">댓글 삭제</span>
+														<span class="delete fw-bold" sec:authorize="hasRole('ROLE_ADMIN')" th:data-uri="@{|/free/comment/delete/${freePosting.no}/${freeComment.no}|}"
+														href="javascript:void(0);"> 삭제(관리자용)</span>
+														</span>
 													</td>
 												</tr>
 												<!--댓글의 댓글 작성-->
@@ -439,6 +442,8 @@
 																		<td style="text-align: right;">
 																			<span class="delete fw-bold" sec:authorize="isAuthenticated()" th:if="${freeCommentReply.author.memberid != null and #authentication.getPrincipal().getUsername() == freeCommentReply.author.memberid}"
 																			th:data-uri="@{|/free/comment/reply/delete/${freePosting.no}/${freeCommentReply.no}|}" href="javascript:void(0);">댓글 삭제</span>
+																			<span class="delete fw-bold" sec:authorize="hasRole('ROLE_ADMIN')" th:data-uri="@{|/free/comment/reply/delete/${freePosting.no}/${freeCommentReply.no}|}"
+																			href="javascript:void(0);"> 삭제(관리자용)</span>
 																		</td>
 																	</tr>
 																</table>

@@ -5,33 +5,22 @@ body {
 	font-style: normal;
 }
 
-.hahmlet {
-  font-family: "Hahmlet", serif;
-  font-optical-sizing: auto;
-  font-weight: 350;
-  font-style: normal;
-}
-
-.gamja-flower-regular {
-  font-family: "Gamja Flower", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.gowun-dodum-regular {
-  font-family: "Gowun Dodum", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
 .title {
 	font-size:1.25rem;
-	
 }
 
-.box {
-	width:1200px;
-	margin: auto;
+.infoTitleB {
+  text-align: center;
+  padding: 20px 20px 40px 20px;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+
+.frame-c {
+  width:1280px;
+  margin:auto;
+	/* border: 1px solid blue; */
 }
 
 .coutext, .button {
@@ -75,6 +64,7 @@ body {
 .frame-t3 {
 	width:700px;
 	margin:auto;
+	/* border: 1px solid red; */
 }
 
 .frame-l, .frame-r {
@@ -118,10 +108,12 @@ td input {
 	outline: none;
 }
 
+/*
 td span {
 	color:salmon;
 	font-weight: bold;
 }
+	*/
 
 input:focus {
 	border: none;
@@ -202,7 +194,7 @@ input:focus {
 }
 
 .infoFoundid {
-	width: 100px;
+	width: 300px;
 	text-align: center;
 	line-height: 3rem;
 	color: salmon;
@@ -262,4 +254,12 @@ input:focus {
 
 .contentBox {
   white-space:pre;
+}
+
+.profileTable {
+	width:500px;
+}
+
+.profileTable th {
+	padding-left: 20px;
 }
