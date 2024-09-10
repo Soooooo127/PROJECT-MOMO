@@ -121,14 +121,9 @@ public class RestController {
 	@GetMapping("/list/{category}")
 	public String restList(Model model, @PathVariable("category") String category
 			, @RequestParam(value="page", defaultValue = "0") int page
-			
 			) {
 		Page<Restaurant>paging = this.restService.getList(category, page);
-		model.addAttribute("paging", paging);
-
-		List<Jjim> j = this.jjimService.getList(null);
-		model.addAttribute("j", j);
-		
+		model.addAttribute("paging", paging);		
 		return "rest/rest_list";
 	}
 		
@@ -149,7 +144,6 @@ public class RestController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/jjim/{no}")
 	public String Jjim(Model model, Principal principal, @PathVariable("no") Integer no) {
-		
 		Restaurant rest = this.restService.getRestaurant(no);
         Member member = this.memberService.getMember(principal.getName());
 		Jjim jjim = this.jjimService.get(member, rest);
