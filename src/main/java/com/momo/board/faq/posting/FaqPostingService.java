@@ -30,16 +30,12 @@ public class FaqPostingService {
 
 	private final FaqPostingRepository faqPostingRepository;
 
-	
 	public void createFaq( String subject, String content, Member author) {
 		FaqPosting faq = new FaqPosting();
-
 		faq.setSubject(subject);
 		faq.setContent(content);
 		faq.setCreateDate(LocalDateTime.now());
-	
 		faq.setAuthor(author);
-		
 		this.faqPostingRepository.save(faq);
 	}
 	
@@ -47,17 +43,9 @@ public class FaqPostingService {
 		List<Sort.Order> sorts = new ArrayList<>();
 		sorts.add(Sort.Order.desc("createDate"));
 		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-			
 		Specification<FaqPosting> spec = search(kw);
-		
 		return this.faqPostingRepository.findAll(spec,pageable);
 	}
-	
-	
-	public List<FaqPosting> getList1(FaqCategory faqCategory){
-		return this.faqPostingRepository.findByFaqCategory(faqCategory);
-	}
-	
 	
 	public FaqPosting getfaqPosting(Integer no) {
 		Optional<FaqPosting> faq = this.faqPostingRepository.findById(no);
@@ -65,8 +53,7 @@ public class FaqPostingService {
 			return faq.get();
 		}else {
 			throw new DataNotFoundException("데이터가 없습니다");
-		}
-		
+		}	
 	}
 	
 	public void delete(Integer no) {
@@ -74,13 +61,11 @@ public class FaqPostingService {
 	}
 	
 
-	public void update(Integer no, FaqCategory faqCategory, String subject, String content) {
+	public void update(Integer no, String subject, String content) {
 		Optional<FaqPosting> posting=this.faqPostingRepository.findById(no);
 		FaqPosting p = posting.get();
-		p.setFaqCategory(faqCategory);
 		p.setSubject(subject);
 		p.setContent(content);
-	
 		p.setUpdateDate(LocalDateTime.now());
 		this.faqPostingRepository.save(p);
 	}
@@ -91,19 +76,19 @@ public class FaqPostingService {
 	            private static final long serialVersionUID = 1L;
 	            @Override
 	            public Predicate toPredicate(Root<FaqPosting> faq, CriteriaQuery<?> query, CriteriaBuilder cb) {
-	                query.distinct(true);  // 중복을 제거 
-	                Join<FaqPosting, Member> m1 = faq.join("author", JoinType.LEFT);
-	               // Join<FaqPosting, FaqCategory > c = faq.join("faqList", JoinType.LEFT);
-	              //  Join<FaqCategory, Member> m2 = c.join("author", JoinType.LEFT);
-	                return cb.or(cb.like(faq.get("subject"), "%" + kw + "%"), // 제목 
-	                        cb.like(faq.get("content"), "%" + kw + "%"),      // 내용 
-	                        cb.like(m1.get("membernick"), "%" + kw + "%"));  // 질문 작성자 
-	               //         cb.like(c.get("content"), "%" + kw + "%"));   // 답변 내용 
-	               //         cb.like(m2.get("membernick"), "%" + kw + "%"));   // 답변 작성자 
+	                query.distinct(true);   
+	                return cb.or(cb.like(faq.get("subject"), "%" + kw + "%"), 
+	                        cb.like(faq.get("content"), "%" + kw + "%"));            
 	            }
 	        };
 	    }
 	
 	
+		
+	 
+		public List<FaqPosting> getList1(FaqCategory faqCategory){
+			return this.faqPostingRepository.findByFaqCategory(faqCategory);
+		}
+		
 	
 }

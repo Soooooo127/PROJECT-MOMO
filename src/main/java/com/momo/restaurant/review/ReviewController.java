@@ -45,19 +45,17 @@ public class ReviewController {
 	// 리뷰를 작성함에 따른 가게 평점 업데이트
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{no}")
-	public String create(Model model,  @RequestParam(value="star") Integer star
+	public String create(@RequestParam(value="star") Integer star
 			,@RequestParam(value="content") String content 
 			, @PathVariable("no") Integer no, Principal principal
 			) {
 		
 		Restaurant rest = restService.getRestaurant(no);
-		
-
 		Member member = memberService.getMember(principal.getName());
 		reviewService.create(no, member, content, star);
 		
-		double avgStar = this.reviewService.avg(rest);
-		this.restService.update(no, avgStar);
+		double avgStar = reviewService.avg(rest);
+		restService.update(no, avgStar);
 		
 		return "redirect:/rest/detail/{no}";
 	}
@@ -72,17 +70,7 @@ public class ReviewController {
 		this.restService.update(no, avgStar);
 		return "redirect:/rest/detail/{no}";
 	}
-	
-	
-	@GetMapping("/update/{no}/{rno}")
-	public String update(ReviewForm reviewForm,
-			@PathVariable("no") Integer no, @PathVariable("rno") Integer rno) {
-		Review review = reviewService.getReview(rno);
-		reviewForm.setContent(review.getContent());
-		
-		return "rest/_comment_form";
-	}
-	
+
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/ddabong/{no}/{rno}")
 	public String ddabong(Principal principal

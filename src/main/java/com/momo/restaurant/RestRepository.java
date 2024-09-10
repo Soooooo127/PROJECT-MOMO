@@ -27,8 +27,8 @@ public interface RestRepository extends JpaRepository<Restaurant, Integer>{
 	Page<Restaurant> findAll(Specification<Restaurant> spec , Pageable pageable);
 	
 	
-	@Query("select r from Restaurant r where r.name like %:kw%")
-	Page<Restaurant>findNameByKeyword(@Param("kw") String kw, Pageable pageable);
+//	@Query("select r from Restaurant r where r.name like %:kw%")
+//	Page<Restaurant>findNameByKeyword(@Param("kw") String kw, Pageable pageable);
 	
 //	Page<Restaurant>findCategoryByKeyword(@Param("kw") String kw, Pageable pageable);
 	

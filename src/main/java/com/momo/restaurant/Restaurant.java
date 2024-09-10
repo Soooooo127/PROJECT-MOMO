@@ -47,6 +47,8 @@ public class Restaurant {
 	
 	private String map2;
 	
+	private Integer progresset;
+	
 	@Column(name="avgStar")
 	private double avgStar = 0.0;
 
@@ -55,8 +57,6 @@ public class Restaurant {
 	
 	@OneToMany(mappedBy = "rest" , cascade = CascadeType.REMOVE)
 	private List<EatTogether> etList;
-	
-	private Integer progresset;
 	
 	@OneToMany(mappedBy = "rest", cascade = CascadeType.REMOVE )
 	private List<RestTime> timeList;

@@ -5,20 +5,6 @@
 	</head>
 	<body>
 	<div layout:fragment="content" class="container my-3" id='wrapper'>
-	
-	
-	
-	<!--카테고리 넣기	
-		<div class="d-grid gap-2 d-md-block mb-3">
-			<a class= "btn btn-primary" type="button" th:href="@{/faq/list}">전체</a>
-		 <span  th:each="category : ${faqCategoryList}">
-			
-			 <a class="btn btn-primary" type="button" th:href="@{|/faq/list/${category.no}|}" th:text="${category.category}"></a>
-		</span>
-		<a th:href="@{/faq/category}" sec:authorize="hasRole('ROLE_ADMIN')">카테고리목록</a>
-		</div>
-		-->
-		
 		
 	<div style="width:1100px; margin: auto;">		
 		<p style="font-size: 30px; font-weight: bold;">[FAQ] MOMO 서비스의 무엇을 도와드릴까요?</p>
@@ -27,7 +13,6 @@
 			<thead class="table-primary">
 			    <tr>
 			      <th width="100px">번호</th>
-	<!--			  <th >카테고리</th>-->
 			      <th >제목</th>
 			      <th width="80px">작성자</th>
 			      <th width="100px">작성일</th>
@@ -37,7 +22,6 @@
 				<tr class="table" th:each="faq , loop : ${paging}" >
 				      
 	<!--번호-->		<th th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"> </th>	    
-	<!--카테고리<td th:text="${faq.faqCategory.category}"> </td>-->	
 	<!--글제목-->		<td><a class="s" th:href="@{|/faq/detail/${faq.no} |}" th:text="${faq.subject}"></a> </td>
 	<!--작성자-->	    <td th:text="${faq.author.membernick}"></td>
 	<!--작성일-->	    <td th:text="${#temporals.format(faq.createDate, 'yyyy-MM-dd')}"></td>
@@ -81,16 +65,12 @@
 		    </li>
 		  </ul>
 		</div>
-		
-		
-	
-					<form th:action="@{/faq/list}" method="get" id="searchForm">
-					     <input type="hidden" id="kw" name="kw" th:value="${kw}">
-					     <input type="hidden" id="page" name="page" th:value="${paging.number}">
-					 </form>
-		
-					
-	
+
+			<form th:action="@{/faq/list}" method="get" id="searchForm">
+			     <input type="hidden" id="kw" name="kw" th:value="${kw}">
+			     <input type="hidden" id="page" name="page" th:value="${paging.number}">
+			 </form>
+
 	 </div>
 	
 </div>
@@ -106,7 +86,7 @@ Array.from(page_elements).forEach(function(element) {
 const btn_search = document.getElementById("btn_search");
 btn_search.addEventListener('click', function() {
     document.getElementById('kw').value = document.getElementById('search_kw').value;
-    document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
+    document.getElementById('page').value = 0;  
     document.getElementById('searchForm').submit();
 });
 </script>

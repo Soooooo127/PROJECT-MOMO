@@ -113,8 +113,7 @@ public class RestController {
 		model.addAttribute("starAvg", starAvg);
 		model.addAttribute("review", review);
 		this.restRepository.save(rest);
-		
-		
+
 		return "rest/rest_detail";
 	}
 	
@@ -132,10 +131,7 @@ public class RestController {
 		
 		return "rest/rest_list";
 	}
-	
-	
-	
-	
+		
 	@GetMapping("/list/search")
 	public String restListSerch(Model model
 			, @RequestParam(value = "kw", defaultValue = "") String kw
@@ -156,11 +152,9 @@ public class RestController {
 		
 		Restaurant rest = this.restService.getRestaurant(no);
         Member member = this.memberService.getMember(principal.getName());
-		this.jjimService.create(member, rest);
-        //this.restService.Jjim(rest, member);
-		
 		Jjim jjim = this.jjimService.get(member, rest);
 		model.addAttribute("jjim", jjim);
+		this.jjimService.create(member, rest);
         return "redirect:/rest/detail/{no}";
 	}
 	
@@ -169,7 +163,6 @@ public class RestController {
 	public String NoJjim(Model model, Principal principal, @PathVariable("no") Integer no) {
 		Restaurant rest = this.restService.getRestaurant(no);
 		Member member = this.memberService.getMember(principal.getName());
-		//this.restService.NoJjim(rest, member);
 		Jjim jjim = this.jjimService.get(member, rest);
 		model.addAttribute("jjim", jjim);
 		this.jjimService.delete(member, rest);

@@ -13,18 +13,20 @@
 		
 	<a class= "faq" th:href="@{/faq/list}">FAQ</a>
 	<hr>
-	<!--카테고리 넣기-->
+
 		
-		<div class="d-grid gap-2 d-md-block mb-3">
-			<a class= "btn btn-primary" type="button" th:href="@{/faq/list}">전체</a>
-		 <span  th:each="category : ${faqCategoryList}">
-			<a class="btn btn-primary" type="button" th:href="@{|/faq/list/${category.no}|}" th:text="${category.category}"></a>
-			
-		</span>
-		<a th:href="@{/faq/category}" sec:authorize="hasRole('ROLE_ADMIN')">카테고리목록</a>
-		</div>
-		
-	
+
+
+		<!--카테고리 넣기	
+			<div class="d-grid gap-2 d-md-block mb-3">
+				<a class= "btn btn-primary" type="button" th:href="@{/faq/list}">전체</a>
+			 <span  th:each="category : ${faqCategoryList}">
+				
+				 <a class="btn btn-primary" type="button" th:href="@{|/faq/list/${category.no}|}" th:text="${category.category}"></a>
+			</span>
+			<a th:href="@{/faq/category}" sec:authorize="hasRole('ROLE_ADMIN')">카테고리목록</a>
+			</div>
+			-->
 		
 		
 		

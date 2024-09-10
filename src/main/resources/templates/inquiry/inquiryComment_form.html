@@ -84,7 +84,7 @@
 								<form th:action="@{|/inquiryComment/update/${posting.no}/${comment.no}|}" th:object="${inquiryCommentForm}" method="post">
 									<div th:replace="~{form_errors :: formErrorsFragment}"></div>
 								<div>
-									<th:block th:each="comment : ${posting.commentList}" th:field="${comment}">
+									<th:block  th:field="${comment}">
 										<div class="commentBox frame-d">
 											<!--댓글 정보 영역-->
 											<table style="width:100%;">

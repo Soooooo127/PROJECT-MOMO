@@ -21,9 +21,9 @@
 					<!--게시물 본문-->
 				  <form th:action="@{|/inquiryPosting/update/${posting.no}|}" th:object="${inquiryPostingForm}" method="post">
 					<div th:replace="~{form_errors :: formErrorsFragment }"></div>
-					  <div class="frame-f">
+					  <div class="frame-f p-4">
 						<!--게시물 정보 출력(제목, 작성자, 조회수 등)-->
-						<div class="postingInfoBox underline">
+						<div class="postingInfoBox">
 							<!--게시판 이동 링크-->
 							<div class="postingBoardInfo">
 								<span sec:authorize="hasRole('ROLE_ADMIN')" class="btitle" th:href="@{/inquiryPosting/list}">문의 글<i class="fi fi-sr-caret-right"></i></span>
@@ -31,7 +31,7 @@
 							</div>
 							<!--게시물 제목-->
 							<div class="postingTitle" align="left">
-								<input type="text" th:field="*{subject}" style="width:100%">
+								<input type="text" th:field="*{subject}" class="form-control" style="width:100%">
 							</div>
 							<!--게시물 세부 정보-->
 							<div class="frame-d">
@@ -68,10 +68,10 @@
 						</div>
 
 						<!--게시물 본문 출력-->
-						<div class="wrapping outline">
+						<div >
 							<!--본문-->
-							<div class="postingContentBox">
-								<textarea rows="15" th:field="*{content}" style="width:100%"></textarea>
+							<div >
+								<textarea rows="15" th:field="*{content}" class="form-control p-3" style="resize: none;"></textarea>
 							</div>
 						</div>
 

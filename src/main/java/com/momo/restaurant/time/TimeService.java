@@ -16,8 +16,6 @@ import lombok.RequiredArgsConstructor;
 public class TimeService {
 
 	private final TimeRepository timeRepository;
-	private final RestRepository restRepository;
-	
 
 	public List<RestTime> getList(Restaurant rest){
 		return this.timeRepository.findByRest(rest);
