@@ -6,17 +6,16 @@
   </head>
   <body>
 
-    <div layout:fragment="mypageContent" id="wrapper">
+    <div layout:fragment="mypageContent">
       <!--전체 영역-->
       <div class="frame-dvd">
-        <div>
-          로고
+        <div class="infoTitleB">
+          회원정보, 비밀번호 수정
         </div>
         <!--회원정보 노출 및 수정(좌)-->
         <div class="frame-dvd-l infoBorder">
           <div class="myModify titleMenu">
             회원정보 수정
-
           </div>
           <form method="post" th:action="@{/member/modifyMember}">
             <div class="myModify">

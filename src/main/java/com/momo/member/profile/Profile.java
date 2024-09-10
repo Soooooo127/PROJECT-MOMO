@@ -1,5 +1,6 @@
 package com.momo.member.profile;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 
 import com.momo.member.Member;

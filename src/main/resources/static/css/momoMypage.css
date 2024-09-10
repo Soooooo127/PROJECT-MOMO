@@ -6,10 +6,9 @@ body {
 }
 
 .frame-menu {
-  width:170px;
+  width:200px;
   border:1px solid #e1e1e1;
   border-radius: 10px;
-  margin-left: 20px;
   float:left;
 }
 
@@ -18,10 +17,6 @@ body {
   font-weight: bold;
   font-size: 1.1rem;
   padding-top: 10px;
-}
-
-.titleNarrow {
-  font-
 }
 
 .titleMenu:hover {
@@ -65,13 +60,21 @@ li a:link, li a:visited {
 }
 
 .frame-dvd {
-  width:940px;
+  width:950px;
+  margin: auto;
   overflow: auto;
 }
 
 .frame-dvd-l {
   width:460px;
   float: left;
+}
+
+.infoTitleB {
+  text-align: center;
+  padding: 20px 20px 40px 20px;
+  font-weight: bold;
+  font-size: 1.4rem;
 }
 
 .infoTitle {

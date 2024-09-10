@@ -56,7 +56,9 @@ public class AskCommentController {
 	public String updateAskComment(AskCommentForm askCommentForm , @PathVariable("no") Integer no , Principal principal) {
 		AskComment askComment = this.askCommentService.getAskComment(no);
 		if(!askComment.getAuthor().getMemberid().equals(principal.getName())) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "수정 권한이 없습니다");
+			if(!principal.getName().equals("admin")) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "수정 권한이 없습니다.");
+			}
 		}
 		askCommentForm.setContent(askComment.getContent());
 		return "ask/askComment_form";
@@ -71,7 +73,9 @@ public class AskCommentController {
 		}
 		AskComment askComment = this.askCommentService.getAskComment(no);
 		if(!askComment.getAuthor().getMemberid().equals(principal.getName())) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "수정 권한이 없습니다");
+			if(!principal.getName().equals("admin")) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "수정 권한이 없습니다.");
+			}
 		}
 		this.askCommentService.update(askComment, askCommentForm.getContent());
 		return String.format("redirect:/askPosting/detail/%s#askComment_%s" , askComment.getAskPosting().getNo() , askComment.getNo());
@@ -82,7 +86,9 @@ public class AskCommentController {
 	public String deleteAskComment(Principal principal , @PathVariable("no") Integer no) {
 		AskComment askComment = this.askCommentService.getAskComment(no);
 		if(!askComment.getAuthor().getMemberid().equals(principal.getName())) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "삭제 권한이 없습니다");
+			if(!principal.getName().equals("admin")) {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST , "삭제 권한이 없습니다.");
+			}
 		}
 		this.askCommentService.delete(askComment);
 		return String.format("redirect:/askPosting/detail/%s" , askComment.getAskPosting().getNo());
