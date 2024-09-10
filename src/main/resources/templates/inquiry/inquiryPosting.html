@@ -27,19 +27,25 @@
 			text-overflow: ellipsis;
 			white-space: nowrap;
 		   }
-		   
+		   .frame-b {
+		     width:1100px;
+		     margin: auto;
+
+		   }
+
 		</style>
     <!--전체-->   
 	</head>
 	<body>
 	<div layout:fragment="content" id='wrapper'>
+		
 	<form th:action="@{/inquiryPosting/myList}" method="get" id="searchForm">
 		<input type="hidden" id="subject" name="subject" th:value="${subject}">
 		<input type="hidden" id="page" name="page" th:value="${paging.number}">
 	</form>  
 	
-	<div class="container my-3" >
-		<span style="font-size:30px; font-weight:bold;" >나의 문의글</span>
+	<div class="frame-b" >
+		<p  style="font-size: 30px; font-weight: bold; ">[문의하기] MOMO에 궁금한 것을 물어보세요 </p>
 		<!--글 작성이 되어있지 않을 때-->
 		<div th:if="${paging.isEmpty()}" class="card my-2" style="height:200px; background-color: gainsboro;" >
 			<strong style="margin:auto">현재 작성한 문의글이 없습니다. 문의해 보세요.</strong>
@@ -74,15 +80,19 @@
 		</table>
 		</div>	
 		<!--글쓰기 버튼-->
-		<div align="right">
-		<a th:href="@{/inquiryPosting/create}"><button type="button" class="btn btn-primary btn-sm">글쓰기</button></a>
-		<a th:href="@{/inquiryPosting/myList}"><button type="button" class="btn btn-primary btn-sm">목록</button></a>
+		<div style="display: flex;">
+			<div align="left" style="width: 50%;">
+			<a th:href="@{/inquiryPosting/create}"><button type="button" class="btn btn-primary btn-sm">글쓰기</button></a>
+			</div>
+			<div align="right" style="width: 50%;">
+			<a th:href="@{/inquiryPosting/myList}"><button type="button" class="btn btn-primary btn-sm">목록</button></a>
+			</div>
 		</div>			
 		<!--검색-->
 		     <div style="width:50%;margin:auto;">
 				<div class="input-group mb-3">
 			      <input type="text" id="search_subject" class="form-control" th:value="${subject}">
-			      <button type="button" id="btn_search" class="btn btn-outline-secondary">검색</button>	
+			      <button type="button" id="btn_search" class="btn btn-secondary">찾기</button>	
 		  	    </div>
 			</div>
 			<!--문의 글 목록 페이징-->

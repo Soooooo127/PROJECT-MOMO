@@ -19,23 +19,23 @@
 			<button th:onclick="|location.href='@{/askPosting/list(order=ddabong , kw=${kw})}'|" class="btn btn-secondary btn-sm">추천순</button>
 		</div>
 		<div>
-		<table class="table" >
-			<thead class="table-primary">
+		<table class="table table-hove" >
+			<thead class="table-primary text-center">
 				<tr>
-					<th>번호</th>
+					<th width="50px">번호</th>
 					<th>제목</th>
-					<th width="100px">작성자</th>
-					<th width="150px">작성일</th>
-					<th width="80px">조회수</th>
-					<th width="80px">추천수</th>
+					<th width="200px">작성자</th>
+					<th width="180px">작성일</th>
+					<th width="100px">조회수</th>
+					<th width="100px">추천수</th>
 				</tr>
 			</thead>
 			
 			<tbody>
-				<tr th:each="askPosting , loop : ${paging}">
+				<tr th:each="askPosting , loop : ${paging}" class="text-center">
 					<td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
-					<td><a th:href="@{|/askPosting/detail/${askPosting.no}|}" th:text="${askPosting.subject}"></a>
-						<span class="text-danger small ms-2" th:if="${#lists.size(askPosting.askCommentList)>0}"
+					<td class="text-start"><a th:href="@{|/askPosting/detail/${askPosting.no}|}" th:text="${askPosting.subject}"></a>
+						<span class="badge bg-primary rounded-pill" th:if="${#lists.size(askPosting.askCommentList)>0}"
 						th:text="${#lists.size(askPosting.askCommentList)}"></span>
 					</td>
 				

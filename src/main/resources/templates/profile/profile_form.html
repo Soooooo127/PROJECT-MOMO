@@ -2,7 +2,7 @@
 <html layout:decorate="~{layout_mypage}">
 	<head>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/momoProfile.css}">
-		<title>회원가입</title>
+		<title>프로필 수정</title>
 	</head>
 	<body>
 	<!--전체 영역-->
@@ -20,9 +20,41 @@
 				<img class="profile" th:unless="${memberProfile.image != null}" src="/img/default_profile.png" >
 				</div>
 				
+
+				<!-- 프로필 이미지 수정 modal -->
+				<center class="my-3">
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						프로필 이미지 수정
+					</button>
+					</center>
+	
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel">프로필 이미지 수정</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+							<form th:action="@{/image/upload}" method="post" enctype="multipart/form-data">
+								<input type="file" name="files" accept="image/png, image/jpg, image/jpeg" >
+								<span>(jpg, jpeg, png)</span>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+									<button type="submit" class="btn btn-primary">저장하기</button>
+								</div>
+							</form>
+							</div>
+						</div>
+					</div>	
 			
 			<form th:action="@{/mypage/modifyProfile}" method="post">
-				<div class="border border-secondary-subtle rounded" style="width:50%">
+				<div class="signinInfoSm detailCheck pt-4" style="width:500px;">
+					닉네임은 <strong><a th:href="@{/member/modifyMember}">'회원정보 수정'</a></strong> 메뉴에서 변경하실 수 있습니다.
+				</div>
+				<div class="border border-secondary-subtle rounded" style="width:500px">
 					<div>
 						<table>
 							<tr>
@@ -97,7 +129,7 @@
 									</div>
 								</td>
 							</tr>
-							<tr>
+							<tr class="last">
 								<td><i class="fi fi-sr-megaphone-announcement-leader"></i> 자기소개</td>
 								<td th:if="${memberProfile.profile ==null}">
 							  	<textarea class="form-control" style="width:95%" name="content" id="content" rows="3" placeholder="자신을 소개해주세요"></textarea>
@@ -110,13 +142,11 @@
 						</table>
 					</div>
 																
-															
-										<div>
-						<div class="d-grid gap-2">
-							<button type="submit" class="btn btn-lg btn-primary">프로필 수정</button>
-						</div>
-					</div>
-				</div>
+
+									</div>
+									<div class="d-grid gap-2 my-3" style="width:500px;">
+										<button type="submit" class="btn btn-lg btn-primary">프로필 수정</button>
+									</div>
 		   </form>
 		   </center>
 		   </div>
