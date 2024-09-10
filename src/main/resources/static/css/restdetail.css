@@ -41,9 +41,9 @@
 		
 		height: 230px;
 	}
-	.info_menu{
+	.info_menu, .info_time{
 		
-		font-size: large;
+		font-size: 15px;
 	}
 
 
