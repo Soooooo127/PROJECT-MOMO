@@ -23,93 +23,88 @@
 					</div>
 				</div>
 			</div>
-	
-			
-
-			
-
-				<!--식당사진 리스트-->
-				<div class="new_list">	
-					<div class="list">
-						<div class="new_box">
-							
-						<span class="n">모모 <span style="color:brown"> |  </span>신규 레스토랑
-						</span>
-						</div>
-						<div class="b">
-							<div class="card border-primary    c"  th:each="rest : ${paging}">
-								<a th:href="@{|/rest/detail/${rest.no}|}" class="a1">
-									<!--사진-->
-									<div class="p">
-									<img th:src="${rest.img}" class="img">
-
-									</div>
-										<div class="card-body" >
-											<div class="card-title">
-												<span class="c_name" th:text="${rest.name}"></span>
-												<span class="badge text-bg-primary" style="font-size: 10px;">New</span>
-											</div>
-											<span class="card-text" th:text="${rest.menu}"></span>
-											<p th:text="${rest.addr}"></p>
-											<p></p>
-										 </div>
-								</a>			  
-							</div>
-						</div>
+			<!--식당사진 리스트-->
+			<div class="new_list">	
+				<div class="list">
+					<div class="new_box">
+						
+					<span class="n">모모 <span style="color:brown"> |  </span>신규 레스토랑
+					</span>
 					</div>
-					
-					<div class="t">
-						<a class="tt"  th:href="@{/rest/}">
-						모든 레스토랑 확인하기
-						</a>
-					</div>
-				</div><!--식당 리스트-->
-				
-				<!-- 같이먹기 방 리스트-->	
-				<div class="new_list">
-					<div class="list">
-						<div class="new_box">
-						<Span class="n">모모 <span style="color:brown"> |  </span> 신규 같이먹기
-						</Span>
-						</div>
-						<div class="b">
-							<div class="card border-primary    c" th:each="et : ${etpaging}">
-								<a th:href="@{|/et/detail/${et.rest.no}/${et.no}|}" class="a1">
-																 
-										<!--사진-->	
-								<div class="p">					 
-								<img th:src="${et.rest.img}" class="img">
-									
-								</div>	
-									<div class="card-body" >	
-									<div class="card-title">
-										<span class="c_name"  th:text="${et.ettitle}"></span>
-												
-										<span style="font-size: 13px;" th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">(참여기간 만료)</span>
-									</div>				
-										<!--태그-->						 
-																  
-										<div  >
-										<span class="c_name" th:text="${et.rest.name}"></span>
-											<ul  class="tag">
-												<li>
-													<span th:text="|모집하는 인원수 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>
-												</li>
-																								
-												<li>
-													<span th:text="|신청일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></span>
-												</li>
-																						
-												<li>
-													<span th:text="|같이먹는날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></span>
-												</li>
-											</ul>
+					<div class="b">
+						<div class="card border-primary    c"  th:each="rest : ${paging}">
+							<a th:href="@{|/rest/detail/${rest.no}|}" class="a1">
+								<!--사진-->
+								<div class="p">
+								<img th:src="${rest.img}" class="img">
+
+								</div>
+									<div class="card-body" >
+										<div class="card-title">
+											<span class="c_name" th:text="${rest.name}"></span>
+											<span class="badge text-bg-primary" style="font-size: 10px;">New</span>
 										</div>
-									</div>
-								</a>			  
-							</div>
+										<span class="card-text" th:text="${rest.menu}"></span>
+										<p th:text="${rest.addr}"></p>
+										<p></p>
+									 </div>
+							</a>			  
 						</div>
 					</div>
+				</div>
+				
+				<div class="t">
+					<a class="tt"  th:href="@{/rest/}">
+					모든 레스토랑 확인하기
+					</a>
+				</div>
+			</div><!--식당 리스트-->
+				
+			<!-- 같이먹기 방 리스트-->	
+			<div class="new_list">
+				<div class="list">
+					<div class="new_box">
+					<Span class="n">모모 <span style="color:brown"> |  </span> 신규 같이먹기
+					</Span>
+					</div>
+					<div class="b">
+						<div class="card border-primary    c" th:each="et : ${etpaging}">
+							<a th:href="@{|/et/detail/${et.rest.no}/${et.no}|}" class="a1">
+															 
+									<!--사진-->	
+							<div class="p">					 
+							<img th:src="${et.rest.img}" class="img">
+								
+							</div>	
+								<div class="card-body" >	
+								<div class="card-title">
+									<span class="c_name"  th:text="${et.ettitle}"></span>
+											
+									<span style="font-size: 13px;" th:if="${#temporals.format(et.etdate , 'yyyy-MM-dd') <= #calendars.format(#calendars.createNow() , 'yyyy-MM-dd')}">(참여기간 만료)</span>
+								</div>				
+									<!--태그-->						 
+															  
+									<div  >
+									<span class="c_name" th:text="${et.rest.name}"></span>
+										<ul  class="tag">
+											<li>
+												<span th:text="|모집하는 인원수 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>
+											</li>
+																							
+											<li>
+												<span th:text="|신청일 : ${#temporals.format(et.regdate , 'yyyy-MM-dd HH:mm')}|"></span>
+											</li>
+																					
+											<li>
+												<span th:text="|같이먹는날 : ${#temporals.format(et.etdate , 'yyyy-MM-dd HH:mm')}|"></span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</a>			  
+						</div>
+					</div>
+				</div>
 					
 					<div class="t">
 						<a class="tt"  th:href="@{/et/list}">
