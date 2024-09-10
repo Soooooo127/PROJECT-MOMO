@@ -24,7 +24,9 @@ public class EatTogetherForm {
 	@NotEmpty(message = "인원수를 선택해주세요")
 	private String prtnumber;
 	
+	@NotEmpty(message = "선호 성별을 선택해주세요")
 	private String prefgender;
 	
+	@NotEmpty(message = "선호 성격유형을 선택해주세요")
 	private String prefmbti;
 }
