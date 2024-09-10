@@ -3,6 +3,7 @@ package com.momo.board.faq.posting;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import com.momo.board.faq.category.FaqCategory;
 import com.momo.member.Member;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@DynamicInsert
 public class FaqPosting {
 
 	@Id

@@ -40,14 +40,14 @@ public class RestService {
 		}
 		
 	}
-	
+	//인덱스 화면의 식당리스트
 	public Page<Restaurant> getList( int page){	
 		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
 		sorts.add(Sort.Order.desc("no"));
 		Pageable pageable = PageRequest.of(page ,  3 , Sort.by(sorts));
 		return this.restRepository.findAll(pageable);
 	} 
-	
+	//카테고리별 가게리스트
 	public Page<Restaurant> getList(String category, int page){	
 		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
 		sorts.add(Sort.Order.asc("name"));
@@ -62,6 +62,8 @@ public class RestService {
 		List<Sort.Order> sorts = new ArrayList<Sort.Order>();
 		sorts.add(Sort.Order.asc("name"));
 		Pageable pageable = PageRequest.of(page ,  9 , Sort.by(sorts));
+
+		
 		
 		return this.restRepository.findAll(spec, pageable);
 	}
@@ -81,9 +83,6 @@ public class RestService {
             @Override
             public Predicate toPredicate(Root<Restaurant> r, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거 
-                //Join<Question, SiteUser> u1 = q.join("author", JoinType.LEFT);
-                //Join<Question, Answer> a = q.join("answerList", JoinType.LEFT);
-                //Join<Answer, SiteUser> u2 = a.join("author", JoinType.LEFT);
                 return cb.or(cb.like(r.get("name"), "%" + kw + "%"), // 가게이름 
                         cb.like(r.get("addr"), "%" + kw + "%"),      // 가게주소 
                         cb.like(r.get("menu"), "%" + kw + "%"),		// 가게 메뉴

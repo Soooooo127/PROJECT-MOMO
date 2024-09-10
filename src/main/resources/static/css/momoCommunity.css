@@ -18,6 +18,7 @@ i {
 .frame-b {
   width:1100px;
   margin: auto;
+
 }
 
 .frame-d {
@@ -26,6 +27,7 @@ i {
 
 .frame-dl {
   float: left;
+
 }
 
 .frame-f {
@@ -62,6 +64,8 @@ i {
 
 .underline {
   border-bottom: 1px solid #e1e1e1;
+
+
 }
 
 .authorImage {
@@ -113,6 +117,7 @@ i {
   padding:25px;
   margin-bottom: 50px;
   white-space:pre;
+  
 }
 
 .rotate {

@@ -8,7 +8,7 @@
 	
 	<div th:replace="~{form_errors :: formErrorsFragment}"></div>
 	
-	<div> 
+	<div class="form-floating" > 
 	     <textarea class="form-control" style="width:100%" type="text" th:field="*{content}" rows="2" placeholder="내용을 입력해주세요."></textarea>
 	     <small class="form-text text-muted">주의사항 : 한 번 적은 댓글은 수정할 수 없습니다.</small>
 	   </div>
@@ -20,7 +20,7 @@
 <h4 class="my-3">댓글 목록</h4>
 			<hr>
 			<!--댓글 목록-->
-			<div th:each="comment, loop : ${paging}">
+			<div th:each="comment, loop : ${paging}" style="overflow:hidden;word-wrap:break-word;">
 				<span th:text="${comment.content}"></span>
 				<span th:text="${comment.membernick}"></span>
 				<span th:text="${#temporals.format(comment.createDate, 'HH:mm:ss')}"></span>

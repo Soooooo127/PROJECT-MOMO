@@ -107,15 +107,15 @@
 			</tbody>
 		</table>
 		</div>
-		<div class="row my-3">
-			<div class="col-6">
-				<a th:href="@{/askPosting/create}" class="btn btn-primary">질문 등록</a>
+		<div class="row my-3" >
+			<div class="col-6" sec:authorize="isAuthenticated()">
+				<a th:href="@{/askPosting/create}" class="btn btn-primary">글쓰기</a>
 			</div>
 			
-			<div class="col-6">
-				<div class="input-group justify-content-end">
+			<div style="width:50%;margin:auto;">
+				<div class="input-group mb-3">
 					<input type="text" id="search_kw" class="form-control" th:value="${kw}">
-					<button class="btn btn-outline-secondary" type="button" id="btn_search">검색</button>
+					<button class="btn btn-secondary" type="button" id="btn_search">검색</button>
 				</div>
 			</div>
 		</div>
@@ -131,7 +131,7 @@
 				<li th:each="page : ${#numbers.sequence(0 , paging.totalPages -1)}"
 				th:if="${page >= paging.number -5 and page <= paging.number +5}"
 				th:classappend="${page == paging.number} ? 'active'" class="page-item">
-					<a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
+					<a th:text="${page+1}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
 				</li>
 				
 				<li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">

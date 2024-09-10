@@ -22,7 +22,7 @@
 							<option value="prefgender">선호성별</option>
 						</select>	
 					<input type="text" id="search_kw" class="form-control" th:value="${kw}">
-					<button class="btn btn-outline-secondary" type="button" id="btn_search">검색</button>
+					<button class="btn btn-secondary" type="button" id="btn_search">검색</button>
 					</div>
 				</div>
 				<form th:action="@{/et/list}" method="get" id="searchForm">
@@ -82,7 +82,7 @@
 					</li>
 									
 					<li th:each="page : ${#numbers.sequence(0 , paging.totalPages -1)}"
-					th:if="${page >= paging.number -5 and page <= paging.number +5}"
+					th:if="${page >= paging.number -2 and page <= paging.number +2}"
 					th:classappend="${page == paging.number} ? 'active'" class="page-item">
 						<a th:text="${page+1}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
 					</li>
