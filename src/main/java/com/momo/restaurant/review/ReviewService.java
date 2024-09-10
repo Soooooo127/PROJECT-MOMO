@@ -89,4 +89,13 @@ public class ReviewService {
 		return avgStar;
 	}
 	
+	// 나의 추천수 총합 구하는 서비스구문
+		public int getMyDdabong(Member momoMember) {
+			List<Review> myR = this.reviewRepository.findByAuthor(momoMember);
+			int totalDdabong = 0;
+			for(int i=0; i<myR.size(); i++) {
+				totalDdabong += myR.get(i).getDdabong().size();
+		}
+			return totalDdabong;
+		}
 }

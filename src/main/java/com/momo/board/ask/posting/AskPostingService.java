@@ -122,4 +122,24 @@ public class AskPostingService {
 			}
 		};
 	}
+	
+	// 나의 추천수 총합 구하는 서비스구문
+	public int getMyDdabong(Member momoMember) {
+		List<AskPosting> myAP = this.askPostingRepository.findByAuthor(momoMember);
+		int totalDdabong = 0;
+		for(int i=0; i<myAP.size(); i++) {
+			totalDdabong += myAP.get(i).getDdabong().size();
+		}
+		return totalDdabong;
+	}
+	
+	// 나의 비추천수 총합 구하는 서비스구문
+	public int getMyNope(Member momoMember) {
+		List<AskPosting> myAP = this.askPostingRepository.findByAuthor(momoMember);
+		int totalNope = 0;
+		for(int i=0; i<myAP.size(); i++) {
+			totalNope += myAP.get(i).getNope().size();
+		}
+		return totalNope;
+	}
 }

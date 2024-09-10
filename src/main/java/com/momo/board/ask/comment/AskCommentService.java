@@ -87,4 +87,24 @@ public class AskCommentService {
 		askComment.getNope().add(momoMember);
 		this.askCommentRepository.save(askComment);
 	}
+	
+    // 나의 추천수 총합 구하는 서비스구문
+	public int getMyDdabong(Member momoMember) {
+		List<AskComment> myAC = this.askCommentRepository.findByAuthor(momoMember);
+		int totalDdabong = 0;
+		for(int i=0; i<myAC.size(); i++) {
+			totalDdabong += myAC.get(i).getDdabong().size();
+		}
+		return totalDdabong;
+	}
+	
+	// 나의 비추천수 총합 구하는 서비스구문
+	public int getMyNope(Member momoMember) {
+		List<AskComment> myAC = this.askCommentRepository.findByAuthor(momoMember);
+		int totalNope = 0;
+		for(int i=0; i<myAC.size(); i++) {
+			totalNope += myAC.get(i).getNope().size();
+		}
+		return totalNope;
+	}
 }

@@ -16,10 +16,12 @@ import com.momo.board.ask.posting.AskPosting;
 import com.momo.board.ask.posting.AskPostingService;
 import com.momo.board.free.comment.FreeComment;
 import com.momo.board.free.comment.FreeCommentService;
+import com.momo.board.free.comment.re.FreeCommentReplyService;
 import com.momo.board.free.posting.FreePosting;
 import com.momo.board.free.posting.FreePostingService;
 import com.momo.member.Member;
 import com.momo.member.MemberService;
+import com.momo.member.profile.ProfileService;
 import com.momo.restaurant.et.EatTogether;
 import com.momo.restaurant.et.EatTogetherService;
 import com.momo.restaurant.jjim.Jjim;
@@ -40,10 +42,11 @@ public class MypageController {
 	private final MemberService memberService;
 	private final JjimService jjimService;
 	
+	private final FreeCommentReplyService freeCommentReplyService;
 	private final FreeCommentService freeCommentService;
 	private final AskCommentService askCommentService;
 	private final ReviewService reviewService;
-	
+	private final ProfileService profileService;
 	private final EatTogetherService eatTogetherService;
 	
 	// 마이페이지 내 게시물 보기
@@ -115,5 +118,39 @@ public class MypageController {
 		model.addAttribute("myET", myET );
 		model.addAttribute("ettitle", ettitle);
 		return "/mypage/mypage_myET";
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/myRank")
+	public String getMyRanking(Model model, Principal principal) {
+		Member member = this.memberService.getMember(principal.getName());
+		
+		// 총 내가 받은 비추천수     
+        int totalMyNope = this.askCommentService.getMyNope(member)
+        		         + this.askPostingService.getMyNope(member)
+        		         + this.freeCommentService.getMyNope(member)
+        		         + this.freeCommentReplyService.getMyNope(member)
+        		         + this.freeCommentService.getMyNope(member);
+        
+        // 총 내가 받은 추천수		
+		int totalMyDdabong = this.reviewService.getMyDdabong(member)
+				          + this.freePostingService.getMyDdabong(member) 
+				          + this.freeCommentReplyService.getMyDdabong(member) 
+				          + this.freeCommentService.getMyDdabong(member) 
+				          + this.askPostingService.getMyDdabong(member)
+				          + this.askCommentService.getMyDdabong(member);
+		
+        //총 내 같이먹기 횟수
+		int myETcount = this.eatTogetherService.getMyETcount(member);
+		
+		//내 랭킹
+		int myRank = this.profileService.getMyBrixRank(member);
+		
+		model.addAttribute("totalMyNope", totalMyNope);
+		model.addAttribute("totalMyDdabong", totalMyDdabong);
+		model.addAttribute("myETcount", myETcount);
+		model.addAttribute("myRank", myRank);
+		model.addAttribute("member", member);
+		return "/mypage/mypage_myRank";
 	}
 }

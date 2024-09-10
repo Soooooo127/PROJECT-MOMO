@@ -135,6 +135,26 @@ public class EatTogetherService {
 		this.etRepository.save(et);
 	}
 	
+	// 내가 같이 먹은 횟수 구하는 서비스구문 
+		public int getMyETcount(Member momoMember) {
+			LocalDateTime today = LocalDateTime.now();
+			List<EatTogether> ETList = this.etRepository.findAll();
+	        int myETcount = 0;
+			for(int i=0; i<ETList.size(); i++) {
+				for(int j=0; j<ETList.get(i).getPrtmember().size(); j++) {
+					if(ETList.get(i).getEtdate().isBefore(today)) {
+					if(ETList.get(i).getPrtmember().get(j).getMemberid().equals(momoMember.getMemberid())) {
+						++myETcount;
+					}
+					
+					} else {
+						continue;
+					}
+				}
+			}
+			return myETcount;
+		} 
+	
 	//같이먹기 검색 키워드 조인
 	private Specification<EatTogether> search(String kw){
 		return new Specification<>() {

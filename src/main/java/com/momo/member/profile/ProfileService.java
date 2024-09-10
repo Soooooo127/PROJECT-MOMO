@@ -143,4 +143,20 @@ public class ProfileService {
 		}
 	
 	}
+	
+	// 당도 높은 순으로 30등까지 profile 가져오기 
+	public List<Profile> getListProfile() {
+		return this.profileRepository.findOrderByBrix();
+	}
+	
+	public int getMyBrixRank(Member member) {
+	   List<Profile> profileRankList = this.profileRepository.findAllOrderByBrix();
+	   int myRank = 0;
+       for(int i=0; i<profileRankList.size(); i++) {
+    	   if(profileRankList.get(i).getAuthor().equals(member)) {
+    		   myRank = i+1;
+    	   }
+       }
+       return myRank;
+ 	}
 }

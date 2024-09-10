@@ -2,6 +2,7 @@ package com.momo.board.free.comment.re;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -100,5 +101,25 @@ public class FreeCommentReplyService {
     	
     	freeCommentReplyRepository.save(freeCommentReply);
     }
+    
+    // 나의 추천수 총합 구하는 서비스구문
+ 	public int getMyDdabong(Member momoMember) {
+ 		List<FreeCommentReply> myFCR = this.freeCommentReplyRepository.findByAuthor(momoMember);
+ 		int totalDdabong = 0;
+ 		for(int i=0; i<myFCR.size(); i++) {
+ 			totalDdabong += myFCR.get(i).getDdabong().size();
+ 		}
+ 		return totalDdabong;
+ 	}
+ 	
+ 	// 나의 비추천수 총합 구하는 서비스구문
+ 	public int getMyNope(Member momoMember) {
+ 		List<FreeCommentReply> myFCR = this.freeCommentReplyRepository.findByAuthor(momoMember);
+ 		int totalNope = 0;
+ 		for(int i=0; i<myFCR.size(); i++) {
+ 			totalNope += myFCR.get(i).getNope().size();
+ 		}
+ 		return totalNope;
+ 	}
 	
 }

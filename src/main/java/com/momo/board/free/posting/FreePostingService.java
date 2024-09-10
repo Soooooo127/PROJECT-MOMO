@@ -162,6 +162,26 @@ public class FreePostingService {
     	freePostingRepository.save(freePosting);
     }
 
+    
+    // 나의 추천수 총합 구하는 서비스구문
+ 	public int getMyDdabong(Member momoMember) {
+ 		List<FreePosting> myFP = this.freePostingRepository.findByAuthor(momoMember);
+ 		int totalDdabong = 0;
+ 		for(int i=0; i<myFP.size(); i++) {
+ 			totalDdabong += myFP.get(i).getDdabong().size();
+ 		}
+ 		return totalDdabong;
+ 	}
+ 	
+ 	// 나의 비추천수 총합 구하는 서비스구문
+ 	public int getMyNope(Member momoMember) {
+ 		List<FreePosting> myFP = this.freePostingRepository.findByAuthor(momoMember);
+ 		int totalNope = 0;
+ 		for(int i=0; i<myFP.size(); i++) {
+ 			totalNope += myFP.get(i).getNope().size();
+ 		}
+ 		return totalNope;
+ 	}
 
     
     /*
