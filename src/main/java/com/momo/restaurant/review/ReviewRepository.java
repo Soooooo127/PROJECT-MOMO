@@ -18,7 +18,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	@Query("select r from Review r where r.author=:author and r.content like %:content%")
 	Page<Review> findByAuthorAndContent(@Param(value="author")Member author, @Param(value="content")String content, Pageable pageable);
 	
-	
+	List<Review> findByAuthor(Member author);
 	
 	
 }

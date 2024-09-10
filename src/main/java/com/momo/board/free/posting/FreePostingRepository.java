@@ -21,5 +21,5 @@ public interface FreePostingRepository extends JpaRepository<FreePosting, Intege
 	@Query("select f from FreePosting f where f.subject like %:subject% and f.author=:author")
 	Page<FreePosting> findByAuthorAndSubject(@Param(value="author")Member author, @Param(value="subject")String subject, Pageable pageable);
 
-	
+	List<FreePosting> findByAuthor(Member member);
 }

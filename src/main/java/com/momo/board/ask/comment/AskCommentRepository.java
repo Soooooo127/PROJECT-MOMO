@@ -1,5 +1,7 @@
 package com.momo.board.ask.comment;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +17,6 @@ public interface AskCommentRepository extends JpaRepository<AskComment, Integer>
 	
 	@Query("select a from AskComment a where a.author=:author and a.content like %:content%")
 	Page<AskComment> findByAuthorAndContent(@Param(value="author")Member author, @Param(value="content")String content, Pageable pageable);
+	
+	List<AskComment> findByAuthor(Member member);
 }

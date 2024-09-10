@@ -117,5 +117,24 @@ public class FreeCommentService {
     	freeCommentRepository.save(freeComment);
     }
 
-
+    // 나의 추천수 총합 구하는 서비스구문
+ 	public int getMyDdabong(Member momoMember) {
+ 		List<FreeComment> myFC = this.freeCommentRepository.findByAuthor(momoMember);
+ 		int totalDdabong = 0;
+ 		for(int i=0; i<myFC.size(); i++) {
+ 			totalDdabong += myFC.get(i).getDdabong().size();
+ 		}
+ 		return totalDdabong;
+ 	}
+ 	
+ 	// 나의 비추천수 총합 구하는 서비스구문
+ 	public int getMyNope(Member momoMember) {
+ 		List<FreeComment> myFC = this.freeCommentRepository.findByAuthor(momoMember);
+ 		int totalNope = 0;
+ 		for(int i=0; i<myFC.size(); i++) {
+ 			totalNope += myFC.get(i).getNope().size();
+ 		}
+ 		return totalNope;
+ 	}
+    
 }
