@@ -1,4 +1,9 @@
-
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 350;
+  font-style: normal;
+}
 
 .search{
 	margin-top: 200px;
