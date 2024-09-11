@@ -130,13 +130,11 @@ public class MemberController {
 		return "member/find_id3";
 	}
 	
-	// 비밀번호 찾기
 	@GetMapping("/findpw")
 	public String findpw() {
 		return "member/find_pw";
 	}
 	
-	// 회원정보 수정 메뉴 진입(초기화면 : 기본 정보를 보여준다)
 	@GetMapping("/modifyMember")
 	public String goToModify(Principal principal, Member member, Model model) {
 		member = memberService.getMember(principal.getName());
@@ -162,7 +160,6 @@ public class MemberController {
 		return "mypage/mypage_check";
 	}
 	
-	// 회원정보 수정 메소드
 	@PostMapping("/modifyMember")
 	public String modifyMember(@RequestParam(value = "memberid") String memberid, @RequestParam(value = "membernick") String membernick
 			, @RequestParam(value = "email") String email, Member member, Model model) {
@@ -178,7 +175,6 @@ public class MemberController {
 		return "redirect:/member/modifyMember";
 	}
 	
-	// 소셜 로그인 회원이 회원정보 첫 수정을 안했을 때 이동하는 페이지
 	@GetMapping("/social")
 	public String goToMypageSocial(Principal principal, Model model) {
 		Member member  = memberService.getMember(principal.getName());
@@ -191,7 +187,6 @@ public class MemberController {
 		}
 	}
 	
-	// 소셜 로그인 회원의 회원정보 첫 수정을 위한 페이지
 	@PostMapping("/social")
 	public String modifySocial(@RequestParam(value = "memberid") String memberid, @RequestParam(value = "membername") String membername
 			, @RequestParam(value = "membernick") String membernick, @RequestParam(value = "modifyPw3") String password
@@ -217,7 +212,6 @@ public class MemberController {
 
 	}
 	
-	// 마이페이지의 회원정보 수정을 진입하기 위한 비밀번호 체크 메소드
 	@PostMapping("/checkPw")
 	public String checkPw(@RequestParam(value = "password") String password, Principal principal, Model model) {
 		Member member = memberService.getMember(principal.getName());
@@ -242,12 +236,6 @@ public class MemberController {
 	@PostMapping("/drop")
 	public String goToDrop(@RequestParam(value = "memberid") String memberid, @RequestParam(value = "mail") String mail
 			, @RequestParam(value = "password") String password, Principal principal) {
-		
-		System.out.println("========회원 탈퇴 메소드 진입=========");
-		System.out.println("memberid : " + memberid);
-		System.out.println("email : " + mail);
-		System.out.println("password : " + password);
-
 		
 		Member _member = memberService.getMember(memberid);
 		boolean pwCheckResult = false;

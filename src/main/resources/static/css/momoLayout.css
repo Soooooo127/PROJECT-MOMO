@@ -105,8 +105,9 @@ a:link, a:visited {
 
 #wrapper{
 	min-height: calc(100vh - 15rem); /* footer 높이를 빼준다. */
-	
+  padding: 30px 0px 0px 0px;
 }
+
 footer{
 	height: 15rem; /* footer 높이 */
 	background: #f4f4f4;
