@@ -150,9 +150,7 @@
 				    function openMessageRoom(memberid,membernick) { // 유저목록에서 유저를 클릭하면 시작
 						selectMember = memberid;
 						receiverName.innerHTML = membernick;
-				        document.getElementById('messageRoom').classList.remove('d-none'); //숨긴요소 제거 = 보여주기
-						
-			
+				        document.getElementById('messageRoom').classList.remove('d-none'); 
 						fetch(`/chat/message/${selectMember}`) // Controller로 보내기
 						    .then(response => response.json())
 						    .then(messages => {
@@ -167,9 +165,7 @@
 					
 					function sendMessage(){  //전송을 누르면 
 						let content = document.getElementById('messageInput').value;
-		
 						if(content !== ''){
-							
 						stompClient.send("/app/message.sendMessage",{},JSON.stringify({
 							'content':content,
 							'chatroom' : {'member2': {'memberid': selectMember}}
