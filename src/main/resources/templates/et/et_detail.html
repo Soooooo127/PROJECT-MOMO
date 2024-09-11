@@ -54,7 +54,7 @@
 				<div style="margin-bottom: 5px; padding-left: 50px; ">
 					<span style="font-size: 40px; font-weight: bold;" th:text="|${et.ettitle}|"></span>
 					<br>
-					<span style="font-size: 20px; font-weight: bold;"  th:text="|방장 : ${et.applymember.membernick} , ${et.prefmbti}, ${ et.prefgender}|" ></span>
+					<span style="font-size: 20px; font-weight: bold;"  th:text="|방장 : ${et.applymember.membernick}|" ></span>
 				</div>
 
 				<!--하단 -->
@@ -77,6 +77,12 @@
 									<li>
 										<span th:text="|모집하는 인원 수 : ${#lists.size(et.prtmember)}/${et.prtnumber}|"></span>
 									</li>
+									<li>
+										<span th:text="|선호 성격유형 : ${et.prefmbti}|"></span>
+									</li>
+									<li>
+										<span th:text="|선호 성별 : ${et.prefgender}|"></span>
+									</li>									
 								</ul>
 						</div>
 					
