@@ -48,21 +48,16 @@ public class ChatController {
 		
 	}
 	
-	//대화 내용을 saveMessage로 보내고 저장함
+
 	@MessageMapping("/message.sendMessage")
 	@SendTo("/topic/message")
 	public Message sendMessage(Message message, Principal principal) {
-	
-		System.out.println("========================================");
-		System.out.println("MessageMapping 컨트롤러 진입 확인");
 		//보내는 사람 = 로그인 한 사람
 		Member sender = this.memberService.getMember(principal.getName()); 
 		//받는 사람
 		Member receiver = this.memberService.getMember(message.getChatroom().getMember2().getMemberid());
-		
 		//메세지
 		String content = message.getContent();
-		
 		return chatService.saveMessage(sender, receiver, content);
 	}
 	
@@ -71,8 +66,6 @@ public class ChatController {
 	@GetMapping("/chat/message/{member2}")
 	@ResponseBody
 	public List<Message> getMessage(@PathVariable("member2")String member2,Principal principal){
-		System.out.println("=======================================================");
-		System.out.println("대화방,대화내용 불러오기 확인");
 		List<Message> mList = this.chatService.getMessage(principal.getName(),member2);	
 		return mList;
 	}
