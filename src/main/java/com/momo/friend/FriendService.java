@@ -40,12 +40,9 @@ public class FriendService {
 	//친구 삭제
 	
 		public void deleteFriend(Member myid, Member friendid) {
-			
-		
 			List<Member> list = myid.getFriend();
-			
-			if(list.contains(friendid)) {  //리스트에 있는지 확인
-				list.remove(friendid); //있으면 리스트에서 제거
+			if(list.contains(friendid)) { 
+				list.remove(friendid);
 				myid.setFriend(list);
 				memberRepository.save(myid);
 		}

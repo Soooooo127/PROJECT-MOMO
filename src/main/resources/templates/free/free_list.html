@@ -95,15 +95,15 @@
 													<ul class="list-group" >
 														<li class="list-group-item d-flex justify-content-between align-items-center">mbti
 															<span th:if="${freePosting.author.profile != null}" th:text="${freePosting.author.profile.mbti}"></span>
-															<span th:if="${freePosting.author.profile == null}" th:text="미입력"></span>	
+															<span th:if="${freePosting.author.profile.mbti == ''}" th:text="미입력"></span>	
 														</li>
 														<li class="list-group-item d-flex justify-content-between align-items-center">성별
 															<span th:if="${freePosting.author.profile != null}" th:text="${freePosting.author.profile.gender}"></span>
-															<span th:if="${freePosting.author.profile == null}" th:text="미입력"></span>	
+															<span th:if="${freePosting.author.profile.gender == null}" th:text="미입력"></span>	
 														</li>
 														<li class="list-group-item d-flex justify-content-between align-items-center">자기소개
 															<span th:if="${freePosting.author.profile != null}" th:text="${freePosting.author.profile.content}"></span>
-															<span th:if="${freePosting.author.profile == null}" th:text="미입력"></span>	
+															<span th:if="${freePosting.author.profile.content == ''}" th:text="미입력"></span>	
 														</li>
 													</ul>
 												</div>															
