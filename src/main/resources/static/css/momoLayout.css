@@ -95,7 +95,9 @@ body > div{
 	height: calc(100% - 335px);
 }*/
 
-
+a {
+color :#333;
+}
 
 a:link, a:visited {
   text-decoration-line: none;
@@ -133,14 +135,16 @@ footer{
 .fa{
 	width: 1280px;
 	margin:auto;
-	display: flex
-	
+	display: flex;
+  font-family: 'HancomMalangMalang-Regular';
 }
+
 .f1{
 	width:280px;
 	text-align: center;
+	vertical-align: middle;
+  padding: 80px 0;
 
-	margin-bottom: 0;;
 }
 
 .f2{

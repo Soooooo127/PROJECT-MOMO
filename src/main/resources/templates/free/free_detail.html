@@ -35,8 +35,8 @@
 								<div class="frame-dl half">
 									<div class="frame-d">
 										<div class="frame-dl" style="width:90px;">
-											<img class="authorImageB" th:if="${freePosting.author.image != null}" th:src="@{|/img/${freePosting.author.image.storeFilename}|}" >
-											<img class="authorImageB" th:unless="${freePosting.author.image != null}" src="/img/default_profile.png" >
+											<img class="authorImageB" th:if="${freePosting.author.image != null and freePosting.author.memberid != null}" th:src="@{|/img/${freePosting.author.image.storeFilename}|}" >
+											<img class="authorImageB" th:if="${freePosting.author.image == null or freePosting.author.memberid == null}" src="/img/default_profile.png" >
 										</div>
 										<div class="frame-dl postingAuthorInfo">
 											<span th:text="${freePosting.membernick}"></span>
