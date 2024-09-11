@@ -153,7 +153,6 @@ public class EatTogetherController {
 	@GetMapping("/leave/{rno}/{etno}")
 	public String leaveET(Principal principal, @PathVariable("rno") Integer rno
 			, @PathVariable("etno") Integer etno , Model model) {
-		Restaurant rest = this.restService.getRestaurant(rno);
 		EatTogether et = this.etService.getET(etno);
 		Member momoMember = this.momoMemberService.getMember(principal.getName());
 		List<Member> prtmember = et.getPrtmember();
