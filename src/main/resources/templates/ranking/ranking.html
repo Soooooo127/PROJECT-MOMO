@@ -52,9 +52,10 @@
 				  <td></td>
 				  <td align="right" th:if="${profile.author.image != null}"><img class="siz" th:src="@{|/img/${profile.author.image.storeFilename}|}"></td>
 				  <td align="right" th:unless="${profile.author.image != null}"><img class="siz" src="/img/default_profile.png"></td>
-				  <td th:text="${profile.author.membernick}"></td>
+				  <td th:if="${profile.author.password==null}">탈퇴회원입니다</td>
+				  <td th:unless="${profile.author.password==null}" th:text="${profile.author.membernick}"></td>
 				  <td th:text="${profile.brix}"></td>
-				</div>
+			    </div>
 			</tr>
 		</table>
     </center>
