@@ -22,6 +22,11 @@
 					<!--게시판 목록-->
 					<div>
 						<p  style="font-size: 30px; font-weight: bold; ">[자유게시판] 모두모여 자유롭게 대화를 즐겨 보세요 </p>
+						<div style="margin-bottom: 10px;">
+							<button th:onclick="|location.href='@{/free/list(order=createDate , kw=${kw})}'|" class="btn btn-secondary btn-sm">최신순</button>
+							<button th:onclick="|location.href='@{/free/list(order=cnt , kw=${kw})}'|" class="btn btn-secondary btn-sm"> 조회순</button>
+							<button th:onclick="|location.href='@{/free/list(order=ddabong , kw=${kw})}'|" class="btn btn-secondary btn-sm">추천순</button>
+						</div>
 						<table class="table table-hover">
 							<thead class="table-primary text-center">
 								<tr>

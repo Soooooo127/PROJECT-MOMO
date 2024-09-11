@@ -32,7 +32,7 @@
 									<div class="frame-dl postingAuthorInfo">
 										<span th:text="${askPosting.author.membernick}"></span>
 										<th:block sec:authorize="isAuthenticated()">
-											<span class="badge bg-secondary" 
+											<span class="badge bg-dark" 
 											th:if="${askPosting.author.memberid != null and #authentication.getPrincipal().getUsername() == askPosting.author.memberid}">나</span>
 											<a href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ askPosting.author.no}">
 											<span class="badge bg-dark" 
@@ -232,7 +232,7 @@
 												<td style="width:40%;text-align:left;" class="commentNickW">
 													<span th:text="${askComment.membernick}"></span>
 													<th:block sec:authorize="isAuthenticated()">
-														<span class="badge bg-secondary" 
+														<span class="badge bg-dark" 
 														th:if="${askComment.author.memberid != null and #authentication.getPrincipal().getUsername() == askComment.author.memberid}">나</span>
 														<a href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ askComment.author.no}">
 														<span class="badge bg-dark"
