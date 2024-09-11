@@ -284,11 +284,13 @@
 													th:text="|(최종 수정일 : ${#temporals.format(askComment.updateDate, 'yyyy-MM-dd HH:mm')})|"></span>
 												</td>
 												<td style="text-align: right;">
-													<a th:href="@{|/askComment/update/${askComment.no}|}" class="fw-bold"
+													<a th:href="@{|/askComment/update/${askComment.no}|}" class="btn btn"
 													sec:authorize="isAuthenticated()"
-													th:if="${askComment.author != null and #authentication.getPrincipal().getUsername() == askComment.author.memberid}">댓글수정</a>
+													th:if="${askComment.author != null and #authentication.getPrincipal().getUsername() == askComment.author.memberid}">
+													<button type="button" class="btn btn-outline-secondary btn-sm me-2">수정</button></a>
 													<a class="delete fw-bold" sec:authorize="isAuthenticated()" th:if="${askComment.author.memberid != null and #authentication.getPrincipal().getUsername() == askComment.author.memberid}"
-													th:data-uri="@{|/askComment/delete/${askComment.no}|}" href="javascript:void(0);">댓글삭제</a>
+													th:data-uri="@{|/askComment/delete/${askComment.no}|}" href="javascript:void(0);">
+													<button type="button" class="btn btn-outline-secondary btn-sm me-2">삭제</button></a>
 												</td>
 											</tr>
 											
