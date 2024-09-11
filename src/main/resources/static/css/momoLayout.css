@@ -85,7 +85,29 @@ html, body {
   width: 1030px;
 }
 
+.errorP {
+  font-family: 'HancomMalangMalang-Regular';
+}
 
+.errorB {
+  width:800px;
+  color: red;
+  font-weight: bold;
+  font-size: 3rem;
+  margin: auto;
+  padding-top: 50px;
+}
+
+.errorC {
+  width:800px;
+  text-align: center;
+  margin: auto;
+  padding: 20px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  color:#555;
+}
 /*
 body > div{
 	height: calc(100% - 335px);
