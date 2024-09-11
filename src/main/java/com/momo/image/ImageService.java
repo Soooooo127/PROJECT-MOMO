@@ -59,27 +59,16 @@ public class ImageService {
         }
         
         String originalFilename = file.getOriginalFilename();
-        
-        // 작성자가 업로드한 파일명 -> 서버 내부에서 관리하는 파일명
-        // 파일명을 중복되지 않게끔 UUID로 정하고 ".확장자"는 그대로
         String storeFilename = UUID.randomUUID() + "." + extractExt(originalFilename);
-        // String storeFileName = file.getOriginalFilename();
-        // 자신의 프로젝트 경로로 수정할 것 안하면 이미지가 저장이 안됌
-        // 디렉토리를 지정하는 코드 추가
         String myDirectory = System.getProperty("user.dir");
         String fullPath = myDirectory + "\\src\\main\\resources\\static\\img\\" + storeFilename;
-                           
-        // 파일을 저장하는 부분 -> 파일경로 + storeFilename 에 저장
         file.transferTo(new File(fullPath));
-         
-       // Path path = Paths.get(fullPath).toAbsolutePath();
-       // file.transferTo(path.toFile());
-       // Image image = getImage(member.getMemberid());
+
           Optional<Image> _image = this.imageRepository.findByAuthor(member);
           if(_image.isPresent()) {
             Image image = _image.get();
+            image.setOriginalFilename(originalFilename);
             image.setStoreFilename(storeFilename);
-            image.setAuthor(member);
             return image;
         } else {
             Image image = new Image();

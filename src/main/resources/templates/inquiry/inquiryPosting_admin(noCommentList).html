@@ -1,5 +1,6 @@
 <html layout:decorate="~{layout}">
-	<div layout:fragment="content">
+<head>
+	
 		
 		<style>
 			
@@ -45,7 +46,9 @@
 		}
 
 		</style>
-		
+</head>
+<body>
+		<div layout:fragment="content">
 
 <!--전체-->
 <form th:action="@{/inquiryPosting/noCommentList}" method="get" id="searchForm">
@@ -87,68 +90,12 @@
 				   <td>
 					<a class="noline" th:href="@{|/inquiryPosting/detail/${posting.no}|}" th:text="${posting.subject}"></a>
 				   </td>
-				   <td>
-   						<ul class="navbar-nav me-auto">
-   							<li class="nav-item dropdown">
-   								<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-   								th:if="${posting.membernick != null}" th:text="${posting.membernick}"></a>
-   								<div sec:authorize="isAuthenticated()" th:if="${posting.author.memberid != null}">
-   									<div class="dropdown-menu" th:if="${#authentication.getPrincipal().getUsername != posting.author.memberid}">
-   										<a class="dropdown-item" href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ posting.author.no}">프로필 보기</a>
-   									</div>
-   								</div>
-   								<div sec:authorize="isAuthenticated()" th:if="${posting.author.memberid == null}">
-   									<div class="dropdown-menu">
-   										<span class="dropdown-item">탈퇴한 회원입니다</span>
-   									</div>
-   								</div>
-   							</li>
-   						</ul>
-   					</td>
+				   <td th:text=${posting.membernick}></td>
 				   <td th:if="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
 				       th:text="${#temporals.format(posting.createDate, 'HH:mm')}"></td>
 				   <td th:unless="${#calendars.format(#calendars.createNow(), 'yyyy.MM.dd') == #temporals.format(posting.createDate, 'yyyy.MM.dd')}" 
 				   	   th:text="${#temporals.format(posting.createDate, 'yyyy.MM.dd')}"></td>			   
 				   <td th:if="${#lists.isEmpty(posting.commentList)}">대기</td>
-				   
-				   <!-- 프로필 보기 Modal -->	
-   					<div class="modal" th:attr="id='profile'+${posting.author.no}">													
-   						<div class="modal-dialog">
-   							<div class="modal-content">
-   								<div class="modal-header">								
-   									<h1 class="modal-title fs-5" id="exampleModalLabel">
-   										<span th:text="|${posting.author.membernick}님의 프로필|"></span>	
-   									</h1>
-   									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-   								</div>
-   								<div class="modal-body" >
-
-   									<div class="d-flex justify-center" >
-   										<img class="profileImage" th:src="@{|/img/${posting.author.image.storeFilename}|}" th:if="${posting.author.image != null}">
-   										<img class="profileImage" th:unless="${posting.author.image != null}" src="/img/default_profile.png" >
-   									</div>
-   									<br>								
-   									<ul class="list-group" >
-   										<li class="list-group-item d-flex justify-content-between align-items-center">mbti
-   											<span th:if="${posting.author.profile != null}" th:text="${posting.author.profile.mbti}"></span>
-   											<span th:if="${posting.author.profile == null}" th:text="미입력"></span>	
-   										</li>
-   										<li class="list-group-item d-flex justify-content-between align-items-center">성별
-   											<span th:if="${posting.author.profile != null}" th:text="${posting.author.profile.gender}"></span>
-   											<span th:if="${posting.author.profile == null}" th:text="미입력"></span>	
-   										</li>
-   										<li class="list-group-item d-flex justify-content-between align-items-center">자기소개
-   											<span th:if="${posting.author.profile != null}" th:text="${posting.author.profile.content}"></span>
-   											<span th:if="${posting.author.profile == null}" th:text="미입력"></span>	
-   										</li>
-   									</ul>
-   								</div>															
-   								<div class="modal-footer">
-   									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-   								</div>
-   							</div>
-   						</div>
-   					</div>
 				</tr>
 			</div>
 		</tbody>
@@ -157,7 +104,7 @@
 	            <div style="width:50%;margin:auto;">
 					<div class="input-group mb-3">
 				      <input type="text" id="search_subject" class="form-control" th:value="${subject}">
-				      <button type="button" id="btn_search" class="btn btn-outline-secondary">검색</button>	
+				      <button type="button" id="btn_search" class="btn btn-outline-secondary">찾기</button>	
 			  	    </div>
 				</div>	
 	<!--문의 글 목록 페이징-->
@@ -199,6 +146,6 @@
 			});
 		</script>
 
-</div>
 
+</body>
 </html>

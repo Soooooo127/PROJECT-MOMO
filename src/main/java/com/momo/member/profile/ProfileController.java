@@ -26,7 +26,6 @@ public class ProfileController {
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/profile")
 	public String profile(Model model, Principal principal) {
-		System.out.println(principal.getName());
 		Member memberProfile = this.memberService.getMember(principal.getName());
 		model.addAttribute("memberProfile", memberProfile);
 		return "profile/profile";
@@ -40,65 +39,6 @@ public class ProfileController {
 		model.addAttribute("memberProfile", memberProfile);
 		return "profile/profile_form";
 	}
-	
-	
-	
-/*	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/modifyProfile")
-	public String modifyProfile(@Valid ProfileForm profileForm, BindingResult bindingResult, 
-			                    @RequestParam MultipartFile file, Principal principal) throws IOException {
-		
-		Member member = this.memberService.getMember(principal.getName());
-		
-		if(bindingResult.hasErrors()) {
-			return "/profile/form";
-		}
-		this.profileService.modifyProfile(member, profileForm.getMembernick(), profileForm.getGender() 
-				                          , profileForm.getContent(), profileForm.getMbti(), file);
-		
-		
-		
-		return "redirect:/mypage/profile";
-	}  */
-	
-/*	@PreAuthorize("isAuthenticated()")
-	@PostMapping("/modifyProfile")
-	public String modifyProfile(@Valid ProfileForm profileForm, BindingResult bindingResult, 
-			                    @RequestPart(value="files") MultipartFile file, Principal principal) throws IOException {
-		//확장자 얻기
-		String ext = this.imageService.extension(file.getOriginalFilename());
-		
-		if(bindingResult.hasErrors()) {
-			return "/profile/profile_form";
-		}
-		
-		//확장자 제한
-	    if(!ext.contains("png") || !ext.contains("jpg") || !ext.contains("jfif")) {
-			return "/profile/profile_form";
-		} 
-		this.profileService.modifyProfile(principal.getName(), profileForm.getMembernick(), profileForm.getGender(), 
-				                          profileForm.getContent(), profileForm.getMbti(), file);
-		
-		
-		Member member = this.memberService.getMember(principal.getName());
-		Profile profile = this.profileService.getProfile(member);
-		Image image = this.imageService.storeImage(file, profile);
-		
-		Image img = this.imageService.getImage(principal.getName());
-		
-		
-		this.memberService.updateMember(principal.getName(), profileForm.getMembernick());
-				
-		if(img == null) {
-		  this.imageService.saveImage(image);
-		} else if(img != null) {
-		  this.imageService.updateImage(image, profile);
-		}
-		
-		
-		
-		return "redirect:/mypage/profile";
-	}  */
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/modifyProfile")
