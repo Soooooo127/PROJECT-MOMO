@@ -34,7 +34,6 @@ public class ReviewController {
 	private final ReviewService reviewService;
 	private final RestService restService;
 	private final MemberService memberService;
-	private final JjimService jjimService;
 	private final ProfileService profileService;
 	
 	@GetMapping("/list/{no}")
@@ -42,27 +41,25 @@ public class ReviewController {
 		return null;
 	}
 	
-	// 리뷰를 작성함에 따른 가게 평점 업데이트
+	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{no}")
 	public String create(@RequestParam(value="star") Integer star
-			,@RequestParam(value="content") String content 
+			, @RequestParam(value="content") String content 
 			, @PathVariable("no") Integer no, Principal principal
 			) {
-		
 		Restaurant rest = restService.getRestaurant(no);
 		Member member = memberService.getMember(principal.getName());
 		reviewService.create(no, member, content, star);
-		
 		double avgStar = reviewService.avg(rest);
 		restService.update(no, avgStar);
 		
 		return "redirect:/rest/detail/{no}";
 	}
 	
-	// 리뷰를 삭제함에 따른 가게 평점 업데이트
 	@GetMapping("/delete/{no}/{rno}")
-	public String delete(@PathVariable("rno") Integer rno, @PathVariable("no") Integer no) {
+	public String delete(@PathVariable("rno") Integer rno
+			, @PathVariable("no") Integer no) {
 		reviewService.delete(rno);
 		
 		Restaurant rest = this.restService.getRestaurant(no);
