@@ -44,7 +44,7 @@ public class ChatController {
 	etMemberList.remove(me);
 	model.addAttribute("etMemberList", etMemberList); //모델에 저장 
 	model.addAttribute("me", me);
-	return "/chat/chatting";
+	return "chat/chatting";
 		
 	}
 	
