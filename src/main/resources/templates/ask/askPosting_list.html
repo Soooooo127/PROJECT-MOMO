@@ -108,7 +108,7 @@
 		</table>
 		</div>
 		<div class="row my-3">
-			<div class="col-6" sec:authorize="isAuthenticated()">
+			<div align="left" sec:authorize="isAuthenticated()">
 				<form method="get" th:action="@{/askPosting/create}">
 					<button type="submit" class="btn btn-primary">글쓰기</button>
 				</form>

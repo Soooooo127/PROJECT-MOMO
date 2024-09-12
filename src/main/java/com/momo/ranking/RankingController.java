@@ -25,6 +25,6 @@ public class RankingController {
 	public String rankList(Model model) {
 		List<Profile> profileList = this.profileService.getListProfile();
 		model.addAttribute("profileList", profileList);
-		return "/ranking/ranking";
+		return "ranking/ranking";
 	}
 }

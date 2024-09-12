@@ -64,7 +64,7 @@ public class FreePostingController {
 	public String create(@Valid FreePostingForm freePostingForm, BindingResult bindingResult, Principal principal) {
 		
 		if(bindingResult.hasErrors()) {
-			return "/free/free_form";
+			return "free/free_form";
 		}
 		
 		Member member = memberService.getMember(principal.getName());
@@ -88,7 +88,7 @@ public class FreePostingController {
 			@PathVariable("pno") Integer pno) {
 		
 		if(bindingResult.hasErrors()) {
-			return "/free/free_form";
+			return "free/free_form";
 		}
 		
 		FreePosting freePosting = freePostingService.getPosting(pno);

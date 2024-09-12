@@ -39,7 +39,7 @@ public class FreeCommentController {
 	@GetMapping("/create/{pno}")
 	public String create(Model model) {
 		model.addAttribute("freeCommentForm", new FreeCommentForm());
-		return "/free/free_list";
+		return "free/free_list";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -51,7 +51,7 @@ public class FreeCommentController {
 		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("freePosting", freePosting);
-			return "/free/free_detail";
+			return "free/free_detail";
 		}
 		
 		Member member = memberService.getMember(principal.getName());

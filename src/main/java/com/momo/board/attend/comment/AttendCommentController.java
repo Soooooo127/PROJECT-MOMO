@@ -61,7 +61,7 @@ public class AttendCommentController
 		if(bindingResult.hasErrors()) 
 		{
 			model.addAttribute("paging",paging);
-			return "/hello/attendCalendar_main";
+			return "hello/attendCalendar_main";
 		}
 		this.attendCommentService.create(attendCommentForm.getContent(), member.getMembernick(), member.getMemberid(), member);
 		return "redirect:/attendComment/list";

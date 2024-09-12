@@ -37,7 +37,7 @@ public class InquiryPostingController {
 		Page<InquiryPosting> paging = this.inquiryPostingService.getList(page, kw);
 		model.addAttribute("paging", paging);
 		model.addAttribute("kw", kw);
-		return "/inquiry/inquiryPosting_admin";
+		return "inquiry/inquiryPosting_admin";
 	}  
 	
 	@PreAuthorize("isAuthenticated()")
@@ -47,7 +47,7 @@ public class InquiryPostingController {
 		Page<InquiryPosting> paging = this.inquiryPostingService.getNoCommenList(subject, page);
 		model.addAttribute("paging", paging); 
 		model.addAttribute("subject",subject);
-		return "/inquiry/inquiryPosting_admin(noCommentList)";
+		return "inquiry/inquiryPosting_admin(noCommentList)";
 	} 
 	
 	@PreAuthorize("isAuthenticated()")
@@ -58,13 +58,13 @@ public class InquiryPostingController {
 		Page<InquiryPosting> paging = this.inquiryPostingService.getMyList(member, subject ,page);
 		model.addAttribute("paging", paging);
 		model.addAttribute("subject", subject);
-		return "/inquiry/inquiryPosting";
+		return "inquiry/inquiryPosting";
 	} 
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/create")
 	public String createPosting(InquiryPostingForm inquiryPostingForm) {
-		return "/inquiry/inquiryPosting_create";
+		return "inquiry/inquiryPosting_create";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -73,7 +73,7 @@ public class InquiryPostingController {
 		                       , @RequestParam(value="page", defaultValue = "0")int page) {
 		Member member = this.memberService.getMember(principal.getName());
 		if(bindingResult.hasErrors()) {
-			return "/inquiry/inquiryPosting_create";
+			return "inquiry/inquiryPosting_create";
 		}
 		this.inquiryPostingService.createPosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), member.getMembernick() , member);
 		return "redirect:/inquiryPosting/myList";
@@ -85,7 +85,7 @@ public class InquiryPostingController {
 			                    InquiryCommentForm inquiryCommentForm, InquiryPostingForm inquiryPostingForm) {
 		InquiryPosting posting = this.inquiryPostingService.getInquiryPosting(no);
 		model.addAttribute("posting", posting);
-		return "/inquiry/inquiryPosting_detail";
+		return "inquiry/inquiryPosting_detail";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -98,7 +98,7 @@ public class InquiryPostingController {
 		
 		model.addAttribute("posting", posting);
 		
-		return "/inquiry/inquiryPosting_form";
+		return "inquiry/inquiryPosting_form";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -108,7 +108,7 @@ public class InquiryPostingController {
 		InquiryPosting posting = this.inquiryPostingService.getInquiryPosting(no);
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("posting", posting);
-			return "/inquiry/inquiryPosting_form";
+			return "inquiry/inquiryPosting_form";
 		}
 		this.inquiryPostingService.updatePosting(inquiryPostingForm.getSubject(), inquiryPostingForm.getContent(), no);
 		return "redirect:/inquiryPosting/detail/{no}";

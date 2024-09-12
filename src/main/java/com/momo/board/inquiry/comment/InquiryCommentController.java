@@ -37,7 +37,7 @@ public class InquiryCommentController {
 		
 		if(bindingResult.hasErrors()) {
 		   model.addAttribute("posting", posting);
-		   return "/inquiry/inquiryPosting_detail";	
+		   return "inquiry/inquiryPosting_detail";	
 		}
 		this.inquiryCommentService.create(posting, inquiryCommentForm.getContent(), member.getMembernick(), member);
 		return String.format("redirect:/inquiryPosting/detail/%s", no);
@@ -59,7 +59,7 @@ public class InquiryCommentController {
 		InquiryComment comment = this.inquiryCommentService.getComment(cno);
 		inquiryCommentForm.setContent(comment.getContent());
 		model.addAttribute("comment",comment);
-		return "/inquiry/inquiryComment_form";
+		return "inquiry/inquiryComment_form";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -73,7 +73,7 @@ public class InquiryCommentController {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("comment", comment);
 			model.addAttribute("posting", posting);
-			return "/inquiry/inquiryComment_form";
+			return "inquiry/inquiryComment_form";
 		}
 		this.inquiryCommentService.update(cno, inquiryCommentForm.getContent());
 		return "redirect:/inquiryPosting/detail/{pno}";
