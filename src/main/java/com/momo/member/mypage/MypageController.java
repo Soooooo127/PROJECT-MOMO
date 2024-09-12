@@ -64,7 +64,7 @@ public class MypageController {
      	model.addAttribute("freeSubject", freeSubject );
 		model.addAttribute("myAskPosting", myAskPosting);
 		model.addAttribute("askSubject", askSubject);
-		return "/mypage/mypage_myPosting";
+		return "mypage/mypage_myPosting";
 	}
 	
 	// 마이페이지 내 가게 찜 목록 보기
@@ -74,7 +74,7 @@ public class MypageController {
 		Member member = this.memberService.getMember(principal.getName());
 		Page<Jjim> paging = this.jjimService.getMyJjimList(member, page);
 		model.addAttribute("paging", paging);
-		return "/mypage/mypage_myJjim";
+		return "mypage/mypage_myJjim";
 	}
 	
 	// 마이페이지 내 댓글(자유게시판, 질문&답변) 보기
@@ -92,7 +92,7 @@ public class MypageController {
      	model.addAttribute("freeCotent", freeContent );
 		model.addAttribute("myAskComment", myAskComment);
 		model.addAttribute("askCotent", askContent);
-		return "/mypage/mypage_myComment";
+		return "mypage/mypage_myComment";
 	}
 	
 	// 마이페이지 내 리뷰 보기
@@ -104,7 +104,7 @@ public class MypageController {
 		Page<Review> myReview = this.reviewService.getMyReview(member, content, page);
 		model.addAttribute("myReview", myReview);
 		model.addAttribute("content", content);
-		return "/mypage/mypage_myReview";
+		return "mypage/mypage_myReview";
 	}
 	
 	// 마이페이지 내 같이 먹기
@@ -117,7 +117,7 @@ public class MypageController {
 		Page<EatTogether> myET = this.eatTogetherService.getMyET(principal.getName(), page, ettitle);
 		model.addAttribute("myET", myET );
 		model.addAttribute("ettitle", ettitle);
-		return "/mypage/mypage_myET";
+		return "mypage/mypage_myET";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -151,6 +151,6 @@ public class MypageController {
 		model.addAttribute("myETcount", myETcount);
 		model.addAttribute("myRank", myRank);
 		model.addAttribute("member", member);
-		return "/mypage/mypage_myRank";
+		return "mypage/mypage_myRank";
 	}
 }
