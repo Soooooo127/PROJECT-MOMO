@@ -38,7 +38,7 @@ public class FaqPostingController {
 	public String createFaq(FaqPostingForm faqPostingForm, Model model) {
 		List<FaqCategory> faqCategoryList=this.faqCategoryService.getFaqCategoryList();
 		model.addAttribute("faqCategoryList", faqCategoryList);
-		return "/faq/faqPosting";
+		return "faq/faqPosting";
 	}
 	
 	@PreAuthorize("isAuthenticated()")
