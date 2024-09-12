@@ -91,7 +91,7 @@ public class EatTogetherService {
 	
 	//마이페이지 내 같이 먹기 + 페이징 + 검색
 	public Page<EatTogether> getMyET(String memberid, int page, String ettitle) {
-		List<EatTogether> _etList = this.etRepository.findAll(ettitle);
+		List<EatTogether> _etList = this.etRepository.findAllOrderByDesc(ettitle);
 		List<EatTogether> _myEtList = new ArrayList<>();
 		for(int i=0; i<_etList.size(); i++) {
 			for(int j=0; j<_etList.get(i).getPrtmember().size(); j++) {
