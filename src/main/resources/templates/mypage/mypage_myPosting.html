@@ -25,34 +25,6 @@
 			
 
 		</style>
-		<script type="text/javascript">
-			const page_elements = document.getElementsByName("y");
-				Array.from(page_elements).forEach(function(element){
-				element.addEventListener('click' , function(){
-					document.getElementById('pg').value = this.dataset.page;
-				document.getElementById('searchForm').submit();
-			});
-			});
-			const btn_search = document.getElementById("btn_search_askSubject");
-			btn_search.addEventListener('click' , function(){
-				document.getElementById('askSubject').value = document.getElementById('search_askSubject').value;
-				document.getElementById('pg').value = 0;
-				document.getElementById('searchForm').submit();
-			});
-			const page_element = document.getElementsByName("z");
-				Array.from(page_element).forEach(function(element){
-					element.addEventListener('click' , function(){
-							document.getElementById('page').value = this.dataset.page;
-							document.getElementById('searchForm').submit();
-					});
-				});
-			const btn_searchs = document.getElementById("btn_search_freeSubject");
-				btn_searchs.addEventListener('click' , function(){
-						document.getElementById('freeSubject').value = document.getElementById('search_freeSubject').value;
-						document.getElementById('page').value = 0;
-						document.getElementById('searchForm').submit();
-					});
-			</script> 
 	</head>
 	<body>
 		<div layout:fragment="mypageContent">
@@ -204,5 +176,36 @@
 				</div>
 			</div>	
 		</div>
+		
+		<script layout:fragment="script" type="text/javascript">
+			const page_elements = document.getElementsByName("y");
+				Array.from(page_elements).forEach(function(element){
+				element.addEventListener('click' , function(){
+					document.getElementById('pg').value = this.dataset.page;
+				document.getElementById('searchForm').submit();
+			  });
+			});
+			const btn_search = document.getElementById("btn_search_askSubject");
+			btn_search.addEventListener('click' , function(){
+				document.getElementById('askSubject').value = document.getElementById('search_askSubject').value;
+				document.getElementById('pg').value = 0;
+				document.getElementById('searchForm').submit();
+			});
+			</script>
+		<script layout:fragment="script" type="text/javascript">
+			const page_element = document.getElementsByName("z");
+				Array.from(page_element).forEach(function(element){
+					element.addEventListener('click' , function(){
+							document.getElementById('page').value = this.dataset.page;
+							document.getElementById('searchForm').submit();
+					});
+				});
+			const btn_searchs = document.getElementById("btn_search_freeSubject");
+				btn_searchs.addEventListener('click' , function(){
+						document.getElementById('freeSubject').value = document.getElementById('search_freeSubject').value;
+						document.getElementById('page').value = 0;
+						document.getElementById('searchForm').submit();
+					});
+			</script> 
 	</body>	
 </html>

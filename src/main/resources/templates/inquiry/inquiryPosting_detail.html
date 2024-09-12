@@ -47,10 +47,10 @@
 												  <span th:text="${posting.membernick}"></span>
 												  <a href="#" data-bs-toggle="modal" th:attr="data-bs-target=${'#profile'+ posting.author.no}">
 												  <span class="badge bg-dark" 
-												  th:if="${posting.author.memberid != null and #authentication.getPrincipal().getUsername() != posting.author.memberid}">프로필</span></a>
-												  <span th:if="${posting.updateDate == null}" th:text="${#temporals.format(posting.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+												  th:if="${posting.author.memberid != null and #authentication.getPrincipal().getUsername() != posting.author.memberid}">프로필</span></a><br>
+												  <span th:text="${#temporals.format(posting.createDate, 'yyyy-MM-dd HH:mm')}"></span>
 												</th:block>
-												<span th:if="${posting.updateDate != null}" th:text="|(최종 수정일 : ${#temporals.format(posting.updateDate, 'yyyy-MM-dd HH:mm')})|"></span>
+												<span th:text="|(최종 수정일 : ${#temporals.format(posting.updateDate, 'yyyy-MM-dd HH:mm')})|"></span>
 												<th:block th:if="${posting.author.memberid == null}">
 													<span class="badge bg-secondary">탈퇴한 회원</span>
 												</th:block>
