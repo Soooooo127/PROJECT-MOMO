@@ -55,7 +55,7 @@
 							<!--프로필 사진-->
 							<span class="bg"><h3><a class="noline" th:href="@{/mypage/profile}">내 프로필</a></h3></span>
 							<div class="profileBox my-4" >
-								<img class="profile" th:if="${memberProfile.image != null}" th:src="@{|/img/${memberProfile.image.storeFilename}|}" >
+								<img class="profile" th:if="${memberProfile.image != null}" th:src="@{|/img/${memberProfile.image.storeFilename}|}" alt="Image 1">
 								<img class="profile" th:unless="${memberProfile.image != null}" src="/img/default_profile.png" >
 							</div>
 						</center>

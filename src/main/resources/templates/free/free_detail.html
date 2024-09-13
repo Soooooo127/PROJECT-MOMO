@@ -65,7 +65,7 @@
 								</div>
 								<!--게시물 정보-->
 								<div class="frame-dl half right">
-									<p class="postingRankingInfo" sec:authorize="isAuthenticated()">
+									<p class="postingRankingInfo" sec:authorize="isAuthenticated()" th:if="${freePosting.author.memberid != null}">
 										<span th:if="${freePosting.author.memberid != null and #authentication.getPrincipal().getUsername() == freePosting.author.memberid}">
 											<a th:href="@{|/free/update/${freePosting.no}|}"><button type="button" class="btn btn-outline-secondary btn-sm me-2">수정</button></a>
 											<button type="button" class="btn btn-outline-secondary btn-sm delete" th:data-uri="@{|/free/delete/${freePosting.no}|}">삭제</button>
@@ -141,7 +141,7 @@
 												<span th:text="(${#sets.isEmpty(freePosting.nope)} ? 0 : ${freePosting.nope.size()})" class="ddabongText"></span>
 											</td>
 										</th:block>
-										<th:block sec:authorize="isAuthenticated()">
+										<th:block sec:authorize="isAuthenticated()" th:if="${freePosting.author.memberid != null}">
 											<td style="width:50%;border-right:1px solid #e1e1e1;" th:if="${#sets.contains(freePosting.ddabong, #authentication.getPrincipal.getUsername())}">
 												<i href="javascript:void(0);" class="ddabong fi fi-sr-thumbs-up text-success"
 												th:data-uri="@{|/free/ddabong/${freePosting.no}|}">
@@ -261,7 +261,7 @@
 														 <i class="fi fi-sr-thumbs-down"></i>
 														 <span th:text="|비추 ${freeComment.nope.size()}|"></span>
 														</th:block>
-														<th:block sec:authorize="isAuthenticated()">
+														<th:block sec:authorize="isAuthenticated()" th:if="${freeComment.author.memberid != null}">
 														 <i class="fi fi-sr-thumbs-up text-success ddabong" href="javascript:void(0);"
 														 th:data-uri="@{|/free/comment/ddabong/${freePosting.no}/${freeComment.no}|}"
 														 th:if="${#sets.contains(freeComment.ddabong, #authentication.getPrincipal.getUsername())}"></i>
@@ -316,7 +316,7 @@
 																	</div>
 																	<!--textarea-->
 																	<form method="post" th:object="${freeCommentForm}" th:action="@{|/free/comment/reply/create/${freePosting.no}/${freeComment.no}|}">
-																		<div th:replace="~{/free/free_form_errors :: formErrorsFragment}"></div>
+																		<div th:replace="~{free/free_form_errors :: formErrorsFragment}"></div>
 																		<div>
 																			<textarea class="commentAria" th:field="*{content}" rows="1" placeholder="댓글을 작성해주세요"
 																			oninput='this.style.height = ""; this.style.height = this.scrollHeight + "px"'></textarea>
@@ -407,7 +407,7 @@
 																				<span>비추 </span>
 																				<span th:text="(${#sets.isEmpty(freeCommentReply.nope)} ? 0 : ${freeCommentReply.nope.size()})"></span>
 																		  </th:block>
-																		  <th:block sec:authorize="isAuthenticated()">
+																		  <th:block sec:authorize="isAuthenticated()" th:if="${freeCommentReply.author.memberid != null}">
 																				<i class="fi fi-sr-thumbs-up text-success ddabong" href="javascript:void(0);"
 																				th:data-uri="@{|/free/comment/reply/ddabong/${freePosting.no}/${freeCommentReply.no}|}"
 																				th:if="${#sets.contains(freeCommentReply.ddabong, #authentication.getPrincipal.getUsername())}"></i>
@@ -467,7 +467,7 @@
 								</div>
 								<!--textarea-->
 								<form method="post" th:object="${freeCommentForm}" th:action="@{|/free/comment/create/${freePosting.no}|}" >
-									<div th:replace="~{/free/free_form_errors :: formErrorsFragment}"></div>
+									<div th:replace="~{free/free_form_errors :: formErrorsFragment}"></div>
 									<div>
 										<textarea class="commentAria" th:field="*{content}" rows="1" placeholder="댓글을 작성해주세요"
 										oninput='this.style.height = ""; this.style.height = this.scrollHeight + "px"'></textarea>

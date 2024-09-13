@@ -12,7 +12,7 @@
 			<form method="post" th:object="${freePostingForm}">
 				<!--제목 영역-->
 				<div class="wrapping outline">
-					<div th:replace="~{/free/free_form_errors :: formErrorsFragment}"></div>
+					<div th:replace="~{free/free_form_errors :: formErrorsFragment}"></div>
 					<div>
 					  <input type="text" th:field="*{subject}" class="form-control" th:value="${freePosting.content}">
 					</div>

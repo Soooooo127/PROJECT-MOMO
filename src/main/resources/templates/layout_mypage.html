@@ -10,7 +10,7 @@
 
     <div layout:fragment="content" class="mypageLayout" id="contentContainer">
       <div class="mypageLayout-t">
-        <div class="mypageLayout-l" th:insert="~{/mypage/mypage_menu :: mypageMenu}">
+        <div class="mypageLayout-l" th:insert="~{mypage/mypage_menu :: mypageMenu}">
         </div>
         <div class="mypageLayout-r">
           <th:block layout:fragment="mypageContent"></th:block>

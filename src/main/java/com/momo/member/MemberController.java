@@ -114,7 +114,7 @@ public class MemberController {
 		Member member = memberService.getMember(principal.getName());
 		session.setAttribute("member", member);
 
-		return "redirect:/mypage/profile";
+		return "redirect:/member/welcome";
 		
 	}
 	

@@ -28,7 +28,7 @@
 					<!--상세 필드 영역-->
 					<form method="post" th:action="@{/member/signup}" th:object="${memberCreateForm}">
 						<div class="border border-secondary-subtle rounded">
-							<div th:replace="~{/member/member_form_errors :: formErrorsFragment}">
+							<div th:replace="~{member/member_form_errors :: formErrorsFragment}">
 							</div>
 							<div>
 								<table>

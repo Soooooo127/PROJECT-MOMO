@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.momo.member.Member;
 import com.momo.member.MemberRepository;
+import com.momo.member.profile.Profile;
+import com.momo.member.profile.ProfileRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +24,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 	
 	private final MemberRepository memberRepository;
 	private final OAuth2MemberRepository oAuth2MemberRepository;
+	private final ProfileRepository profileRepository;
 	
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -80,8 +83,17 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
     	member.setMembername(membername);
     	member.setMembernick(membername);
     	member.setEmail(oAuth2Response.getEmail());
+    	memberRepository.save(member);
     	
-		memberRepository.save(member);
+		Profile profile = new Profile();
+		
+		profile.setGender(null);
+		profile.setMbti("");
+		profile.setContent("");
+		profile.setAuthor(member);
+		profileRepository.save(profile);
+		
+		member.setProfile(profile);
 		
 		return member;
 		

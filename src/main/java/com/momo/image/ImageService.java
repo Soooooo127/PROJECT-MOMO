@@ -60,8 +60,8 @@ public class ImageService {
         
         String originalFilename = file.getOriginalFilename();
         String storeFilename = UUID.randomUUID() + "." + extractExt(originalFilename);
-        String myDirectory = System.getProperty("user.dir");
-        String fullPath = myDirectory + "\\src\\main\\resources\\static\\img\\" + storeFilename;
+//        String myDirectory = System.getProperty("user.dir");
+        String fullPath = "/home/ubuntu/teammomo/images/" + storeFilename;
         file.transferTo(new File(fullPath));
 
           Optional<Image> _image = this.imageRepository.findByAuthor(member);

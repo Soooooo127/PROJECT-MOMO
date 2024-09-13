@@ -102,7 +102,7 @@ public class ProfileService {
 		Profile profile = new Profile();
 		if(_profile.isPresent()) {
 			profile = _profile.get();
-			double brix = Math.round((profile.getBrix()+0.1)*10.0)/10.0;
+			double brix = Math.round((profile.getBrix()-0.1)*10.0)/10.0;
 			profile.setBrix(brix);
 			this.profileRepository.save(profile);
 		} else {

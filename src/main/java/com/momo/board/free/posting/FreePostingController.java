@@ -100,16 +100,18 @@ public class FreePostingController {
 	
 	
 	@GetMapping("/detail/{pno}")
-	public String detail(Model model, @PathVariable("pno") Integer pno, FreeCommentForm freeCommentForm,Principal principal) {
-		FreePosting freePosting = freePostingService.getPosting(pno);
-		model.addAttribute("freePosting", freePosting);
+	public String detail(Model model, @PathVariable("pno") Integer pno, FreeCommentForm freeCommentForm, Principal principal) {
 		
-		if(principal != null) {
-			Member member = memberService.getMember(principal.getName());
-			model.addAttribute("member", member);
+		if(principal == null) {
+			FreePosting _freePosting = freePostingService.getPosting(pno);
+			model.addAttribute("freePosting", _freePosting);
+			return "free/free_detail";
 		}
 
-		System.out.println(freePosting.toString());		
+		FreePosting freePosting = freePostingService.getPosting(pno);
+		model.addAttribute("freePosting", freePosting);
+		Member member = memberService.getMember(principal.getName());
+		model.addAttribute("member", member);
 		return "free/free_detail"; 
 	}
 	
