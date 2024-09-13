@@ -141,6 +141,16 @@
 												<span th:text="(${#sets.isEmpty(freePosting.nope)} ? 0 : ${freePosting.nope.size()})" class="ddabongText"></span>
 											</td>
 										</th:block>
+										<th:block th:if=${freePosting.author.memberid == null}">
+											<td style="width:50%;border-right:1px solid #e1e1e1;">
+												<i class="fi fi-sr-thumbs-up"></i><br>
+												<span th:text="(${#sets.isEmpty(freePosting.ddabong)} ? 0 : ${freePosting.ddabong.size()})" class="ddabongText"></span>
+											</td>
+											<td>
+												<i class="fi fi-sr-thumbs-down"></i><br>
+												<span th:text="(${#sets.isEmpty(freePosting.nope)} ? 0 : ${freePosting.nope.size()})" class="ddabongText"></span>
+											</td>
+										</th:block>
 										<th:block sec:authorize="isAuthenticated()" th:if="${freePosting.author.memberid != null}">
 											<td style="width:50%;border-right:1px solid #e1e1e1;" th:if="${#sets.contains(freePosting.ddabong, #authentication.getPrincipal.getUsername())}">
 												<i href="javascript:void(0);" class="ddabong fi fi-sr-thumbs-up text-success"
