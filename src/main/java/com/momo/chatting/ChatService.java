@@ -46,18 +46,18 @@ public class ChatService {
 			return this.messageRepository.save(message);
 		}else {
 			Optional<ChatRoom> _chatRoom2 = this.chatRoomRepository.findByMember1AndMember2(receiver, sender);
-			if(_chatRoom2.isPresent()) {
-				ChatRoom chatRoom = _chatRoom2.get();
-				message.setSender(sender);
-				message.setChatroom(chatRoom);
-				return this.messageRepository.save(message);
+				if(_chatRoom2.isPresent()) {
+					ChatRoom chatRoom = _chatRoom2.get();
+					message.setSender(sender);
+					message.setChatroom(chatRoom);
+					return this.messageRepository.save(message);
 				}else { //채팅방이 없다면 생성
 					ChatRoom chatRoom = createChat(sender, receiver);
 					message.setSender(sender);
 					message.setChatroom(chatRoom);
 					return this.messageRepository.save(message);
 					}
-					}
+		  	}
 	
 						} 
 	
@@ -86,32 +86,6 @@ public class ChatService {
 				 return  room.getMessage();
 			}
 			}
-
 	} 
-	
-	
-		
-		
-		
-		
-		
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
