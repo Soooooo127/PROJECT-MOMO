@@ -18,7 +18,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 		.withSockJS();   //SocketJS 를 연결한다는 설정
 	}
 	
-	
 	@Override
     public void configureMessageBroker(MessageBrokerRegistry registry ) {
 		//메세지를 구독하는 요청 url -> 메세지 받을 때
@@ -26,9 +25,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         //메세지를 발행하는 요청 url -> 메세지를 보낼 때
         registry.setApplicationDestinationPrefixes("/app");
     }
-	
-	
-	
-	
-	
 }
