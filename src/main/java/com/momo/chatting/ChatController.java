@@ -70,25 +70,4 @@ public class ChatController {
 		return mList;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
 }
