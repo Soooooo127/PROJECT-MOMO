@@ -34,11 +34,10 @@ public class ChatController {
 	public String get(@PathVariable("no")Integer no, Model model,Principal principal) {
 	
 		System.out.println("채팅 화면 초기 진입 확인");
-		
-	
+
 	EatTogether eatTogether = eatTogetherService.getET(no);  //같이먹기 고유번호를 객체로
 	
-	List<Member> etMemberList	= eatTogether.getPrtmember(); //객체의 같이먹기 리스트를 검색
+	List<Member> etMemberList = eatTogether.getPrtmember(); //객체의 같이먹기 리스트를 검색
 	//검색한 리스트에서 로그인한 정보가 있는지 확인
 	Member me = memberService.getMember(principal.getName());
 	etMemberList.remove(me);
